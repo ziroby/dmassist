@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<jardesc>
+  <jar path="./dmassist.jar"/>
+  <options overwrite="true" compress="true" exportErrors="false" exportWarnings="false" saveDescription="true" descriptionLocation="/Baddle/META-INF/dmassist.jardesc" useSourceFolders="false" buildIfNeeded="true" includeDirectoryEntries="true" storeRefactorings="false"/>
+  <storedRefactorings structuralOnly="false" deprecationInfo="true"/>
+  <selectedProjects/>
+  <manifest manifestVersion="1.0" usesManifest="true" reuseManifest="false" saveManifest="false" generateManifest="false" manifestLocation="/Baddle/META-INF/MANIFEST.MF">
+    <sealing sealJar="false">
+      <packagesToSeal/>
+      <packagesToUnSeal/>
+    </sealing>
+  </manifest>
+  <selectedElements exportClassFiles="true" exportOutputFolder="false" exportJavaFiles="true">
+    <javaElement handleIdentifier="=Baddle/src&lt;com.ziroby.dmassist"/>
+    <javaElement handleIdentifier="=Baddle/src&lt;com.ziroby.dmassist.model"/>
+    <javaElement handleIdentifier="=Baddle/src&lt;com.ziroby.util"/>
+    <javaElement handleIdentifier="=Baddle/src&lt;com.ziroby.dmassist.model.test"/>
+    <javaElement handleIdentifier="=Baddle/src&lt;com.ziroby"/>
+    <javaElement handleIdentifier="=Baddle/src&lt;com"/>
+    <javaElement handleIdentifier="=Baddle/src&lt;com.ziroby.parser.test"/>
+    <file path="/Baddle/META-INF/MANIFEST.MF"/>
+    <javaElement handleIdentifier="=Baddle/src&lt;com.ziroby.parser"/>
+    <javaElement handleIdentifier="=Baddle/src&lt;com.ziroby.dmassist.ui"/>
+    <file path="/Baddle/META-INF/dmassist.jardesc"/>
+    <folder path="/Baddle/resources"/>
+    <javaElement handleIdentifier="=Baddle/src&lt;com.ziroby.dmassist.test"/>
+  </selectedElements>
+</jardesc>

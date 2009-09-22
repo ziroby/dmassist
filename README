@@ -1,0 +1,11 @@
+DM Assist
+
+DM Assist helps you run pen and paper d20 games.  It aims to be quick and light, so you can spend most of your time working with the players, not the computer. It uses minimal information, to make it fast to setup a scenario.  It provides a command line interface, because command lines allow for a great deal of power accesible easily and quickly.  But it also provides standard windowing access, so you get started using it very quickly. 
+
+DM Assist currently handles running combat: initiative, hit points, and dice rolls for characters and effects (such as spells).  
+
+DM Assist is written in Java using a Swing interface.  It is released under the GPLv3.  Save files are in Yaml format, using jYaml.  
+
+
+
+
