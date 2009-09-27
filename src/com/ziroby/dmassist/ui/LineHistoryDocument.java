@@ -37,9 +37,6 @@ public class LineHistoryDocument extends PlainDocument implements Document {
 	
 	LineHistoryDocument()
 	{
-		history.add("First line");
-		history.add("Second line");
-		position = 2;
 	}
 	
 	/**
@@ -75,7 +72,7 @@ public class LineHistoryDocument extends PlainDocument implements Document {
 	 * current line in its correct position in history.
 	 */
 	public void gotoNextLine() {
-		if (position < history.size() - 1)
+		if (position < history.size())
 		{
 			try {
 				history.set(position, currentLine());
@@ -105,7 +102,8 @@ public class LineHistoryDocument extends PlainDocument implements Document {
 		}
 		// Add to the end of the history, but only if it's not the same as the 
 		// last element in the history.  
-		if (!line.equals(history.get(history.size()-1)))
+		if (history.size() == 0 
+                || !line.equals(history.get(history.size()-1)))
 		{
 			history.add(line);
 			position = history.size();		

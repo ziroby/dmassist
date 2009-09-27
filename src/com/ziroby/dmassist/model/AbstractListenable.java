@@ -19,8 +19,8 @@
  */
 package com.ziroby.dmassist.model;
 
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Vector;
 
 import com.ziroby.dmassist.model.test.ObjectEvent;
 
@@ -29,7 +29,7 @@ import com.ziroby.dmassist.model.test.ObjectEvent;
  *
  */
 public class AbstractListenable implements Listenable {
-	private Collection<Listener> listeners = new Vector<Listener>();
+	private Collection<Listener> listeners = new ArrayList<Listener>();
 
 	/**
 	 * @see com.ziroby.dmassist.model.Listenable#addListener(com.ziroby.dmassist.model.Listener)

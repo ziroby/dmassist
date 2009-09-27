@@ -230,7 +230,7 @@ public class Interpreter implements ParserListener{
 		else
 		{
 //					results.setCommand(command + " DO: \"" + directObject + "\" IO: \"" + indirectObject + "\"");
-			Integer damage = DiceEquation.tryParseInt(indirectObject);
+			DiceEquation damage = new DiceEquation (indirectObject);
 			if (damage == null)
 			{
 				printError("Invalid damage amount: \"" + indirectObject + "\"");
@@ -244,10 +244,10 @@ public class Interpreter implements ParserListener{
 				}
 				else
 				{
-					results.setResult("" + damage);
+					results.setResult("" + damage.value());
                     results.addLine(Entity.damageTypeToString(type) + " \""
-                            + e.getName() + "\" by " + damage);
-					e.damage(type, damage);
+                            + e.getName() + "\" by " + damage.toLongString());
+					e.damage(type, damage.value());
 				}
 			}
 		}

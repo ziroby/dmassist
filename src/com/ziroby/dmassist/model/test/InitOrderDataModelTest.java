@@ -219,13 +219,13 @@ public class InitOrderDataModelTest extends TestCase {
 		mockListener.expectEvent();
 		dataModel.gotoNextInitCount();
 		mockListener.expectNoEvents();
-		assertEquals(0, dataModel.getInitCount());
+		assertEquals(null, dataModel.getInitCount());
 		assertEquals(0, dataModel.getRowCount());
 
 		mockListener.expectNoEvents();
 		dataModel.gotoNextInitCount();
 		mockListener.expectNoEvents();
-		assertEquals(0, dataModel.getInitCount());
+		assertEquals(null, dataModel.getInitCount());
 
 		mockListener.expectNoEvents();
 		
@@ -447,7 +447,7 @@ public class InitOrderDataModelTest extends TestCase {
 		mockListener.expectEvent();
 		dataModel.gotoNextInitCount();
 		assertEquals(false, dataModel.getValueAt(0, Entity.ROW_NUMBER_MY_TURN));
-		assertEquals(0, dataModel.getInitCount());
+		assertEquals(null, dataModel.getInitCount());
 		mockListener.expectNoEvents();	
 	}	
 
@@ -900,19 +900,19 @@ public class InitOrderDataModelTest extends TestCase {
 	{
 		mockListener.expectEvent();
 		dataModel.setInitCount(5);
-		assertEquals(5, dataModel.getInitCount());
+		assertEquals(new Integer(5), dataModel.getInitCount());
 
 		mockListener.expectEvent();
 		dataModel.setInitCount(-3);
-		assertEquals(-3, dataModel.getInitCount());
+		assertEquals(new Integer(-3), dataModel.getInitCount());
 
 		mockListener.expectNoEvents();
 		dataModel.setInitCount(-3);
-		assertEquals(-3, dataModel.getInitCount());
+		assertEquals(new Integer(-3), dataModel.getInitCount());
 
 		mockListener.expectEvent();
 		dataModel.setInitCount(0);
-		assertEquals(0, dataModel.getInitCount());
+		assertEquals(new Integer(0), dataModel.getInitCount());
 
 	}
 	

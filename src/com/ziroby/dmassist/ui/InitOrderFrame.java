@@ -21,7 +21,6 @@ package com.ziroby.dmassist.ui;
 
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
@@ -35,7 +34,6 @@ import java.awt.event.WindowEvent;
 import java.io.File;
 import java.io.FileNotFoundException;
 
-import javax.swing.BorderFactory;
 import javax.swing.Box;
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -56,7 +54,6 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
-
 
 import com.ziroby.dmassist.model.DiceEquation;
 import com.ziroby.dmassist.model.Entity;
@@ -96,14 +93,24 @@ public class InitOrderFrame extends JFrame
 	    upperPane.setLayout(new GridBagLayout());
 	    lowerPane.setLayout(new GridBagLayout());
 	    
-	    JLabel label = new JLabel("<html><h1>Battle&nbsp;Assist</h1></html>");
-	    
+        Box titleBox = Box.createHorizontalBox();
+        
+	    JLabel title = new JLabel("<html><h1>DM&nbsp;Assist</h1></html>");
+	    //title.setAlignmentX(Component.CENTER_ALIGNMENT);
+        
+        titleBox.add(Box.createHorizontalStrut(30));
+        titleBox.add(title);
+        titleBox.add(Box.createHorizontalStrut(10));
+        JComponent timeBox = new TimeBox(dataModel);
+        //titleBox.add(timeBox);
+        
 	    GridBagConstraints labelConstraints = new GridBagConstraints();
 	    labelConstraints.gridx = 0;
 	    labelConstraints.gridy = 0;
 	    labelConstraints.weighty = 0;
+        //labelConstraints.fill = GridBagConstraints.HORIZONTAL;
 	    //labelConstraints.insets = new Insets(10, 10, 10, 10);
-	    upperPane.add(label, labelConstraints);
+	    upperPane.add(title, labelConstraints);
 
 	    Box countBox = Box.createVerticalBox();
 	    
@@ -115,9 +122,6 @@ public class InitOrderFrame extends JFrame
 	    countBox.add(label2);
 
 	    JLabel initCount = new InitCountLabel(dataModel);
-	    initCount.setFont(new Font("Serif", Font.BOLD, 24));
-	    initCount.setBorder(BorderFactory.createEtchedBorder());
-	    initCount.setAlignmentX(Component.CENTER_ALIGNMENT);
 	    //initCount.setHorizontalTextPosition(SwingConstants.CENTER);
 	    countBox.add(Box.createVerticalStrut(5));
 	    countBox.add(initCount);
@@ -203,8 +207,9 @@ public class InitOrderFrame extends JFrame
 	    nextButton.setMnemonic(KeyEvent.VK_N);
 	    nextButton.setActionCommand("Next");
 	    nextButton.addActionListener(this);
-	    box2.add(Box.createVerticalStrut(10));
-	    box2.add(nextButton);
+	    box2.add(Box.createVerticalStrut(15));
+        timeBox.setAlignmentX(Component.LEFT_ALIGNMENT);
+	    box2.add(timeBox);
 	    
 //	    JButton button4 = new JButton("Button4");
 //	    box2.add(Box.createVerticalStrut(10));
@@ -391,8 +396,6 @@ public class InitOrderFrame extends JFrame
 		row3.setInitRoll(15);
 		row3.setHitpoints(3);
 		dataModel.addEntity(row3);
-		
-		dataModel.setInitCount(4);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -465,30 +468,43 @@ public class InitOrderFrame extends JFrame
         int row = table.getSelectedRow();
         int modelRow = table.convertRowIndexToModel(row);
         Entity entity = dataModel.getEntity(modelRow);
-        System.out.println(entity.getAbbreviation());
-        
+
         DamageType type = Entity.stringToDamageType(actionCommand);
         final String damageTypeString = Entity.damageTypeToString(type);
         String message = damageTypeString + " " + entity.getName() + " by: ";
-        Integer damage = null;
+        DiceEquation damage = null;
         do
         { 
             String amount = JOptionPane.showInputDialog(this, message,
                     damageTypeString, JOptionPane.PLAIN_MESSAGE);
             if (amount == null) break;
-            damage = DiceEquation.tryParseInt(amount);
-            if (damage == null)
+            try
             {
-                JOptionPane.showMessageDialog(this, "Invalid amount.", "Error",
+                damage = new DiceEquation(amount);
+            }
+            catch (IllegalArgumentException e)
+            {
+                JOptionPane.showMessageDialog(this, "Invalid amount: " + e.getLocalizedMessage(), "Error",
                         JOptionPane.ERROR_MESSAGE);
+            }
+
+            if (amount.trim().length() == 0)
+            {
+                damage = null;
+                break;
             }
         } while (damage == null);
 
         try
-        {                
-            entity.damage(type, damage);
-            resultsBox.setResult("" + damage);
-            
+        {            
+            if (damage != null)
+            {
+                entity.damage(type, damage.value());
+                resultsBox.setResult("" + damage.value());
+                resultsBox.addLine(Entity.damageTypeToString(type) + " \""
+                        + entity.getName() + "\" by " + damage.toLongString());
+            }
+
         }
         catch (Exception except)
         {
@@ -498,9 +514,9 @@ public class InitOrderFrame extends JFrame
     }
 
     /**
-	 * 
-	 */
-	private void saveAs() {
+     * 
+     */
+    private void saveAs() {
 		JFileChooser chooser = new JFileChooser();
 		int retVal = chooser.showSaveDialog(this);
 		if (retVal == JFileChooser.APPROVE_OPTION)

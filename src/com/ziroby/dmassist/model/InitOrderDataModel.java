@@ -43,7 +43,7 @@ public class InitOrderDataModel extends AbstractTableModel
 			EntityList 
 {
 	private List<Entity> entities = new Vector<Entity>(getColumnCount());	
-	private int initCount = 0;
+	private Integer initCount = null;
 	/**
 	 * How deep in the call stack are we? This is used to make sure we only send
 	 * one table changed event per public call.
@@ -180,14 +180,14 @@ public class InitOrderDataModel extends AbstractTableModel
 	/**
 	 * @see com.ziroby.dmassist.model.EntityList#getInitCount()
 	 */
-	public final int getInitCount() {
+	public final Integer getInitCount() {
 		return initCount;
 	}
 
 	/**
 	 * @see com.ziroby.dmassist.model.EntityList#setInitCount(int)
 	 */
-	public final void setInitCount(int initCount) {
+	public final void setInitCount(Integer initCount) {
 		if (this.initCount == initCount)
 		{
 			// Nothing to do.
@@ -206,9 +206,9 @@ public class InitOrderDataModel extends AbstractTableModel
 	public void gotoNextInitCount() {
 		enterPublicMethod();
 		
-		int oldInitCount = getInitCount();
-		int maximumNext = Integer.MIN_VALUE;
-		int maximum = Integer.MIN_VALUE;
+		Integer oldInitCount = getInitCount();
+		Integer maximumNext = null;
+		Integer maximum = null;
 		
 		for (Entity row : entities)
 		{
@@ -216,9 +216,10 @@ public class InitOrderDataModel extends AbstractTableModel
 			
 			if (initRoll == null)
 				continue;
-			if (initRoll > maximum)
+			if (maximum == null || initRoll > maximum)
 				maximum = initRoll;
-			if (initRoll < oldInitCount && initRoll > maximumNext)
+			if ((oldInitCount == null || initRoll < oldInitCount)
+                    && (maximumNext == null || initRoll > maximumNext))
 				maximumNext = initRoll;
             
             if (initRoll == oldInitCount)
@@ -227,12 +228,12 @@ public class InitOrderDataModel extends AbstractTableModel
             }
 		}
 		
-		if (maximumNext != Integer.MIN_VALUE)
+		if (maximumNext != null)
 			setInitCount(maximumNext);
-		else if (maximum != Integer.MIN_VALUE)
+		else if (maximum != null)
 			setInitCount(maximum);
 		else
-			setInitCount(0);
+			setInitCount(null);
         
         for (int i=entities.size()-1; i >= 0; --i)
         {
@@ -262,7 +263,7 @@ public class InitOrderDataModel extends AbstractTableModel
 		if (--depth == 0 && dirty)
 		{
 			// We only fire if we're at top level and something has changed.
-			fireTableDataChanged();			
+			alertListeners();			
 			dirty = false;
 		}
 		if (depth < 0)
@@ -271,7 +272,7 @@ public class InitOrderDataModel extends AbstractTableModel
 		}
 	}
 
-	/**
+    /**
 	 * @see com.ziroby.dmassist.model.EntityList#remove(int)
 	 */
 	public void remove(int index) {
@@ -364,4 +365,16 @@ public class InitOrderDataModel extends AbstractTableModel
 		Collection<Entity> list = (Collection<Entity>) Yaml.load(file);
 		addEntities(list);
 	}
+
+    private AbstractListenable listenableImpl = new AbstractListenable();
+    
+    public void addlistener(Listener listener) {
+        listenableImpl.addListener(listener);
+    }
+
+    private void alertListeners() {
+        fireTableDataChanged();
+        listenableImpl.alertListeners();
+    }
+
 }

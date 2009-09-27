@@ -19,6 +19,10 @@
  */
 package com.ziroby.dmassist.ui;
 
+import java.awt.Component;
+import java.awt.Font;
+
+import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
@@ -36,14 +40,26 @@ public class InitCountLabel extends JLabel implements TableModelListener {
 	
 	public InitCountLabel(InitOrderDataModel dataModel) {
 		this.dataModel = dataModel;
+		setFont(new Font("Serif", Font.BOLD, 24));
+        setBorder(BorderFactory.createEtchedBorder());
+        setAlignmentX(Component.CENTER_ALIGNMENT);
 		setText(" " + dataModel.getInitCount() + " ");
 		dataModel.addTableModelListener(this);
 	}
 
 
 	public void tableChanged(TableModelEvent e) {
-		setText(" " + dataModel.getInitCount() + " ");
-	}
+        
+		final Integer initCount = dataModel.getInitCount();
+        if (initCount == null)
+        {
+            setText("  ");            
+        }
+        else
+        {
+            setText(" " + initCount + " ");
+        }
+}
 
 	private static final long serialVersionUID = -8007621851847525139L;
 }

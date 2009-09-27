@@ -33,9 +33,9 @@ public interface EntityList {
 
 	public void addEntity(Entity entity);
 
-	public int getInitCount();
+	public Integer getInitCount();
 
-	public void setInitCount(int initCount);
+	public void setInitCount(Integer initCount);
 
 	/**
 	 * Goes to the "next" initiative count.  The next highest number, or if this is
@@ -67,5 +67,7 @@ public interface EntityList {
 	 */
 	@SuppressWarnings("unchecked")
 	public void importFile(File file) throws FileNotFoundException;
+
+    public void addlistener(Listener listener);
 
 }

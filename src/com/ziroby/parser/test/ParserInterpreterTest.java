@@ -14,6 +14,7 @@ import org.junit.Test;
 
 import com.ziroby.dmassist.model.Entity;
 import com.ziroby.dmassist.model.EntityList;
+import com.ziroby.dmassist.model.Listener;
 import com.ziroby.dmassist.ui.ResultsDisplay;
 import com.ziroby.parser.Interpreter;
 import com.ziroby.parser.Parser;
@@ -67,7 +68,7 @@ public class ParserInterpreterTest extends TestCase {
 			return null;
 		}
 
-		public int getInitCount() {
+		public Integer getInitCount() {
 			return 0;
 		}
 
@@ -87,8 +88,13 @@ public class ParserInterpreterTest extends TestCase {
 		public void save(File file) throws FileNotFoundException {
 		}
 
-		public void setInitCount(int initCount) {
+		public void setInitCount(Integer initCount) {
 		}
+
+        public void addlistener(Listener listener) {
+            // TODO Auto-generated method stub
+            
+        }
 	}
 
 	public static class MockResultsDisplay implements ResultsDisplay {
