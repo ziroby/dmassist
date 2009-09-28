@@ -26,6 +26,7 @@ import com.ziroby.dmassist.model.Entity;
 import com.ziroby.dmassist.model.Entity.DamageType;
 import com.ziroby.dmassist.model.EntityList;
 import com.ziroby.dmassist.ui.ResultsDisplay;
+import com.ziroby.jamis.Npc;
 
 /**
  * @author Ziroby
@@ -83,6 +84,26 @@ public class Interpreter implements ParserListener{
             else if ("add".equalsIgnoreCase(command))
             {
                 add(command, attributes);
+            }
+            else if ("npc".equalsIgnoreCase(command))
+            {
+                if (!Npc.isLibraryLoaded())
+                {
+                    printError("NPC library not loaded: " + Npc.getException().getLocalizedMessage());
+                }
+                else
+                {
+                    printError("Whoo-hoo!!");
+                    try
+                    {
+                        String s = Npc.gen();
+                        results.addLine(s);
+                    }
+                    catch (Exception e)
+                    {
+                        printError("Exception while generating NPC: " + e.getLocalizedMessage());
+                    }
+                }
             }
 			else if ("help".equalsIgnoreCase(command))
 			{

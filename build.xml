@@ -1,5 +1,6 @@
 <project name="DMAssist" basedir="." default="all">
 
+    <taskdef resource="cpptasks.tasks"/>
 
     <property name="src.java.dir"  value="src"/>
     <property name="src.c.dir"     value="csrc"/>
@@ -21,6 +22,8 @@
         <fileset dir="${lib.dir}" includes="**/*.jar"/>
     </path>
 	
+    <taskdef resource="cpptasks.tasks"/>
+
     <target name="setup">
         <mkdir dir="${classes.dir}"/>
         <mkdir dir="${build.resources.dir}"/>
@@ -32,7 +35,18 @@
     <target name="clean" description="--> Deletes all generated file">
         <delete dir="${build.dir}"/>
     </target>
-	
+    
+    <target name="compile-c" depends="setup">
+        <cc outtype="shared" subsystem="console" outfile="${build.dir}/DMAssistJNI" objdir="${obj.dir}">
+            <fileset dir="${src.c.dir}" includes="**/*.c"/>
+            <includepath>
+                <dirset dir="${src.c.dir}/dnd/include" />
+                <dirset dir="${src.c.dir}/dnd/npc" />
+                <dirset dir="${src.c.dir}/utils" />
+            </includepath>
+        </cc>        
+    </target>
+
     <target name="compile-java" depends="setup">
         <javac srcdir="${src.java.dir}" destdir="${classes.dir}"  classpathref="classpath"/>
         <copy todir="${classes.dir}">
@@ -40,7 +54,7 @@
         </copy>
     </target>
 
-    <target name="package" depends="compile-java,resources">
+    <target name="package" depends="compile-java,compile-c,resources">
         <jar destfile="${jar.dir}/${ant.project.name}.jar" basedir="${classes.dir}">
             <manifest>
                 <attribute name="Main-Class" value="${main-class}"/>
@@ -48,7 +62,7 @@
             </manifest>
         </jar>
     </target>
-	
+    
     <!-- ================================= 
           target: resources              
          ================================= -->
@@ -70,6 +84,7 @@
                 <path refid="classpath"/>
                 <path id="application" location="${jar.dir}/${ant.project.name}.jar"/>
             </classpath>
+        	<jvmarg value="-Djava.library.path=build"/>
         </java>
     </target>
 
@@ -130,6 +145,15 @@
 -->
 	 </javadoc>	
 		</target>
+
+	<!-- ================================= 
+          target: javah              
+         ================================= -->
+    <target name="javah" depends="package" description="--> Creates header files for JNI methods">
+		<javah class="com.ziroby.jamis.Npc" destdir="${src.c.dir}/jni" 
+			classpath="${jar.dir}/${ant.project.name}.jar" verbose="no"/>        
+    </target>
+
 	
 	<!-- ================================= 
           target: all              

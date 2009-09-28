@@ -1,0 +1,34 @@
+<html lang="en">
+  <head>
+    <title>NPC Generator</title>
+    <link rel="stylsheet" type="text/css" href="http://www.aarg.net/~minam/css/generators.css" />
+  </head>
+
+  <body bgcolor="white">
+    <H2>NPC Generator:  Configuration</H2>
+    <P>
+
+    <DIV CLASS="NORMAL">
+    The following options determine how the stat-block will display.  Please
+    select or deselect any of the following options and press "submit."
+    <P>
+    <FORM ACTION="<!--%CGINAME%-->" METHOD="GET">
+      <INPUT TYPE="HIDDEN" NAME="configsave" VALUE="1">
+      <INPUT TYPE="HIDDEN" NAME="look" VALUE="<!--%LOOK%-->">
+      <INPUT TYPE="checkbox" NAME="stats_ability_bonuses" VALUE="1" <!--%IF_EQ=STATSABILITYBONUSES=1=CHECKED%-->> Display Ability Score Bonuses<BR>
+      <INPUT TYPE="checkbox" NAME="stats_ac_breakdown" VALUE="1" <!--%IF_EQ=STATSACBREAKDOWN=1=CHECKED%-->> Display Armor Class Calculation Breakdown<BR>
+      <INPUT TYPE="checkbox" NAME="stats_init_breakdown" VALUE="1" <!--%IF_EQ=STATSINITBREAKDOWN=1=CHECKED%-->> Display Initiative Calculation Breakdown<BR>
+      <INPUT TYPE="checkbox" NAME="stats_attack_breakdown" VALUE="1" <!--%IF_EQ=STATSATTACKBREAKDOWN=1=CHECKED%-->> Display Attack Calculation Breakdown<BR>
+      <INPUT TYPE="checkbox" NAME="stats_save_breakdown" VALUE="1" <!--%IF_EQ=STATSSAVEBREAKDOWN=1=CHECKED%-->> Display Saving Throw Calculation Breakdown<BR>
+      <INPUT TYPE="checkbox" NAME="stats_skill_breakdown" VALUE="1" <!--%IF_EQ=STATSSKILLBREAKDOWN=1=CHECKED%-->> Display Skill Calculation Breakdown<BR>
+      <INPUT TYPE="checkbox" NAME="stats_languages" VALUE="1" <!--%IF_EQ=STATSLANGUAGES=1=CHECKED%-->> Display Languages Known<BR>
+      <INPUT TYPE="checkbox" NAME="stats_skillsfeats" VALUE="1" <!--%IF_EQ=STATSSKILLSFEATS=1=CHECKED%-->> Display Skills and Feats<BR>
+      <INPUT TYPE="checkbox" NAME="stats_possessions" VALUE="1" <!--%IF_EQ=STATSPOSSESSIONS=1=CHECKED%-->> Display Possessions<BR>
+      <INPUT TYPE="checkbox" NAME="stats_spells" VALUE="1" <!--%IF_EQ=STATSSPELLS=1=CHECKED%-->> Display Spells<BR>
+      <INPUT TYPE="checkbox" NAME="stats_formatting" VALUE="1" <!--%IF_EQ=STATSFORMATTING=1=CHECKED%-->> Do Rich Formatting (<B>bold</B>, <I>italics</I>, etc.)<BR>
+      <INPUT TYPE="checkbox" NAME="stats_skill_points" VALUE="1" <!--%IF_EQ=STATSSKILLPOINTS=1=CHECKED%-->> Display Skill Point Totals<BR>
+      <INPUT TYPE="submit" VALUE="Submit">
+    </FORM>
+    </DIV>
+  </body>
+</html>
