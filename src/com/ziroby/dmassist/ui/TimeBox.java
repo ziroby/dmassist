@@ -111,7 +111,7 @@ public class TimeBox extends Box implements TableModelListener, Listener
         rounds.setBorder(BorderFactory.createEtchedBorder());
         roundsBox.setAlignmentX(Component.RIGHT_ALIGNMENT);
         time.setAlignmentX(Component.RIGHT_ALIGNMENT);
-        roundsBox.add(new JLabel("rnds: "));
+        roundsBox.add(new JLabel("r: "));
         roundsBox.add(this.rounds);
 
         timeBox.add(time);
