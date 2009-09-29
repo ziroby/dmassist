@@ -45,7 +45,7 @@
  * Method:    gen
  * Signature: ()Ljava/lang/String;
  */
-JNIEXPORT jstring JNICALL Java_com_ziroby_jamis_Npc_gen
+JNIEXPORT jstring JNICALL Java_com_ziroby_jamis_Npc_gen1
   (JNIEnv * env, jobject obj)
   {
     char    statBlock[4096];

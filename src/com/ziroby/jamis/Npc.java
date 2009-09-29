@@ -26,8 +26,27 @@ package com.ziroby.jamis;
  */
 public class Npc
 {
-    public static native String gen();
- 
+    public static native String gen1();
+    
+    public static String gen()
+    {
+        if (isLibraryLoaded())
+        {
+            String s = gen1();
+            
+            s = s.replaceAll("~I", "<i>");
+            s = s.replaceAll("~i", "</i>");
+            s = s.replaceAll("~B", "<b>");
+            s = s.replaceAll("~b", "</b>");
+            
+            return s;
+        }
+        else
+        {
+            throw exception;
+        }
+    }
+    
     private static boolean libraryLoaded = false;
     private static UnsatisfiedLinkError exception = null;
     

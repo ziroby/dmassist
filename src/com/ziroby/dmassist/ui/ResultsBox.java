@@ -31,7 +31,6 @@ import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
-import javax.swing.text.JTextComponent;
 
 /**
  * @author Ziroby
@@ -45,6 +44,8 @@ public class ResultsBox extends Box implements ResultsDisplay {
 	    cmdDisplay = new JEditorPane();
 	    cmdDisplay.setMinimumSize(new Dimension(80, 30));
 	    cmdDisplay.setEditable(false);
+        cmdDisplay.setContentType("text/html");
+        cmdDisplay.setText("<html></html>");
 	    JScrollPane scrollPane = new JScrollPane(cmdDisplay); 
 		new JLabel();
 		resultDisplay = new JLabel(" ");
@@ -64,17 +65,27 @@ public class ResultsBox extends Box implements ResultsDisplay {
 	 * 
 	 */
 	private static final long serialVersionUID = -5288264204199798064L;
-	private JTextComponent cmdDisplay;
+	private JEditorPane cmdDisplay;
 	private JLabel resultDisplay;
+    private String contents = "";
 
 	public void addLine(String s) {
 		Document doc = cmdDisplay.getDocument();
-		try {
-			doc.insertString(doc.getLength(), s + "\n", null);
-		} catch (BadLocationException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+        
+        s += "<br>";
+        s = s.replaceAll("\n", "<br>");
+//		try 
+        {
+            contents = contents + s;
+//            System.out.println("doc length: " + doc.getLength());
+//            System.out.println("text: <<" + doc.getText(0, doc.getLength())+ ">>");
+//			doc.insertString(doc.getLength(), "<html>" + s + "</html>" + "\n", null);
+            cmdDisplay.setText("<html>" + contents + "</html>");
 		}
+//        catch (BadLocationException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
 
 //		cmdDisplay.setText(s);		
 	}

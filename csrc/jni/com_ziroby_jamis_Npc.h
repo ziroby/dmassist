@@ -9,10 +9,10 @@ extern "C" {
 #endif
 /*
  * Class:     com_ziroby_jamis_Npc
- * Method:    gen
+ * Method:    gen1
  * Signature: ()Ljava/lang/String;
  */
-JNIEXPORT jstring JNICALL Java_com_ziroby_jamis_Npc_gen
+JNIEXPORT jstring JNICALL Java_com_ziroby_jamis_Npc_gen1
   (JNIEnv *, jclass);
 
 #ifdef __cplusplus
