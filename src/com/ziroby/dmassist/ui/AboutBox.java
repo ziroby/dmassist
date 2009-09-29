@@ -48,11 +48,12 @@ public class AboutBox extends JWindow {
 		"<center>Copyright &copy; 2009 Ron Romero</center></br>" +
 		"<p><center><small>This program comes with ABSOLUTELY NO WARRANTY.</small><p><p>" +
         "<small>This is free software, and you are welcome to redistribute it<br>" +
-		"under certain conditions; see \"Help -> License...\" for details.</small></center>" +
+		"under certain conditions; see \"Help -> License. . . \" for details.</small></center>" +
 		"<p><p><small>DM Assist contains:<p>" +
 		"<ul>" +
-		"<li>portions from GMGen/PCGen, copyright &copy; 2002 Devon D. Jones</li>" +
+		"<li>portions from GMGen/PCGen,<br>copyright &copy; 2002 Devon D. Jones</li>" +
 		"<li><left>jYaml, copyright &copy; 2005, Yu Cheung Ho</left></li>" +
+        "<li><left>NPC Gen, copyright &copy; 2002?, Jamis Buck</left></li>" +        
 		"</ul></small>" +		
 		"<p>&nbsp;</html>";
 
@@ -80,7 +81,7 @@ public class AboutBox extends JWindow {
                 setVisible(false);
                 dispose();
             }
-        });		
+        });
 	}
 	
 	/**
