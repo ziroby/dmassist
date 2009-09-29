@@ -27,5 +27,9 @@ import java.util.Map;
  */
 public interface ParserListener {
 	public void handleCommand(String command, 
-			Map<String, String> attributes);
+			Map<String, String> attributes, String fullLine);
+    
+    public void printError(Exception e);
+    
+    public void printError(String msg);
 }

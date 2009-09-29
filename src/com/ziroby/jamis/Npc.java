@@ -26,25 +26,64 @@ package com.ziroby.jamis;
  */
 public class Npc
 {
-    public static native String gen1();
+    private static native String gen1();
+
+    private static native String gen2(String[] params);
     
     public static String gen()
     {
         if (isLibraryLoaded())
         {
-            String s = gen1();
-            
-            s = s.replaceAll("~I", "<i>");
-            s = s.replaceAll("~i", "</i>");
-            s = s.replaceAll("~B", "<b>");
-            s = s.replaceAll("~b", "</b>");
-            
-            return s;
+            return doMarkup(gen1());
         }
         else
         {
             throw exception;
         }
+    }
+
+    public static String gen(String[] params)
+    {
+        if (isLibraryLoaded())
+        {
+            return doMarkup(gen2(params));
+        }
+        else
+        {
+            throw exception;
+        }
+    }
+
+    public static String gen(String commandLine)
+    {
+        if (isLibraryLoaded())
+        {
+            String[] params = commandLine.split("\\s");
+            return doMarkup(gen2(params));
+        }
+        else
+        {
+            throw exception;
+        }        
+    }
+    /**
+     * Does the markup modifications for the given string, which should be
+     * output from NPC Gen.
+     * 
+     * @param s
+     * @return
+     */
+    private static String doMarkup(String s) {
+        if (s == null) return s;
+//        s = s.replaceAll("<", "&lt;");
+//        s = s.replaceAll(">", "&gt;");
+        
+        s = s.replaceAll("\n\n", "<p>");
+        s = s.replaceAll("~I", "<i>");
+        s = s.replaceAll("~i", "</i>");
+        s = s.replaceAll("~B", "<b>");
+        s = s.replaceAll("~b", "</b>");
+        return s;
     }
     
     private static boolean libraryLoaded = false;

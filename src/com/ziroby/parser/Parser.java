@@ -78,9 +78,22 @@ public class Parser implements ActionListener{
 		// TODO Auto-generated method stub
 	
 		Map<String, String> phrases = new HashMap<String, String>();
-		regexParse(text, phrases);
-		
-		this.listener.handleCommand(phrases.get(TAG_COMMAND), phrases);
+        try
+        {
+            regexParse(text, phrases);
+            this.listener.handleCommand(phrases.get(TAG_COMMAND), phrases, text);
+        }
+        catch (Exception e1)
+        {
+            try
+            {
+                this.listener.handleCommand(phrases.get(TAG_COMMAND), null, text);
+            }
+            catch (Exception e2)
+            {
+                this.listener.printError(e1);
+            }
+        }		
 	}
 
 

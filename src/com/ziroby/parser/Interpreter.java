@@ -51,7 +51,7 @@ public class Interpreter implements ParserListener{
 	}
 
 	public void handleCommand(String command,
-			Map<String, String> attributes) {	
+			Map<String, String> attributes, String fullLine) {	
 		try {
 			if ("next".equalsIgnoreCase(command)
 					|| "n".equalsIgnoreCase(command))
@@ -95,7 +95,7 @@ public class Interpreter implements ParserListener{
                 {
                     try
                     {
-                        String s = Npc.gen();
+                        String s = Npc.gen(fullLine);
                         results.addLine(s);
                     }
                     catch (Exception e)
@@ -279,16 +279,15 @@ public class Interpreter implements ParserListener{
 		}
 	}
 
-    private void printError(RuntimeException e) {
+    public void printError(Exception e) {
 		printError(e.getLocalizedMessage());
 		e.printStackTrace();
 		
 	}
 
-	private void printError(String msg)
+	public void printError(String msg)
 	{
 		results.addLine("Error: " + msg);
 		results.setResult(null);
 	}
-
 }

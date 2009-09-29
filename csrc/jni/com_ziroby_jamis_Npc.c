@@ -3,18 +3,25 @@
  */
 
 #include <jni.h>
+#include <malloc.h>
  
 #include "npc_console.h" 
  
 #include "com_ziroby_jamis_Npc.h"
  
- int gen(char* buffer, int len )
+ int gen(char* buffer, int len, int argc, char* argv[] )
  {
       NPC* npc;
       NPCGENERATOROPTS opts;
       NPC_OPTS cmd_opts;
 
-  if( parseCommandLine( 0 /*argc*/, 0/*argv*/, &cmd_opts ) != 0 ) {
+  buffer[0] = '\0';
+  if( parseCommandLine( argc, argv, &cmd_opts, buffer, len ) != 0 ) {
+    return 0;
+  }
+  if (buffer[0])
+  {
+    puts(buffer);
     return 0;
   }
 
@@ -31,9 +38,9 @@
 
   opts.filePath = cmd_opts.data_path;
 
-    npc = npcGenerateNPC( &opts );
+  npc = npcGenerateNPC( &opts );
 
-  npcBuildStatBlock( npc, &opts, buffer, len);
+  npcBuildStatBlock( npc, &(cmd_opts.opts), buffer, len);
 
     npcDestroyNPC( npc );
    
@@ -50,7 +57,7 @@ JNIEXPORT jstring JNICALL Java_com_ziroby_jamis_Npc_gen1
   {
     char    statBlock[4096];
 
-    if (!gen(statBlock, sizeof(statBlock)))
+    if (!gen(statBlock, sizeof(statBlock), 0, 0))
     {
         return 0;
     }
@@ -59,6 +66,57 @@ JNIEXPORT jstring JNICALL Java_com_ziroby_jamis_Npc_gen1
         return (*env)->NewStringUTF(env, statBlock);
     }
   }
+
+/*
+ * Class:     com_ziroby_jamis_Npc
+ * Method:    gen2
+ * Signature: ([Ljava/lang/String;)Ljava/lang/String;
+ */
+JNIEXPORT jstring JNICALL Java_com_ziroby_jamis_Npc_gen2
+  (JNIEnv * env, jclass c, jobjectArray array)
+  {
+    int argc = (*env)->GetArrayLength(env, array);
+    char** argv;
+    argv = malloc(sizeof(char *) * argc);
+    if (!argv)
+    {
+        return 0;
+    }
+    
+    jsize i;
+    for(i = 0; i < argc; ++i)
+    {
+        jstring s = (jstring) (*env)->GetObjectArrayElement(env, array, i);
+        jboolean isCopy;
+        argv[i] = (char*)(*env)->GetStringUTFChars(env, s, &isCopy);
+    }   
+    
+    char    statBlock[4096] = "";
+
+    if (!gen(statBlock, sizeof(statBlock), argc, argv))
+    {
+        puts("gen() returned non-zero.");
+    }
+    else
+    {
+    }
+
+    for (i = 0; i < argc; ++i)
+    {
+        jstring s = (jstring) (*env)->GetObjectArrayElement(env, array, i);
+        (*env)->ReleaseStringUTFChars(env, s, argv[i]);
+    }
+    
+    if (argv)
+    {
+        free (argv);
+    }
+
+    return (*env)->NewStringUTF(env, statBlock);
+
+  }
+
+
 
 
 

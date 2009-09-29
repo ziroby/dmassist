@@ -30,7 +30,7 @@ void averageAbilities( int* scores, void* data );
 
 extern NPCABSCOREGENFUNC strategies[];
 
-int parseCommandLine( int argc, char* argv[], NPC_OPTS* opts );
+int parseCommandLine( int argc, char* argv[], NPC_OPTS* opts, char* buffer, int len );
 int displayNPC_StatBlock( NPC_OPTS* opts, FILE *output, NPC* npc );
 
 #endif /*NPC_CONSOLE_H_*/

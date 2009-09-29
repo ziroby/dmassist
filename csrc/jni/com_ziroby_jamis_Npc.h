@@ -15,6 +15,14 @@ extern "C" {
 JNIEXPORT jstring JNICALL Java_com_ziroby_jamis_Npc_gen1
   (JNIEnv *, jclass);
 
+/*
+ * Class:     com_ziroby_jamis_Npc
+ * Method:    gen2
+ * Signature: ([Ljava/lang/String;)Ljava/lang/String;
+ */
+JNIEXPORT jstring JNICALL Java_com_ziroby_jamis_Npc_gen2
+  (JNIEnv *, jclass, jobjectArray);
+
 #ifdef __cplusplus
 }
 #endif

@@ -29,8 +29,6 @@ import javax.swing.BoxLayout;
 import javax.swing.JEditorPane;
 import javax.swing.JLabel;
 import javax.swing.JScrollPane;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.Document;
 
 /**
  * @author Ziroby
@@ -70,9 +68,7 @@ public class ResultsBox extends Box implements ResultsDisplay {
     private String contents = "";
 
 	public void addLine(String s) {
-		Document doc = cmdDisplay.getDocument();
-        
-        s += "<br>";
+		s += "<br>";
         s = s.replaceAll("\n", "<br>");
 //		try 
         {

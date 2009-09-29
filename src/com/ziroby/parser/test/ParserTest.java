@@ -28,7 +28,8 @@ public class ParserTest extends TestCase {
 		private String command;
 		private Map<String, String> attributes;
 
-		public void handleCommand(String command1, Map<String, String> attributes1) {
+		public void handleCommand(String command1, Map<String, String> attributes1,
+                String fullLine) {
 			this.command = command1;
 			this.attributes = attributes1;
 		}
@@ -50,6 +51,15 @@ public class ParserTest extends TestCase {
 			return s.toString().trim();
 		}
 
+        public void printError(Exception e) {
+            // TODO Auto-generated method stub
+            
+        }
+
+        public void printError(String msg) {
+            // TODO Auto-generated method stub
+            
+        }
 	}
 
 	MockParserListener listener = null;

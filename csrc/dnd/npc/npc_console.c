@@ -228,60 +228,69 @@ static int lookup( char* string, LOOKUP_TBL* tbl, int* found ) {
 
 
 #define USAGE APPNAME ", by Jamis Buck (jgb3@email.byu.edu)\n\
-\n\
-  Options:\n\
-    -r <race>        -S <seed>      -c <class>     -g <gender>\n\
-    -l <level>       -h (race|class|strategy|alignment|gender)\n\
-    -s <strategy>    -n <count>     -a <alignment> -b\n\
-    -o (a|c|i|b|s|k|l|f|p|S)        -w (p|s)       -p <path>\n\
-    -W <wrap-length> -d <data-path>\n\
-\n\
-  For <race>, <level>, <strategy>, <class>, and <alignment>, you only\n\
-  need to type part of the full name.  To see what possible options exist\n\
-  for those values, use the -h option, followed by race, level, strategy,\n\
-  class, alignment, or gender. (No space, ie: -hrace, or -hgender).\n\
-\n\
-  If -b is given, background information is generated.  The -W option will\n\
-  cause the lines to wrap at the given line length, at the first white space\n\
-  found.  The -d option species the path to the NPC data files (for names and\n\
-  background files) -- it defaults to '~/.npc/'.\n\
-\n\
-  The -o options are for the stat-block output.  They mean:\n\
-    a: ability bonuses\n\
-    c: AC breakdown\n\
-    i: initiative breakdown\n\
-    b: attack breakdown\n\
-    s: saving throw breakdown\n\
-    k: skill breakdown\n\
-    l: languages\n\
-    f: skills and feats\n\
-    p: posessions\n\
-    S: spells\n\
-\n\
-  The -w option is for determining the output format.  It means:\n\
-    p: output in PCGen format.\n\
-    s: output in stat-block format.\n\
-\n\
-  <path>, when doing stat-block output (-ws), is the name of a file, in\n\
-  which case the output is all redirected to that file.  When doing\n\
-  PCGen output (-wp), <path> is the name of a directory, in which case\n\
-  each NPC is created in a separate file in the given directory.\n\
+<p>\
+  Options:<br>\
+  <table border=0>\
+    <tr><td>-r &lt;race&gt;</td>        <td>-S &lt;seed&gt;</td>      <td>-c &lt;class&gt;</td>     <td>-g &lt;gender&gt;<td></tr>\
+    <tr><td>-l &lt;level&gt;</td>       <td colspan=2>-h (race|class|strategy|alignment|gender)</td></tr>\
+    <tr><td>-s &lt;strategy&gt;</td>    <td>-n &lt;count&gt;</td>     <td>-a &lt;alignment&gt;</td> <td>-b</td></tr>\
+    <tr><td colspan=2>-o (a|c|i|b|s|k|l|f|p|S)</td>                   <td></td>                     <td></td></tr>\
+    <tr><td colspan=2>-W &lt;wrap-length&gt;</td> <td>-d &lt;data-path&gt;</td></tr>\
+  </table>\
+<p>\
+  For &lt;race&gt;, &lt;level&gt;, &lt;strategy&gt;, &lt;class&gt;, and &lt;alignment&gt;, you only\
+  need to type part of the full name.  To see what possible options exist\
+  for those values, use the -h option, followed by race, level, strategy,\
+  class, alignment, or gender. (No space, ie: -hrace, or -hgender).\
+<p>\
+  If -b is given, background information is generated.  The -W option will\
+  cause the lines to wrap at the given line length, at the first white space\
+  found.  The -d option species the path to the NPC data files (for names and\
+  background files) -- it defaults to '~/.npc/'.\
+<p>\
+  The -o options are for the stat-block output.  They mean:<br>\
+  <table>\
+    <tr><td>a: ability bonuses</td>         <td>k: skill breakdown</td></tr>\
+    <tr><td>c: AC breakdown</td>            <td>l: languages</td></tr>\
+    <tr><td>i: initiative breakdown</td>\   <td>f: skills and feats</td></tr>\
+    <tr><td>b: attack breakdown</td>\       <td>p: posessions</td></tr>\
+    <tr><td>s: saving throw breakdown</td>\ <td>S: spells</td></tr>\
+  </table>\
 "
+//  The -w option is for determining the output format.  It means:\n\
+//    p: output in PCGen format.\n\
+//    s: output in stat-block format.\n\
+//\n\
+//  &lt;path&gt;, when doing stat-block output (-ws), is the name of a file, in\n\
+//  which case the output is all redirected to that file.  When doing\n\
+//  PCGen output (-wp), &lt;path&gt; is the name of a directory, in which case\n\
+//  each NPC is created in a separate file in the given directory.\n\
 
-static int usage() {
-  puts( USAGE );
-  exit(0);
+
+static int usage(char* buffer, int len) {
+    printf("usage(%d, %d);\n", buffer, len);
+    strncpy(buffer, USAGE, len);
+    buffer[len - 1] = '\0';
+    return 1;
 }
 
+static int usage2(char* buffer, int len) {
+    printf("usage(%d, %d);\n", buffer, len);
+    strncpy(buffer, "For help, type \"npc -h\".", len);
+    buffer[len - 1] = '\0';
+    return 1;
+}
 
-static int getLookup( char* parmName, char* arg, LOOKUP_TBL* list ) {
+static int getLookup( char* parmName, char* arg, LOOKUP_TBL* list, 
+                      char * buffer, int len ) {
   int i;
   int found;
 
   i = lookup( arg, list, &found );
   if( !found ) {
-    printf( "Invalid %s: '%s'\n", parmName, arg );
-    usage();
+    sprintf( buffer, "Invalid %s: '%s'\n", parmName, arg );
+    usage2(buffer + strlen(buffer), len - strlen(buffer));
+    return -1;
   }
 
   return i;
@@ -302,7 +311,7 @@ static void getHomeDirectory( char* home ) {
 }
 
 
-int parseCommandLine( int argc, char* argv[], NPC_OPTS* opts ) {
+int parseCommandLine( int argc, char* argv[], NPC_OPTS* opts, char* buffer, int len ) {
   int c;
   int i;
   int found;
@@ -331,41 +340,45 @@ int parseCommandLine( int argc, char* argv[], NPC_OPTS* opts ) {
 
   srand( time( NULL ) );
 
+  optarg = "";
+  optind = 0; // Tell getopt that this is the first call.
   while( ( c = getopt( argc, argv, "r:c:l:s:a:S:g:n:h::bo:p:w:W:d:t:" ) ) != -1 ) {
     switch( c ) {
       case 'r':
-        opts->race = getLookup( "race", optarg, racetypes );
+        opts->race = getLookup( "race", optarg, racetypes, buffer, len );
         break;
       case 'c':
-        opts->classes[ class_count++ ] = getLookup( "class", optarg, classtypes );
+        opts->classes[ class_count++ ] = getLookup( "class", optarg, classtypes, buffer, len );
         break;
       case 'l':
         opts->levels[ level_count ] = lookup( optarg, levels, &found );
         if( !found ) {
           opts->levels[ level_count ] = atoi( optarg );
           if( opts->levels[ level_count ] < 1 ) {
-            printf( "Invalid level specification: %s\n", optarg );
-            usage();
+            sprintf( buffer, "Invalid level specification: %s\n", optarg );
+            usage2(buffer + strlen(buffer), len - strlen(buffer));
+            return 1;
           }
         }
         level_count++;
         break;
       case 's':
-        opts->score_strategy = getLookup( "strategy", optarg, strategies_lookup );
+        opts->score_strategy = getLookup( "strategy", optarg, strategies_lookup, buffer, len );
         break;
       case 'a':
-        opts->alignment = getLookup( "alignment", optarg, alignments );
+        opts->alignment = getLookup( "alignment", optarg, alignments, buffer, len );
         break;
       case 'S':
         opts->seed = atoi( optarg );
         srand( opts->seed );
         break;
       case 'g':
-        opts->gender = getLookup( "gender", optarg, genders );
+        opts->gender = getLookup( "gender", optarg, genders, buffer, len );
         break;
       case 'h':
         if( optarg == 0 ) {
-          usage();
+          usage(buffer, len);
+          return 1;
         } else {
           i = lookup( optarg, help_lists, &found );
           switch( i ) {
@@ -375,14 +388,17 @@ int parseCommandLine( int argc, char* argv[], NPC_OPTS* opts ) {
             case HELP_GENDERS:    list = genders; break;
             case HELP_STRATEGIES: list = strategies_lookup; break;
             default:
-              usage();
+              sprintf( buffer, "Invalid help specification: %s\n", optarg );
+              usage2(buffer + strlen(buffer), len - strlen(buffer));
+              return 1;
           }
           for( i = 0; list[ i ].name != 0; i++ ) {
             printf( "  %s\n", list[ i ].name );
           }
           printf( "\n" );
+          return 0;
         }
-        exit( 0 );
+        return 0;
       case 'n':
         opts->count = atoi( optarg );
         break;
@@ -403,8 +419,8 @@ int parseCommandLine( int argc, char* argv[], NPC_OPTS* opts ) {
             case 'p': opts->opts.possessions = !opts->opts.possessions; break;
             case 'S': opts->opts.spells = !opts->opts.spells; break;
             default:
-              printf( "Invalid stat-block format specifier: %c\n", optarg[i] );
-              usage();
+              sprintf( buffer, "Invalid stat-block format specifier: %c\n", optarg[i] );
+              usage2(buffer + strlen(buffer), len - strlen(buffer));
           }
         }
         break;
@@ -414,8 +430,8 @@ int parseCommandLine( int argc, char* argv[], NPC_OPTS* opts ) {
             case 's': opts->mode = MODE_STATBLOCK; break;
             case 'p': opts->mode = MODE_PCGEN; break;
             default:
-              printf( "Invalid output mode specifier: %c\n", optarg[i] );
-              usage();
+              sprintf(buffer, "Invalid output mode specifier: %c\n", optarg[i] );
+              usage2(buffer + strlen(buffer), len - strlen(buffer));
           }
         }
         break;
@@ -433,7 +449,8 @@ int parseCommandLine( int argc, char* argv[], NPC_OPTS* opts ) {
         break;
 
       default:
-        usage();
+        usage(buffer, len);
+        return 1;
     }
   }
 
@@ -533,7 +550,8 @@ int displayNPC_StatBlock( NPC_OPTS* opts, FILE *output, NPC* npc ) {
 }
 
 
-int main( int argc, char* argv[] ) {
+/*
+  int main( int argc, char* argv[] ) {
   char buffer[512];
   int i;
   FILE *output;
@@ -596,4 +614,6 @@ int main( int argc, char* argv[] ) {
 
   return 0;
 }
+
+*/
 
