@@ -21,6 +21,8 @@
         <fileset dir="${lib.dir}" includes="**/*.jar"/>
     </path>
 	
+    <path id="application" location="${jar.dir}/${ant.project.name}.jar"/>
+
     <target name="setup">
         <mkdir dir="${classes.dir}"/>
         <mkdir dir="${build.resources.dir}"/>
@@ -68,7 +70,7 @@
         <java fork="true" classname="${main-class}">
             <classpath>
                 <path refid="classpath"/>
-                <path id="application" location="${jar.dir}/${ant.project.name}.jar"/>
+                <path refid="application"/>
             </classpath>
         </java>
     </target>
@@ -76,7 +78,7 @@
     <target name="test" depends="junit" description="--> Runs all tests"/>
 
     <target name="junit" depends="package">
-         <junit printsummary="yes">
+         <junit printsummary="yes" haltonfailure="yes" tempdir="${report.dir}">
             <classpath>
                 <path refid="classpath"/>
                 <path refid="application"/>
@@ -84,15 +86,14 @@
             
             <formatter type="xml"/>
 
-            <batchtest fork="yes" todir="${report.dir}">
-                <fileset dir="${src.java.dir}" includes="**/*Test.java"/>
-            </batchtest>
+            <test fork="yes" todir="${report.dir}" 
+                  name="com.ziroby.dmassist.test.AllTests" />
         </junit>
     </target>
     
-    <target name="testreport" depends="junitreport" description="--> Runs tests &amp; creates an HTML report"/>
+    <target name="testreport" depends="test,junitreport" description="--> Runs tests &amp; creates an HTML report"/>
 
-    <target name="junitreport" depends="junit">
+    <target name="junitreport">
         <junitreport>
             <fileset dir="${report.dir}" includes="TEST-*.xml"/>
             <report todir="${report.dir}"/>
