@@ -78,7 +78,13 @@ public abstract class Die
 	{
 		return total;
 	}
-	
+
+    /**
+     * Adds the given value to the modifier of the Die.
+     * 
+     * @param i the value to add.
+     * @author Ziroby
+     */
 	public void addToModifier(int i)
 	{
 		modifier += i;

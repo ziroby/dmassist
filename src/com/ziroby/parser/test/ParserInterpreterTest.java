@@ -14,10 +14,10 @@ import org.junit.Test;
 
 import com.ziroby.dmassist.model.Entity;
 import com.ziroby.dmassist.model.EntityList;
-import com.ziroby.dmassist.model.Listener;
 import com.ziroby.dmassist.ui.ResultsDisplay;
 import com.ziroby.parser.Interpreter;
 import com.ziroby.parser.Parser;
+import com.ziroby.util.Listener;
 
 /**
  * Tests the parser and interpreter working together.

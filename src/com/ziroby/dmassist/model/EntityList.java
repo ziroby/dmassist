@@ -23,6 +23,14 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Collection;
 
+import com.ziroby.util.Listener;
+
+/**
+ * An abstract list of entities.  
+ * 
+ * @author Ron "Ziroby" Romero
+ *
+ */
 public interface EntityList {
 
 	/**

@@ -110,26 +110,26 @@ public class InitOrderDataModelTest extends TestCase {
 
 			mockListener.expectEvent();
 			dataModel.gotoNextInitCount();
-			assertEquals(false, dataModel.getValueAt(0, Entity.ROW_NUMBER_MY_TURN));
-			assertEquals(false, dataModel.getValueAt(1, Entity.ROW_NUMBER_MY_TURN));
-			assertEquals(false, dataModel.getValueAt(2, Entity.ROW_NUMBER_MY_TURN));
-			assertEquals(true, dataModel.getValueAt(3, Entity.ROW_NUMBER_MY_TURN));
+			assertEquals(false, dataModel.getValueAt(0, Entity.COLUMN_NUMBER_MY_TURN));
+			assertEquals(false, dataModel.getValueAt(1, Entity.COLUMN_NUMBER_MY_TURN));
+			assertEquals(false, dataModel.getValueAt(2, Entity.COLUMN_NUMBER_MY_TURN));
+			assertEquals(true, dataModel.getValueAt(3, Entity.COLUMN_NUMBER_MY_TURN));
 			mockListener.expectNoEvents();
 
 			mockListener.expectEvent();
 			dataModel.gotoNextInitCount();
-			assertEquals(true, dataModel.getValueAt(0, Entity.ROW_NUMBER_MY_TURN));
-			assertEquals(false, dataModel.getValueAt(1, Entity.ROW_NUMBER_MY_TURN));
-			assertEquals(true, dataModel.getValueAt(2, Entity.ROW_NUMBER_MY_TURN));
-			assertEquals(false, dataModel.getValueAt(3, Entity.ROW_NUMBER_MY_TURN));
+			assertEquals(true, dataModel.getValueAt(0, Entity.COLUMN_NUMBER_MY_TURN));
+			assertEquals(false, dataModel.getValueAt(1, Entity.COLUMN_NUMBER_MY_TURN));
+			assertEquals(true, dataModel.getValueAt(2, Entity.COLUMN_NUMBER_MY_TURN));
+			assertEquals(false, dataModel.getValueAt(3, Entity.COLUMN_NUMBER_MY_TURN));
 			mockListener.expectNoEvents();
 
 			mockListener.expectEvent();
 			dataModel.gotoNextInitCount();
-			assertEquals(false, dataModel.getValueAt(0, Entity.ROW_NUMBER_MY_TURN));
-			assertEquals(true, dataModel.getValueAt(1, Entity.ROW_NUMBER_MY_TURN));
-			assertEquals(false, dataModel.getValueAt(2, Entity.ROW_NUMBER_MY_TURN));
-			assertEquals(false, dataModel.getValueAt(3, Entity.ROW_NUMBER_MY_TURN));
+			assertEquals(false, dataModel.getValueAt(0, Entity.COLUMN_NUMBER_MY_TURN));
+			assertEquals(true, dataModel.getValueAt(1, Entity.COLUMN_NUMBER_MY_TURN));
+			assertEquals(false, dataModel.getValueAt(2, Entity.COLUMN_NUMBER_MY_TURN));
+			assertEquals(false, dataModel.getValueAt(3, Entity.COLUMN_NUMBER_MY_TURN));
 			mockListener.expectNoEvents();
 		}
 		mockListener.expectNoEvents();
@@ -442,11 +442,11 @@ public class InitOrderDataModelTest extends TestCase {
 		mockListener.expectEvent();
 		dataModel.setInitCount(1);
 		mockListener.expectNoEvents();
-		assertEquals(false, dataModel.getValueAt(0, Entity.ROW_NUMBER_MY_TURN));
+		assertEquals(false, dataModel.getValueAt(0, Entity.COLUMN_NUMBER_MY_TURN));
 
 		mockListener.expectEvent();
 		dataModel.gotoNextInitCount();
-		assertEquals(false, dataModel.getValueAt(0, Entity.ROW_NUMBER_MY_TURN));
+		assertEquals(false, dataModel.getValueAt(0, Entity.COLUMN_NUMBER_MY_TURN));
 		assertEquals(null, dataModel.getInitCount());
 		mockListener.expectNoEvents();	
 	}	
@@ -875,7 +875,7 @@ public class InitOrderDataModelTest extends TestCase {
 		mockListener.expectNoEvents();
 		
 		mockListener.expectEvent();
-		dataModel.setValueAt(new Integer(7), 0, Entity.ROW_NUMBER_HP);
+		dataModel.setValueAt(new Integer(7), 0, Entity.COLUMN_NUMBER_HP);
 		mockListener.expectNoEvents();
 
 		{
@@ -888,7 +888,7 @@ public class InitOrderDataModelTest extends TestCase {
 		}
 
 		mockListener.expectNoEvents();
-		dataModel.setValueAt(new Integer(7), 0, Entity.ROW_NUMBER_HP);
+		dataModel.setValueAt(new Integer(7), 0, Entity.COLUMN_NUMBER_HP);
 		mockListener.expectNoEvents();
 
 

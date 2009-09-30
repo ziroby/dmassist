@@ -25,8 +25,8 @@ import junit.framework.TestCase;
 import org.junit.Test;
 
 import com.ziroby.dmassist.model.Entity;
-import com.ziroby.dmassist.model.Listener;
 import com.ziroby.dmassist.model.Entity.DamageType;
+import com.ziroby.util.Listener;
 
 public class EntityTest extends TestCase{
 
@@ -96,20 +96,36 @@ public class EntityTest extends TestCase{
 		entity.setAbbreviation("F");
 		listener.expectNoEvents();
 		
-		assertEquals("F", entity.getAbbreviation());
+        assertEquals("F", entity.getAbbreviation());
 		listener.expectNoEvents();
 	}
-	@Test
-	public final void testSetAbbreviationUnchanged() {
-		listener.expectEvent();
-		entity.setAbbreviation("F");
-		listener.expectNoEvents();
+    @Test
+    public final void testSetAbbreviationUnchanged() {
+        listener.expectEvent();
+        entity.setAbbreviation("F");
+        listener.expectNoEvents();
+        assertEquals("F", entity.getAbbreviation());
 
-		listener.expectNoEvents();
-		entity.setAbbreviation("F");
-		listener.expectNoEvents();
+        listener.expectNoEvents();
+        entity.setAbbreviation("F");
+        listener.expectNoEvents();
+        assertEquals("F", entity.getAbbreviation());
 }
-	
+    
+
+    @Test
+    public final void testSetAbbreviationNullUnchanged() {
+        listener.expectNoEvents();
+        entity.setAbbreviation(null);
+        listener.expectNoEvents();
+        assertEquals(null, entity.getAbbreviation());
+
+        listener.expectNoEvents();
+        entity.setAbbreviation(null);
+        listener.expectNoEvents();
+        assertEquals(null, entity.getAbbreviation());
+}
+    
 
 	@Test
 	public final void testSetName() {
@@ -121,17 +137,30 @@ public class EntityTest extends TestCase{
 		listener.expectNoEvents();
 	}
 
-	@Test
-	public final void testSetNameUnchanged() {
-		listener.expectEvent();
-		entity.setName("Ziroby");
-		listener.expectNoEvents();
-		
-		assertEquals("Ziroby", entity.getName());
-		listener.expectNoEvents();
-		entity.setName("Ziroby");
-		listener.expectNoEvents();
-	}
+    @Test
+    public final void testSetNameUnchanged() {
+        listener.expectEvent();
+        entity.setName("Ziroby");
+        listener.expectNoEvents();
+        
+        assertEquals("Ziroby", entity.getName());
+        listener.expectNoEvents();
+        entity.setName("Ziroby");
+        listener.expectNoEvents();
+    }
+
+    @Test
+    public final void testSetNameNullUnchanged() {
+        listener.expectEvent();
+        entity.setName(null);
+        listener.expectNoEvents();
+        
+        assertEquals(null, entity.getName());
+        listener.expectNoEvents();
+        entity.setName(null);
+        listener.expectNoEvents();
+        assertEquals(null, entity.getName());
+    }
 
 	@Test
 	public final void testSetInitRollInteger() {
@@ -143,26 +172,49 @@ public class EntityTest extends TestCase{
 		listener.expectNoEvents();
 	}
 
-	@Test
-	public final void testSetInitRollIntegerUnchanged() {
-		listener.expectEvent();
-		entity.setInitRoll(new Integer(5));
-		listener.expectNoEvents();
-		
-		assertEquals(new Integer(5), entity.getInitRoll());
-		listener.expectNoEvents();
-		entity.setInitRoll(new Integer(5));
+    @Test
+    public final void testSetInitRollIntegerUnchanged() {
+        listener.expectEvent();
+        entity.setInitRoll(new Integer(5));
+        listener.expectNoEvents();
+        
+        assertEquals(new Integer(5), entity.getInitRoll());
+        listener.expectNoEvents();
+        entity.setInitRoll(new Integer(5));
 
-		assertEquals(new Integer(5), entity.getInitRoll());
-		listener.expectNoEvents();
-		entity.setInitRoll("  5");
+        assertEquals(new Integer(5), entity.getInitRoll());
+        listener.expectNoEvents();
+        entity.setInitRoll("  5");
 
-		assertEquals(new Integer(5), entity.getInitRoll());
-		listener.expectNoEvents();
-		entity.setInitRoll(new Integer(5));
+        assertEquals(new Integer(5), entity.getInitRoll());
+        listener.expectNoEvents();
+        entity.setInitRoll(new Integer(5));
 
-		listener.expectNoEvents();
-	}
+        listener.expectNoEvents();
+    }
+    @Test
+    public final void testSetInitRollIntegerNullUnchanged() {
+        Integer i = null;
+        listener.expectNoEvents();
+        entity.setInitRoll(i);
+        listener.expectNoEvents();
+        
+        assertEquals(null, entity.getInitRoll());
+        listener.expectNoEvents();
+        entity.setInitRoll(i);
+
+        assertEquals(null, entity.getInitRoll());
+        listener.expectNoEvents();
+        String s = null;
+        entity.setInitRoll(s);
+
+        assertEquals(null, entity.getInitRoll());
+        listener.expectNoEvents();
+        entity.setInitRoll(s);
+
+        assertEquals(null, entity.getInitRoll());
+        listener.expectNoEvents();
+    }
 
 	@Test
 	public final void testSetHitpointsInteger() {
@@ -177,24 +229,47 @@ public class EntityTest extends TestCase{
 	}
 
 	
-	@Test
-	public final void testSetHitpointsIntegerUnchanged() {
-		listener.expectEvent();
-		entity.setHitpoints(new Integer(5));
-		listener.expectNoEvents();
-		
-		assertEquals(new Integer(5), entity.getHitpoints());
-		listener.expectNoEvents();
-		entity.setHitpoints(new Integer(5));
+    @Test
+    public final void testSetHitpointsIntegerUnchanged() {
+        listener.expectEvent();
+        entity.setHitpoints(new Integer(5));
+        listener.expectNoEvents();
+        
+        assertEquals(new Integer(5), entity.getHitpoints());
+        listener.expectNoEvents();
+        entity.setHitpoints(new Integer(5));
 
-		assertEquals(new Integer(5), entity.getHitpoints());
-		listener.expectNoEvents();
-		entity.setHitpoints(" 5 ");
+        assertEquals(new Integer(5), entity.getHitpoints());
+        listener.expectNoEvents();
+        entity.setHitpoints(" 5 ");
 
-		listener.expectNoEvents();
-		entity.setHitpoints("5");
-		listener.expectNoEvents();
-	}
+        listener.expectNoEvents();
+        entity.setHitpoints("5");
+        listener.expectNoEvents();
+    }
+
+    @Test
+    public final void testSetHitpointsNullUnchanged() {
+        Integer i = null;
+        listener.expectEvent();
+        entity.setHitpoints(i);
+        listener.expectNoEvents();
+        
+        assertEquals(null, entity.getHitpoints());
+        listener.expectNoEvents();
+        entity.setHitpoints(new Integer(5));
+
+        assertEquals(null, entity.getHitpoints());
+        listener.expectNoEvents();
+        String s = null;
+        entity.setHitpoints(s);
+
+        assertEquals(null, entity.getHitpoints());
+        listener.expectNoEvents();
+        entity.setHitpoints(s);
+        listener.expectNoEvents();
+        assertEquals(null, entity.getHitpoints());
+    }
 
 	@Test
 	public final void testSetInitRollString() {
@@ -231,17 +306,42 @@ public class EntityTest extends TestCase{
 		listener.expectNoEvents();
 	}
 
-	@Test
-	public final void testSetSubdualString() {
-		listener.expectEvent();
-		entity.setSubdual(" 5 ");
-		listener.expectNoEvents();
-		
-		assertEquals(new Integer(5), entity.getSubdual());
-		listener.expectNoEvents();
-		entity.setSubdual(" 5 ");
-		listener.expectNoEvents();
-	}
+    @Test
+    public final void testSetSubdualString() {
+        listener.expectEvent();
+        entity.setSubdual(" 5 ");
+        listener.expectNoEvents();
+        
+        assertEquals(new Integer(5), entity.getSubdual());
+        listener.expectNoEvents();
+        entity.setSubdual(" 5 ");
+        listener.expectNoEvents();
+    }
+
+    @Test
+    public final void testSetSubdualNullUnchanged() {
+        Integer i = null;
+        listener.expectNoEvents();
+        entity.setSubdual(i);
+        listener.expectNoEvents();
+        
+        assertEquals(null, entity.getSubdual());
+        listener.expectNoEvents();
+        entity.setSubdual(i);
+        listener.expectNoEvents();
+        assertEquals(null, entity.getSubdual());
+
+        String s = null;
+        listener.expectNoEvents();
+        entity.setSubdual(s);
+        listener.expectNoEvents();
+        
+        assertEquals(null, entity.getSubdual());
+        listener.expectNoEvents();
+        entity.setSubdual(s);
+        listener.expectNoEvents();
+        assertEquals(null, entity.getSubdual());
+    }
 
 //	@Test
 //	@Ignore // I don't want to bother with this right now.
@@ -425,21 +525,38 @@ public class EntityTest extends TestCase{
     }
 
 	
-	@Test
-	public final void testHealSubdualToNone() {
-		listener.expectEvent();
-		entity.setSubdual(new Integer(5));
-		listener.expectNoEvents();
-		
-		assertEquals(new Integer(5), entity.getSubdual());
-		listener.expectEvent();
-		entity.subdue(3);
-		assertEquals(new Integer(8), entity.getSubdual());
-		listener.expectEvent();
-		entity.healSubdual(9);
-		assertEquals(null, entity.getSubdual());
-		listener.expectNoEvents();
-	}
+    @Test
+    public final void testHealSubdualToNone() {
+        listener.expectEvent();
+        entity.setSubdual(new Integer(5));
+        listener.expectNoEvents();
+        
+        assertEquals(new Integer(5), entity.getSubdual());
+        listener.expectEvent();
+        entity.subdue(3);
+        assertEquals(new Integer(8), entity.getSubdual());
+        listener.expectEvent();
+        entity.healSubdual(9);
+        assertEquals(null, entity.getSubdual());
+        listener.expectNoEvents();
+    }
+
+    
+    @Test
+    public final void testHealSubdualToNone2() {
+        listener.expectEvent();
+        entity.setSubdual(new Integer(5));
+        listener.expectNoEvents();
+        
+        assertEquals(new Integer(5), entity.getSubdual());
+        listener.expectEvent();
+        entity.subdue(3);
+        assertEquals(new Integer(8), entity.getSubdual());
+        listener.expectEvent();
+        entity.healSubdual(8);
+        assertEquals(null, entity.getSubdual());
+        listener.expectNoEvents();
+    }
 
 
 	@Test

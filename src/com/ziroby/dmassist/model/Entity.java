@@ -23,15 +23,29 @@ import java.util.Arrays;
 import java.util.List;
 
 import com.ziroby.util.AbbrevUtil;
+import com.ziroby.util.AbstractListenable;
 import com.ziroby.util.StringUtil;
 
 /**
- * Holds one "row" in the initiative table.
+ * A character or effect.  This is one "row" in the initiative table.
+ * Holds the attributes we care about.  If a value is not relevant,
+ * it should be null.
  * 
  * @author Ziroby
  *
+ * @todo This class should be split into pure entity, and the stuff for
+ * initiative table row.  The latter would inherit from the former. 
  */
+
 public class Entity extends AbstractListenable {
+    
+    /**
+     * The different type of damage or healing which can be done
+     * to an entity.
+     * 
+     * @author Ron "Ziroby" Romero
+     *
+     */
     public enum DamageType
     {
         NORMAL_DAMAGE,
@@ -49,10 +63,19 @@ public class Entity extends AbstractListenable {
 	
     private boolean dirty = false;
 
+    /**
+     * The abbreviation by which the entity is called.  Abbreviations
+     * shuld be unique.
+     */
 	public final String getAbbreviation() {
 		return abbreviation;
 	}
 
+    /**
+     * The short abbreviation by which the entity is called. Abbreviations shuld
+     * be a few characters long and should/must be unique. Alerts listeners if
+     * the abbreviation changed.
+     */
 	public final void setAbbreviation(String abbreviation) {
 		if (this.abbreviation != null && this.abbreviation.equals(abbreviation))
 		{
@@ -64,10 +87,18 @@ public class Entity extends AbstractListenable {
 		alertListeners();
 	}
 
+    /**
+     * The name by which the entity is called.  Names do not need to be
+     * unique.
+     */
 	public final String getName() {
 		return name;
 	}
 
+    /**
+     * The name by which the entity is called.  Names do not need to be
+     * unique.  Alerts listeners if the name changed.
+     */
 	public final void setName(String name) {
 		if (this.name != null && this.name.equals(name))
 		{
@@ -79,10 +110,18 @@ public class Entity extends AbstractListenable {
 		alertListeners();
 	}
 
+    /**
+     * The initiative count for the entity.  Null means it's not
+     * in the combat yet.
+     */
 	public final Integer getInitRoll() {
 		return initRoll;
 	}
 
+    /**
+     * The initiative count for the entity.  Null means it's not
+     * in the combat yet.  Alerts listeners if changed.
+     */
 	public final void setInitRoll(Integer initRoll) {
 		if (initRoll == null && this.initRoll == null)
 			return;
@@ -97,10 +136,17 @@ public class Entity extends AbstractListenable {
 		alertListeners();
 	}
 
+    /**
+     * The number of hitpoints the entity has left.
+     */
 	public final Integer getHitpoints() {
 		return hitpoints;
 	}
 
+    /**
+     * The number of hitpoints the entity has left.  Alerts listeners
+     * if changed.
+     */
 	public final void setHitpoints(Integer hitpoints) {
 		if (hitpoints == null && this.hitpoints == null)
 			return;
@@ -116,14 +162,18 @@ public class Entity extends AbstractListenable {
 	}
 	
     /**
-     * @return the subdual
+     * The amount of subdual damage the entity has sustained.  Note that 
+     * subdual damage starts at null or 0, and increases as the entity
+     * is subdued.
      */
     public final Integer getSubdual() {
         return subdual;
     }
 
     /**
-     * @param subdual the subdual to set
+     * The amount of subdual damage the entity has sustained.  Note that 
+     * subdual damage starts at null or 0, and increases as the entity
+     * is subdued.  Alerts listeners if changed.
      */
     public final void setSubdual(Integer subdual) {
 		if (this.subdual == subdual)
@@ -136,10 +186,20 @@ public class Entity extends AbstractListenable {
         alertListeners();
     }
 
+    /**
+     * The number of rounds until the entity is expired.  Null means the 
+     * entity is permanent.  Generally, effects are temporary (have rounds
+     * left), and characters are permanent (rounds left is null).
+     */
 	public Integer getRoundsLeft() {
         return roundsLeft;
     }
 
+    /**
+     * The number of rounds until the entity is expired.  Null means the 
+     * entity is permanent.  Generally, effects are temporary (have rounds
+     * left), and characters are permanent (rounds left is null).
+     */
     public void setRoundsLeft(Integer roundsLeft) {
 		if (this.roundsLeft == roundsLeft)
 		{
@@ -152,7 +212,7 @@ public class Entity extends AbstractListenable {
     }
 
     /**
-	 * Returns the entire row as a vector.
+	 * Returns all the attributed (the entire "row") as a <code>List</code>.
 	 */
 	public List<Object> getEntireRow()
 	{
@@ -163,62 +223,98 @@ public class Entity extends AbstractListenable {
 	}
 
 	private final static String[] RowName = {" ", "##", "Name", "Init", "HP", "Sub", "Rnds"};
-	public static final int ROW_NUMBER_MY_TURN = 0;
-	public static final int ROW_NUMBER_NUM = 1; 
-	public static final int ROW_NUMBER_NAME = 2; 
-	public static final int ROW_NUMBER_INIT = 3; 
-	public static final int ROW_NUMBER_HP = 4; 
-	public static final int ROW_NUMBER_SUBDUAL = 5;
-    public static final int ROW_NUMBER_ROUNDS = 6;
+    
+    
+    /** The number for the turn indicator column. */
+	public static final int COLUMN_NUMBER_MY_TURN = 0;
+    /** The number for the abbreviation column. */
+	public static final int COLUMN_NUMBER_NUM = 1; 
+    /** The number for the name column. */
+	public static final int COLUMN_NUMBER_NAME = 2; 
+    /** The number for the initiative count column. */
+	public static final int COLUMN_NUMBER_INIT = 3; 
+    /** The number for the hitpoint column. */
+	public static final int COLUMN_NUMBER_HP = 4; 
+    /** The number for the subdual damage column. */
+	public static final int COLUMN_NUMBER_SUBDUAL = 5;
+    /** The number for the number of rounds left column. */
+    public static final int COLUMN_NUMBER_ROUNDS = 6;
 	
+    /** Returns the human readable column heading for the given "column". */
 	public static String getColumnHeader(int column) {
 		return RowName[column];
 	}
 
+    /** The number of virtual columns. */
 	public static int getColumnCount() {
 		return RowName.length;
 	}
 
+    /** Returns the given virtual column. */
 	public Object getColumn(int col) {
 		// TODO Cache the row, so we're not regenerating it every time.
 		return getEntireRow().get(col);
 	}
 
+    /**
+     * Sets the initiative count for the entity to the given string. If the
+     * string is not a valid
+     * {@link com.ziroby.dmassist.model.DiceEquation DiceEquation}, sets it to
+     * null. Null means it's not in the combat yet. Alerts listeners if changed.
+     */
 	public void setInitRoll(String text) {
 		Integer n = StringUtil.tryParseInt(text);
 		setInitRoll(n);		
 	}
 
+    /**
+     * The number of hitpoints the entity has left. If the string is not a valid
+     * {@link com.ziroby.dmassist.model.DiceEquation DiceEquation}, sets it to
+     * null. Alerts listeners if changed.
+     */
 	public void setHitpoints(String text) {
 		Integer n = StringUtil.tryParseInt(text);
 		setHitpoints(n);
 	}
 
+    /**
+     * The amount of subdual damage the entity has sustained. If the string is
+     * not a valid {@link com.ziroby.dmassist.model.DiceEquation DiceEquation},
+     * sets it to null. Note that subdual damage starts at null or 0, and
+     * increases as the entity is subdued. Alerts listeners if changed.
+     */
 	public void setSubdual(String text) {
 		Integer n = StringUtil.tryParseInt(text);
 		setSubdual(n);
 	}
 
+    /**
+     * Sets the given virtual column.  Delegates to the correct setFoo() method.
+     * 
+     * @param columnIndex The index to set.
+     * @param value The value; must be of the appropriate type (usually
+     * String or Integer).
+     */
 	public void setColumn(int columnIndex, Object value) {
 		switch (columnIndex) {
-			case Entity.ROW_NUMBER_NAME:
+			case Entity.COLUMN_NUMBER_NAME:
 				setName((String) value);
 				break;
-			case Entity.ROW_NUMBER_NUM:
+			case Entity.COLUMN_NUMBER_NUM:
 				setAbbreviation((String) value);
 				break;
-			case Entity.ROW_NUMBER_HP:
+			case Entity.COLUMN_NUMBER_HP:
 				setHitpoints((Integer) value);
 				break;
-			case Entity.ROW_NUMBER_INIT:
+			case Entity.COLUMN_NUMBER_INIT:
 				setInitRoll((Integer) value);
 				break;
-			case Entity.ROW_NUMBER_MY_TURN:
+			case Entity.COLUMN_NUMBER_MY_TURN:
 				throw new IllegalArgumentException("Can not edit 'my turn' value");
-			case Entity.ROW_NUMBER_SUBDUAL:
+			case Entity.COLUMN_NUMBER_SUBDUAL:
 				setSubdual((Integer) value);
 				break;
-            case Entity.ROW_NUMBER_ROUNDS:
+            case Entity.COLUMN_NUMBER_ROUNDS:
                 setRoundsLeft((Integer) value);
                 break;
 
@@ -228,9 +324,12 @@ public class Entity extends AbstractListenable {
 	}
 
 	/**
-	 * Decreases the entity's hit points by the given amount.
-	 * @param damage
-	 */
+     * Decreases the entity's hit points by the given amount. Alerts listeners
+     * if it results in a changed value.
+     * 
+     * @throws NullPointerException
+     *             if the Entity's hitpoints were null
+     */
 	public void damage(Integer dmg) {
 		if (hitpoints == null)
 		{
@@ -246,9 +345,11 @@ public class Entity extends AbstractListenable {
 	}
 
 	/**
-	 * Increases the entity's subdual points by the given amount.
-	 * @param damage
-	 */
+     * Increases the entity's subdual points by the given amount. Alerts
+     * listeners if it results in a changed value. If the old subdual damage
+     * value was null, it is converted to 0. Alerts listeners if it results in a
+     * changed value.
+     */
 	public void subdue(Integer dmg) {
 		if (subdual == null)
 		{
@@ -262,6 +363,15 @@ public class Entity extends AbstractListenable {
 		alertListeners();
 	}
 
+    /**
+     * Increases the entity's hit points by the given amount. Note that there is
+     * no concept of "maximum hitpoints". DM's must keep track of that manually,
+     * and change the value if it exceeds maximum hitpoints. Alerts listeners if
+     * it results in a changed value.
+     * 
+     * @throws NullPointerException
+     *             if the Entity's hitpoints were null
+     */
 	public void heal(Integer amt) {
 		if (hitpoints == null)
 		{
@@ -275,6 +385,12 @@ public class Entity extends AbstractListenable {
 		alertListeners();
 	}
 
+    /**
+     * Decreases the entity's subdual points by the given amount. Alerts
+     * listeners if it results in a changed value. If subdual goes negative, it
+     * is changed to null. If the old subdual damage value was null, it is
+     * converted to 0. Alerts listeners if it results in a changed value.
+     */
 	public void healSubdual(Integer amt) {
 		if (subdual == null)
 		{
@@ -292,7 +408,11 @@ public class Entity extends AbstractListenable {
 		alertListeners();
 	}
     
-    
+
+    /**
+     * Decrements roundsLeft by one. Alerts listeners if it results in a changed
+     * value.
+     */
     public void decrementRound()
     {
         if (roundsLeft != null)
@@ -304,9 +424,7 @@ public class Entity extends AbstractListenable {
     }
 
 	/**
-	 * Is subdual damage greater than hitpoints?
-	 *  
-	 * @return
+	 * Is subdual damage greater than hitpoints?  If so, the entity is "subdued".
 	 */
 	public boolean isSubdued() {
 		
@@ -319,7 +437,8 @@ public class Entity extends AbstractListenable {
      * 
      * @param fudge
      *            How many extra rounds to give it before it's "expired".
-     * @return
+     * @return true if the time limitted effect is expired. False if it's not
+     *         expired or it's not limitted.
      */
     public boolean isExpired(int fudge) {
         return (getRoundsLeft() != null && getRoundsLeft() <= -fudge);
@@ -327,8 +446,6 @@ public class Entity extends AbstractListenable {
 
 	/**
 	 * Alerts all listeners, but only if we're marked as dirty.
-	 * 
-	 * @see com.ziroby.dmassist.model.AbstractListenable#alertListeners()
 	 */
 	@Override
 	protected void alertListeners() {
@@ -341,8 +458,12 @@ public class Entity extends AbstractListenable {
 
 	/**
 	 * Makes sure that this entity has an abbreviation and that it's unique.
+     * If it has no abbreviation, the first letter of its name is used.
+     * If it's not unique, it is renamed to be unique; it may also rename
+     * one other entity if necessary.
 	 * 
-	 * @param otherEntities
+	 * @param otherEntities A list of all the other entities.  The uniqueness
+     * is guaranteed relative to this set.
 	 */
 	public void sanitizeAbbrev(List<Entity> otherEntities)
 	{
@@ -400,6 +521,15 @@ public class Entity extends AbstractListenable {
 		}
 	}
 
+    /**
+     * Damages or heals with the specified type.
+     * 
+     * @param type
+     *            The type of damage to deal. 
+     * 
+     * @param damage
+     *            The amount to damage or heal.
+     */
     public void damage(DamageType type, Integer damage) {
         switch (type)
         {
@@ -418,7 +548,13 @@ public class Entity extends AbstractListenable {
         }
     }
 
-    // TODO: This should be a method on the enum.
+    /**
+     * Returns the damage type for the given string.
+     * 
+     * @return a damage type or null if the string does not refer to a damage
+     *         type.
+     * @todo This should be a method on the enum.
+     */
     public static DamageType stringToDamageType(String command)
     {
         if ("dmg".equalsIgnoreCase(command)
@@ -453,6 +589,11 @@ public class Entity extends AbstractListenable {
         }
     }
     
+    /**
+     * Returns the canonical string representation of the damage type.
+     * 
+     * @todo This should be a method on the enum.
+     */
     public static String damageTypeToString(DamageType type)
     {
         switch (type)

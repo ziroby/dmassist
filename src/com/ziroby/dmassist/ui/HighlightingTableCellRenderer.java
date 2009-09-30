@@ -67,14 +67,14 @@ public class HighlightingTableCellRenderer
 		}
 		
 		rendererComputer.setForeground(Color.BLACK);
-		if (modelColumn == Entity.ROW_NUMBER_SUBDUAL)
+		if (modelColumn == Entity.COLUMN_NUMBER_SUBDUAL)
 		{ 
 			if (dataModel.getEntity(modelRow).isSubdued())
 			{
 				addBlueFont(rendererComputer);
 			}
 		}
-		else if (modelColumn == Entity.ROW_NUMBER_HP)
+		else if (modelColumn == Entity.COLUMN_NUMBER_HP)
 		{
 			final Integer hitpoints = dataModel.getEntity(modelRow).getHitpoints();
             if (hitpoints != null && hitpoints <= 0)
@@ -82,7 +82,7 @@ public class HighlightingTableCellRenderer
 				addBlueFont(rendererComputer);
 			}
 		}
-        else if (modelColumn == Entity.ROW_NUMBER_ROUNDS)
+        else if (modelColumn == Entity.COLUMN_NUMBER_ROUNDS)
         {
             if (dataModel.getEntity(modelRow).isExpired(0))
             {

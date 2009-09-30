@@ -122,7 +122,7 @@ public class DiceEquation extends Die {
 
 	/**
      * The number "rolled up". This value will not change until/unless
-     * @link roll is called.
+     * #roll is called.
      * 
      * @see com.ziroby.dmassist.model.Die#value()
      */

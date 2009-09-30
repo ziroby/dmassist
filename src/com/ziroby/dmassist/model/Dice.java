@@ -58,10 +58,15 @@ public class Dice extends Die
 	}
 
 	/**
-	 * Create from a string as given by toString.
-	 *  
-	 * @param s A string in nds+m format.
-	 */
+     * Create from a string as given by toString.
+     * 
+     * @param s
+     *            A string in nds+m format.
+     * 
+     * @throws IllegalArgumentException
+     *             if the string is not a valid dice value (nds+m), or if number
+     *             or sides is zero.
+     */
 	public Dice(String s) {
 		try
 		{
@@ -135,11 +140,13 @@ public class Dice extends Die
 		throw new IllegalArgumentException("Illegal die format: \"" + s + "\" should be \"nds+m\" format");
 	}
 
-	/** Rolls the die, and returns the result.
-	 * I made it final as it's called from the constructor.
-	 * @return Result of the die roll
-	 */
-	@Override
+	/**
+     * Rolls the die, and returns the result. I made it final as it's called
+     * from the constructor.
+     * 
+     * @return Result of the die roll
+     */
+    @Override
 	public final int roll()
 	{
 		int value = 0;
@@ -158,9 +165,12 @@ public class Dice extends Die
 		return total;
 	}
 
-	/** Name of the die in the nds+m format
-	 * @return Name of the die
-	 */
+	/**
+     * Name of the die in the nds+m format, with a minus sign (-) for negative
+     * dice.
+     * 
+     * @return Name of the die
+     */
 	@Override
 	public String toString()
 	{
@@ -175,8 +185,7 @@ public class Dice extends Die
 	}
 
 	/**
-	 * @param s
-	 * @return
+     * The string representation without the sign.
 	 */
 	private String getStringNoSign(StringBuilder s) {
 		if (num != 0)
@@ -203,12 +212,20 @@ public class Dice extends Die
 	}
 
 	/**
-	 * @return the sign
+     * Gets the plus or minus value of the die.
+     * 
+	 * @return 1 for positive, -1 for negative.
 	 */
 	public final int getSign() {
 		return sign;
 	}
 
+    /**
+     * The string representation of the dice, with a plus (+) or minus (-) for
+     * the sign.
+     * 
+     * @return
+     */
 	public Object toStringWithSign() {
 		StringBuilder s = new StringBuilder();
 		
@@ -225,6 +242,13 @@ public class Dice extends Die
 		return getStringNoSign(s);
 	}
 
+    /**
+     * Tells if this is really a constant, i.e., not a dice at all, but just
+     * holding a constant value.  Constants are represented internally as
+     * num = 0.
+     * 
+     * @return
+     */
 	public boolean isConstant() {
 		return num == 0;
 	}

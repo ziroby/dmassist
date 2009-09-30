@@ -36,8 +36,8 @@ import javax.swing.event.TableModelListener;
 
 import com.ziroby.dmassist.model.EntityList;
 import com.ziroby.dmassist.model.InitOrderDataModel;
-import com.ziroby.dmassist.model.Listener;
 import com.ziroby.dmassist.model.test.ObjectEvent;
+import com.ziroby.util.Listener;
 
 /**
  * A box that displays the current "time" in the battle.

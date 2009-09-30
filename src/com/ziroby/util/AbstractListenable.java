@@ -17,7 +17,7 @@
  *   along with DM Assist.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-package com.ziroby.dmassist.model;
+package com.ziroby.util;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -31,12 +31,15 @@ import com.ziroby.dmassist.model.test.ObjectEvent;
 public class AbstractListenable implements Listenable {
 	private Collection<Listener> listeners = new ArrayList<Listener>();
 
-	/**
-	 * @see com.ziroby.dmassist.model.Listenable#addListener(com.ziroby.dmassist.model.Listener)
-	 */
 	public void addListener(Listener listener) {
 		listeners.add(listener);
 	}		
+    
+    /**
+     * Calls all the listeners'
+     * {@link com.ziroby.util.Listener#objectChanged objectChanged} method.
+     * 
+     */
 	protected void alertListeners() {
 		ObjectEvent event = new ObjectEvent(this);
 		for (Listener listener : listeners) {

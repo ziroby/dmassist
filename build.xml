@@ -110,10 +110,8 @@
 	           author="true"
 	           version="true"
 	           use="true"
-	 		   classpathref="classpath"
+	 	   classpathref="classpath"
 	           windowtitle="DM Assist API">
-
-	 	
 	 	
 	    <packageset dir="${src.java.dir}" defaultexcludes="yes">
 	    	<include name="com/ziroby/**"/>

@@ -17,10 +17,15 @@
  *   along with DM Assist.  If not, see <http://www.gnu.org/licenses/>.
  *
 */
-package com.ziroby.dmassist.model;
+package com.ziroby.util;
+
 
 public interface Listenable {
 
+    /**
+     * Adds the listener to the list.
+     *  
+     */
 	public void addListener(Listener listener);
 
 }

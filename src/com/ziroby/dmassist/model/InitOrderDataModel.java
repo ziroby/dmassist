@@ -30,12 +30,15 @@ import javax.swing.table.AbstractTableModel;
 import org.ho.yaml.Yaml;
 
 import com.ziroby.dmassist.model.test.ObjectEvent;
+import com.ziroby.util.AbstractListenable;
+import com.ziroby.util.Listener;
 
 /**
  * The data model for our main initiative order table.
  * 
  * @author Ziroby
  *
+ * @todo Inherits from a Swing class.  We should break that link.
  */
 public class InitOrderDataModel extends AbstractTableModel
 		implements
@@ -76,7 +79,7 @@ public class InitOrderDataModel extends AbstractTableModel
 	 * @see javax.swing.table.TableModel#getValueAt(int, int)
 	 */
 	public Object getValueAt(int row, int col) {
-		if (col == Entity.ROW_NUMBER_MY_TURN)
+		if (col == Entity.COLUMN_NUMBER_MY_TURN)
 		{
 			return isMyTurn(row);
 		}
@@ -101,7 +104,7 @@ public class InitOrderDataModel extends AbstractTableModel
 	@Override
 	public boolean isCellEditable(int rowIndex, int columnIndex) {
 		// TODO Auto-generated method stub
-		if (columnIndex == Entity.ROW_NUMBER_MY_TURN)
+		if (columnIndex == Entity.COLUMN_NUMBER_MY_TURN)
 			return false;
 
 		return true;
@@ -151,15 +154,15 @@ public class InitOrderDataModel extends AbstractTableModel
 	@Override
 	public Class<?> getColumnClass(int columnIndex) {
 		switch (columnIndex) {
-			case Entity.ROW_NUMBER_NAME:
-			case Entity.ROW_NUMBER_NUM:
+			case Entity.COLUMN_NUMBER_NAME:
+			case Entity.COLUMN_NUMBER_NUM:
 				return String.class;
-			case Entity.ROW_NUMBER_HP:
-			case Entity.ROW_NUMBER_SUBDUAL:
-			case Entity.ROW_NUMBER_INIT:
-            case Entity.ROW_NUMBER_ROUNDS:
+			case Entity.COLUMN_NUMBER_HP:
+			case Entity.COLUMN_NUMBER_SUBDUAL:
+			case Entity.COLUMN_NUMBER_INIT:
+            case Entity.COLUMN_NUMBER_ROUNDS:
 				return Integer.class;
-			case Entity.ROW_NUMBER_MY_TURN:
+			case Entity.COLUMN_NUMBER_MY_TURN:
 				return Boolean.class;				
 				
 			default:

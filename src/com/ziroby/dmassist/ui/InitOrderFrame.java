@@ -330,21 +330,21 @@ public class InitOrderFrame extends JFrame
 	 * @param table
 	 */
 	private static void setupTable(JTable table) {
-		final TableColumn numColumn = table.getColumnModel().getColumn(Entity.ROW_NUMBER_NUM);
+		final TableColumn numColumn = table.getColumnModel().getColumn(Entity.COLUMN_NUMBER_NUM);
 		smartResizeColumn(numColumn);
-		final TableColumn nameColumn = table.getColumnModel().getColumn(Entity.ROW_NUMBER_NAME);
+		final TableColumn nameColumn = table.getColumnModel().getColumn(Entity.COLUMN_NUMBER_NAME);
 		nameColumn.setMinWidth(75);
 		nameColumn.setPreferredWidth(300);
-		final TableColumn initColumn = table.getColumnModel().getColumn(Entity.ROW_NUMBER_INIT);
+		final TableColumn initColumn = table.getColumnModel().getColumn(Entity.COLUMN_NUMBER_INIT);
 		smartResizeColumn(initColumn);
 		initColumn.setMaxWidth(initColumn.getPreferredWidth());
-		final TableColumn hpColumn = table.getColumnModel().getColumn(Entity.ROW_NUMBER_HP);
+		final TableColumn hpColumn = table.getColumnModel().getColumn(Entity.COLUMN_NUMBER_HP);
 		smartResizeColumn(hpColumn);
-        final TableColumn subdualColumn = table.getColumnModel().getColumn(Entity.ROW_NUMBER_SUBDUAL);
+        final TableColumn subdualColumn = table.getColumnModel().getColumn(Entity.COLUMN_NUMBER_SUBDUAL);
         smartResizeColumn(subdualColumn);
-        final TableColumn roundsColumn = table.getColumnModel().getColumn(Entity.ROW_NUMBER_ROUNDS);
+        final TableColumn roundsColumn = table.getColumnModel().getColumn(Entity.COLUMN_NUMBER_ROUNDS);
         smartResizeColumn(roundsColumn);
-        final TableColumn myTurnColumn = table.getColumnModel().getColumn(Entity.ROW_NUMBER_MY_TURN);
+        final TableColumn myTurnColumn = table.getColumnModel().getColumn(Entity.COLUMN_NUMBER_MY_TURN);
         smartResizeColumn(myTurnColumn);
         myTurnColumn.setMaxWidth(initColumn.getMinWidth());
 		
