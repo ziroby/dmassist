@@ -25,14 +25,29 @@ import java.util.Vector;
 import com.ziroby.util.StringUtil;
 
 /**
+ * A series of {@link com.ziroby.dmassist.die Die}, connected into a
+ * mathmatical formula. Right now, we only do the summation of dice. Something
+ * like "3+ 2d6+2 + 1d4+1".
+ * 
  * @author Ziroby
- *
+ * 
  */
 public class DiceEquation extends Die {
 
 	public static final String REGEX = null;
-	List<Dice> dice = new Vector<Dice>();
+
+    List<Dice> dice = new Vector<Dice>();
 	
+    /**
+     * Constucts the dice from the given <code>String</code>.
+     * 
+     * @param str
+     *            The string representation of the <code>Dice Equation</code>.
+     * 
+     * @throws IllegalArgumentException
+     *             If the string is not a correctly formatted
+     *             <code>DiceEquation</code>.
+     */
 	public DiceEquation(final String str) {
 		
 		String s;
@@ -71,6 +86,8 @@ public class DiceEquation extends Die {
 	}
 
 	/**
+     * Generates a new random value for the equation.
+     * 
 	 * @see com.ziroby.dmassist.model.Die#roll()
 	 */
 	@Override
@@ -83,6 +100,8 @@ public class DiceEquation extends Die {
 	}
 
 	/**
+     * The canonical format of the string representation.  
+     * 
 	 * @see com.ziroby.dmassist.model.Die#toString()
 	 */
 	@Override
@@ -102,8 +121,11 @@ public class DiceEquation extends Die {
 	}
 
 	/**
-	 * @see com.ziroby.dmassist.model.Die#value()
-	 */
+     * The number "rolled up". This value will not change until/unless
+     * @link roll is called.
+     * 
+     * @see com.ziroby.dmassist.model.Die#value()
+     */
 	@Override
 	public int value() {
 		int accumulator=0;
@@ -113,6 +135,15 @@ public class DiceEquation extends Die {
 		return accumulator;
 	}
 
+    /**
+     * Attempts to parse the given string as a <code>DiceEquation</code> and,
+     * if that works, returns the {@link value}.
+     * 
+     * @param text
+     *            The string representation to try to parse.
+     * @return The value of the equation (randomly generated), or null if it
+     *         couldn't be parsed.
+     */
 	public static Integer tryParseInt(String text) {
 	
 		if (text.length() == 0)
@@ -138,6 +169,12 @@ public class DiceEquation extends Die {
 		return eq.value();
 	}
 
+    /**
+     * A string representation, with the formula, and the value of each die in
+     * parenthesis. Something like "2 + 2d6+1 - 1d4-1(5)".
+     * 
+     * @return the string representation with values.
+     */
 	public Object toLongString() {
 		StringBuilder s = new StringBuilder();
 		
@@ -149,6 +186,11 @@ public class DiceEquation extends Die {
 		return s.toString();
 	}
 
+    /**
+     * Whether there is a random component to this equation.  That is, is
+     * there any random component.
+     * 
+     */
 	private boolean isConstant() {
 		return (dice.size() == 1 && dice.get(0).isConstant());
 	}
