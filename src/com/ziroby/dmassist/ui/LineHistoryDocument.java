@@ -116,7 +116,6 @@ public class LineHistoryDocument extends PlainDocument implements Document {
 
 	/**
 	 * Returns the entire line.
-	 * @return
 	 * @throws BadLocationException
 	 */
 	public String currentLine() {

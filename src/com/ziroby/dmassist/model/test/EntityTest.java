@@ -151,7 +151,7 @@ public class EntityTest extends TestCase{
 
     @Test
     public final void testSetNameNullUnchanged() {
-        listener.expectEvent();
+        listener.expectNoEvents();
         entity.setName(null);
         listener.expectNoEvents();
         
@@ -251,13 +251,13 @@ public class EntityTest extends TestCase{
     @Test
     public final void testSetHitpointsNullUnchanged() {
         Integer i = null;
-        listener.expectEvent();
+        listener.expectNoEvents();
         entity.setHitpoints(i);
         listener.expectNoEvents();
         
         assertEquals(null, entity.getHitpoints());
         listener.expectNoEvents();
-        entity.setHitpoints(new Integer(5));
+        entity.setHitpoints(i);
 
         assertEquals(null, entity.getHitpoints());
         listener.expectNoEvents();

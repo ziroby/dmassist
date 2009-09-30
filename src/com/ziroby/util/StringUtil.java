@@ -26,6 +26,9 @@ package com.ziroby.util;
 public class StringUtil {
 
 	public static Integer tryParseInt(String text) {
+        if (text == null)
+            return null;
+        
 		int n;
 		try {
 			String t = text.trim();

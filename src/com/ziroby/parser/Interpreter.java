@@ -229,13 +229,17 @@ public class Interpreter implements ParserListener{
 		}
 		else
 		{
-//					results.setCommand(command + " DO: \"" + directObject + "\" IO: \"" + indirectObject + "\"");
-			DiceEquation damage = new DiceEquation (indirectObject);
-			if (damage == null)
+            DiceEquation damage = null;
+            try
+            {
+                damage = new DiceEquation (indirectObject);
+            }
+            catch(IllegalArgumentException e)
 			{
-				printError("Invalid damage amount: \"" + indirectObject + "\"");
+				printError("Invalid damage amount: \"" + indirectObject + "\": " + e.getLocalizedMessage());
 			}
-			else
+			
+            if (damage != null)
 			{
 				Entity e = dataModel.findByAbbrev(directObject);
 				if (e == null)

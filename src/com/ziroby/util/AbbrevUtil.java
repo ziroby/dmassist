@@ -29,7 +29,6 @@ public class AbbrevUtil {
 	 * Returns the beginning of the string which is alpha
 	 * 
 	 * @param abbreviation
-	 * @return
 	 */
 	public static String getAplhaPrefix(String abbreviation) 
 	{	

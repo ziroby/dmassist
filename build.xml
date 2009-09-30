@@ -66,7 +66,7 @@
         </copy>
     </target>
 
-    <target name="run" depends="build" description="--> Runs the app">
+    <target name="run" depends="build,junit" description="--> Runs the app" >
         <java fork="true" classname="${main-class}">
             <classpath>
                 <path refid="classpath"/>
@@ -78,7 +78,8 @@
     <target name="test" depends="junit" description="--> Runs all tests"/>
 
     <target name="junit" depends="package">
-         <junit printsummary="yes" haltonfailure="yes" tempdir="${report.dir}">
+         <junit printsummary="yes" haltonfailure="yes"
+                tempdir="${report.dir}">
             <classpath>
                 <path refid="classpath"/>
                 <path refid="application"/>

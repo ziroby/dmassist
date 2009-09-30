@@ -223,8 +223,6 @@ public class Dice extends Die
     /**
      * The string representation of the dice, with a plus (+) or minus (-) for
      * the sign.
-     * 
-     * @return
      */
 	public Object toStringWithSign() {
 		StringBuilder s = new StringBuilder();
@@ -247,7 +245,6 @@ public class Dice extends Die
      * holding a constant value.  Constants are represented internally as
      * num = 0.
      * 
-     * @return
      */
 	public boolean isConstant() {
 		return num == 0;

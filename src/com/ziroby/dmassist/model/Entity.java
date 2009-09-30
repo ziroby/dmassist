@@ -77,7 +77,8 @@ public class Entity extends AbstractListenable {
      * the abbreviation changed.
      */
 	public final void setAbbreviation(String abbreviation) {
-		if (this.abbreviation != null && this.abbreviation.equals(abbreviation))
+		if ((this.abbreviation != null && this.abbreviation.equals(abbreviation))
+                || (abbreviation == null && this.abbreviation == null))
 		{
 			// It's already that value.  Don't change it or alertListeners.
 			return;			
@@ -100,7 +101,8 @@ public class Entity extends AbstractListenable {
      * unique.  Alerts listeners if the name changed.
      */
 	public final void setName(String name) {
-		if (this.name != null && this.name.equals(name))
+		if ((this.name != null && this.name.equals(name))
+                || (name == null && this.name == null))
 		{
 			// It's already that value.  Don't change it or alertListeners.
 			return;			
@@ -401,7 +403,7 @@ public class Entity extends AbstractListenable {
 			this.dirty = true;
 		}
 		subdual -= amt;
-		if (subdual < 0)
+		if (subdual <= 0)
 		{
 			subdual = null;
 		}

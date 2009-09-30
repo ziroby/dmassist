@@ -30,7 +30,7 @@ import javax.swing.table.AbstractTableModel;
 import org.ho.yaml.Yaml;
 
 import com.ziroby.dmassist.model.test.ObjectEvent;
-import com.ziroby.util.AbstractListenable;
+import com.ziroby.util.DelegateListenable;
 import com.ziroby.util.Listener;
 
 /**
@@ -187,9 +187,6 @@ public class InitOrderDataModel extends AbstractTableModel
 		return initCount;
 	}
 
-	/**
-	 * @see com.ziroby.dmassist.model.EntityList#setInitCount(int)
-	 */
 	public final void setInitCount(Integer initCount) {
 		if (this.initCount == initCount)
 		{
@@ -369,7 +366,7 @@ public class InitOrderDataModel extends AbstractTableModel
 		addEntities(list);
 	}
 
-    private AbstractListenable listenableImpl = new AbstractListenable();
+    private DelegateListenable listenableImpl = new DelegateListenable();
     
     public void addlistener(Listener listener) {
         listenableImpl.addListener(listener);

@@ -25,7 +25,7 @@ import java.util.Vector;
 import com.ziroby.util.StringUtil;
 
 /**
- * A series of {@link com.ziroby.dmassist.die Die}, connected into a
+ * A series of {@link com.ziroby.dmassist.model.Die Die}, connected into a
  * mathmatical formula. Right now, we only do the summation of dice. Something
  * like "3+ 2d6+2 + 1d4+1".
  * 
@@ -137,7 +137,7 @@ public class DiceEquation extends Die {
 
     /**
      * Attempts to parse the given string as a <code>DiceEquation</code> and,
-     * if that works, returns the {@link value}.
+     * if that works, returns the #getValue.
      * 
      * @param text
      *            The string representation to try to parse.

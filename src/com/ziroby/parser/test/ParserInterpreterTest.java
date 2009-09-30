@@ -153,7 +153,7 @@ public class ParserInterpreterTest extends TestCase {
 	}
 
 	/**
-	 * Test method for {@link com.ziroby.parser.Interpreter#Interpreter(com.ziroby.dmassist.model.InitOrderDataModel, com.ziroby.dmassist.ui.ResultsDisplay)}.
+	 * Test method for {@link com.ziroby.parser.Interpreter#Interpreter}
 	 */
 	@Test
 	public final void testInterpreter() {

@@ -83,7 +83,6 @@ public abstract class Die
      * Adds the given value to the modifier of the Die.
      * 
      * @param i the value to add.
-     * @author Ziroby
      */
 	public void addToModifier(int i)
 	{
