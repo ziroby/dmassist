@@ -43,7 +43,7 @@ public class ResultsBox extends Box implements ResultsDisplay {
 	    cmdDisplay.setMinimumSize(new Dimension(80, 30));
 	    cmdDisplay.setEditable(false);
         cmdDisplay.setContentType("text/html");
-        cmdDisplay.setText("<html></html>");
+        cmdDisplay.setText("<html><H1>Welcome to DM Assist</H1>Type &quot;help&quot; for assistance.<P></html>");
 	    JScrollPane scrollPane = new JScrollPane(cmdDisplay); 
 		new JLabel();
 		resultDisplay = new JLabel(" ");
@@ -72,7 +72,7 @@ public class ResultsBox extends Box implements ResultsDisplay {
         s = s.replaceAll("\n", "<br>");
 //		try 
         {
-            contents = contents + s;
+            contents += s;
 //            System.out.println("doc length: " + doc.getLength());
 //            System.out.println("text: <<" + doc.getText(0, doc.getLength())+ ">>");
 //			doc.insertString(doc.getLength(), "<html>" + s + "</html>" + "\n", null);

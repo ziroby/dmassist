@@ -34,14 +34,17 @@ import com.ziroby.jamis.Npc;
  */
 public class Interpreter implements ParserListener{
 
-	private static final String HELP_TEXT = "next                           \tgo to the next initiative count\n" +
-							"roll <dice equation>           \troll the specified dice\n" +
-							"dmg <abbrev> <dice equation>\tdeal the specified damage\n" +
-							"sub <abbrev> <dice equation>\tdeal the specified subdual damage\n" +
-                            "heal <abbrev> <dice equation>  \theal the specified amount of hitpoints\n" +
-                            "set <abbrev> <attributes>  \tset attributes\n" +
-                            "add <abbrev> <attributes>  \tadd a new character or effect\n" +
-							"help                           \tthis message";
+	private static final String HELP_TEXT = "<table>" +
+            "<tr><td>next</td>                                      <td>go to the next initiative count</td></tr>" +
+            "<tr><td>roll &lt;dice equation&gt;</td>                <td>roll the specified dice</td></tr>" +
+            "<tr><td>dmg &lt;abbrev&gt; &lt;dice equation&gt;</td>  <td>deal the specified damage</td></tr>" +
+            "<tr><td>sub &lt;abbrev&gt; &lt;dice equation&gt;</td>  <td>deal the specified subdual damage</td></tr>" +
+            "<tr><td>heal &lt;abbrev&gt; &lt;dice equation&gt;</td> <td>heal the specified amount of hitpoints</td></tr>" +
+            "<tr><td>set &lt;abbrev&gt; &lt;attributes&gt;</td>     <td>set attributes</td></tr>" +
+            "<tr><td>add &lt;abbrev&gt; &lt;attributes&gt;</td>     <td>add a new character or effect</td></tr>" +
+            "<tr><td>npc &lt;options&gt;</td>                       <td>generate an NPC</td></tr>" +
+            "<tr><td>help</td>                                      <td>this message</td></tr>" +
+            "</table>";
 	private EntityList dataModel;
 	private ResultsDisplay results;
 
@@ -104,10 +107,11 @@ public class Interpreter implements ParserListener{
                     }
                 }
             }
-			else if ("help".equalsIgnoreCase(command))
-			{
-				results.addLine(Interpreter.HELP_TEXT);
-			}
+            else if ("quit".equalsIgnoreCase(command) ||
+                    "exit".equalsIgnoreCase(command))
+            {
+                System.exit(0);
+            }
 			else
 			{
 				printError("Unknown command: " + command);

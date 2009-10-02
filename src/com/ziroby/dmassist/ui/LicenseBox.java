@@ -40,7 +40,7 @@ import javax.swing.JScrollPane;
  */
 public class LicenseBox extends JFrame implements ActionListener
 {
-    public LicenseBox()
+    public LicenseBox(final String filename)
     {
         JEditorPane licenseInfo = new JEditorPane();
         licenseInfo.setEditable(false);
@@ -49,7 +49,7 @@ public class LicenseBox extends JFrame implements ActionListener
         
         try
         {
-            licenseInfo.setPage("file:resources/LICENSE.txt");
+            licenseInfo.setPage(filename);
         }
         catch (IOException e)
         {

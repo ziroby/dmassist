@@ -52,9 +52,13 @@ public class AboutBox extends JWindow {
 		"<p><p><small>DM Assist contains:<p>" +
 		"<ul>" +
 		"<li>portions from GMGen/PCGen,<br>copyright &copy; 2002 Devon D. Jones</li>" +
+		"<li>PCGen Character Generator <br>Copyright &copy; 2001-2003, <br>" +
+		"PCgen Data team including, but not limited to, <br>" +
+		"Rob Reed (Mynex), Patryk Adamski (Ruemere), <br>Hugo Perez (Emperorfranz),<br>" +
+		"Andrew McDougall (Tir Gwaith)</li>" +
 		"<li><left>jYaml, copyright &copy; 2005, Yu Cheung Ho</left></li>" +
-        "<li><left>NPC Gen, copyright &copy; 2002?, Jamis Buck</left></li>" +        
-		"</ul></small>" +		
+		"<li>Jamis Buck's NPC Generator<br>Copyright &copy; 2001-2003 Jamis Buck,<br>3.5e conversion by Andargor</li>" +
+        "</ul></small>" +		
 		"<p>&nbsp;</html>";
 
 	AboutBox()

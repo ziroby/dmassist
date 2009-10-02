@@ -74,7 +74,10 @@ public class Parser implements ActionListener{
 	}
 
 	public void parse(String text) {
-		resultsBox.addLine("> " + text);
+        text = text.replaceAll(">", "&gt;");
+        text = text.replaceAll("<", "&lt;");
+        
+		resultsBox.addLine("<tt>--&gt; " + text + "</tt>");
 		// TODO Auto-generated method stub
 	
 		Map<String, String> phrases = new HashMap<String, String>();

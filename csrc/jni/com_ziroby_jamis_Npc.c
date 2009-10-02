@@ -40,6 +40,7 @@
 
   npc = npcGenerateNPC( &opts );
 
+  cmd_opts.opts.richFormatting = 1;
   npcBuildStatBlock( npc, &(cmd_opts.opts), buffer, len);
 
     npcDestroyNPC( npc );

@@ -1,6 +1,8 @@
 <project name="DMAssist" basedir="." default="all">
 
-    <taskdef resource="cpptasks.tasks"/>
+    <taskdef resource="cpptasks.tasks">
+      <classpath location="3rdparty/cpptasks.jar"/>
+    </taskdef>
 
     <property name="src.java.dir"  value="src"/>
     <property name="src.c.dir"     value="csrc"/>
