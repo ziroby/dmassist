@@ -24,6 +24,8 @@ import java.awt.Dimension;
 import java.awt.LayoutManager;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
@@ -42,7 +44,7 @@ public class LicenseBox extends JFrame implements ActionListener
 {
     public LicenseBox(final String filename)
     {
-        JEditorPane licenseInfo = new JEditorPane();
+        final JEditorPane licenseInfo = new JEditorPane();
         licenseInfo.setEditable(false);
         LayoutManager layout = new BoxLayout(getContentPane(), BoxLayout.PAGE_AXIS);
         getContentPane().setLayout(layout);
@@ -58,7 +60,19 @@ public class LicenseBox extends JFrame implements ActionListener
             e.printStackTrace();
         }
 
-        JScrollPane scrollPane = new JScrollPane(licenseInfo);
+        final JScrollPane scrollPane = new JScrollPane(licenseInfo);
+        scrollPane.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyReleased(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ESCAPE || 
+                        e.getKeyCode() == KeyEvent.VK_ENTER ||
+                        e.getKeyCode() == KeyEvent.VK_SPACE)
+                {
+                    closeWindow();
+                }
+                super.keyReleased(e);
+            }
+        });
         getContentPane().add(scrollPane);
         
         final JButton ok = new JButton("OK");
@@ -66,7 +80,7 @@ public class LicenseBox extends JFrame implements ActionListener
         this.addWindowFocusListener(new WindowAdapter() {
             @Override
             public void windowGainedFocus(WindowEvent e) {
-                ok.requestFocusInWindow();
+                licenseInfo.requestFocusInWindow();
             }
         });
 
@@ -82,9 +96,12 @@ public class LicenseBox extends JFrame implements ActionListener
     private static final long serialVersionUID = -4674936870755546018L;
 
     public void actionPerformed(ActionEvent arg0) {
+        closeWindow();        
+    }
+
+    private void closeWindow() {
         this.setVisible(false);
         this.dispose();
-        
     }
     
 }

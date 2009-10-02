@@ -40,10 +40,6 @@ public class AboutBox extends JWindow {
 		"<html><H1><center>DM Assist " +
 		"<small>v" + Main.VERSION + "</small>" + 
 		"</center></H1>" +
-//		"<p>" +
-//		"<center>INTERNAL USE -- NOT A RELEASE<br>" +
-//		"Not to be distributed<br>" +
-//		"All rights reserved</center>" +
 		"<p>" +
 		"<center>Copyright &copy; 2009 Ron Romero</center></br>" +
 		"<p><center><small>This program comes with ABSOLUTELY NO WARRANTY.</small><p><p>" +

@@ -77,6 +77,7 @@ public class InitOrderFrame extends JFrame
 	private Parser parser;
     JPopupMenu popup;
     private ResultsBox resultsBox;
+    private final static String ABOUT_FILENAME = "file:resources/about.html";
     private final static String GPL_FILENAME = "file:resources/LICENSE.txt";
     private final static String OGL_FILENAME = "file:resources/OGL.txt";
 
@@ -432,7 +433,7 @@ public class InitOrderFrame extends JFrame
         }
         else if ("about".equalsIgnoreCase(actionCommand))
         {
-            AboutBox about = new AboutBox();
+            LicenseBox about = new LicenseBox (ABOUT_FILENAME);
             about.setVisible(true);
         }
         else if ("license".equalsIgnoreCase(actionCommand))
