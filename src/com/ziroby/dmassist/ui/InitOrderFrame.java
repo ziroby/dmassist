@@ -207,10 +207,11 @@ public class InitOrderFrame extends JFrame
 	    nextButton.setMnemonic(KeyEvent.VK_N);
 	    nextButton.setActionCommand("Next");
 	    nextButton.addActionListener(this);
-	    box2.add(Box.createVerticalStrut(15));
+	    box2.add(Box.createVerticalStrut(10));
         timeBox.setAlignmentX(Component.LEFT_ALIGNMENT);
-	    box2.add(timeBox);
-	    
+	    //box2.add(timeBox);
+	    box2.add(nextButton);
+        
 //	    JButton button4 = new JButton("Button4");
 //	    box2.add(Box.createVerticalStrut(10));
 //	    box2.add(button4);
@@ -398,7 +399,6 @@ public class InitOrderFrame extends JFrame
 		dataModel.addEntity(row3);
 	}
 
-	@SuppressWarnings("unchecked")
 	public void actionPerformed(ActionEvent e) {
         final String actionCommand = e.getActionCommand();
         if ("add".equalsIgnoreCase(actionCommand))
