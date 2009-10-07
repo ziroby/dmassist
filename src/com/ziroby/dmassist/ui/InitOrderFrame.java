@@ -77,6 +77,9 @@ public class InitOrderFrame extends JFrame
 	private Parser parser;
     JPopupMenu popup;
     private ResultsBox resultsBox;
+    private final static String ABOUT_FILENAME = "file:resources/about.html";
+    private final static String GPL_FILENAME = "file:resources/LICENSE.txt";
+    private final static String OGL_FILENAME = "file:resources/OGL.txt";
 
 
 	public InitOrderFrame() {
@@ -312,7 +315,8 @@ public class InitOrderFrame extends JFrame
 		helpMenu.setMnemonic(KeyEvent.VK_H);
 		menubar.add(helpMenu);
 		
-		addMenuItem(helpMenu, "License...", KeyEvent.VK_L, "license");
+        addMenuItem(helpMenu, "License...", KeyEvent.VK_L, "license");
+        addMenuItem(helpMenu, "Open Game License...", KeyEvent.VK_O, "ogllicense");
 		addMenuItem(helpMenu, "About DM Assist...", KeyEvent.VK_A, "About");
 		
 		setJMenuBar(menubar);
@@ -421,19 +425,25 @@ public class InitOrderFrame extends JFrame
         {
         	removeSelected();
         }
-        else if ("quit".equalsIgnoreCase(actionCommand))
+        else if ("quit".equalsIgnoreCase(actionCommand) ||
+                 "exit".equalsIgnoreCase(actionCommand))
         {
             this.setVisible(false);
             this.dispose();
         }
         else if ("about".equalsIgnoreCase(actionCommand))
         {
-            AboutBox about = new AboutBox();
+            LicenseBox about = new LicenseBox (ABOUT_FILENAME);
             about.setVisible(true);
         }
         else if ("license".equalsIgnoreCase(actionCommand))
         {
-            JFrame license = new LicenseBox ();
+            JFrame license = new LicenseBox (GPL_FILENAME);
+            license.setVisible(true);
+        }
+        else if ("ogllicense".equalsIgnoreCase(actionCommand))
+        {
+            JFrame license = new LicenseBox (OGL_FILENAME);
             license.setVisible(true);
         }
         else if ("import".equalsIgnoreCase(actionCommand))

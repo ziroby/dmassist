@@ -40,20 +40,21 @@ public class AboutBox extends JWindow {
 		"<html><H1><center>DM Assist " +
 		"<small>v" + Main.VERSION + "</small>" + 
 		"</center></H1>" +
-//		"<p>" +
-//		"<center>INTERNAL USE -- NOT A RELEASE<br>" +
-//		"Not to be distributed<br>" +
-//		"All rights reserved</center>" +
 		"<p>" +
 		"<center>Copyright &copy; 2009 Ron Romero</center></br>" +
 		"<p><center><small>This program comes with ABSOLUTELY NO WARRANTY.</small><p><p>" +
         "<small>This is free software, and you are welcome to redistribute it<br>" +
-		"under certain conditions; see \"Help -> License...\" for details.</small></center>" +
+		"under certain conditions; see \"Help -> License. . . \" for details.</small></center>" +
 		"<p><p><small>DM Assist contains:<p>" +
 		"<ul>" +
-		"<li>portions from GMGen/PCGen, copyright &copy; 2002 Devon D. Jones</li>" +
+		"<li>portions from GMGen/PCGen,<br>copyright &copy; 2002 Devon D. Jones</li>" +
+		"<li>PCGen Character Generator <br>Copyright &copy; 2001-2003, <br>" +
+		"PCgen Data team including, but not limited to, <br>" +
+		"Rob Reed (Mynex), Patryk Adamski (Ruemere), <br>Hugo Perez (Emperorfranz),<br>" +
+		"Andrew McDougall (Tir Gwaith)</li>" +
 		"<li><left>jYaml, copyright &copy; 2005, Yu Cheung Ho</left></li>" +
-		"</ul></small>" +		
+		"<li>Jamis Buck's NPC Generator<br>Copyright &copy; 2001-2003 Jamis Buck,<br>3.5e conversion by Andargor</li>" +
+        "</ul></small>" +		
 		"<p>&nbsp;</html>";
 
 	AboutBox()
@@ -80,7 +81,7 @@ public class AboutBox extends JWindow {
                 setVisible(false);
                 dispose();
             }
-        });		
+        });
 	}
 	
 	/**

@@ -26,6 +26,7 @@ import com.ziroby.dmassist.model.Entity;
 import com.ziroby.dmassist.model.Entity.DamageType;
 import com.ziroby.dmassist.model.EntityList;
 import com.ziroby.dmassist.ui.ResultsDisplay;
+import com.ziroby.jamis.Npc;
 
 /**
  * @author Ziroby
@@ -33,14 +34,17 @@ import com.ziroby.dmassist.ui.ResultsDisplay;
  */
 public class Interpreter implements ParserListener{
 
-	private static final String HELP_TEXT = "next                           \tgo to the next initiative count\n" +
-							"roll <dice equation>           \troll the specified dice\n" +
-							"dmg <abbrev> <dice equation>\tdeal the specified damage\n" +
-							"sub <abbrev> <dice equation>\tdeal the specified subdual damage\n" +
-                            "heal <abbrev> <dice equation>  \theal the specified amount of hitpoints\n" +
-                            "set <abbrev> <attributes>  \tset attributes\n" +
-                            "add <abbrev> <attributes>  \tadd a new character or effect\n" +
-							"help                           \tthis message";
+	private static final String HELP_TEXT = "<table>" +
+            "<tr><td>next</td>                                      <td>go to the next initiative count</td></tr>" +
+            "<tr><td>roll &lt;dice equation&gt;</td>                <td>roll the specified dice</td></tr>" +
+            "<tr><td>dmg &lt;abbrev&gt; &lt;dice equation&gt;</td>  <td>deal the specified damage</td></tr>" +
+            "<tr><td>sub &lt;abbrev&gt; &lt;dice equation&gt;</td>  <td>deal the specified subdual damage</td></tr>" +
+            "<tr><td>heal &lt;abbrev&gt; &lt;dice equation&gt;</td> <td>heal the specified amount of hitpoints</td></tr>" +
+            "<tr><td>set &lt;abbrev&gt; &lt;attributes&gt;</td>     <td>set attributes</td></tr>" +
+            "<tr><td>add &lt;abbrev&gt; &lt;attributes&gt;</td>     <td>add a new character or effect</td></tr>" +
+            "<tr><td>npc &lt;options&gt;</td>                       <td>generate an NPC</td></tr>" +
+            "<tr><td>help</td>                                      <td>this message</td></tr>" +
+            "</table>";
 	private EntityList dataModel;
 	private ResultsDisplay results;
 
@@ -50,7 +54,7 @@ public class Interpreter implements ParserListener{
 	}
 
 	public void handleCommand(String command,
-			Map<String, String> attributes) {	
+			Map<String, String> attributes, String fullLine) {	
 		try {
 			if ("next".equalsIgnoreCase(command)
 					|| "n".equalsIgnoreCase(command))
@@ -84,10 +88,30 @@ public class Interpreter implements ParserListener{
             {
                 add(command, attributes);
             }
-			else if ("help".equalsIgnoreCase(command))
-			{
-				results.addLine(Interpreter.HELP_TEXT);
-			}
+            else if ("npc".equalsIgnoreCase(command))
+            {
+                if (!Npc.isLibraryLoaded())
+                {
+                    printError("NPC library not loaded: " + Npc.getException().getLocalizedMessage());
+                }
+                else
+                {
+                    try
+                    {
+                        String s = Npc.gen(fullLine);
+                        results.addLine(s);
+                    }
+                    catch (Exception e)
+                    {
+                        printError("Exception while generating NPC: " + e.getLocalizedMessage());
+                    }
+                }
+            }
+            else if ("quit".equalsIgnoreCase(command) ||
+                    "exit".equalsIgnoreCase(command))
+            {
+                System.exit(0);
+            }
 			else
 			{
 				printError("Unknown command: " + command);
@@ -229,14 +253,16 @@ public class Interpreter implements ParserListener{
 		}
 		else
 		{
+//					results.setCommand(command + " DO: \"" + directObject + "\" IO: \"" + indirectObject + "\"");
             DiceEquation damage = null;
             try
             {
                 damage = new DiceEquation (indirectObject);
             }
-            catch(IllegalArgumentException e)
+            catch (IllegalArgumentException e)
 			{
-				printError("Invalid damage amount: \"" + indirectObject + "\": " + e.getLocalizedMessage());
+				printError("Invalid damage amount: \"" + e.getLocalizedMessage() + "\"");
+                damage = null;
 			}
 			
             if (damage != null)
@@ -257,16 +283,15 @@ public class Interpreter implements ParserListener{
 		}
 	}
 
-    private void printError(RuntimeException e) {
+    public void printError(Exception e) {
 		printError(e.getLocalizedMessage());
 		e.printStackTrace();
 		
 	}
 
-	private void printError(String msg)
+	public void printError(String msg)
 	{
 		results.addLine("Error: " + msg);
 		results.setResult(null);
 	}
-
 }
