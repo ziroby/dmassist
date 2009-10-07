@@ -1,0 +1,33 @@
+Features
+
+  <<Combat/initiative tracker.>>  Tracks hitpoints, subdual damage, and
+    initiative rolls for characters.
+
+
+  <<Tracks limited duration effects>> (such as spells), removing them
+    when they expire.  Effects are just like characters, except they
+    have duration.  Use effects for <Melf's Acid Arrow>, or for that
+    monster you just <summoned>.
+
+
+  <<Integrated dice roller.>> Most places which accept a number accept
+    a dice equation as well.  Just say the Ogre has 4d8+11 hit points
+    and let DM Assist roll it up for you.
+
+
+  <<Complex dice equations.>> multiple dice rolls summed together, like
+    2 + 3d12 + 2d6 + 1d4 + 12
+
+
+  <<Combined windowing and command-line interface.>> provides a
+  command line interface, because command lines allow for a great deal
+  of power and accessible easily and quickly.  But it also provides
+  standard windowing access, so you get started using it very quickly.
+  The intent is for everything that you can do one way you can do the
+  other.  If not, please {{{./issue-tracking.html}open a bug.}}
+
+
+  <<Save and load groups of characters.>>  Characters are saved in YAML
+    format.
+
+

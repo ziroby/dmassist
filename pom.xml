@@ -4,8 +4,10 @@
   <artifactId>dmassist</artifactId>
   <version>1.3-SNAPSHOT</version>
   <packaging>nar</packaging>
-  <name>dmassist-jni</name> -->
-<!--   <description>FreeHEP NAR Example Helloworld JNI</description> -->
+  <name>DM Assist</name>
+  <description>Easily run d20 pen and paper games</description>
+  <url>http://dmassist.sourceforge.com</url>
+  <inceptionYear>2009</inceptionYear>
   <repositories>
     <repository>
       <id>freehep-maven</id>
@@ -13,6 +15,35 @@
       <url>http://java.freehep.org/maven2</url>
     </repository>
   </repositories>
+  <developers>
+    <developer>
+      <id>ziroby</id>
+      <name>Ron Romero</name>
+      <email>ziroby at ziroby dot com</email>
+      <roles>
+        <role>architect</role>
+        <role>developer</role>
+      </roles>
+      <timezone>-6</timezone>
+    </developer>
+  </developers>
+  <licenses>
+  <license>
+    <name>GNU General Public License, version 3</name>
+    <url>http://www.gnu.org/licenses/gpl-3.0-standalone.html</url>
+    <distribution>repo</distribution>
+    <comments>DM Assist is free software: you can redistribute it and/or modify it under the terms of the GNU General Public License as published by the Free Software Foundation, either version 3 of the License, or (at your option) any later version.</comments>
+  </license>
+  </licenses>
+  <issueManagement>
+    <system>Tracker</system>
+    <url>https://sourceforge.net/tracker/?group_id=279165</url>
+  </issueManagement>
+  <scm>
+    <connection>scm:bazaar:bzr://dmassist.bzr.sourceforge.net/bzrroot/dmassist/trunk</connection>
+    <developerConnection>scm:bazaar:bzr+ssh://dmassist.bzr.sourceforge.net/bzrroot/dmassist</developerConnection>
+    <url>http://dmassist.bzr.sourceforge.net/bzr/dmassist/trunk</url>
+  </scm>
   <build>
     <defaultGoal>integration-test</defaultGoal>
     <plugins>
@@ -30,9 +61,6 @@
       <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
         <configuration>
-<!--          <descriptorRefs>
-            <descriptorRef>jar-with-dependencies</descriptorRef>
-          </descriptorRefs> -->
           <descriptors>
             <descriptor>src/main/assembly/release.xml</descriptor>
           </descriptors>
@@ -106,4 +134,50 @@
       <version>1.3</version>
     </dependency>
   </dependencies>
+  <reporting>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-jxr-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-pmd-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-report-plugin</artifactId>
+        <version>2.4.2</version>
+      </plugin> 
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-checkstyle-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-project-info-reports-plugin</artifactId>
+        <version>2.1.2</version>
+        <reportSets>
+          <reportSet>
+            <reports>
+              <report>about</report>
+              <report>summary</report>
+              <report>license</report>
+              <report>project-team</report>
+              <report>mailing-list</report>
+<!--               <report>cim</report> -->
+              <report>issue-tracking</report>
+              <report>scm</report>
+              <report>dependencies</report>
+              <report>plugins</report>
+            </reports>
+          </reportSet>
+        </reportSets>
+      </plugin>
+    </plugins>
+  </reporting>
 </project>

@@ -1,0 +1,4 @@
+Installation
+
+  Unzip, and run "dmassist" or "dmassist.bat".  It should all be magic
+  from there.  If not, please {{{./issue-tracking.html}open a bug.}}

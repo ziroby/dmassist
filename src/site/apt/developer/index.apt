@@ -1,0 +1,9 @@
+Developer Resources
+
+  DM Assist is written in Java, with a Swing UI.  It is built with
+  Maven.  Loading and saving is done via
+  {{{http://jyaml.sourceforge.net/}jYaml}}.
+
+  The UI and underlying model are split into a model-view split.  This
+  should make it easier to port to a new UI (like how Eric is
+  threatening to port DM Assist to APT).

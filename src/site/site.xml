@@ -1,0 +1,24 @@
+<project name="DM Assist">
+<!--  <bannerLeft>
+    <name>DM Assist</name>
+    <href>http://dmassist.sourceforge.net</href>
+  </bannerLeft> -->
+  <version position="left"/>
+  <publishDate position="right"/>
+  <body>
+    <menu name="DM Assist">
+      <item name="Overview" href="index.html"/>      
+<!--       <item name="Introduction" href="index.html"/> -->
+<!--       <item name="News" href="news.html"/> -->
+      <item name="Features" href="features.html"/>
+      <item name="Installation" href="installation.html"/>
+<!--       <item name="Configuration" href="configuration.html"/> -->
+      <item name="FAQ" href="faq.html"/>
+      <item name="Developer Resources" href="/developer/index.html">
+<!--         <item name="System Architecture" href="/developer/architecture.html"/> -->
+<!--         <item name="Embedder's Guide" href="/developer/embedding.html"/> -->
+      </item>
+    </menu>
+    <menu ref="reports"/>
+  </body>
+</project>
