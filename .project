@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
-	<name>DMAssist</name>
+	<name>dmassist</name>
 	<comment></comment>
 	<projects>
 	</projects>
@@ -11,25 +11,13 @@
 			</arguments>
 		</buildCommand>
 		<buildCommand>
-			<name>org.eclipse.ui.externaltools.ExternalToolBuilder</name>
-			<triggers>clean,full,incremental,</triggers>
-			<arguments>
-				<dictionary>
-					<key>LaunchConfigHandle</key>
-					<value>&lt;project&gt;/.externalToolBuilders/DMAssist build.xml [Builder].launch</value>
-				</dictionary>
-			</arguments>
-		</buildCommand>
-		<buildCommand>
-			<name>org.eclipse.cdt.make.core.ScannerConfigBuilder</name>
+			<name>org.maven.ide.eclipse.maven2Builder</name>
 			<arguments>
 			</arguments>
 		</buildCommand>
 	</buildSpec>
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
-		<nature>org.eclipse.cdt.core.cnature</nature>
-		<nature>org.eclipse.cdt.make.core.makeNature</nature>
-		<nature>org.eclipse.cdt.make.core.ScannerConfigNature</nature>
+		<nature>org.maven.ide.eclipse.maven2Nature</nature>
 	</natures>
 </projectDescription>
