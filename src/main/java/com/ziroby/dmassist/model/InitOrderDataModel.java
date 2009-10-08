@@ -29,7 +29,7 @@ import javax.swing.table.AbstractTableModel;
 
 import org.ho.yaml.Yaml;
 
-import com.ziroby.dmassist.model.test.ObjectEvent;
+import com.ziroby.dmassist.model.ObjectEvent;
 import com.ziroby.util.DelegateListenable;
 import com.ziroby.util.Listener;
 

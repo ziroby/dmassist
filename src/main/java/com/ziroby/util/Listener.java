@@ -19,7 +19,7 @@
  */
 package com.ziroby.util;
 
-import com.ziroby.dmassist.model.test.ObjectEvent;
+import com.ziroby.dmassist.model.ObjectEvent;
 
 /**
  * @author Ziroby

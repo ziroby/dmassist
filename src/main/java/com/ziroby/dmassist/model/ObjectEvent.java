@@ -17,7 +17,7 @@
  *   along with DM Assist.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-package com.ziroby.dmassist.model.test;
+package com.ziroby.dmassist.model;
 
 /**
  * @author Ziroby

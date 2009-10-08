@@ -36,7 +36,7 @@ import javax.swing.event.TableModelListener;
 
 import com.ziroby.dmassist.model.EntityList;
 import com.ziroby.dmassist.model.InitOrderDataModel;
-import com.ziroby.dmassist.model.test.ObjectEvent;
+import com.ziroby.dmassist.model.ObjectEvent;
 import com.ziroby.util.Listener;
 
 /**
@@ -45,8 +45,10 @@ import com.ziroby.util.Listener;
  * @author rromero
  * 
  */
-public class TimeBox extends Box implements TableModelListener, Listener
+public class TimeBox extends StatusBar implements TableModelListener, Listener
 {
+
+    private static final int BUTTON_FONT_SIZE = 12;
 
     private static final int SECONDS_PER_ROUND = 6;
 
@@ -62,17 +64,15 @@ public class TimeBox extends Box implements TableModelListener, Listener
 
     public TimeBox(InitOrderDataModel dataModel1)
     {
-        super(BoxLayout.LINE_AXIS);
         this.dataModel = dataModel1;
 
         setFont(new Font("Serif", Font.BOLD, 24));
 
-        Box timeBox = Box.createVerticalBox();
         this.time = new JLabel();
         time.setBorder(BorderFactory.createEtchedBorder());
         resetButton = new JButton("reset");
-        resetButton.setFont(new Font("Serif", Font.BOLD, 10));
-        resetButton.setAlignmentY(Component.TOP_ALIGNMENT);
+        resetButton.setFont(new Font("Serif", Font.BOLD, BUTTON_FONT_SIZE));
+//        resetButton.setAlignmentY(Component.TOP_ALIGNMENT);
         resetButton.setMnemonic(KeyEvent.VK_R);
         resetButton.addActionListener(new ActionListener() {
 
@@ -89,7 +89,7 @@ public class TimeBox extends Box implements TableModelListener, Listener
         resetButton.setMargin(newInsets);
         
         nextButton = new JButton("next");
-        nextButton.setFont(new Font("Serif", Font.BOLD, 10));
+        nextButton.setFont(new Font("Serif", Font.BOLD, BUTTON_FONT_SIZE));
         nextButton.setAlignmentY(Component.TOP_ALIGNMENT);
         nextButton.setMnemonic(KeyEvent.VK_N);
         nextButton.addActionListener(new ActionListener() {
@@ -101,10 +101,8 @@ public class TimeBox extends Box implements TableModelListener, Listener
         });
         nextButton.setMargin(newInsets);
 
-        Box buttonBox = Box.createVerticalBox();
-        buttonBox.add(nextButton);
-        buttonBox.add(Box.createVerticalStrut(2));
-        buttonBox.add(resetButton);
+//        buttonBox.add(nextButton);
+//        buttonBox.add(resetButton);
 
         Box roundsBox = Box.createHorizontalBox();
         this.rounds = new JLabel();
@@ -114,14 +112,15 @@ public class TimeBox extends Box implements TableModelListener, Listener
         roundsBox.add(new JLabel("r: "));
         roundsBox.add(this.rounds);
 
-        timeBox.add(time);
-        timeBox.add(Box.createVerticalStrut(2));
-        timeBox.add(roundsBox);
+//        timeBox.add(time);
+//        timeBox.add(Box.createVerticalStrut(2));
+//        timeBox.add(roundsBox);
         // timeBox.add(resetButton);
 
-        add(timeBox);
-        add(Box.createHorizontalStrut(5));
-        add(buttonBox);
+        addLabel(time);
+        addLabel(rounds);
+        add(resetButton);
+        addGlue();
         // add(resetButton);
         // add(nextButton);
 
@@ -129,7 +128,6 @@ public class TimeBox extends Box implements TableModelListener, Listener
         this.lastCount = dataModel.getInitCount();
         dataModel.addlistener(this);
 
-        // TODO Auto-generated constructor stub
     }
 
     void display() {
@@ -147,7 +145,7 @@ public class TimeBox extends Box implements TableModelListener, Listener
             s = String.format("%d:%02d:%02d", hours, minutes, seconds);
         }
         time.setText(s);
-        rounds.setText("" + numRounds);
+        rounds.setText("round " + numRounds);
         
         nextButton.setEnabled(dataModel.getEntities().size() > 1);
         resetButton.setEnabled(numRounds != 0 || dataModel.getInitCount() != null);

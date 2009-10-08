@@ -19,6 +19,7 @@
  */
 package com.ziroby.dmassist.ui;
 
+import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
@@ -64,6 +65,8 @@ import com.ziroby.parser.Interpreter;
 import com.ziroby.parser.Parser;
 
 /**
+ * The main visible frame.
+ * 
  * @author Ziroby
  *
  */
@@ -82,13 +85,18 @@ public class InitOrderFrame extends JFrame
     private final static String OGL_FILENAME = "file:resources/OGL.txt";
 
 
-	public InitOrderFrame() {
+    public InitOrderFrame() {
 	    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	    dataModel = new InitOrderDataModel();
 
 	    createMenus();
 	    
-	    final JComponent contentPane1 = (JComponent) this.getContentPane();
+	    this.getContentPane().setLayout(new BorderLayout());
+	    
+	    final JComponent contentPane1 = new JPanel();
+	    
+	    this.getContentPane().add(contentPane1, BorderLayout.CENTER);
+	    this.getContentPane().add(new TimeBox(dataModel), BorderLayout.SOUTH);	    
 	    
 	    final JComponent upperPane = new JPanel();
 	    final JComponent lowerPane = new JPanel();
@@ -96,16 +104,8 @@ public class InitOrderFrame extends JFrame
 	    upperPane.setLayout(new GridBagLayout());
 	    lowerPane.setLayout(new GridBagLayout());
 	    
-        Box titleBox = Box.createHorizontalBox();
-        
 	    JLabel title = new JLabel("<html><h1>DM&nbsp;Assist</h1></html>");
 	    //title.setAlignmentX(Component.CENTER_ALIGNMENT);
-        
-        titleBox.add(Box.createHorizontalStrut(30));
-        titleBox.add(title);
-        titleBox.add(Box.createHorizontalStrut(10));
-        JComponent timeBox = new TimeBox(dataModel);
-        //titleBox.add(timeBox);
         
 	    GridBagConstraints labelConstraints = new GridBagConstraints();
 	    labelConstraints.gridx = 0;
@@ -211,15 +211,8 @@ public class InitOrderFrame extends JFrame
 	    nextButton.setActionCommand("Next");
 	    nextButton.addActionListener(this);
 	    box2.add(Box.createVerticalStrut(10));
-        timeBox.setAlignmentX(Component.LEFT_ALIGNMENT);
-	    //box2.add(timeBox);
 	    box2.add(nextButton);
         
-//	    JButton button4 = new JButton("Button4");
-//	    box2.add(Box.createVerticalStrut(10));
-//	    box2.add(button4);
-	    //box.add(Box.createVerticalGlue());
-
 	    GridBagConstraints box1Constraints = new GridBagConstraints();
 	    box1Constraints.gridx = 1;
 	    box1Constraints.gridy = 1;
