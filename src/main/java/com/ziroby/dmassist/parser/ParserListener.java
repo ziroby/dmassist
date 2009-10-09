@@ -17,12 +17,16 @@
  *   along with DM Assist.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-package com.ziroby.parser;
+package com.ziroby.dmassist.parser;
 
 import java.util.Map;
 
 /**
- * @author Ziroby
+ * Something that can respond to the events from a Parser.  The Parser doesn't
+ * actually know the class of the Interpreter.  Rather, it is initialized
+ * with a ParserListener, and gives its results to the ParserListener.
+ * 
+ * @author Ron Romero
  *
  */
 public interface ParserListener {

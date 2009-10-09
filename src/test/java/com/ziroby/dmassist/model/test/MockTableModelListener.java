@@ -21,11 +21,11 @@ package com.ziroby.dmassist.model.test;
 
 import junit.framework.AssertionFailedError;
 
-import com.ziroby.dmassist.model.ObjectEvent;
 import com.ziroby.util.Listener;
+import com.ziroby.util.ObjectEvent;
 
 /**
- * @author Ziroby
+ * @author Ron Romero
  *
  */
 public class MockTableModelListener implements Listener {

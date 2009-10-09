@@ -25,7 +25,7 @@ import javax.swing.event.TableModelListener;
 
 
 /**
- * @author Ziroby
+ * @author Ron Romero
  *
  */
 public class NextButton extends JButton implements TableModelListener {

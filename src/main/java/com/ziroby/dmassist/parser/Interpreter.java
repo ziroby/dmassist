@@ -17,7 +17,7 @@
  *   along with DM Assist.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-package com.ziroby.parser;
+package com.ziroby.dmassist.parser;
 
 import java.util.Map;
 
@@ -26,11 +26,19 @@ import com.ziroby.dmassist.model.Entity;
 import com.ziroby.dmassist.model.Entity.DamageType;
 import com.ziroby.dmassist.model.EntityList;
 import com.ziroby.dmassist.ui.ResultsDisplay;
-import com.ziroby.jamis.Npc;
+import com.ziroby.dmassist.jni.Npc;
 
 /**
- * @author Ziroby
- *
+ * Acts on the commands of the user. The Parser has parsed the user's input and
+ * sends it to the Interpreter. The Interpreter then works with the DataModel
+ * (EntityList class) and the ResultsDisplay to make those commands happen.
+ * 
+ * @see EntityList 
+ * @see ResultsDisplay
+ * 
+ * 
+ * @author Ron Romero
+ * 
  */
 public class Interpreter implements ParserListener{
 

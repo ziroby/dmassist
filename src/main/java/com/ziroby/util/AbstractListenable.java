@@ -22,15 +22,18 @@ package com.ziroby.util;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import com.ziroby.dmassist.model.ObjectEvent;
 
 /**
- * @author Ziroby
+ * A default implementation of Listenable.  Keeps a collection of
+ * Listeners and provides a way to alert them.
+ * 
+ * @author Ron Romero
  *
  */
 public class AbstractListenable implements Listenable {
 	private Collection<Listener> listeners = new ArrayList<Listener>();
 
+	@Override
 	public void addListener(Listener listener) {
 		listeners.add(listener);
 	}		

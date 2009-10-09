@@ -29,11 +29,12 @@ import org.ho.yaml.Yaml;
 
 import com.ziroby.util.AbstractListenable;
 import com.ziroby.util.Listener;
+import com.ziroby.util.ObjectEvent;
 
 /**
  * The data model for our main initiative order table.
  * 
- * @author Ziroby
+ * @author Ron Romero
  *
  * @todo Inherits from a Swing class.  We should break that link.
  */

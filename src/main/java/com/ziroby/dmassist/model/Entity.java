@@ -30,7 +30,7 @@ import com.ziroby.util.StringUtil;
  * Holds the attributes we care about.  If a value is not relevant,
  * it should be null.
  * 
- * @author Ziroby
+ * @author Ron Romero
  *
  * @todo This class should be split into pure entity, and the stuff for
  * initiative table row.  The latter would inherit from the former. 
@@ -42,7 +42,7 @@ public class Entity extends AbstractListenable {
      * The different type of damage or healing which can be done
      * to an entity.
      * 
-     * @author Ron "Ziroby" Romero
+     * @author Ron Romero
      *
      */
     public enum DamageType

@@ -19,7 +19,13 @@
 */
 package com.ziroby.util;
 
-
+/**
+ * Something which can be listened to.  Listenable's have a list of listeners
+ * and can alert those listeners when they change in some way.
+ * 
+ * @author Ron Romero
+ *
+ */
 public interface Listenable {
 
     /**

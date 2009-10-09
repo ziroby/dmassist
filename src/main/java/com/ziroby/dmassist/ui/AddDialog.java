@@ -40,7 +40,7 @@ import com.ziroby.dmassist.model.Entity;
 import com.ziroby.dmassist.model.EntityList;
 
 /**
- * @author Ziroby
+ * @author Ron Romero
  *
  */
 public class AddDialog extends JDialog implements ActionListener {

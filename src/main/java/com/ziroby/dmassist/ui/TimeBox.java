@@ -31,13 +31,13 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 
 import com.ziroby.dmassist.model.EntityList;
-import com.ziroby.dmassist.model.ObjectEvent;
 import com.ziroby.util.Listener;
+import com.ziroby.util.ObjectEvent;
 
 /**
  * A box that displays the current "time" in the battle.
  * 
- * @author rromero
+ * @author Ron Romero
  * 
  */
 public class TimeBox extends StatusBar implements Listener

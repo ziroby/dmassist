@@ -18,20 +18,34 @@
  *
  */
 
-package com.ziroby.jamis;
+package com.ziroby.dmassist.jni;
 
 //import com.ziroby.dmassist.jni.NarSystem;
 
 /**
- * @author rromero
+ * A connection to Jamis Buck's NPC Gen, used to generate random NPCs.
+ * Outputs a stat block defining the NPC.
+ * The interface is very similar to the command-line version of NPC Gen.
+ * It uses flags and parameters to define what type of NPC to create and
+ * what open to use.
+ * 
+ * If the native library is not available, this class is defined to fail
+ * gracefully.
+ * 
+ * @author Ron Romero
  *
  */
-public class Npc
+public class Npc extends JniLibrary
 {
     private static native String gen1();
 
     private static native String gen2(String[] params);
     
+    /**
+     * Generate an NPC with default parameters.
+     * 
+     * @return
+     */
     public static String gen()
     {
         if (isLibraryLoaded())
@@ -44,6 +58,19 @@ public class Npc
         }
     }
 
+    /**
+     * Generate an NPC with the given parameters. Use -help to get info on the
+     * parameters.
+     * 
+     * The returned stat block has embedded formatting characters. Stuff like ~I
+     * and ~i to turn on and off italics.  Use {@link #doMarkup(String)} to translate
+     * into HTML.
+     * 
+     * @param params
+     *            each word in the parameter, passed in like parameters on the
+     *            command line.
+     * @return A stat block defining the NPC.
+     */
     public static String gen(String[] params)
     {
         if (isLibraryLoaded())
@@ -56,6 +83,18 @@ public class Npc
         }
     }
 
+    /**
+     * Generates an NPC with options described in the given command line. The
+     * command line should be a series of space-seperated words, much like an
+     * unprocessed Unix command line.
+     * 
+     * @param commandLine
+     *            The command line to process. Use -help to get details.
+     * 
+     * @return A stat block for an NPC. Use {@link #doMarkup(String)} to
+     *         translate into HTML.
+     * 
+     */
     public static String gen(String commandLine)
     {
         if (isLibraryLoaded())
@@ -88,35 +127,8 @@ public class Npc
         return s;
     }
     
-    private static boolean libraryLoaded = false;
-    private static UnsatisfiedLinkError exception = null;
-    
     static {
-        try
-        {
-            System.loadLibrary("DMAssist");
-            libraryLoaded = true;
-        }
-        catch (UnsatisfiedLinkError e)
-        {
-            exception = e;
-            libraryLoaded = false;
-        }
-    }
-
-    /**
-     * If we failed loading the library, gives the exception thrown.
-     */
-    public static UnsatisfiedLinkError getException() {
-        return exception;
-    }
-
-    /**
-     * Did we succesfully load the link library?
-     * 
-     */
-    public static boolean isLibraryLoaded() {
-        return libraryLoaded;
+        tryLoadLibrary("DMAssist");
     }
 
 }

@@ -23,26 +23,28 @@ package com.ziroby.util;
 /**
  * A delegate version of {@link AbstractListenable}.
  * 
- * @author Ron "Ziroby" Romero
- *
+ * @author Ron Romero
+ * 
  */
-public class DelegateListenable implements Listenable
-{
-    /* We can access protected methods on AbstractListenable because
-     * we're in the same package.
+public class DelegateListenable implements Listenable {
+    /*
+     * We can access protected methods on AbstractListenable because we're in
+     * the same package.
      */
     private AbstractListenable delegate = new AbstractListenable();
 
     public void addListener(Listener listener) {
         delegate.addListener(listener);
     }
-    
+
     /**
-     * @see com.ziroby.util.AbstractListenable#alertListeners()
-     *
+     * Calls all the listeners' {@link com.ziroby.util.Listener#objectChanged
+     * objectChanged} method.
+     * 
+     * @see AbstractListenable#alertListeners()
+     * 
      */
-    public void alertListeners()
-    {
+    public void alertListeners() {
         delegate.alertListeners();
     }
 

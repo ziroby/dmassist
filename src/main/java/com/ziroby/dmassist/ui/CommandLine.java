@@ -27,7 +27,7 @@ import java.awt.event.KeyListener;
 import javax.swing.JTextField;
 
 /**
- * @author Ziroby
+ * @author Ron Romero
  *
  */
 public class CommandLine extends JTextField implements KeyListener, ActionListener {

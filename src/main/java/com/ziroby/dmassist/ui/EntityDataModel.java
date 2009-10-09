@@ -11,9 +11,9 @@ import javax.swing.table.AbstractTableModel;
 import com.ziroby.dmassist.model.Entity;
 import com.ziroby.dmassist.model.EntityList;
 import com.ziroby.dmassist.model.EntityListImpl;
-import com.ziroby.dmassist.model.ObjectEvent;
 import com.ziroby.util.DelegateListenable;
 import com.ziroby.util.Listener;
+import com.ziroby.util.ObjectEvent;
 
 public class EntityDataModel extends AbstractTableModel 
     implements EntityList, Listener {

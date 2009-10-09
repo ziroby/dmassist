@@ -35,7 +35,7 @@ import javax.swing.border.Border;
  * 
  * Thanks to Colin Bell see http://www.java2s.com/Code/Java/Swing-Components/Statusbarcomponent.htm
  *
- * @author rromero
+ * @author Ron Romero
  *
  */
 public class StatusBar extends Box {

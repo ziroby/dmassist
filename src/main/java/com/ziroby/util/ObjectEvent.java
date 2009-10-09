@@ -20,21 +20,41 @@
 package com.ziroby.util;
 
 /**
- * A listener listening to a {@link Listenable}. It receives events when the
- * Listenable changes in some way, as defined by the Listenable.
+ * Notification of a change, generally in a Listenable, sent to Listener's.
  * 
  * @see Listenable
+ * @see Listener
  * 
  * @author Ron Romero
  * 
  */
-public interface Listener {
+public class ObjectEvent {
+    private Object source;
+
     /**
-     * Notification that the Listenable has changed in a way it wants its
-     * listeners to know about.
+     * Creates a simple Object Event, with source set to the given value.
      * 
-     * @param event
-     *            Information about the change.
+     * @param source
+     *            The object which "generated", or is the source of, this event.
      */
-    public void objectChanged(ObjectEvent event);
+    public ObjectEvent(Object source) {
+        super();
+        this.source = source;
+    }
+
+    /**
+     * The source of an event is "what caused the event".  Generally,
+     * it's then item whose change triggered the event.
+     */
+    public final Object getSource() {
+        return source;
+    }
+
+    /**
+     * The source of an event is "what caused the event".  Generally,
+     * it's then item whose change triggered the event.
+     */
+    public final void setSource(Object source) {
+        this.source = source;
+    }
 }

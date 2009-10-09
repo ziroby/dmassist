@@ -29,7 +29,7 @@ import com.ziroby.util.StringUtil;
  * mathmatical formula. Right now, we only do the summation of dice. Something
  * like "3+ 2d6+2 + 1d4+1".
  * 
- * @author Ziroby
+ * @author Ron Romero
  * 
  */
 public class DiceEquation extends Die {

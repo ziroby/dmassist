@@ -37,7 +37,7 @@ import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 
 /**
- * @author rromero
+ * @author Ron Romero
  *
  */
 public class LicenseBox extends JFrame implements ActionListener

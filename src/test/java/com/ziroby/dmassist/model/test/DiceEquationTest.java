@@ -28,7 +28,7 @@ import org.junit.Test;
 import com.ziroby.dmassist.model.DiceEquation;
 
 /**
- * @author Ziroby
+ * @author Ron Romero
  *
  */
 public class DiceEquationTest extends TestCase {

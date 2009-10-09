@@ -19,8 +19,18 @@
  */
 package com.ziroby.util;
 
+import com.ziroby.dmassist.model.Entity;
+
 /**
- * @author Ziroby
+ * Utilities for working with entity abbreviations.  An abbreviation is
+ * a short, unique string labeling the Entity.  By default, it is the first
+ * character of the Entity's name, followed by a number to make it unique. 
+ * But it could be any string, generally a short one.  So for goblins, you
+ * could have "GOB1", "GOB2", etc., instead of "G1", "G2"
+ * 
+ * @see Entity
+ * 
+ * @author Ron Romero
  *
  */
 public class AbbrevUtil {

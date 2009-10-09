@@ -29,7 +29,7 @@ import com.ziroby.dmassist.model.Entity;
 import com.ziroby.dmassist.ui.EntityDataModel;
 
 /**
- * @author Ziroby
+ * @author Ron Romero
  *
  */
 public class InitOrderDataModelTest extends TestCase {

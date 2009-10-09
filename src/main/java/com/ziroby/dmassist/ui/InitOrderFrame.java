@@ -60,13 +60,13 @@ import com.ziroby.dmassist.model.DiceEquation;
 import com.ziroby.dmassist.model.Entity;
 import com.ziroby.dmassist.model.EntityList;
 import com.ziroby.dmassist.model.Entity.DamageType;
-import com.ziroby.parser.Interpreter;
-import com.ziroby.parser.Parser;
+import com.ziroby.dmassist.parser.Interpreter;
+import com.ziroby.dmassist.parser.Parser;
 
 /**
  * The main visible frame.
  * 
- * @author Ziroby
+ * @author Ron Romero
  *
  */
 public class InitOrderFrame extends JFrame 

@@ -31,7 +31,7 @@ import javax.swing.JLabel;
 import javax.swing.JScrollPane;
 
 /**
- * @author Ziroby
+ * @author Ron Romero
  *
  */
 public class ResultsBox extends Box implements ResultsDisplay {

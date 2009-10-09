@@ -27,8 +27,10 @@ import com.ziroby.util.Listenable;
 
 /**
  * An abstract list of entities.  
+ *
+ * @see Entity
  * 
- * @author Ron "Ziroby" Romero
+ * @author Ron Romero
  *
  */
 public interface EntityList 

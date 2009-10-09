@@ -17,7 +17,7 @@
  *   along with DM Assist.  If not, see <http://www.gnu.org/licenses/>.
  *
  */
-package com.ziroby.parser;
+package com.ziroby.dmassist.parser;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -31,8 +31,16 @@ import javax.swing.JTextField;
 import com.ziroby.dmassist.ui.ResultsDisplay;
 
 /**
- * @author Ziroby
- *
+ * Processes the command line and sends the parsed commands to the interpreter.
+ * The Parser does not know about what any of the commands mean, just how they
+ * are formed together.
+ * 
+ * Currently this class reacts directly to Swing events from the text input
+ * class. We might want to split that dependency in the future, so this package
+ * does not depend on swing.
+ * 
+ * @author Ron Romero
+ * 
  */
 public class Parser implements ActionListener{
 

@@ -13,12 +13,12 @@ import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.ziroby.dmassist.parser.Parser;
+import com.ziroby.dmassist.parser.ParserListener;
 import com.ziroby.dmassist.ui.ResultsDisplay;
-import com.ziroby.parser.Parser;
-import com.ziroby.parser.ParserListener;
 
 /**
- * @author Ziroby
+ * @author Ron Romero
  *
  */
 public class ParserTest extends TestCase {

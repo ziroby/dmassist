@@ -25,7 +25,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 /**
- * @author Ziroby
+ * @author Ron Romero
  *
  */
 public class RemoveButton extends JButton implements ListSelectionListener {

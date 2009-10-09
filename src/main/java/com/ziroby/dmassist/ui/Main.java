@@ -22,7 +22,7 @@ package com.ziroby.dmassist.ui;
 import javax.swing.JFrame;
 
 /**
- * @author Ziroby
+ * @author Ron Romero
  *
  */
 public class Main {

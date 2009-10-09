@@ -5,7 +5,7 @@ import static org.junit.Assert.assertNotNull;
 
 import org.junit.Test;
 
-import com.ziroby.jamis.Npc;
+import com.ziroby.dmassist.jni.Npc;
 
 public class TestNpc
 {

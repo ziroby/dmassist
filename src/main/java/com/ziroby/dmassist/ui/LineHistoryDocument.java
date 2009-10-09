@@ -27,7 +27,7 @@ import javax.swing.text.Document;
 import javax.swing.text.PlainDocument;
 
 /**
- * @author Ziroby
+ * @author Ron Romero
  *
  */
 public class LineHistoryDocument extends PlainDocument implements Document {

@@ -34,7 +34,7 @@ import com.ziroby.dmassist.model.EntityList;
  * row's "turn".  OK, this is pretty code; it works for any type of renderer you
  * pass in and adds the highlight for that component.
  * 
- * @author Ziroby
+ * @author Ron Romero
  *
  */
 public class HighlightingTableCellRenderer

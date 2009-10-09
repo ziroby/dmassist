@@ -25,9 +25,9 @@ import junit.framework.TestCase;
 import org.junit.Test;
 
 import com.ziroby.dmassist.model.Entity;
-import com.ziroby.dmassist.model.ObjectEvent;
 import com.ziroby.dmassist.model.Entity.DamageType;
 import com.ziroby.util.Listener;
+import com.ziroby.util.ObjectEvent;
 
 public class EntityTest extends TestCase{
 

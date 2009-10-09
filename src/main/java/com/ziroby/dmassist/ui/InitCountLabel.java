@@ -26,11 +26,11 @@ import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 
 import com.ziroby.dmassist.model.EntityList;
-import com.ziroby.dmassist.model.ObjectEvent;
 import com.ziroby.util.Listener;
+import com.ziroby.util.ObjectEvent;
 
 /**
- * @author Ziroby
+ * @author Ron Romero
  *
  */
 public class InitCountLabel extends JLabel implements Listener {

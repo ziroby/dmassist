@@ -20,7 +20,7 @@
 package com.ziroby.dmassist.ui;
 
 /**
- * @author Ziroby
+ * @author Ron Romero
  *
  */
 public interface ResultsDisplay {

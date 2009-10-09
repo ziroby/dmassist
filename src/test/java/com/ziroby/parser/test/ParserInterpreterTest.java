@@ -14,16 +14,16 @@ import org.junit.Test;
 
 import com.ziroby.dmassist.model.Entity;
 import com.ziroby.dmassist.model.EntityList;
+import com.ziroby.dmassist.parser.Interpreter;
+import com.ziroby.dmassist.parser.Parser;
 import com.ziroby.dmassist.ui.ResultsDisplay;
-import com.ziroby.parser.Interpreter;
-import com.ziroby.parser.Parser;
 import com.ziroby.util.AbstractListenable;
 import com.ziroby.util.Listener;
 
 /**
  * Tests the parser and interpreter working together.
  * 
- * @author Ziroby
+ * @author Ron Romero
  *
  */
 public class ParserInterpreterTest extends TestCase {
