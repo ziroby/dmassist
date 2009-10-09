@@ -23,7 +23,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Collection;
 
-import com.ziroby.util.Listener;
+import com.ziroby.util.Listenable;
 
 /**
  * An abstract list of entities.  
@@ -31,7 +31,8 @@ import com.ziroby.util.Listener;
  * @author Ron "Ziroby" Romero
  *
  */
-public interface EntityList {
+public interface EntityList 
+    extends Listenable {
 
 	/**
 	 * Tells if it's this row's turn.  That is, is this row's initiative count
@@ -39,7 +40,9 @@ public interface EntityList {
 	 */
 	public boolean isMyTurn(int row);
 
-	public void addEntity(Entity entity);
+    public int getRowCount();
+    
+    public void addEntity(Entity entity);
 
 	public Integer getInitCount();
 
@@ -73,9 +76,6 @@ public interface EntityList {
 	 * @param file
 	 * @throws FileNotFoundException
 	 */
-	@SuppressWarnings("unchecked")
 	public void importFile(File file) throws FileNotFoundException;
-
-    public void addlistener(Listener listener);
 
 }

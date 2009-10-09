@@ -34,17 +34,6 @@ import com.ziroby.jamis.Npc;
  */
 public class Interpreter implements ParserListener{
 
-	private static final String HELP_TEXT = "<table>" +
-            "<tr><td>next</td>                                      <td>go to the next initiative count</td></tr>" +
-            "<tr><td>roll &lt;dice equation&gt;</td>                <td>roll the specified dice</td></tr>" +
-            "<tr><td>dmg &lt;abbrev&gt; &lt;dice equation&gt;</td>  <td>deal the specified damage</td></tr>" +
-            "<tr><td>sub &lt;abbrev&gt; &lt;dice equation&gt;</td>  <td>deal the specified subdual damage</td></tr>" +
-            "<tr><td>heal &lt;abbrev&gt; &lt;dice equation&gt;</td> <td>heal the specified amount of hitpoints</td></tr>" +
-            "<tr><td>set &lt;abbrev&gt; &lt;attributes&gt;</td>     <td>set attributes</td></tr>" +
-            "<tr><td>add &lt;abbrev&gt; &lt;attributes&gt;</td>     <td>add a new character or effect</td></tr>" +
-            "<tr><td>npc &lt;options&gt;</td>                       <td>generate an NPC</td></tr>" +
-            "<tr><td>help</td>                                      <td>this message</td></tr>" +
-            "</table>";
 	private EntityList dataModel;
 	private ResultsDisplay results;
 

@@ -27,15 +27,10 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
 import javax.swing.BorderFactory;
-import javax.swing.Box;
-import javax.swing.BoxLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
 
 import com.ziroby.dmassist.model.EntityList;
-import com.ziroby.dmassist.model.InitOrderDataModel;
 import com.ziroby.dmassist.model.ObjectEvent;
 import com.ziroby.util.Listener;
 
@@ -45,7 +40,7 @@ import com.ziroby.util.Listener;
  * @author rromero
  * 
  */
-public class TimeBox extends StatusBar implements TableModelListener, Listener
+public class TimeBox extends StatusBar implements Listener
 {
 
     private static final int BUTTON_FONT_SIZE = 12;
@@ -62,16 +57,16 @@ public class TimeBox extends StatusBar implements TableModelListener, Listener
 
     private JLabel rounds;
 
-    public TimeBox(InitOrderDataModel dataModel1)
+    public TimeBox(EntityList dataModel1)
     {
         this.dataModel = dataModel1;
 
-        setFont(new Font("Serif", Font.BOLD, 24));
+        setFont(new Font("Serif", Font.BOLD, 24)); //$NON-NLS-1$
 
         this.time = new JLabel();
         time.setBorder(BorderFactory.createEtchedBorder());
-        resetButton = new JButton("reset");
-        resetButton.setFont(new Font("Serif", Font.BOLD, BUTTON_FONT_SIZE));
+        resetButton = new JButton(Messages.getString("TimeBox.RESET")); //$NON-NLS-1$
+        resetButton.setFont(new Font("Serif", Font.BOLD, BUTTON_FONT_SIZE)); //$NON-NLS-1$
 //        resetButton.setAlignmentY(Component.TOP_ALIGNMENT);
         resetButton.setMnemonic(KeyEvent.VK_R);
         resetButton.addActionListener(new ActionListener() {
@@ -88,8 +83,8 @@ public class TimeBox extends StatusBar implements TableModelListener, Listener
                 insets.bottom / 3, insets.right / 3);
         resetButton.setMargin(newInsets);
         
-        nextButton = new JButton("next");
-        nextButton.setFont(new Font("Serif", Font.BOLD, BUTTON_FONT_SIZE));
+        nextButton = new JButton(Messages.getString("TimeBox.NEXT")); //$NON-NLS-1$
+        nextButton.setFont(new Font("Serif", Font.BOLD, BUTTON_FONT_SIZE)); //$NON-NLS-1$
         nextButton.setAlignmentY(Component.TOP_ALIGNMENT);
         nextButton.setMnemonic(KeyEvent.VK_N);
         nextButton.addActionListener(new ActionListener() {
@@ -104,13 +99,9 @@ public class TimeBox extends StatusBar implements TableModelListener, Listener
 //        buttonBox.add(nextButton);
 //        buttonBox.add(resetButton);
 
-        Box roundsBox = Box.createHorizontalBox();
         this.rounds = new JLabel();
         rounds.setBorder(BorderFactory.createEtchedBorder());
-        roundsBox.setAlignmentX(Component.RIGHT_ALIGNMENT);
         time.setAlignmentX(Component.RIGHT_ALIGNMENT);
-        roundsBox.add(new JLabel("r: "));
-        roundsBox.add(this.rounds);
 
 //        timeBox.add(time);
 //        timeBox.add(Box.createVerticalStrut(2));
@@ -126,7 +117,7 @@ public class TimeBox extends StatusBar implements TableModelListener, Listener
 
         display();
         this.lastCount = dataModel.getInitCount();
-        dataModel.addlistener(this);
+        dataModel.addListener(this);
 
     }
 
@@ -138,14 +129,14 @@ public class TimeBox extends StatusBar implements TableModelListener, Listener
         String s;
         if (hours == 0)
         {
-            s = String.format("%02d:%02d", minutes, seconds);
+            s = String.format("%02d:%02d", minutes, seconds); //$NON-NLS-1$
         }
         else
         {
-            s = String.format("%d:%02d:%02d", hours, minutes, seconds);
+            s = String.format("%02d:%02d:%02d", hours, minutes, seconds); //$NON-NLS-1$
         }
         time.setText(s);
-        rounds.setText("round " + numRounds);
+        rounds.setText(Messages.getString("TimeBox.ROUND") + numRounds); //$NON-NLS-1$
         
         nextButton.setEnabled(dataModel.getEntities().size() > 1);
         resetButton.setEnabled(numRounds != 0 || dataModel.getInitCount() != null);
@@ -160,10 +151,6 @@ public class TimeBox extends StatusBar implements TableModelListener, Listener
 
     private JButton nextButton;
 
-    public void tableChanged(TableModelEvent arg0) {
-        objectChanged(null);
-    }
-
     public void objectChanged(ObjectEvent event) {
         final Integer initCount = dataModel.getInitCount();
         if (lastCount != null && initCount != null && initCount > lastCount)
@@ -173,5 +160,4 @@ public class TimeBox extends StatusBar implements TableModelListener, Listener
         lastCount = initCount;
         display();
     }
-
 }

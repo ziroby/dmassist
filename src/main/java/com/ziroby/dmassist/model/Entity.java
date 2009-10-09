@@ -19,7 +19,6 @@
  */
 package com.ziroby.dmassist.model;
 
-import java.util.Arrays;
 import java.util.List;
 
 import com.ziroby.util.AbbrevUtil;
@@ -214,51 +213,6 @@ public class Entity extends AbstractListenable {
     }
 
     /**
-	 * Returns all the attributed (the entire "row") as a <code>List</code>.
-	 */
-	public List<Object> getEntireRow()
-	{
-		Object a[] = { false /* my turn */, this.abbreviation, this.name,
-                this.initRoll, this.hitpoints, this.subdual, this.roundsLeft };
-		
-		return Arrays.asList(a);
-	}
-
-	private final static String[] RowName = {" ", "##", "Name", "Init", "HP", "Sub", "Rnds"};
-    
-    
-    /** The number for the turn indicator column. */
-	public static final int COLUMN_NUMBER_MY_TURN = 0;
-    /** The number for the abbreviation column. */
-	public static final int COLUMN_NUMBER_NUM = 1; 
-    /** The number for the name column. */
-	public static final int COLUMN_NUMBER_NAME = 2; 
-    /** The number for the initiative count column. */
-	public static final int COLUMN_NUMBER_INIT = 3; 
-    /** The number for the hitpoint column. */
-	public static final int COLUMN_NUMBER_HP = 4; 
-    /** The number for the subdual damage column. */
-	public static final int COLUMN_NUMBER_SUBDUAL = 5;
-    /** The number for the number of rounds left column. */
-    public static final int COLUMN_NUMBER_ROUNDS = 6;
-	
-    /** Returns the human readable column heading for the given "column". */
-	public static String getColumnHeader(int column) {
-		return RowName[column];
-	}
-
-    /** The number of virtual columns. */
-	public static int getColumnCount() {
-		return RowName.length;
-	}
-
-    /** Returns the given virtual column. */
-	public Object getColumn(int col) {
-		// TODO Cache the row, so we're not regenerating it every time.
-		return getEntireRow().get(col);
-	}
-
-    /**
      * Sets the initiative count for the entity to the given string. If the
      * string is not a valid
      * {@link com.ziroby.dmassist.model.DiceEquation DiceEquation}, sets it to
@@ -288,41 +242,6 @@ public class Entity extends AbstractListenable {
 	public void setSubdual(String text) {
 		Integer n = StringUtil.tryParseInt(text);
 		setSubdual(n);
-	}
-
-    /**
-     * Sets the given virtual column.  Delegates to the correct setFoo() method.
-     * 
-     * @param columnIndex The index to set.
-     * @param value The value; must be of the appropriate type (usually
-     * String or Integer).
-     */
-	public void setColumn(int columnIndex, Object value) {
-		switch (columnIndex) {
-			case Entity.COLUMN_NUMBER_NAME:
-				setName((String) value);
-				break;
-			case Entity.COLUMN_NUMBER_NUM:
-				setAbbreviation((String) value);
-				break;
-			case Entity.COLUMN_NUMBER_HP:
-				setHitpoints((Integer) value);
-				break;
-			case Entity.COLUMN_NUMBER_INIT:
-				setInitRoll((Integer) value);
-				break;
-			case Entity.COLUMN_NUMBER_MY_TURN:
-				throw new IllegalArgumentException("Can not edit 'my turn' value");
-			case Entity.COLUMN_NUMBER_SUBDUAL:
-				setSubdual((Integer) value);
-				break;
-            case Entity.COLUMN_NUMBER_ROUNDS:
-                setRoundsLeft((Integer) value);
-                break;
-
-			default :
-				throw new IllegalArgumentException("Invalid column number: " + columnIndex);
-		}
 	}
 
 	/**

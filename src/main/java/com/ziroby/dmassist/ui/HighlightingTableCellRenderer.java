@@ -26,7 +26,6 @@ import java.awt.Font;
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
 
-import com.ziroby.dmassist.model.Entity;
 import com.ziroby.dmassist.model.EntityList;
 
 /**
@@ -67,14 +66,14 @@ public class HighlightingTableCellRenderer
 		}
 		
 		rendererComputer.setForeground(Color.BLACK);
-		if (modelColumn == Entity.COLUMN_NUMBER_SUBDUAL)
+		if (modelColumn == EntityDataModel.COLUMN_NUMBER_SUBDUAL)
 		{ 
 			if (dataModel.getEntity(modelRow).isSubdued())
 			{
 				addBlueFont(rendererComputer);
 			}
 		}
-		else if (modelColumn == Entity.COLUMN_NUMBER_HP)
+		else if (modelColumn == EntityDataModel.COLUMN_NUMBER_HP)
 		{
 			final Integer hitpoints = dataModel.getEntity(modelRow).getHitpoints();
             if (hitpoints != null && hitpoints <= 0)
@@ -82,7 +81,7 @@ public class HighlightingTableCellRenderer
 				addBlueFont(rendererComputer);
 			}
 		}
-        else if (modelColumn == Entity.COLUMN_NUMBER_ROUNDS)
+        else if (modelColumn == EntityDataModel.COLUMN_NUMBER_ROUNDS)
         {
             if (dataModel.getEntity(modelRow).isExpired(0))
             {

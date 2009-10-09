@@ -59,7 +59,6 @@ import javax.swing.table.TableColumn;
 import com.ziroby.dmassist.model.DiceEquation;
 import com.ziroby.dmassist.model.Entity;
 import com.ziroby.dmassist.model.EntityList;
-import com.ziroby.dmassist.model.InitOrderDataModel;
 import com.ziroby.dmassist.model.Entity.DamageType;
 import com.ziroby.parser.Interpreter;
 import com.ziroby.parser.Parser;
@@ -73,21 +72,38 @@ import com.ziroby.parser.Parser;
 public class InitOrderFrame extends JFrame 
 	implements ActionListener {
 
-	private static final long serialVersionUID = -833599596108997845L;
-	private InitOrderDataModel dataModel;
+	private static final String ACTION_EXIT = "exit";
+    private static final String ACTION_REMOVE = "remove";
+    private static final String ACTION_NEXT = "next";
+    private static final String ACTION_EFFECT = "effect";
+    private static final String ACTION_ADD = "add";
+    private static final String ACTION_ABOUT = "about";
+    private static final String ACTION_OGL_LICENSE = "ogllicense";
+    private static final String ACTION_LICENSE = "license";
+    private static final String ACTION_QUIT = "quit";
+    private static final String ACTION_IMPORT = "import";
+    private static final String ACTION_SAVE_AS = "saveas";
+    private static final String ACTION_LOAD = "load";
+    private static final String ACTION_CLEAR = "clear";
+    private static final String ACTION_RECOVER = "recover";
+    private static final String ACTION_SUBDUE = "subdue";
+    private static final String ACTION_HEAL = "heal";
+    private static final String ACTION_DAMAGE = "damage";
+    private static final long serialVersionUID = -833599596108997845L;
+	private EntityDataModel dataModel;
 	JTable table;
 	private Interpreter interpreter;
 	private Parser parser;
     JPopupMenu popup;
     private ResultsBox resultsBox;
-    private final static String ABOUT_FILENAME = "file:resources/about.html";
-    private final static String GPL_FILENAME = "file:resources/LICENSE.txt";
-    private final static String OGL_FILENAME = "file:resources/OGL.txt";
+    private final static String ABOUT_FILENAME = "file:resources/about.html"; //$NON-NLS-1$
+    private final static String GPL_FILENAME = "file:resources/LICENSE.txt"; //$NON-NLS-1$
+    private final static String OGL_FILENAME = "file:resources/OGL.txt"; //$NON-NLS-1$
 
 
     public InitOrderFrame() {
 	    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	    dataModel = new InitOrderDataModel();
+	    dataModel = new EntityDataModel();
 
 	    createMenus();
 	    
@@ -104,7 +120,7 @@ public class InitOrderFrame extends JFrame
 	    upperPane.setLayout(new GridBagLayout());
 	    lowerPane.setLayout(new GridBagLayout());
 	    
-	    JLabel title = new JLabel("<html><h1>DM&nbsp;Assist</h1></html>");
+	    JLabel title = new JLabel(Messages.getString("InitOrderFrame.heading")); //$NON-NLS-1$
 	    //title.setAlignmentX(Component.CENTER_ALIGNMENT);
         
 	    GridBagConstraints labelConstraints = new GridBagConstraints();
@@ -117,7 +133,7 @@ public class InitOrderFrame extends JFrame
 
 	    Box countBox = Box.createVerticalBox();
 	    
-	    JLabel label2 = new JLabel("Init Count");
+	    JLabel label2 = new JLabel(Messages.getString("InitOrderFrame.initCount")); //$NON-NLS-1$
 	    label2.setVerticalTextPosition(SwingConstants.BOTTOM);
 	    //label2.setHorizontalTextPosition(SwingConstants.LEFT);
 	    label2.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -141,10 +157,10 @@ public class InitOrderFrame extends JFrame
 		addSampleData(dataModel);
 
         popup = new JPopupMenu();
-        addMenuItem(popup, "Damage", KeyEvent.VK_D, "Damage");
-        addMenuItem(popup, "Heal", KeyEvent.VK_H, "Heal");
-        addMenuItem(popup, "Subdue", KeyEvent.VK_S, "Subdue");
-        addMenuItem(popup, "Recover", KeyEvent.VK_R, "Recover");
+        addMenuItem(popup, Messages.getString("InitOrderFrame.damage"), KeyEvent.VK_D, ACTION_DAMAGE); //$NON-NLS-1$ //$NON-NLS-2$
+        addMenuItem(popup, Messages.getString("InitOrderFrame.heal"), KeyEvent.VK_H, ACTION_HEAL); //$NON-NLS-1$ //$NON-NLS-2$
+        addMenuItem(popup, Messages.getString("InitOrderFrame.subdueLabel"), KeyEvent.VK_S, ACTION_SUBDUE); //$NON-NLS-1$ //$NON-NLS-2$
+        addMenuItem(popup, Messages.getString("InitOrderFrame.recoverLabel"), KeyEvent.VK_R, ACTION_RECOVER); //$NON-NLS-1$ //$NON-NLS-2$
         
         table = new JTable(dataModel);
 		table.setAutoCreateRowSorter(true);
@@ -186,29 +202,29 @@ public class InitOrderFrame extends JFrame
 	    
 	    Box box2 = new Box(BoxLayout.PAGE_AXIS);
 	        
-        JButton addButton = new JButton("Add");
+        JButton addButton = new JButton(Messages.getString("InitOrderFrame.addLabel")); //$NON-NLS-1$
         addButton.setMnemonic(KeyEvent.VK_A);
-        addButton.setActionCommand("Add");
+        addButton.setActionCommand("Add"); //$NON-NLS-1$
         addButton.addActionListener(this);
         box2.add(addButton);
 
-        JButton effectButton = new JButton("Effect");
+        JButton effectButton = new JButton(Messages.getString("InitOrderFrame.effectLabel")); //$NON-NLS-1$
         effectButton.setMnemonic(KeyEvent.VK_E);
-        effectButton.setActionCommand("effect");
+        effectButton.setActionCommand(ACTION_EFFECT); //$NON-NLS-1$
         effectButton.addActionListener(this);
         box2.add(Box.createVerticalStrut(10));
         box2.add(effectButton);
 
 	    JButton button2 = new RemoveButton(table);
 	    button2.setMnemonic(KeyEvent.VK_R);
-	    button2.setActionCommand("Remove");
+	    button2.setActionCommand(ACTION_REMOVE); //$NON-NLS-1$
 	    button2.addActionListener(this);
         box2.add(Box.createVerticalStrut(10));
 	    box2.add(button2);
 	    
 	    JButton nextButton = new NextButton(this.dataModel);
 	    nextButton.setMnemonic(KeyEvent.VK_N);
-	    nextButton.setActionCommand("Next");
+	    nextButton.setActionCommand(ACTION_NEXT); //$NON-NLS-1$
 	    nextButton.addActionListener(this);
 	    box2.add(Box.createVerticalStrut(10));
 	    box2.add(nextButton);
@@ -259,7 +275,7 @@ public class InitOrderFrame extends JFrame
 	        }
 	    });
 	    
-	    JLabel commandLabel = new JLabel("Command:");
+	    JLabel commandLabel = new JLabel(Messages.getString("InitOrderFrame.command")); //$NON-NLS-1$
 	    commandLabel.setDisplayedMnemonic(KeyEvent.VK_C);
 	    commandLabel.setLabelFor(commandLine);
 	    
@@ -281,7 +297,7 @@ public class InitOrderFrame extends JFrame
 	    splitPane.setBottomComponent(lowerPane);
 	    contentPane1.add(splitPane);
 	    
-	    this.setTitle("DM Assist");
+	    this.setTitle(Messages.getString("InitOrderFrame.title")); //$NON-NLS-1$
 	    
 	    this.pack();
 	}
@@ -290,27 +306,27 @@ public class InitOrderFrame extends JFrame
 		JMenuBar menubar = new JMenuBar();
 		
 		// File menu
-		JMenu fileMenu = new JMenu("File");
+		JMenu fileMenu = new JMenu(Messages.getString("InitOrderFrame.fileMenuName")); //$NON-NLS-1$
 		fileMenu.setMnemonic(KeyEvent.VK_F);
 		menubar.add(fileMenu);	
 
-		addMenuItem(fileMenu, "Clear", KeyEvent.VK_C, "Clear");
-		addMenuItem(fileMenu, "Load...", KeyEvent.VK_L, "load");
+		addMenuItem(fileMenu, Messages.getString("InitOrderFrame.clearMenuName"), KeyEvent.VK_C, ACTION_CLEAR); //$NON-NLS-1$ //$NON-NLS-2$
+		addMenuItem(fileMenu, Messages.getString("InitOrderFrame.loadMenu"), KeyEvent.VK_L, ACTION_LOAD); //$NON-NLS-1$ //$NON-NLS-2$
 //		addMenuItem(fileMenu, "Save", KeyEvent.VK_S, "save");
-        addMenuItem(fileMenu, "Save As...", KeyEvent.VK_A, "saveas");
+        addMenuItem(fileMenu, Messages.getString("InitOrderFrame.saveAsMenu"), KeyEvent.VK_A, ACTION_SAVE_AS); //$NON-NLS-1$ //$NON-NLS-2$
 		fileMenu.addSeparator();
-		addMenuItem(fileMenu, "Import...", KeyEvent.VK_I, "import");
+		addMenuItem(fileMenu, Messages.getString("InitOrderFrame.importMenu"), KeyEvent.VK_I, ACTION_IMPORT); //$NON-NLS-1$ //$NON-NLS-2$
 		fileMenu.addSeparator();
-		addMenuItem(fileMenu, "Quit", KeyEvent.VK_Q, "quit");
+		addMenuItem(fileMenu, Messages.getString("InitOrderFrame.QuitMenuOption"), KeyEvent.VK_Q, ACTION_QUIT); //$NON-NLS-1$ //$NON-NLS-2$
 		
 		//Help menu
-		JMenu helpMenu = new JMenu("Help");
+		JMenu helpMenu = new JMenu(Messages.getString("InitOrderFrame.helpMenuOption")); //$NON-NLS-1$
 		helpMenu.setMnemonic(KeyEvent.VK_H);
 		menubar.add(helpMenu);
 		
-        addMenuItem(helpMenu, "License...", KeyEvent.VK_L, "license");
-        addMenuItem(helpMenu, "Open Game License...", KeyEvent.VK_O, "ogllicense");
-		addMenuItem(helpMenu, "About DM Assist...", KeyEvent.VK_A, "About");
+        addMenuItem(helpMenu, Messages.getString("InitOrderFrame.licenseMenuOption"), KeyEvent.VK_L, ACTION_LICENSE); //$NON-NLS-1$ //$NON-NLS-2$
+        addMenuItem(helpMenu, Messages.getString("InitOrderFrame.OGLMenuOption"), KeyEvent.VK_O, ACTION_OGL_LICENSE); //$NON-NLS-1$ //$NON-NLS-2$
+		addMenuItem(helpMenu, Messages.getString("InitOrderFrame.aboutMenuOption"), KeyEvent.VK_A, ACTION_ABOUT); //$NON-NLS-1$ //$NON-NLS-2$
 		
 		setJMenuBar(menubar);
 	}
@@ -328,21 +344,21 @@ public class InitOrderFrame extends JFrame
 	 * @param table
 	 */
 	private static void setupTable(JTable table) {
-		final TableColumn numColumn = table.getColumnModel().getColumn(Entity.COLUMN_NUMBER_NUM);
+		final TableColumn numColumn = table.getColumnModel().getColumn(EntityDataModel.COLUMN_NUMBER_NUM);
 		smartResizeColumn(numColumn);
-		final TableColumn nameColumn = table.getColumnModel().getColumn(Entity.COLUMN_NUMBER_NAME);
+		final TableColumn nameColumn = table.getColumnModel().getColumn(EntityDataModel.COLUMN_NUMBER_NAME);
 		nameColumn.setMinWidth(75);
 		nameColumn.setPreferredWidth(300);
-		final TableColumn initColumn = table.getColumnModel().getColumn(Entity.COLUMN_NUMBER_INIT);
+		final TableColumn initColumn = table.getColumnModel().getColumn(EntityDataModel.COLUMN_NUMBER_INIT);
 		smartResizeColumn(initColumn);
 		initColumn.setMaxWidth(initColumn.getPreferredWidth());
-		final TableColumn hpColumn = table.getColumnModel().getColumn(Entity.COLUMN_NUMBER_HP);
+		final TableColumn hpColumn = table.getColumnModel().getColumn(EntityDataModel.COLUMN_NUMBER_HP);
 		smartResizeColumn(hpColumn);
-        final TableColumn subdualColumn = table.getColumnModel().getColumn(Entity.COLUMN_NUMBER_SUBDUAL);
+        final TableColumn subdualColumn = table.getColumnModel().getColumn(EntityDataModel.COLUMN_NUMBER_SUBDUAL);
         smartResizeColumn(subdualColumn);
-        final TableColumn roundsColumn = table.getColumnModel().getColumn(Entity.COLUMN_NUMBER_ROUNDS);
+        final TableColumn roundsColumn = table.getColumnModel().getColumn(EntityDataModel.COLUMN_NUMBER_ROUNDS);
         smartResizeColumn(roundsColumn);
-        final TableColumn myTurnColumn = table.getColumnModel().getColumn(Entity.COLUMN_NUMBER_MY_TURN);
+        final TableColumn myTurnColumn = table.getColumnModel().getColumn(EntityDataModel.COLUMN_NUMBER_MY_TURN);
         smartResizeColumn(myTurnColumn);
         myTurnColumn.setMaxWidth(initColumn.getMinWidth());
 		
@@ -368,29 +384,29 @@ public class InitOrderFrame extends JFrame
 
 	private static void addSampleData(EntityList dataModel) {
 		Entity row1 = new Entity();	
-		row1.setAbbreviation("O");
-		row1.setName("Ogre");
+		row1.setAbbreviation("O"); //$NON-NLS-1$
+		row1.setName("Ogre"); //$NON-NLS-1$
 		row1.setInitRoll(12);
 		row1.setHitpoints(25);
 		dataModel.addEntity(row1);
 
 		Entity row2 = new Entity();	
-		row2.setAbbreviation("G1");
-		row2.setName("Goblin 1");
+		row2.setAbbreviation("G1"); //$NON-NLS-1$
+		row2.setName("Goblin 1"); //$NON-NLS-1$
 		row2.setInitRoll(4);
 		row2.setHitpoints(8);
 		row2.setSubdual(3);
 		dataModel.addEntity(row2);
 
         Entity row4 = new Entity();
-        row4.setName("Melf's acid arrow");
+        row4.setName("Melf's acid arrow"); //$NON-NLS-1$
         row4.setInitRoll(4);
         row4.setRoundsLeft(3);
         dataModel.addEntity(row4);
         
 		Entity row3 = new Entity();	
-		row3.setAbbreviation("G2");
-		row3.setName("Goblin 2");
+		row3.setAbbreviation("G2"); //$NON-NLS-1$
+		row3.setName("Goblin 2"); //$NON-NLS-1$
 		row3.setInitRoll(15);
 		row3.setHitpoints(3);
 		dataModel.addEntity(row3);
@@ -398,61 +414,61 @@ public class InitOrderFrame extends JFrame
 
 	public void actionPerformed(ActionEvent e) {
         final String actionCommand = e.getActionCommand();
-        if ("add".equalsIgnoreCase(actionCommand))
+        if (ACTION_ADD.equalsIgnoreCase(actionCommand)) //$NON-NLS-1$
         {
             AddDialog addDialog = new AddDialog(this, this.dataModel, AddDialog.AddType.CREATURE);
             addDialog.setVisible(true);
         
         }
-        else if ("effect".equalsIgnoreCase(actionCommand))
+        else if (ACTION_EFFECT.equalsIgnoreCase(actionCommand)) //$NON-NLS-1$
         {
             AddDialog addDialog = new AddDialog(this, this.dataModel, AddDialog.AddType.EFFECT, this.dataModel.getInitCount());
             addDialog.setVisible(true);
         
         }
-        else if ("next".equalsIgnoreCase(actionCommand))
+        else if (ACTION_NEXT.equalsIgnoreCase(actionCommand)) //$NON-NLS-1$
         {
         	dataModel.gotoNextInitCount();
         }
-        else if ("remove".equalsIgnoreCase(actionCommand))
+        else if (ACTION_REMOVE.equalsIgnoreCase(actionCommand)) //$NON-NLS-1$
         {
         	removeSelected();
         }
-        else if ("quit".equalsIgnoreCase(actionCommand) ||
-                 "exit".equalsIgnoreCase(actionCommand))
+        else if (ACTION_QUIT.equalsIgnoreCase(actionCommand) || //$NON-NLS-1$
+                 ACTION_EXIT.equalsIgnoreCase(actionCommand)) //$NON-NLS-1$
         {
             this.setVisible(false);
             this.dispose();
         }
-        else if ("about".equalsIgnoreCase(actionCommand))
+        else if (ACTION_ABOUT.equalsIgnoreCase(actionCommand)) //$NON-NLS-1$
         {
             LicenseBox about = new LicenseBox (ABOUT_FILENAME);
             about.setVisible(true);
         }
-        else if ("license".equalsIgnoreCase(actionCommand))
+        else if (ACTION_LICENSE.equalsIgnoreCase(actionCommand)) //$NON-NLS-1$
         {
             JFrame license = new LicenseBox (GPL_FILENAME);
             license.setVisible(true);
         }
-        else if ("ogllicense".equalsIgnoreCase(actionCommand))
+        else if (ACTION_OGL_LICENSE.equalsIgnoreCase(actionCommand)) //$NON-NLS-1$
         {
             JFrame license = new LicenseBox (OGL_FILENAME);
             license.setVisible(true);
         }
-        else if ("import".equalsIgnoreCase(actionCommand))
+        else if (ACTION_IMPORT.equalsIgnoreCase(actionCommand)) //$NON-NLS-1$
         {
         	importFile();
         }
-        else if ("load".equalsIgnoreCase(actionCommand))
+        else if (ACTION_LOAD.equalsIgnoreCase(actionCommand)) //$NON-NLS-1$
         {
         	if (clear())
         		importFile();
         }
-        else if ("saveas".equalsIgnoreCase(actionCommand))
+        else if (ACTION_SAVE_AS.equalsIgnoreCase(actionCommand)) //$NON-NLS-1$
         {
         	saveAs();
         }
-        else if ("clear".equalsIgnoreCase(actionCommand))
+        else if (ACTION_CLEAR.equalsIgnoreCase(actionCommand)) //$NON-NLS-1$
         {
             clear();
         }
@@ -462,7 +478,7 @@ public class InitOrderFrame extends JFrame
         }
         else
         {
-        	JOptionPane.showMessageDialog(this, "Unknown action type: \"" + actionCommand + "\"" , "Internal Error", JOptionPane.ERROR_MESSAGE);
+        	JOptionPane.showMessageDialog(this, Messages.getString("InitOrderFrame.errorUnknownActionType") + actionCommand + Messages.getString("InitOrderFrame.60") , Messages.getString("InitOrderFrame.windowTitleInternalError"), JOptionPane.ERROR_MESSAGE); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
         }
 		
 	}
@@ -474,7 +490,7 @@ public class InitOrderFrame extends JFrame
 
         DamageType type = Entity.stringToDamageType(actionCommand);
         final String damageTypeString = Entity.damageTypeToString(type);
-        String message = damageTypeString + " " + entity.getName() + " by: ";
+        String message = damageTypeString + " " + entity.getName() + Messages.getString("InitOrderFrame.by"); //$NON-NLS-1$ //$NON-NLS-2$
         DiceEquation damage = null;
         do
         { 
@@ -487,7 +503,7 @@ public class InitOrderFrame extends JFrame
             }
             catch (IllegalArgumentException e)
             {
-                JOptionPane.showMessageDialog(this, "Invalid amount: " + e.getLocalizedMessage(), "Error",
+                JOptionPane.showMessageDialog(this, Messages.getString("InitOrderFrame.errorInvalidAmount") + e.getLocalizedMessage(), Messages.getString("InitOrderFrame.windowTitleError"), //$NON-NLS-1$ //$NON-NLS-2$
                         JOptionPane.ERROR_MESSAGE);
             }
 
@@ -503,15 +519,16 @@ public class InitOrderFrame extends JFrame
             if (damage != null)
             {
                 entity.damage(type, damage.value());
-                resultsBox.setResult("" + damage.value());
-                resultsBox.addLine(Entity.damageTypeToString(type) + " \""
-                        + entity.getName() + "\" by " + damage.toLongString());
+                resultsBox.setResult("" + damage.value()); //$NON-NLS-1$
+                resultsBox.addLine(Entity.damageTypeToString(type) + " \"" //$NON-NLS-1$
+                        + entity.getName() + "\"" + Messages.getString("InitOrderFrame.by") + damage.toLongString()); //$NON-NLS-1$
             }
 
         }
         catch (Exception except)
         {
-            JOptionPane.showMessageDialog(this, except.getMessage(), "Error",
+            JOptionPane.showMessageDialog(this, except.getMessage(), 
+                    Messages.getString("InitOrderFrame.windowTitleError"), //$NON-NLS-1$
                     JOptionPane.ERROR_MESSAGE);                
         }
     }
@@ -529,7 +546,8 @@ public class InitOrderFrame extends JFrame
 			try {
 				dataModel.save(file);
 			} catch (FileNotFoundException e1) {
-				JOptionPane.showMessageDialog(this, "Error", "File not found: " + e1.getLocalizedMessage(), 
+				JOptionPane.showMessageDialog(this, Messages.getString("InitOrderFrame.windowTitleError"), 
+				        Messages.getString("InitOrderFrame.errorFileNotFound") + e1.getLocalizedMessage(),  //$NON-NLS-1$ //$NON-NLS-2$
 						JOptionPane.ERROR_MESSAGE);
 				e1.printStackTrace();
 			}
@@ -541,7 +559,7 @@ public class InitOrderFrame extends JFrame
 	 */
 	private void importFile() {
 		JFileChooser chooser = new JFileChooser();
-		chooser.setDialogTitle("Import");			
+		chooser.setDialogTitle(Messages.getString("InitOrderFrame.windowTitleImport"));			 //$NON-NLS-1$
 		int retVal = chooser.showOpenDialog(this);
 		if (retVal == JFileChooser.APPROVE_OPTION)
 		{
@@ -549,7 +567,7 @@ public class InitOrderFrame extends JFrame
 			try {
 				dataModel.importFile(file);
 			} catch (FileNotFoundException e1) {
-				JOptionPane.showMessageDialog(this, "Error", "File not found: " + e1.getLocalizedMessage(), JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(this, Messages.getString("InitOrderFrame.windowTitleError"), Messages.getString("InitOrderFrame.errorFileNotFound") + e1.getLocalizedMessage(), JOptionPane.ERROR_MESSAGE); //$NON-NLS-1$ //$NON-NLS-2$
 				e1.printStackTrace();
 			}
 		}
@@ -559,8 +577,8 @@ public class InitOrderFrame extends JFrame
 	 * Erases all entries.  Asks for confirmation first.
 	 */
 	private boolean clear() {
-		int retVal = JOptionPane.showConfirmDialog(this, "This will delete the current entries.  Are you sure?", 
-				"Confirm", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+		int retVal = JOptionPane.showConfirmDialog(this, Messages.getString("InitOrderFrame.confirmDeleteAllEntries"),  //$NON-NLS-1$
+				Messages.getString("InitOrderFrame.windowTitleConfirm"), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE); //$NON-NLS-1$
 		if (retVal == JFileChooser.APPROVE_OPTION)
 		{
 			dataModel.clear();

@@ -45,19 +45,28 @@
     <url>http://dmassist.bzr.sourceforge.net/bzr/dmassist/trunk</url>
   </scm>
   <build>
-    <defaultGoal>integration-test</defaultGoal>
-    <plugins>
-      <plugin>
-	<artifactId>maven-jar-plugin</artifactId>
-	<configuration>
-          <archive>
-            <manifest>
-              <mainClass>com.ziroby.dmassist.ui.Main</mainClass>
-	      <addClasspath>true</addClasspath>
-            </manifest>
-          </archive>
-	</configuration>
-      </plugin>
+	<defaultGoal>integration-test</defaultGoal>
+	<resources>
+		<resource>
+			<filtering>false</filtering>
+			<directory>${basedir}/src/main/java</directory>
+			<includes>
+				<include>**/*.properties</include>
+			</includes>
+		</resource>
+	</resources>
+	<plugins>
+		<plugin>
+			<artifactId>maven-jar-plugin</artifactId>
+			<configuration>
+				<archive>
+					<manifest>
+						<mainClass>com.ziroby.dmassist.ui.Main</mainClass>
+						<addClasspath>true</addClasspath>
+					</manifest>
+				</archive>
+			</configuration>
+		</plugin>
       <plugin>
         <artifactId>maven-assembly-plugin</artifactId>
         <configuration>

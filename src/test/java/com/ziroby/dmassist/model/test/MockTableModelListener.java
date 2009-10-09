@@ -19,16 +19,16 @@
 */
 package com.ziroby.dmassist.model.test;
 
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
-
 import junit.framework.AssertionFailedError;
+
+import com.ziroby.dmassist.model.ObjectEvent;
+import com.ziroby.util.Listener;
 
 /**
  * @author Ziroby
  *
  */
-public class MockTableModelListener implements TableModelListener {
+public class MockTableModelListener implements Listener {
 
 	/**
 	 * Do we expect to get events sent to us?  Set to false when we're not supposed
@@ -41,10 +41,8 @@ public class MockTableModelListener implements TableModelListener {
 //		System.out.println("Mock listener creation.  Don't expect events");
 	}
 	
-	/**
-	 * @see javax.swing.event.TableModelListener#tableChanged(javax.swing.event.TableModelEvent)
-	 */
-	public void tableChanged(TableModelEvent arg0) {
+    @Override
+    public void objectChanged(ObjectEvent event) {
 		if (expectEvents < 1)
 		{
 			unexpectedEvent();
@@ -100,4 +98,5 @@ public class MockTableModelListener implements TableModelListener {
 //		System.out.println("ERROR: Did not get expected event");
 		throw new junit.framework.AssertionFailedError("Did not get expected event");
 	}
+
 }

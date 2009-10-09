@@ -25,12 +25,9 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Vector;
 
-import javax.swing.table.AbstractTableModel;
-
 import org.ho.yaml.Yaml;
 
-import com.ziroby.dmassist.model.ObjectEvent;
-import com.ziroby.util.DelegateListenable;
+import com.ziroby.util.AbstractListenable;
 import com.ziroby.util.Listener;
 
 /**
@@ -40,12 +37,12 @@ import com.ziroby.util.Listener;
  *
  * @todo Inherits from a Swing class.  We should break that link.
  */
-public class InitOrderDataModel extends AbstractTableModel
+public class EntityListImpl extends AbstractListenable
 		implements
 			Listener,
 			EntityList 
 {
-	private List<Entity> entities = new Vector<Entity>(getColumnCount());	
+	private List<Entity> entities = new Vector<Entity>();	
 	private Integer initCount = null;
 	/**
 	 * How deep in the call stack are we? This is used to make sure we only send
@@ -59,33 +56,9 @@ public class InitOrderDataModel extends AbstractTableModel
 	 */
 	private static final long serialVersionUID = 5503046605866805606L;
 
-	/**
-	 * @see javax.swing.table.TableModel#getColumnCount()
-	 */
-	public int getColumnCount() {
-		// TODO Auto-generated method stub
-		return Entity.getColumnCount();
-	}
-
-	/**
-	 * @see javax.swing.table.TableModel#getRowCount()
-	 */
 	public int getRowCount() {
 		// TODO Auto-generated method stub
 		return entities.size();
-	}
-
-	/**
-	 * @see javax.swing.table.TableModel#getValueAt(int, int)
-	 */
-	public Object getValueAt(int row, int col) {
-		if (col == Entity.COLUMN_NUMBER_MY_TURN)
-		{
-			return isMyTurn(row);
-		}
-		
-
-		return entities.get(row).getColumn(col);
 	}
 
 	/**
@@ -96,20 +69,6 @@ public class InitOrderDataModel extends AbstractTableModel
 		return initRoll != null && initRoll == this.initCount;
 	}
 
-	@Override
-	public String getColumnName(int column) {
-		return Entity.getColumnHeader(column);
-	}
-
-	@Override
-	public boolean isCellEditable(int rowIndex, int columnIndex) {
-		// TODO Auto-generated method stub
-		if (columnIndex == Entity.COLUMN_NUMBER_MY_TURN)
-			return false;
-
-		return true;
-	}
-	
 	/**
 	 * @see com.ziroby.dmassist.model.EntityList#addEntity(com.ziroby.dmassist.model.Entity)
 	 */
@@ -147,38 +106,6 @@ public class InitOrderDataModel extends AbstractTableModel
 		entity.sanitizeAbbrev(entities);
 	}
 
-
-	/**
-	 * @see javax.swing.table.AbstractTableModel#getColumnClass(int)
-	 */
-	@Override
-	public Class<?> getColumnClass(int columnIndex) {
-		switch (columnIndex) {
-			case Entity.COLUMN_NUMBER_NAME:
-			case Entity.COLUMN_NUMBER_NUM:
-				return String.class;
-			case Entity.COLUMN_NUMBER_HP:
-			case Entity.COLUMN_NUMBER_SUBDUAL:
-			case Entity.COLUMN_NUMBER_INIT:
-            case Entity.COLUMN_NUMBER_ROUNDS:
-				return Integer.class;
-			case Entity.COLUMN_NUMBER_MY_TURN:
-				return Boolean.class;				
-				
-			default:
-				return super.getColumnClass(columnIndex);
-		}
-		// TODO Auto-generated method stub
-	}
-
-	/**
-	 * @see javax.swing.table.AbstractTableModel#setValueAt(java.lang.Object, int, int)
-	 */
-	@Override
-	public void setValueAt(Object value, int rowIndex, int columnIndex) {
-		// TODO Auto-generated method stub
-		entities.get(rowIndex).setColumn(columnIndex, value);
-	}
 
 	/**
 	 * @see com.ziroby.dmassist.model.EntityList#getInitCount()
@@ -365,16 +292,4 @@ public class InitOrderDataModel extends AbstractTableModel
 		Collection<Entity> list = (Collection<Entity>) Yaml.load(file);
 		addEntities(list);
 	}
-
-    private DelegateListenable listenableImpl = new DelegateListenable();
-    
-    public void addlistener(Listener listener) {
-        listenableImpl.addListener(listener);
-    }
-
-    private void alertListeners() {
-        fireTableDataChanged();
-        listenableImpl.alertListeners();
-    }
-
 }

@@ -23,7 +23,6 @@ import javax.swing.JButton;
 import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 
-import com.ziroby.dmassist.model.InitOrderDataModel;
 
 /**
  * @author Ziroby
@@ -33,10 +32,10 @@ public class NextButton extends JButton implements TableModelListener {
 
 	private static final long serialVersionUID = -5233118550534354723L;
 	
-	private final InitOrderDataModel dataModel;
+	private final EntityDataModel dataModel;
 	
-	public NextButton(InitOrderDataModel dataModel) {
-		super("Next");
+	public NextButton(EntityDataModel dataModel) {
+		super(Messages.getString("NextButton.0")); //$NON-NLS-1$
 		this.dataModel = dataModel;
 		
 		dataModel.addTableModelListener(this);

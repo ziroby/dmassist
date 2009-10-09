@@ -45,11 +45,11 @@ import com.ziroby.dmassist.model.EntityList;
  */
 public class AddDialog extends JDialog implements ActionListener {
 
-    private static final String DIALOG_TITLE_CREATURE = "Add Creature";
-    private static final String DIALOG_TITLE_EFFECT = "Add Effect";
+    private static final String DIALOG_TITLE_CREATURE = Messages.getString("AddDialog.dialogTitleAddCreature"); //$NON-NLS-1$
+    private static final String DIALOG_TITLE_EFFECT = Messages.getString("AddDialog.dialogTitleAddEffect"); //$NON-NLS-1$
 
-    private static final String TITLE_TEXT_CREATURE = "<html><h3>Add a Creature</h3></html>";
-    private static final String TITLE_TEXT_EFFECT = "<html><h3>Add an Effect</h3></html>";
+    private static final String TITLE_TEXT_CREATURE = Messages.getString("AddDialog.HeadingAddCreature"); //$NON-NLS-1$
+    private static final String TITLE_TEXT_EFFECT = Messages.getString("AddDialog.HeadingAddEffect"); //$NON-NLS-1$
 
     enum AddType
     {
@@ -119,34 +119,34 @@ public class AddDialog extends JDialog implements ActionListener {
 		c0.insets = oldInsets;
 
         nameField = new JTextField();
-        addField(nameField, 30, "Name:", KeyEvent.VK_N);
+        addField(nameField, 30, Messages.getString("AddDialog.promptName"), KeyEvent.VK_N); //$NON-NLS-1$
 
         if (this.initCount == null)
 		{
             initRollField = new JTextField();
-            addField(initRollField, 4, "Initiative Roll:", KeyEvent.VK_I);
+            addField(initRollField, 4, Messages.getString("AddDialog.promptInitRoll"), KeyEvent.VK_I); //$NON-NLS-1$
 		}
 
         this.hpField = new JTextField();
-        addField(hpField, 4, "Hit Points:", KeyEvent.VK_H);
+        addField(hpField, 4, Messages.getString("AddDialog.promptHitPoints"), KeyEvent.VK_H); //$NON-NLS-1$
         abrevField = new JTextField();
-        addField(abrevField, 4, "Abreviation:", KeyEvent.VK_A);
+        addField(abrevField, 4, Messages.getString("AddDialog.promptsAbbrev"), KeyEvent.VK_A); //$NON-NLS-1$
 
         if (addType == AddType.EFFECT)
         {
             roundsField = new JTextField();
-            addField(roundsField, 4, "Rounds:", KeyEvent.VK_R);
+            addField(roundsField, 4, Messages.getString("AddDialog.promptRounds"), KeyEvent.VK_R); //$NON-NLS-1$
         }
         
         subdualField = new JTextField();
-        addField(subdualField, 4, "Subdual:", KeyEvent.VK_S);
+        addField(subdualField, 4, Messages.getString("AddDialog.promptSubdual"), KeyEvent.VK_S); //$NON-NLS-1$
 		
 		Box buttonBox = Box.createHorizontalBox();
-		JButton okButton = new JButton("OK");
-		okButton.setActionCommand("ok");
+		JButton okButton = new JButton(Messages.getString("AddDialog.buttonLabelOK")); //$NON-NLS-1$
+		okButton.setActionCommand("ok"); //$NON-NLS-1$
 		okButton.addActionListener(this);
-		JButton cancelButton = new JButton("Cancel");
-		cancelButton.setActionCommand("cancel");
+		JButton cancelButton = new JButton(Messages.getString("AddDialog.buttonLabelCancel")); //$NON-NLS-1$
+		cancelButton.setActionCommand("cancel"); //$NON-NLS-1$
 		cancelButton.addActionListener(this);
 
 		buttonBox.add(okButton);
@@ -179,7 +179,7 @@ public class AddDialog extends JDialog implements ActionListener {
     }
 
 	public void actionPerformed(ActionEvent e) {
-		if ("ok".equalsIgnoreCase(e.getActionCommand()))
+		if ("ok".equalsIgnoreCase(e.getActionCommand())) //$NON-NLS-1$
 		{
 			try
 			{
@@ -208,16 +208,16 @@ public class AddDialog extends JDialog implements ActionListener {
 			catch (RuntimeException exception)
 			{
 				exception.printStackTrace();
-				JOptionPane.showMessageDialog(this, exception.getMessage(), "Error in data", JOptionPane.ERROR_MESSAGE);
+				JOptionPane.showMessageDialog(this, exception.getMessage(), Messages.getString("AddDialog.windowTitleErrorInData"), JOptionPane.ERROR_MESSAGE); //$NON-NLS-1$
 			}
 		}
-		else if ("cancel".equalsIgnoreCase(e.getActionCommand()))
+		else if ("cancel".equalsIgnoreCase(e.getActionCommand())) //$NON-NLS-1$
 		{
 			dispose();
 		}
 		else
 		{
-			JOptionPane.showMessageDialog(this, "Unknown action type: \"" + e.getActionCommand() + "\"" , "Internal Error", JOptionPane.ERROR_MESSAGE);
+			JOptionPane.showMessageDialog(this, Messages.getString("AddDialog.errorUnknownActionType") + e.getActionCommand() + "\"" , Messages.getString("AddDialog.windowTitleInternalError"), JOptionPane.ERROR_MESSAGE); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
 		}		
 	}
 

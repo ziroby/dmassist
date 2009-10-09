@@ -35,7 +35,7 @@ public class RemoveButton extends JButton implements ListSelectionListener {
 	private final JTable table;
 	
 	public RemoveButton(JTable table) {
-		super("Remove");
+		super(Messages.getString("RemoveButton.0")); //$NON-NLS-1$
 	
 		this.table = table;
 		table.getSelectionModel().addListSelectionListener(this);

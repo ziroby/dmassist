@@ -24,31 +24,30 @@ import java.awt.Font;
 
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
-import javax.swing.event.TableModelEvent;
-import javax.swing.event.TableModelListener;
 
 import com.ziroby.dmassist.model.EntityList;
-import com.ziroby.dmassist.model.InitOrderDataModel;
+import com.ziroby.dmassist.model.ObjectEvent;
+import com.ziroby.util.Listener;
 
 /**
  * @author Ziroby
  *
  */
-public class InitCountLabel extends JLabel implements TableModelListener {
+public class InitCountLabel extends JLabel implements Listener {
 
 	EntityList dataModel;
 	
-	public InitCountLabel(InitOrderDataModel dataModel) {
+	public InitCountLabel(EntityList dataModel) {
 		this.dataModel = dataModel;
 		setFont(new Font("Serif", Font.BOLD, 24));
         setBorder(BorderFactory.createEtchedBorder());
         setAlignmentX(Component.CENTER_ALIGNMENT);
 		setText(" " + dataModel.getInitCount() + " ");
-		dataModel.addTableModelListener(this);
+		dataModel.addListener(this);
 	}
 
-
-	public void tableChanged(TableModelEvent e) {
+    @Override
+    public void objectChanged(ObjectEvent event) {
         
 		final Integer initCount = dataModel.getInitCount();
         if (initCount == null)
@@ -59,7 +58,7 @@ public class InitCountLabel extends JLabel implements TableModelListener {
         {
             setText(" " + initCount + " ");
         }
-}
+    }
 
 	private static final long serialVersionUID = -8007621851847525139L;
 }

@@ -318,7 +318,6 @@ public class DiceEquationTest extends TestCase {
 				"0d4+2",
 				"1d0+2",
 		};
-		@SuppressWarnings("unused")
 		DiceEquation eq;
 		for (String s : testString) {
 			try {

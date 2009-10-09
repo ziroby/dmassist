@@ -20,7 +20,7 @@
 
 package com.ziroby.jamis;
 
-import com.ziroby.dmassist.jni.NarSystem;
+//import com.ziroby.dmassist.jni.NarSystem;
 
 /**
  * @author rromero
@@ -94,7 +94,7 @@ public class Npc
     static {
         try
         {
-            NarSystem.loadLibrary();
+            System.loadLibrary("DMAssist");
             libraryLoaded = true;
         }
         catch (UnsatisfiedLinkError e)

@@ -17,6 +17,7 @@ import com.ziroby.dmassist.model.EntityList;
 import com.ziroby.dmassist.ui.ResultsDisplay;
 import com.ziroby.parser.Interpreter;
 import com.ziroby.parser.Parser;
+import com.ziroby.util.AbstractListenable;
 import com.ziroby.util.Listener;
 
 /**
@@ -27,7 +28,8 @@ import com.ziroby.util.Listener;
  */
 public class ParserInterpreterTest extends TestCase {
 
-	public static class MockDataModel implements EntityList {
+    public static class MockDataModel extends AbstractListenable implements
+            EntityList {
 
 		private Entity entity;
 
@@ -94,6 +96,12 @@ public class ParserInterpreterTest extends TestCase {
         public void addlistener(Listener listener) {
             // TODO Auto-generated method stub
             
+        }
+
+        @Override
+        public int getRowCount() {
+            // TODO Auto-generated method stub
+            return 0;
         }
 	}
 

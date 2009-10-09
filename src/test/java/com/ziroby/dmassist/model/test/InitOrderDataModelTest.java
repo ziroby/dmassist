@@ -26,7 +26,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.ziroby.dmassist.model.Entity;
-import com.ziroby.dmassist.model.InitOrderDataModel;
+import com.ziroby.dmassist.ui.EntityDataModel;
 
 /**
  * @author Ziroby
@@ -34,7 +34,7 @@ import com.ziroby.dmassist.model.InitOrderDataModel;
  */
 public class InitOrderDataModelTest extends TestCase {
 
-	private InitOrderDataModel dataModel;
+	private EntityDataModel dataModel;
 	private MockTableModelListener mockListener;
 
 
@@ -44,10 +44,10 @@ public class InitOrderDataModelTest extends TestCase {
 	@Override
 	@Before
 	public void setUp() throws Exception {
-		dataModel = new InitOrderDataModel();
+		dataModel = new EntityDataModel();
 		
 		mockListener = new MockTableModelListener();
-		dataModel.addTableModelListener(mockListener);
+		dataModel.addListener(mockListener);
 		assertEquals(0, dataModel.getRowCount());
 		
 	}
@@ -61,7 +61,7 @@ public class InitOrderDataModelTest extends TestCase {
 	}
 
 	/**
-	 * Test method for {@link com.ziroby.dmassist.model.InitOrderDataModel#gotoNextInitCount()}.
+	 * Test method for {@link com.ziroby.dmassist.model.EntityListImpl#gotoNextInitCount()}.
 	 */
 	@Test
 	public void testGotoNextInitCount() {
@@ -110,26 +110,26 @@ public class InitOrderDataModelTest extends TestCase {
 
 			mockListener.expectEvent();
 			dataModel.gotoNextInitCount();
-			assertEquals(false, dataModel.getValueAt(0, Entity.COLUMN_NUMBER_MY_TURN));
-			assertEquals(false, dataModel.getValueAt(1, Entity.COLUMN_NUMBER_MY_TURN));
-			assertEquals(false, dataModel.getValueAt(2, Entity.COLUMN_NUMBER_MY_TURN));
-			assertEquals(true, dataModel.getValueAt(3, Entity.COLUMN_NUMBER_MY_TURN));
+			assertEquals(false, dataModel.getValueAt(0, EntityDataModel.COLUMN_NUMBER_MY_TURN));
+			assertEquals(false, dataModel.getValueAt(1, EntityDataModel.COLUMN_NUMBER_MY_TURN));
+			assertEquals(false, dataModel.getValueAt(2, EntityDataModel.COLUMN_NUMBER_MY_TURN));
+			assertEquals(true, dataModel.getValueAt(3, EntityDataModel.COLUMN_NUMBER_MY_TURN));
 			mockListener.expectNoEvents();
 
 			mockListener.expectEvent();
 			dataModel.gotoNextInitCount();
-			assertEquals(true, dataModel.getValueAt(0, Entity.COLUMN_NUMBER_MY_TURN));
-			assertEquals(false, dataModel.getValueAt(1, Entity.COLUMN_NUMBER_MY_TURN));
-			assertEquals(true, dataModel.getValueAt(2, Entity.COLUMN_NUMBER_MY_TURN));
-			assertEquals(false, dataModel.getValueAt(3, Entity.COLUMN_NUMBER_MY_TURN));
+			assertEquals(true, dataModel.getValueAt(0, EntityDataModel.COLUMN_NUMBER_MY_TURN));
+			assertEquals(false, dataModel.getValueAt(1, EntityDataModel.COLUMN_NUMBER_MY_TURN));
+			assertEquals(true, dataModel.getValueAt(2, EntityDataModel.COLUMN_NUMBER_MY_TURN));
+			assertEquals(false, dataModel.getValueAt(3, EntityDataModel.COLUMN_NUMBER_MY_TURN));
 			mockListener.expectNoEvents();
 
 			mockListener.expectEvent();
 			dataModel.gotoNextInitCount();
-			assertEquals(false, dataModel.getValueAt(0, Entity.COLUMN_NUMBER_MY_TURN));
-			assertEquals(true, dataModel.getValueAt(1, Entity.COLUMN_NUMBER_MY_TURN));
-			assertEquals(false, dataModel.getValueAt(2, Entity.COLUMN_NUMBER_MY_TURN));
-			assertEquals(false, dataModel.getValueAt(3, Entity.COLUMN_NUMBER_MY_TURN));
+			assertEquals(false, dataModel.getValueAt(0, EntityDataModel.COLUMN_NUMBER_MY_TURN));
+			assertEquals(true, dataModel.getValueAt(1, EntityDataModel.COLUMN_NUMBER_MY_TURN));
+			assertEquals(false, dataModel.getValueAt(2, EntityDataModel.COLUMN_NUMBER_MY_TURN));
+			assertEquals(false, dataModel.getValueAt(3, EntityDataModel.COLUMN_NUMBER_MY_TURN));
 			mockListener.expectNoEvents();
 		}
 		mockListener.expectNoEvents();
@@ -137,7 +137,7 @@ public class InitOrderDataModelTest extends TestCase {
 	
 
 	/**
-	 * Test method for {@link com.ziroby.dmassist.model.InitOrderDataModel#gotoNextInitCount()}.
+	 * Test method for {@link com.ziroby.dmassist.model.EntityListImpl#gotoNextInitCount()}.
 	 */
 	@Test
 	public void testGotoNextInitCountEmptyTable() {
@@ -154,7 +154,7 @@ public class InitOrderDataModelTest extends TestCase {
 	}
 
 	/**
-	 * Test method for {@link com.ziroby.dmassist.model.InitOrderDataModel#gotoNextInitCount()}.
+	 * Test method for {@link com.ziroby.dmassist.model.EntityListImpl#gotoNextInitCount()}.
 	 */
 	@Test
 	public void testGotoNextInitCountFillThenEmptyTable() {
@@ -442,11 +442,11 @@ public class InitOrderDataModelTest extends TestCase {
 		mockListener.expectEvent();
 		dataModel.setInitCount(1);
 		mockListener.expectNoEvents();
-		assertEquals(false, dataModel.getValueAt(0, Entity.COLUMN_NUMBER_MY_TURN));
+		assertEquals(false, dataModel.getValueAt(0, EntityDataModel.COLUMN_NUMBER_MY_TURN));
 
 		mockListener.expectEvent();
 		dataModel.gotoNextInitCount();
-		assertEquals(false, dataModel.getValueAt(0, Entity.COLUMN_NUMBER_MY_TURN));
+		assertEquals(false, dataModel.getValueAt(0, EntityDataModel.COLUMN_NUMBER_MY_TURN));
 		assertEquals(null, dataModel.getInitCount());
 		mockListener.expectNoEvents();	
 	}	
@@ -875,7 +875,7 @@ public class InitOrderDataModelTest extends TestCase {
 		mockListener.expectNoEvents();
 		
 		mockListener.expectEvent();
-		dataModel.setValueAt(new Integer(7), 0, Entity.COLUMN_NUMBER_HP);
+		dataModel.setValueAt(new Integer(7), 0, EntityDataModel.COLUMN_NUMBER_HP);
 		mockListener.expectNoEvents();
 
 		{
@@ -888,7 +888,7 @@ public class InitOrderDataModelTest extends TestCase {
 		}
 
 		mockListener.expectNoEvents();
-		dataModel.setValueAt(new Integer(7), 0, Entity.COLUMN_NUMBER_HP);
+		dataModel.setValueAt(new Integer(7), 0, EntityDataModel.COLUMN_NUMBER_HP);
 		mockListener.expectNoEvents();
 
 
