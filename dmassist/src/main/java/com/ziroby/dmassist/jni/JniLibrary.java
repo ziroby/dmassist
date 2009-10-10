@@ -36,6 +36,18 @@ public class JniLibrary {
             libraryLoaded = false;
         }
     }
+    
+    /**
+     * Ensured that the library is loaded.  If not, throws the exception
+     * that was generated when the library was initially loaded.
+     */
+    protected static void checkLibraryLoaded()
+    {
+        if (!isLibraryLoaded())
+        {
+            throw exception;
+        }
+    }
 
     /**
      * If we failed loading the library, gives the exception thrown.

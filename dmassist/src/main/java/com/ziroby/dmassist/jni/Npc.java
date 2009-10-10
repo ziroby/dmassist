@@ -48,14 +48,9 @@ public class Npc extends JniLibrary
      */
     public static String gen()
     {
-        if (isLibraryLoaded())
-        {
-            return doMarkup(gen1());
-        }
-        else
-        {
-            throw exception;
-        }
+        checkLibraryLoaded();
+        
+        return doMarkup(gen1());
     }
 
     /**
@@ -73,14 +68,9 @@ public class Npc extends JniLibrary
      */
     public static String gen(String[] params)
     {
-        if (isLibraryLoaded())
-        {
-            return doMarkup(gen2(params));
-        }
-        else
-        {
-            throw exception;
-        }
+        checkLibraryLoaded();
+        
+        return doMarkup(gen2(params));
     }
 
     /**
@@ -97,15 +87,10 @@ public class Npc extends JniLibrary
      */
     public static String gen(String commandLine)
     {
-        if (isLibraryLoaded())
-        {
-            String[] params = commandLine.split("\\s");
-            return doMarkup(gen2(params));
-        }
-        else
-        {
-            throw exception;
-        }        
+        checkLibraryLoaded();
+        
+        String[] params = commandLine.split("\\s");
+        return doMarkup(gen2(params));
     }
     /**
      * Does the markup modifications for the given string, which should be
