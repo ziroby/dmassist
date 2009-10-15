@@ -1,7 +1,0 @@
-[races]
-[classes]
-inhabitants of [localareas]
-inhabitants of [areas]
-[monsters]
-followers of [churches]
-local brigands

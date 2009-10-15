@@ -26,7 +26,6 @@ import com.ziroby.dmassist.model.Entity;
 import com.ziroby.dmassist.model.Entity.DamageType;
 import com.ziroby.dmassist.model.EntityList;
 import com.ziroby.dmassist.ui.ResultsDisplay;
-import com.ziroby.dmassist.jni.Npc;
 
 /**
  * Acts on the commands of the user. The Parser has parsed the user's input and
@@ -42,7 +41,17 @@ import com.ziroby.dmassist.jni.Npc;
  */
 public class Interpreter implements ParserListener{
 
-	private EntityList dataModel;
+    private static final String HELP_TEXT = "<table>" +
+        "<tr><td>next</td>                                      <td>go to the next initiative count</td></tr>" +
+        "<tr><td>roll &lt;dice equation&gt;</td>                <td>roll the specified dice</td></tr>" +
+        "<tr><td>dmg &lt;abbrev&gt; &lt;dice equation&gt;</td>  <td>deal the specified damage</td></tr>" +
+        "<tr><td>sub &lt;abbrev&gt; &lt;dice equation&gt;</td>  <td>deal the specified subdual damage</td></tr>" +
+        "<tr><td>heal &lt;abbrev&gt; &lt;dice equation&gt;</td> <td>heal the specified amount of hitpoints</td></tr>" +
+        "<tr><td>set &lt;abbrev&gt; &lt;attributes&gt;</td>     <td>set attributes</td></tr>" +
+        "<tr><td>add &lt;abbrev&gt; &lt;attributes&gt;</td>     <td>add a new character or effect</td></tr>" +
+        "<tr><td>help</td>                                      <td>this message</td></tr>" +
+        "</table>";
+    private EntityList dataModel;
 	private ResultsDisplay results;
 
 	public Interpreter(EntityList dataModel, ResultsDisplay results) {
@@ -85,24 +94,8 @@ public class Interpreter implements ParserListener{
             {
                 add(command, attributes);
             }
-            else if ("npc".equalsIgnoreCase(command))
-            {
-                if (!Npc.isLibraryLoaded())
-                {
-                    printError("NPC library not loaded: " + Npc.getException().getLocalizedMessage());
-                }
-                else
-                {
-                    try
-                    {
-                        String s = Npc.gen(fullLine);
-                        results.addLine(s);
-                    }
-                    catch (Exception e)
-                    {
-                        printError("Exception while generating NPC: " + e.getLocalizedMessage());
-                    }
-                }
+            else if ("help".equalsIgnoreCase(command)) {
+                results.addLine(HELP_TEXT);
             }
             else if ("quit".equalsIgnoreCase(command) ||
                     "exit".equalsIgnoreCase(command))
