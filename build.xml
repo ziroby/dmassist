@@ -1,131 +1,134 @@
 <project name="DMAssist" basedir="." default="all">
 
-    <property name="src.java.dir"  value="src"/>
-    <property name="src.c.dir"     value="csrc"/>
-    <property name="src.resources.dir"     value="resources"/>
+	<property name="src.java.dir"  value="src"/>
+	<property name="src.c.dir"     value="csrc"/>
+	<property name="src.resources.dir"     value="resources"/>
 
-    <property name="build.dir"   value="build"/>
-    <property name="classes.dir" value="${build.dir}/classes"/>
-    <property name="build.resources.dir" value="${classes.dir}/resources"/>
-    <property name="build.docs.dir" value="${build.dir}/javadocs"/>
-    <property name="build.lib.dir" value="${build.dir}/lib"/>
-    <property name="jar.dir"     value="${build.dir}/jar"/>
-    <property name="obj.dir"     value="${build.dir}/obj"/>
-    <property name="lib.dir"     value="3rdparty"/>
-    <property name="report.dir"  value="${build.dir}/testreport"/>
+	<property name="build.dir"   value="build"/>
+	<property name="classes.dir" value="${build.dir}/classes"/>
+	<property name="build.resources.dir" value="${classes.dir}/resources"/>
+	<property name="build.docs.dir" value="${build.dir}/javadocs"/>
+	<property name="build.lib.dir" value="${build.dir}/lib"/>
+	<property name="jar.dir"     value="${build.dir}/jar"/>
+	<property name="obj.dir"     value="${build.dir}/obj"/>
+	<property name="lib.dir"     value="3rdparty"/>
+	<property name="report.dir"  value="${build.dir}/testreport"/>
 
-    <property name="main-class"  value="com.ziroby.dmassist.ui.Main"/>
+	<property name="main-class"  value="com.ziroby.dmassist.ui.Main"/>
 
-    <path id="classpath">
-        <fileset dir="${lib.dir}" includes="**/*.jar"/>
-    </path>
-	
-    <path id="application" location="${jar.dir}/${ant.project.name}.jar"/>
+	<path id="classpath">
+		<fileset dir="${lib.dir}" includes="**/*.jar"/>
+	</path>
 
-    <target name="setup">
-        <mkdir dir="${classes.dir}"/>
-        <mkdir dir="${build.resources.dir}"/>
-        <mkdir dir="${jar.dir}"/>
-        <mkdir dir="${obj.dir}"/>
-        <mkdir dir="${report.dir}"/>
-    </target>
-	
-    <target name="clean" description="--> Deletes all generated file">
-        <delete dir="${build.dir}"/>
-    </target>
-    
-    <target name="compile-java" depends="setup">
-        <javac srcdir="${src.java.dir}" destdir="${classes.dir}"  classpathref="classpath"/>
-        <copy todir="${classes.dir}">
-            <fileset dir="${src.java.dir}" excludes="**/*.java"/>
-        </copy>
-    </target>
+	<path id="application" location="${jar.dir}/${ant.project.name}.jar"/>
+
+	<target name="setup">
+		<mkdir dir="${classes.dir}"/>
+		<mkdir dir="${build.resources.dir}"/>
+		<mkdir dir="${jar.dir}"/>
+		<mkdir dir="${obj.dir}"/>
+		<mkdir dir="${report.dir}"/>
+	</target>
+
+	<target name="clean" description="--> Deletes all generated file">
+		<delete dir="${build.dir}"/>
+	</target>
+
+	<target name="compile-java" depends="setup">
+		<javac srcdir="${src.java.dir}" destdir="${classes.dir}"  classpathref="classpath"/>
+		<copy todir="${classes.dir}">
+			<fileset dir="${src.java.dir}" excludes="**/*.java"/>
+		</copy>
+	</target>
 
 	<!-- ================================= 
           target: package              
          ================================= -->
-    <target name="package" depends="jar,zip" description="--> Creates final packages">        
-    </target>
+	<target name="package" depends="jar,zip" description="--> Creates final packages">
+	</target>
 
-	
-    <target name="jar" depends="compile-java,resources">
-        <jar destfile="${jar.dir}/${ant.project.name}.jar" basedir="${classes.dir}">
-            <manifest>
-                <attribute name="Main-Class" value="${main-class}"/>
-                <attribute name="SplashScreen-Image" value="resources/splash.png"/>
-            </manifest>
-        </jar>
-    </target>
-    
-    <!-- ================================= 
+
+	<target name="jar" depends="compile-java,resources">
+		<jar destfile="${jar.dir}/${ant.project.name}.jar">
+			<fileset dir="${classes.dir}"/>
+			<fileset dir="${src.java.dir}" />
+			<manifest>
+				<attribute name="Main-Class" value="${main-class}" />
+				<attribute name="SplashScreen-Image" value="resources/splash.png" />
+				<attribute name="Class-Path" value="jyaml-1.3.jar" />
+			</manifest>
+		</jar>
+	</target>
+
+	<!-- ================================= 
           target: resources              
          ================================= -->
-    <target name="resources" depends="" description="--> Copies resources into place">
-        <copy todir="${classes.dir}">
+	<target name="resources" depends="" description="--> Copies resources into place">
+		<!-- <copy todir="${classes.dir}">
             <fileset dir="${src.java.dir}">
                 <exclude name="**/*.java"/>
        	    </fileset>
-        </copy>
-        <copy todir="${build.resources.dir}">
-            <fileset dir="${src.resources.dir}">
-       	    </fileset>
-        </copy>
-    </target>
+        </copy> -->
+		<copy todir="${build.resources.dir}">
+			<fileset dir="${src.resources.dir}">
+			</fileset>
+		</copy>
+	</target>
 
-    <target name="zip" depends="jar">
-        <zip destfile="${build.dir}/${ant.project.name}.zip">
-    		<fileset file="3rdparty/jyaml-1.3.jar"/>
-            <path refid="application"/>
-        	<zipfileset file="${src.resources.dir}/dmassist" filemode="755"/>
-        	<zipfileset file="${src.resources.dir}/dmassist.bat" filemode="755"/>
-        	<zipfileset dir="${src.resources.dir}" includes="*.txt,*.html" 
+	<target name="zip" depends="jar">
+		<zip destfile="${build.dir}/${ant.project.name}.zip">
+			<fileset file="3rdparty/jyaml-1.3.jar"/>
+			<path refid="application"/>
+			<zipfileset file="${src.resources.dir}/dmassist" filemode="755"/>
+			<zipfileset file="${src.resources.dir}/dmassist.bat" filemode="755"/>
+			<zipfileset dir="${src.resources.dir}" includes="*.txt,*.html" 
         			    prefix="resources" />
-   		</zip>
-    </target>
+		</zip>
+	</target>
 
-	
-    <target name="run" depends="build" description="--> Runs the app">
-        <java fork="true" classname="${main-class}">
-            <classpath>
-                <path refid="classpath"/>
-                <path refid="application"/>
-            </classpath>
-        	<jvmarg value="-Djava.library.path=build"/>
-        </java>
-    </target>
 
-    <target name="test" depends="junit" description="--> Runs all tests"/>
+	<target name="run" depends="build" description="--> Runs the app">
+		<java fork="true" classname="${main-class}">
+			<classpath>
+				<path refid="classpath"/>
+				<path refid="application"/>
+			</classpath>
+			<jvmarg value="-Djava.library.path=build"/>
+		</java>
+	</target>
 
-    <target name="junit" depends="package">
-         <junit printsummary="yes">
-            <classpath>
-                <path refid="classpath"/>
-                <path refid="application"/>
-            </classpath>
-            
-            <formatter type="xml"/>
+	<target name="test" depends="junit" description="--> Runs all tests"/>
 
-            <batchtest fork="yes" todir="${report.dir}">
-                <fileset dir="${src.java.dir}" includes="**/*Test.java"/>
-            </batchtest>
-        </junit>
-    </target>
-    
-    <target name="testreport" depends="junitreport" description="--> Runs tests &amp; creates an HTML report"/>
+	<target name="junit" depends="package">
+		<junit printsummary="yes">
+			<classpath>
+				<path refid="classpath"/>
+				<path refid="application"/>
+			</classpath>
 
-    <target name="junitreport" depends="junit">
-        <junitreport>
-            <fileset dir="${report.dir}" includes="TEST-*.xml"/>
-            <report todir="${report.dir}"/>
-        </junitreport>
-    </target>
+			<formatter type="xml"/>
 
-    <target name="build" depends="package,junit" description="--> Builds everything"/>
+			<batchtest fork="yes" todir="${report.dir}">
+				<fileset dir="${src.java.dir}" includes="**/*Test.java"/>
+			</batchtest>
+		</junit>
+	</target>
 
-    <target name="rebuild" depends="clean,build" description="--> Cleans &amp; builds"/>
+	<target name="testreport" depends="junitreport" description="--> Runs tests &amp; creates an HTML report"/>
+
+	<target name="junitreport" depends="junit">
+		<junitreport>
+			<fileset dir="${report.dir}" includes="TEST-*.xml"/>
+			<report todir="${report.dir}"/>
+		</junitreport>
+	</target>
+
+	<target name="build" depends="package,junit" description="--> Builds everything"/>
+
+	<target name="rebuild" depends="clean,build" description="--> Cleans &amp; builds"/>
 
 	<target name="javadoc" description="--> Create documentation">
-	 <javadoc
+		<javadoc
 	           destdir="${build.docs.dir}"
 	           author="true"
 	           version="true"
@@ -133,37 +136,37 @@
 	 		   classpathref="classpath"
 	           windowtitle="DM Assist API">
 
-	 	
-	 	
-	    <packageset dir="${src.java.dir}" defaultexcludes="yes">
-	    	<include name="com/ziroby/**"/>
-		    <exclude name="**/*Test.java"/>
-		    <exclude name="**/*Tests.java"/>
-	    </packageset>
 
-	    <doctitle><![CDATA[<h1>DM Assist</h1>]]></doctitle>
-	    <bottom><![CDATA[<i>Copyright &#169; 2009 Ron Romero. All Rights Reserved.</i>]]></bottom>
-	    <tag name="todo" scope="all" description="To do:"/>
-<!--	    <group title="Group 1 Packages" packages="com.dummy.test.a*"/>
+
+			<packageset dir="${src.java.dir}" defaultexcludes="yes">
+				<include name="com/ziroby/**"/>
+				<exclude name="**/*Test.java"/>
+				<exclude name="**/*Tests.java"/>
+			</packageset>
+
+			<doctitle><![CDATA[<h1>DM Assist</h1>]]></doctitle>
+		<bottom><![CDATA[<i>Copyright &#169; 2009 Ron Romero. All Rights Reserved.</i>]]></bottom>
+	<tag name="todo" scope="all" description="To do:"/>
+	<!--	    <group title="Group 1 Packages" packages="com.dummy.test.a*"/>
 	    <group title="Group 2 Packages" packages="com.dummy.test.b*:com.dummy.test.c*"/>
 	    <link offline="true" href="http://java.sun.com/j2se/1.5.0/docs/api/" packagelistLoc="C:\tmp"/>
 	    <link href="http://developer.java.sun.com/developer/products/xml/docs/api/"/>
 -->
-	 </javadoc>	
-		</target>
+</javadoc>
+</target>
 
-	<!-- ================================= 
+<!-- ================================= 
           target: javah              
          ================================= -->
-    <target name="javah" depends="package" description="--> Creates header files for JNI methods">
-		<javah class="com.ziroby.jamis.Npc" destdir="${src.c.dir}/jni" 
-			classpath="${jar.dir}/${ant.project.name}.jar" verbose="no"/>        
-    </target>
+<target name="javah" depends="package" description="--> Creates header files for JNI methods">
+<javah class="com.ziroby.jamis.Npc" destdir="${src.c.dir}/jni" 
+			classpath="${jar.dir}/${ant.project.name}.jar" verbose="no"/>
+</target>
 
-	
-	<!-- ================================= 
+
+<!-- ================================= 
           target: all              
          ================================= -->
-    <target name="all" depends="build,testreport,javadoc" description="--> Does it all"/>
-	
+<target name="all" depends="build,testreport,javadoc" description="--> Does it all"/>
+
 </project>

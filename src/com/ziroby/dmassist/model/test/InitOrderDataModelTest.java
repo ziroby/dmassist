@@ -19,6 +19,9 @@
  */
 package com.ziroby.dmassist.model.test;
 
+import java.io.File;
+import java.io.IOException;
+
 import junit.framework.TestCase;
 
 import org.junit.After;
@@ -65,7 +68,43 @@ public class InitOrderDataModelTest extends TestCase {
 	 */
 	@Test
 	public void testGotoNextInitCount() {
-		Entity row1 = new Entity();
+		fillTable();
+		
+		for (int i = 0; i < 10; ++i)
+		{
+			mockListener.expectEvent();
+			dataModel.setInitCount(1);
+			mockListener.expectNoEvents();
+
+			mockListener.expectEvent();
+			dataModel.gotoNextInitCount();
+			assertEquals(false, dataModel.getValueAt(0, EntityDataModel.COLUMN_NUMBER_MY_TURN));
+			assertEquals(false, dataModel.getValueAt(1, EntityDataModel.COLUMN_NUMBER_MY_TURN));
+			assertEquals(false, dataModel.getValueAt(2, EntityDataModel.COLUMN_NUMBER_MY_TURN));
+			assertEquals(true, dataModel.getValueAt(3, EntityDataModel.COLUMN_NUMBER_MY_TURN));
+			mockListener.expectNoEvents();
+
+			mockListener.expectEvent();
+			dataModel.gotoNextInitCount();
+			assertEquals(true, dataModel.getValueAt(0, EntityDataModel.COLUMN_NUMBER_MY_TURN));
+			assertEquals(false, dataModel.getValueAt(1, EntityDataModel.COLUMN_NUMBER_MY_TURN));
+			assertEquals(true, dataModel.getValueAt(2, EntityDataModel.COLUMN_NUMBER_MY_TURN));
+			assertEquals(false, dataModel.getValueAt(3, EntityDataModel.COLUMN_NUMBER_MY_TURN));
+			mockListener.expectNoEvents();
+
+			mockListener.expectEvent();
+			dataModel.gotoNextInitCount();
+			assertEquals(false, dataModel.getValueAt(0, EntityDataModel.COLUMN_NUMBER_MY_TURN));
+			assertEquals(true, dataModel.getValueAt(1, EntityDataModel.COLUMN_NUMBER_MY_TURN));
+			assertEquals(false, dataModel.getValueAt(2, EntityDataModel.COLUMN_NUMBER_MY_TURN));
+			assertEquals(false, dataModel.getValueAt(3, EntityDataModel.COLUMN_NUMBER_MY_TURN));
+			mockListener.expectNoEvents();
+		}
+		mockListener.expectNoEvents();
+	}
+
+    private void fillTable() {
+        Entity row1 = new Entity();
 		row1.setAbbreviation("G");
 		row1.setName("Ogre 1");
 		row1.setInitRoll(12);
@@ -101,39 +140,7 @@ public class InitOrderDataModelTest extends TestCase {
 		mockListener.expectEvent();
 		dataModel.addEntity(row4);
 		mockListener.expectNoEvents();
-		
-		for (int i = 0; i < 10; ++i)
-		{
-			mockListener.expectEvent();
-			dataModel.setInitCount(1);
-			mockListener.expectNoEvents();
-
-			mockListener.expectEvent();
-			dataModel.gotoNextInitCount();
-			assertEquals(false, dataModel.getValueAt(0, EntityDataModel.COLUMN_NUMBER_MY_TURN));
-			assertEquals(false, dataModel.getValueAt(1, EntityDataModel.COLUMN_NUMBER_MY_TURN));
-			assertEquals(false, dataModel.getValueAt(2, EntityDataModel.COLUMN_NUMBER_MY_TURN));
-			assertEquals(true, dataModel.getValueAt(3, EntityDataModel.COLUMN_NUMBER_MY_TURN));
-			mockListener.expectNoEvents();
-
-			mockListener.expectEvent();
-			dataModel.gotoNextInitCount();
-			assertEquals(true, dataModel.getValueAt(0, EntityDataModel.COLUMN_NUMBER_MY_TURN));
-			assertEquals(false, dataModel.getValueAt(1, EntityDataModel.COLUMN_NUMBER_MY_TURN));
-			assertEquals(true, dataModel.getValueAt(2, EntityDataModel.COLUMN_NUMBER_MY_TURN));
-			assertEquals(false, dataModel.getValueAt(3, EntityDataModel.COLUMN_NUMBER_MY_TURN));
-			mockListener.expectNoEvents();
-
-			mockListener.expectEvent();
-			dataModel.gotoNextInitCount();
-			assertEquals(false, dataModel.getValueAt(0, EntityDataModel.COLUMN_NUMBER_MY_TURN));
-			assertEquals(true, dataModel.getValueAt(1, EntityDataModel.COLUMN_NUMBER_MY_TURN));
-			assertEquals(false, dataModel.getValueAt(2, EntityDataModel.COLUMN_NUMBER_MY_TURN));
-			assertEquals(false, dataModel.getValueAt(3, EntityDataModel.COLUMN_NUMBER_MY_TURN));
-			mockListener.expectNoEvents();
-		}
-		mockListener.expectNoEvents();
-	}
+    }
 	
 
 	/**
@@ -982,6 +989,33 @@ public class InitOrderDataModelTest extends TestCase {
 		mockListener.expectNoEvents();
 	}
 
+	@Test
+    public final void testClear() {
+	    fillTable();
+	    
+        assertEquals(4, dataModel.getRowCount());
+	    mockListener.expectEvent();
+        dataModel.clear();
+        assertEquals(0, dataModel.getRowCount());
+        mockListener.expectNoEvents();
+        dataModel.clear();
+        assertEquals(0, dataModel.getRowCount());
+    }
+	
+	@Test
+	public final void testImportExport() throws IOException {
+	    fillTable();
+        assertEquals(4, dataModel.getRowCount());
+	    File tmpfile = File.createTempFile("dmassist-test-1", null);
+	    mockListener.expectNoEvents();
+	    dataModel.save(tmpfile);
+	    mockListener.expectEvent();
+	    dataModel.clear();
+        assertEquals(0, dataModel.getRowCount());
+	    mockListener.expectEvent();
+	    dataModel.importFile(tmpfile);
+        assertEquals(4, dataModel.getRowCount());
+	}
 }
 
 

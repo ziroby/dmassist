@@ -265,6 +265,7 @@ public class EntityListImpl extends AbstractListenable
 		{
 			addEntity(entity);
 		}		
+		leavePublicMethod();
 	}
 
 	/**
@@ -272,8 +273,10 @@ public class EntityListImpl extends AbstractListenable
 	 */
 	public void clear() {
 		enterPublicMethod();
-		remove(0);
-		entities.clear();
+		if (entities.size() > 0) {
+		    entities.clear();
+		    dirty = true;
+		}
 		leavePublicMethod();
 	}
 
@@ -292,5 +295,6 @@ public class EntityListImpl extends AbstractListenable
 		enterPublicMethod();
 		Collection<Entity> list = (Collection<Entity>) Yaml.load(file);
 		addEntities(list);
+        leavePublicMethod();
 	}
 }
