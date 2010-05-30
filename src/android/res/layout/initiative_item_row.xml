@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="fill_parent"
+	android:layout_height="fill_parent" android:layout_gravity="fill"
+	android:layout_weight="1">
+	<TextView android:id="@+id/name"
+		xmlns:android="http://schemas.android.com/apk/res/android"
+		android:textSize="24sp" android:typeface="sans" android:layout_width="fill_parent"
+		android:layout_height="wrap_content" android:layout_weight="1"
+		android:layout_gravity="fill" />
+		<!-- <init>|hp:|<hp>|sub:|<sub>|rounds:|<rounds> -->
+	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+		android:orientation="horizontal" android:layout_width="fill_parent"
+		android:layout_height="fill_parent" android:layout_weight="1"
+        android:layout_gravity="fill">
+		<TextView android:id="@+id/init"
+			xmlns:android="http://schemas.android.com/apk/res/android"
+			android:textSize="14sp" android:typeface="sans" android:layout_width="wrap_content"
+			android:layout_height="fill_parent" android:layout_weight="10" />
+		<TextView android:text="hp:"
+			xmlns:android="http://schemas.android.com/apk/res/android"
+			android:textSize="14sp" android:typeface="sans" android:layout_width="wrap_content"
+			android:layout_height="fill_parent" android:layout_weight="10" />
+		<TextView android:id="@+id/hp"
+			xmlns:android="http://schemas.android.com/apk/res/android"
+			android:textSize="14sp" android:typeface="sans" android:layout_width="wrap_content"
+			android:layout_height="fill_parent" android:layout_weight="10" />
+		<TextView android:text="sub:"
+			xmlns:android="http://schemas.android.com/apk/res/android"
+			android:textSize="14sp" android:typeface="sans" android:layout_width="wrap_content"
+			android:layout_height="fill_parent" android:layout_weight="10" />
+		<TextView android:id="@+id/sub"
+			xmlns:android="http://schemas.android.com/apk/res/android"
+			android:textSize="14sp" android:typeface="sans" android:layout_width="wrap_content"
+			android:layout_height="fill_parent" android:layout_weight="10" />
+		<TextView android:text="rnds:"
+			xmlns:android="http://schemas.android.com/apk/res/android"
+			android:textSize="14sp" android:typeface="sans" android:layout_width="wrap_content"
+			android:layout_height="fill_parent" android:layout_weight="10" />
+		<TextView android:id="@+id/rounds"
+			xmlns:android="http://schemas.android.com/apk/res/android"
+			android:textSize="14sp" android:typeface="sans" android:layout_width="wrap_content"
+			android:layout_height="fill_parent" android:layout_weight="10" />
+	</LinearLayout>
+</LinearLayout>
