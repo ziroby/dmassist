@@ -6,4 +6,11 @@
 	<string name="authorship">By Ron Romero</string>
 	<string name="author_url">http://www.linkedin.com/in/ronromero</string>
 <string name="text_color">#111111</string>
+<string name="add_creature">Add Creature</string>
+<string name="name">Name: </string>
+<string name="init_roll">Initiative Roll:</string>
+<string name="hit_points">Hit Points:</string>
+<string name="abbrev">Abbreviation</string>
+<string name="subdual">Subdual:</string>
+<string name="add">Add</string>
 </resources>

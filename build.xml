@@ -1,6 +1,6 @@
 <project name="DMAssist" basedir="." default="all">
 
-	<property name="src.engine.dir"  value="src/engine"/>
+	<property name="src.engine.dir"  value="src/engine/src"/>
 	<property name="src.swing.dir"  value="src/swing"/>
 	<property name="src.c.dir"     value="csrc"/>
 	<property name="src.resources.dir"     value="resources"/>
@@ -129,8 +129,6 @@
 				<path refid="classpath"/>
                 <dirset dir="${classes.engine.dir}"/>
 			</classpath>
-
-
 
 			<formatter type="xml"/>
 
