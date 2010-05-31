@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="hello">Hello World, MainActivity!</string>
-    <string name="app_name">DMAssist</string>
+	<string name="hello">Hello World, MainActivity!</string>
+	<string name="app_name">DMAssist</string>
+	<string name="displayAboutBox">About</string>
+	<string name="authorship">By Ron Romero</string>
+	<string name="author_url">http://www.linkedin.com/in/ronromero</string>
+<string name="text_color">#111111</string>
 </resources>

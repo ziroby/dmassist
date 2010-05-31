@@ -13,7 +13,8 @@
         </activity>
     <uses-sdk android:minSdkVersion="3" />
 
-    </application>
+    <activity android:name="AboutBox"></activity>
+</application>
 
 
 </manifest> 
