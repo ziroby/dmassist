@@ -4,6 +4,6 @@
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="/dmassist-libs/junit-4.7.jar"/>
 	<classpathentry kind="lib" path="/dmassist-libs/jyaml-1.3.jar"/>
-	<classpathentry combineaccessrules="false" kind="src" path="/dmassist-engine"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/dmassist-engine3"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

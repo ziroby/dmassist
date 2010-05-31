@@ -20,6 +20,8 @@
 package com.ziroby.dmassist.model;
 
 import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
 
 import com.ziroby.util.AbbrevUtil;
 import com.ziroby.util.AbstractListenable;
@@ -532,5 +534,24 @@ public class Entity extends AbstractListenable {
         }
         
     }
+
+    public Map<String, String> getAsMap() {
+        Map<String, String> map = new TreeMap<String, String>();
+        map.put(EntityList.COLUMN_NAME_ABBREV, getAbbreviation());
+        map.put(EntityList.COLUMN_NAME_NAME, getName());
+        map.put(EntityList.COLUMN_NAME_HP, toStringOrBlank(getHitpoints()));
+        map.put(EntityList.COLUMN_NAME_SUBDUAL, toStringOrBlank(getSubdual()));
+        map.put(EntityList.COLUMN_NAME_INIT, toStringOrBlank(getInitRoll()));
+        map.put(EntityList.COLUMN_NAME_ROUNDS, toStringOrBlank(getRoundsLeft()));
+        return map;
+    }
+    
+   private String toStringOrBlank(Integer i)
+   {
+       if (i == null) 
+           return "";
+       
+       return i.toString();
+   }
 }
 

@@ -21,9 +21,11 @@ package com.ziroby.dmassist.model;
 
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.Vector;
 
 import org.ho.yaml.Yaml;
@@ -46,6 +48,8 @@ public class EntityListImpl extends AbstractListenable
 {
     private final static String[] ColumnName = {" ", "##", "Name", "Init", "HP", "Sub", "Rnds"};
 
+    private static final int SECONDS_PER_ROUND = 6;
+
 	private List<Entity> entities = new Vector<Entity>();	
 	private Integer initCount = null;
 	/**
@@ -54,6 +58,8 @@ public class EntityListImpl extends AbstractListenable
 	 */
 	private int depth = 0;
 	private boolean dirty = false;
+
+    private int numRounds;
 	
 	/**
 	 * 
@@ -133,9 +139,11 @@ public class EntityListImpl extends AbstractListenable
 	/**
 	 * @see com.ziroby.dmassist.model.EntityList#gotoNextInitCount()
 	 */
-	public void gotoNextInitCount() {
+	public void gotoNextInitCount() {	    
 		enterPublicMethod();
 		
+		// We count backwards, so we look for the highest total init count, and the highest one
+		// that's less than current.
 		Integer oldInitCount = getInitCount();
 		Integer maximumNext = null;
 		Integer maximum = null;
@@ -160,8 +168,10 @@ public class EntityListImpl extends AbstractListenable
 		
 		if (maximumNext != null)
 			setInitCount(maximumNext);
-		else if (maximum != null)
+		else if (maximum != null) {
+		    numRounds++;
 			setInitCount(maximum);
+        }
 		else
 			setInitCount(null);
         
@@ -397,5 +407,61 @@ public class EntityListImpl extends AbstractListenable
         return getEntireRow(entity).get(col);
     }
 
+    public void setValueAt(Object value, int rowIndex, int columnIndex) {
+        Entity entity = getEntity(rowIndex);  
+        
+        setColumn(entity, columnIndex, value);
+    }
 
+    public List<Map<String, String>> getListOfMaps() {
+        List<Map<String,String>> list = new ArrayList<Map<String,String>>();
+        
+        getListOfMaps(list);
+        
+        return list;
+    }
+
+    @Override
+    public List<Map<String,String>> getListOfMaps(List<Map<String, String>> data) {
+        data.clear();
+        
+        for (Entity entity: getEntities())
+        {
+            data.add(entity.getAsMap());
+        }
+        
+        return data;
+    }
+
+    public int getNumRounds() {
+        return numRounds;
+    }
+
+    public void resetNumRounds() {
+        enterPublicMethod();
+        if (numRounds != 0) {
+            numRounds = 0;
+            setInitCount(null);
+            this.dirty = true;
+        }
+        leavePublicMethod();
+    }
+
+    public String formatRoundsAsTime() {
+        int seconds = (numRounds * SECONDS_PER_ROUND) % 60;
+        int minutes = ((numRounds * SECONDS_PER_ROUND) / 60) % 60;
+        int hours = (numRounds * SECONDS_PER_ROUND) / (60 * 60);
+
+        String s;
+        if (hours == 0)
+        {
+            s = String.format("%02d:%02d", minutes, seconds); //$NON-NLS-1$
+        }
+        else
+        {
+            s = String.format("%02d:%02d:%02d", hours, minutes, seconds); //$NON-NLS-1$
+        }
+        return s;
+    }
+    
 }

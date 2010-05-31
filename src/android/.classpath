@@ -3,5 +3,7 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
 	<classpathentry kind="src" path="gen"/>
+	<classpathentry kind="src" path="/FizzBuzzer2"/>
+	<classpathentry kind="src" path="/dmassist-engine3"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

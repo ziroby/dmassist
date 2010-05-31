@@ -3,24 +3,59 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="#FFFFFF"
     >
   <ListView android:id="@android:id/list"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_weight="1"/>
+        android:layout_weight="1"
+    android:background="#FFFFFF"/>
   <TextView android:id="@android:id/empty"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
     android:text="@string/hello"
+    android:textColor="#111111"
     />
 	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 		android:orientation="horizontal" android:layout_width="fill_parent"
-		android:layout_height="wrap_content">
-		<TextView android:text="00:12  round 12" android:layout_width="fill_parent"
-			android:layout_height="wrap_content" android:layout_weight="1"/>
-		<Button android:text="[Next]" android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+    	android:background="#FFFFFF">
+		<TextView android:id="@+id/timeView" android:text="00:12" android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:paddingLeft="4sp"
+			android:paddingRight="4sp"
+		    android:textColor="#111111"
+			/>
+		<TextView android:id="@+id/roundView" android:text="round 12" android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:paddingLeft="4sp"
+			android:paddingRight="4sp"
+		    android:textColor="#111111"
+			/>
+		<TextView android:text="init: " android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:paddingLeft="4sp"
+			android:paddingRight="1sp"
+		    android:textColor="#111111"
+			/>
+		<TextView android:id="@+id/initView" android:text="" android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:paddingLeft="1sp"
+			android:paddingRight="4sp"
+		    android:textColor="#111111" android:textSize="24sp"
+			/>
+		<TextView android:text="" android:layout_width="fill_parent"
+			android:layout_height="wrap_content" android:layout_weight="1"
+		    android:textColor="#111111" 
+			/>
+		<Button android:id="@+id/resetButton" 
+		    android:text="Reset" 
+		    android:layout_width="wrap_content"
 			android:layout_height="wrap_content"  
-			android:gravity="right" />
+			android:gravity="right" 
+			android:textColor="#111111" />
+		<Button android:id="@+id/nextButton" 
+		    android:text="Next" 
+		    android:layout_width="wrap_content"
+			android:layout_height="wrap_content"  
+			android:gravity="right" 
+			android:textColor="#111111" />
 	</LinearLayout>
     
 </LinearLayout>

@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import javax.swing.table.AbstractTableModel;
 
@@ -69,11 +70,8 @@ public class EntityDataModel extends AbstractTableModel
     /**
      * @see javax.swing.table.AbstractTableModel#setValueAt(java.lang.Object, int, int)
      */
-    @Override
     public void setValueAt(Object value, int rowIndex, int columnIndex) {
-        Entity entity = entityList.getEntity(rowIndex);  
-        
-        entityList.setColumn(entity, columnIndex, value);
+        entityList.setValueAt(value, rowIndex, columnIndex);
     }
 
     public int getRowCount() {
@@ -158,4 +156,29 @@ public class EntityDataModel extends AbstractTableModel
     public void setColumn(Entity entity, int columnIndex, Object value) {
         entityList.setColumn(entity, columnIndex, value);
     }
+
+    public List<Map<String, String>> getListOfMaps() {
+        return entityList.getListOfMaps();
+    }
+
+    public List<Map<String,String>> getListOfMaps(List<Map<String, String>> data) {
+        return entityList.getListOfMaps(data);
+    }
+
+    @Override
+    public int getNumRounds() {
+        return entityList.getNumRounds();
+    }
+
+    @Override
+    public void resetNumRounds() {
+        entityList.resetNumRounds();
+    }
+
+    @Override
+    public String formatRoundsAsTime() {
+        return entityList.formatRoundsAsTime();
+    }
+    
+    
 }

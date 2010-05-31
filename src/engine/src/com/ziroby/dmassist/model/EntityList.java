@@ -23,6 +23,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import com.ziroby.util.Listenable;
 
@@ -39,18 +40,25 @@ public interface EntityList
 
     /** The number for the turn indicator column. */
     public static final int COLUMN_NUMBER_MY_TURN = 0;
+    public static final String COLUMN_NAME_MY_TURN = "isMyTurn";
     /** The number for the abbreviation column. */
-    public static final int COLUMN_NUMBER_NUM = 1; 
+    public static final int COLUMN_NUMBER_NUM = 1;
+    public static final String COLUMN_NAME_ABBREV = "abbrev";
     /** The number for the name column. */
     public static final int COLUMN_NUMBER_NAME = 2; 
+    public static final String COLUMN_NAME_NAME = "name";    
     /** The number for the initiative count column. */
     public static final int COLUMN_NUMBER_INIT = 3; 
+    public static final String COLUMN_NAME_INIT = "init";    
     /** The number for the hitpoint column. */
     public static final int COLUMN_NUMBER_HP = 4; 
+    public static final String COLUMN_NAME_HP = "hp";    
     /** The number for the subdual damage column. */
     public static final int COLUMN_NUMBER_SUBDUAL = 5;
+    public static final String COLUMN_NAME_SUBDUAL = "subdual";    
     /** The number for the number of rounds left column. */
     public static final int COLUMN_NUMBER_ROUNDS = 6;
+    public static final String COLUMN_NAME_ROUNDS = "rounds";    
     
     /** Returns the human readable column heading for the given "column". */
     public String getColumnHeader(int column);
@@ -123,5 +131,17 @@ public interface EntityList
     
     /** Returns the given virtual column. */
     public Object getColumn(Entity entity, int col);
+
+    public void setValueAt(Object value, int rowIndex, int columnIndex);
+
+    public List<Map<String, String>> getListOfMaps();
+
+    public List<Map<String, String>> getListOfMaps(List<Map<String, String>> data);
+
+    public int getNumRounds();
+
+    public void resetNumRounds();
+
+    public String formatRoundsAsTime();
 
 }

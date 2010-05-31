@@ -45,15 +45,11 @@ public class TimeBox extends StatusBar implements Listener
 
     private static final int BUTTON_FONT_SIZE = 12;
 
-    private static final int SECONDS_PER_ROUND = 6;
-
     EntityList dataModel;
-
-    private Integer lastCount;
 
     private JLabel time;
 
-    int numRounds = 0;
+    //int numRounds = 0;
 
     private JLabel rounds;
 
@@ -72,8 +68,7 @@ public class TimeBox extends StatusBar implements Listener
         resetButton.addActionListener(new ActionListener() {
 
             public void actionPerformed(ActionEvent arg0) {
-                numRounds = 0;
-                dataModel.setInitCount(null);
+                dataModel.resetNumRounds();
                 display();
             }
 
@@ -116,26 +111,15 @@ public class TimeBox extends StatusBar implements Listener
         // add(nextButton);
 
         display();
-        this.lastCount = dataModel.getInitCount();
+        dataModel.getInitCount();
         dataModel.addListener(this);
 
     }
 
     void display() {
-        int seconds = (numRounds * SECONDS_PER_ROUND) % 60;
-        int minutes = ((numRounds * SECONDS_PER_ROUND) / 60) % 60;
-        int hours = (numRounds * SECONDS_PER_ROUND) / (60 * 60);
-
-        String s;
-        if (hours == 0)
-        {
-            s = String.format("%02d:%02d", minutes, seconds); //$NON-NLS-1$
-        }
-        else
-        {
-            s = String.format("%02d:%02d:%02d", hours, minutes, seconds); //$NON-NLS-1$
-        }
-        time.setText(s);
+        int numRounds = dataModel.getNumRounds();
+        
+        time.setText(dataModel.formatRoundsAsTime());
         rounds.setText(Messages.getString("TimeBox.ROUND") + numRounds); //$NON-NLS-1$
         
         nextButton.setEnabled(dataModel.getEntities().size() > 1);
@@ -152,12 +136,6 @@ public class TimeBox extends StatusBar implements Listener
     private JButton nextButton;
 
     public void objectChanged(ObjectEvent event) {
-        final Integer initCount = dataModel.getInitCount();
-        if (lastCount != null && initCount != null && initCount > lastCount)
-        {
-            ++numRounds;
-        }
-        lastCount = initCount;
         display();
     }
 }

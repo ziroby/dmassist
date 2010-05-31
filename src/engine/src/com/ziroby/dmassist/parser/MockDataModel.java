@@ -24,6 +24,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 
 import com.ziroby.dmassist.model.Entity;
 import com.ziroby.dmassist.model.EntityList;
@@ -140,6 +141,36 @@ public class MockDataModel extends AbstractListenable
     }
 
     public Object getValueAt(int row, int col) {
+        return null;
+    }
+
+    public void setValueAt(Object value, int rowIndex, int columnIndex) {
+        // Dummy Test Method            
+   }
+
+    public List<Map<String, String>> getListOfMaps() {
+        return null;
+    }
+
+    public List<Map<String, String>> getListOfMaps(List<Map<String, String>> data) {
+        return null;
+    }
+
+    @Override
+    public int getNumRounds() {
+        // TODO Auto-generated method stub
+        return 0;
+    }
+
+    @Override
+    public void resetNumRounds() {
+        // TODO Auto-generated method stub
+        
+    }
+
+    @Override
+    public String formatRoundsAsTime() {
+        // TODO Auto-generated method stub
         return null;
     }
 }

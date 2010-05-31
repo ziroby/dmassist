@@ -3,6 +3,7 @@
 	<name>dmassist-android</name>
 	<comment></comment>
 	<projects>
+		<project>dmassist-engine</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
