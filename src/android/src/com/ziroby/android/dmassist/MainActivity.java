@@ -273,8 +273,7 @@ public class MainActivity extends ListActivity {
     }
 
     private void addEffect() {
-        Intent intent = new Intent(this, AddCreature.class);
-        startActivityForResult(intent, REQUEST_CODE_ADD);
+        startAddActivity(AddCreature.ADD_TYPE_EFFECT);
     }
 
     private void removeLine(MenuItem item) {
@@ -310,7 +309,17 @@ public class MainActivity extends ListActivity {
     }
 
     private void addCreature() {
+        final int addType = AddCreature.ADD_TYPE_CREATURE;
+        startAddActivity(addType);
+    }
+
+    private void startAddActivity(final int addType) {
+        Bundle bundle = new Bundle();
+
+        bundle.putInt(AddCreature.ADD_TYPE_TAG, addType);
+
         Intent intent = new Intent(this, AddCreature.class);
+        intent.putExtras(bundle);
         startActivityForResult(intent, REQUEST_CODE_ADD);
     }
 
@@ -340,12 +349,14 @@ public class MainActivity extends ListActivity {
             final int hp = data.getIntExtra(EntityList.COLUMN_NAME_HP, INT_SENTINEL);
             final String abbrev = data.getStringExtra(EntityList.COLUMN_NAME_ABBREV);
             final int subdual = data.getIntExtra(EntityList.COLUMN_NAME_SUBDUAL, INT_SENTINEL);
+            final int rounds= data.getIntExtra(EntityList.COLUMN_NAME_ROUNDS, INT_SENTINEL);
 
             if (name != null) entity.setName(name);
             if (init != INT_SENTINEL) entity.setInitRoll(init);
             if (hp != INT_SENTINEL) entity.setHitpoints(hp);
             if (abbrev != null) entity.setAbbreviation(abbrev);
             if (subdual != INT_SENTINEL) entity.setSubdual(subdual);
+            if (rounds != INT_SENTINEL) entity.setRoundsLeft(rounds);
 
             dataModel.addEntity(entity);
 
