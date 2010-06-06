@@ -1,36 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:background="#FFFFFF"
-    >
-<TextView  
-    android:layout_width="fill_parent" 
     android:layout_height="wrap_content"
-    android:textSize="36sp"
-    android:typeface="sans"
-    android:gravity="center_horizontal" 
-    android:text="@string/app_name"
-    android:textColor="#111111"
-    />
- <TextView
-    android:layout_width="fill_parent" 
-    android:layout_height="wrap_content" 
-    android:textSize="18sp"
-    android:typeface="serif"
-    android:gravity="center_horizontal" 
-    android:text="@string/authorship"
-    android:textColor="#111111"
-    />
-<TextView
-    android:layout_width="fill_parent" 
-    android:layout_height="wrap_content" 
-    android:textSize="18sp"
-    android:typeface="serif"
-    android:gravity="center_horizontal"
-    android:autoLink="web" 
-    android:text="@string/author_url"
-    />
-    
-</LinearLayout>
+>
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="#FFFFFF"
+    >
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textSize="36sp"
+            android:typeface="sans"
+            android:gravity="center_horizontal"
+            android:text="@string/app_name"
+            android:textColor="#111111" />
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:typeface="sans"
+            android:gravity="center_horizontal"
+            android:text="@string/authorship"
+            android:textColor="#111111" />
+        <WebView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textColor="#111111"
+            android:textSize="18sp"
+            android:typeface="serif"
+            android:autoLink="web"
+            android:drawablePadding="4sp"
+            android:padding="8sp"
+            android:id="@+id/author_blurb" />
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:typeface="serif"
+            android:gravity="center_horizontal"
+            android:autoLink="web"
+            android:text="@string/author_url" />
+    </LinearLayout>
+</ScrollView>

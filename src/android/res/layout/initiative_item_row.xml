@@ -16,7 +16,7 @@
 		android:layout_gravity="fill" android:textColor="#111111">
 		<TextView android:id="@+id/init"
 			xmlns:android="http://schemas.android.com/apk/res/android"
-			android:textSize="14sp" android:typeface="sans" android:layout_width="wrap_content"
+			android:textSize="14sp" android:typeface="sans" android:layout_width="24sp"
 			android:layout_height="fill_parent" android:layout_weight="10"
 			android:textColor="#111111" />
 		<TextView android:text="hp:"
@@ -26,7 +26,7 @@
 			android:textColor="#111111" />
 		<TextView android:id="@+id/hp"
 			xmlns:android="http://schemas.android.com/apk/res/android"
-			android:textSize="14sp" android:typeface="sans" android:layout_width="wrap_content"
+			android:textSize="14sp" android:typeface="sans" android:layout_width="24sp"
 			android:layout_height="fill_parent" android:layout_weight="10"
 			android:textColor="#111111" />
 		<TextView android:text="sub:"
@@ -36,7 +36,7 @@
 			android:textColor="#111111" />
 		<TextView android:id="@+id/sub"
 			xmlns:android="http://schemas.android.com/apk/res/android"
-			android:textSize="14sp" android:typeface="sans" android:layout_width="wrap_content"
+			android:textSize="14sp" android:typeface="sans" android:layout_width="24sp"
 			android:layout_height="fill_parent" android:layout_weight="10"
 			android:textColor="#111111" />
 		<TextView android:text="rnds:"
@@ -46,7 +46,7 @@
 			android:textColor="#111111" />
 		<TextView android:id="@+id/rounds"
 			xmlns:android="http://schemas.android.com/apk/res/android"
-			android:textSize="14sp" android:typeface="sans" android:layout_width="wrap_content"
+			android:textSize="14sp" android:typeface="sans" android:layout_width="24sp"
 			android:layout_height="fill_parent" android:layout_weight="10"
 			android:textColor="#111111" />
 	</LinearLayout>

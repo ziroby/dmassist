@@ -1,6 +1,7 @@
 package com.ziroby.android.dmassist;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
@@ -22,6 +23,7 @@ import android.widget.Button;
 import android.widget.ListAdapter;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 
 import com.ziroby.android.util.AndroidUtils;
 import com.ziroby.dmassist.model.Entity;
@@ -40,6 +42,8 @@ public class MainActivity extends ListActivity {
 
     private static final int MENU_ITEM_ABOUT = 0;
     private static final int MENU_ITEM_ADD_CREATURE = 1;
+    private static final int MENU_REMOVE = 2;
+    private static final int MENU_ITEM_ADD_EFFECT = 3;
 
     private static final int REQUEST_CODE_ADD = 0;
 
@@ -164,8 +168,9 @@ public class MainActivity extends ListActivity {
 
             point = 'c';
             // Highlight the entities who's turn it is.
-            int row = 0;
-            for (Entity entity : dataModel.getEntities())
+            final Collection<Entity> entities = dataModel.getEntities();
+            int row = entities.size()-1;
+            for (Entity entity : entities)
             {
                 point = (char) (row % 10 + '1');
                 final Integer initRoll = entity.getInitRoll();
@@ -176,7 +181,7 @@ public class MainActivity extends ListActivity {
                     child.setBackgroundColor(HIGHLIGHT_COLOR);
                 else
                     child.setBackgroundColor(NON_HIGHLIGHT_COLOR);
-                ++row;
+                --row;
             }
             point = 'e';
 
@@ -214,6 +219,10 @@ public class MainActivity extends ListActivity {
                 R.string.add_creature)
                 .setIcon(android.R.drawable.ic_menu_add);
 
+        menu.add(/* group id*/ 0, MENU_ITEM_ADD_EFFECT, position++,
+                R.string.add_effect)
+                .setIcon(android.R.drawable.ic_menu_add);
+
         menu.add(/* group id*/ 0, MENU_ITEM_ABOUT, position++,
                 R.string.displayAboutBox)
                 .setIcon(android.R.drawable.ic_menu_info_details);
@@ -224,8 +233,9 @@ public class MainActivity extends ListActivity {
             ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         int position = 0;
-        menu.add(/* group id*/ 0, MENU_ITEM_ABOUT, position++,
-                R.string.displayAboutBox);
+        menu.add(/* group id*/ 0, MENU_REMOVE, position++,
+                R.string.remove_item)
+                .setIcon(android.R.drawable.ic_menu_delete);
     }
 
     @Override
@@ -247,6 +257,12 @@ public class MainActivity extends ListActivity {
             case MENU_ITEM_ADD_CREATURE:
                 addCreature();
                 return true;
+            case MENU_ITEM_ADD_EFFECT:
+                addEffect();
+                return true;
+            case MENU_REMOVE:
+                removeLine(item);
+                return true;
             }
         }
         catch (Exception e) {
@@ -254,6 +270,43 @@ public class MainActivity extends ListActivity {
         }
 
         return false;
+    }
+
+    private void addEffect() {
+        Intent intent = new Intent(this, AddCreature.class);
+        startActivityForResult(intent, REQUEST_CODE_ADD);
+    }
+
+    private void removeLine(MenuItem item) {
+
+        final int position = ((AdapterContextMenuInfo)item.getMenuInfo()).position;
+
+        final Entity entityToRemove = dataModel.getEntity(position);
+
+        String message = "Are you sure you want to delete \""
+            + entityToRemove.getName() + "\"?";
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(message)
+        .setCancelable(true)
+        .setTitle("Remove?")
+        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+            }
+        })
+        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                removeEntity(position);
+            }
+        });
+        AlertDialog alert = builder.create();
+
+        alert.show();
+    }
+
+    protected void removeEntity(int position) {
+        dataModel.remove(position);
     }
 
     private void addCreature() {

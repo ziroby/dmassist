@@ -1,16 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="hello">Hello World, MainActivity!</string>
-	<string name="app_name">DMAssist</string>
+	<string name="app_name">DM Assist</string>
 	<string name="displayAboutBox">About</string>
-	<string name="authorship">By Ron Romero</string>
-	<string name="author_url">http://www.linkedin.com/in/ronromero</string>
+	<string name="authorship">By Ron \"Ziroby\" Romero</string>
+    <string name="author_url">http://www.linkedin.com/in/ronromero</string> 
+    <string name="author_blurb">&lt;b&gt;Ron \"Ziroby\" Romero&lt;/b&gt; is a Senior Software Developer / Architect 
+    specializing in Agile development.
+    &lt;ul&gt;
+        &lt;lI&gt;Expert and advocate for Agile software development.&lt;/lI&gt;&lt;br&gt;
+        &lt;li&gt;Architect, Team Lead, formal trainer, and always a leader, an informal trainer, and a mentor.&lt;/li&gt;&lt;br&gt;
+        &lt;li&gt;Fifteen years development experience in Java, C#, C++, Android, SQL, etc.&lt;/li&gt;&lt;br&gt;
+        &lt;li&gt;Available for development work and Agile consulting, especially in the Austin, Texas area.&lt;/li&gt;&lt;br&gt;
+    &lt;/ul&gt; 
+    </string>
 <string name="text_color">#111111</string>
 <string name="add_creature">Add Creature</string>
-<string name="name">Name: </string>
+<string name="add_effect">Add Effect</string>
+<string name="name">Name:</string>
 <string name="init_roll">Initiative Roll:</string>
 <string name="hit_points">Hit Points:</string>
-<string name="abbrev">Abbreviation</string>
+<string name="abbrev">Abbreviation:</string>
 <string name="subdual">Subdual:</string>
 <string name="add">Add</string>
+<string name="rounds">Rounds:</string>
+<string name="remove_item">Remove</string>
 </resources>
