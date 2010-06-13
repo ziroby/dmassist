@@ -25,4 +25,5 @@
 <string name="add">Add</string>
 <string name="rounds">Rounds:</string>
 <string name="remove_item">Remove</string>
+<string name="heal_damage">Damage / Heal</string>
 </resources>

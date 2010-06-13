@@ -20,12 +20,14 @@ import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListAdapter;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 
 import com.ziroby.android.util.AndroidUtils;
+import com.ziroby.dmassist.model.DiceEquation;
 import com.ziroby.dmassist.model.Entity;
 import com.ziroby.dmassist.model.EntityList;
 import com.ziroby.dmassist.model.EntityListImpl;
@@ -44,6 +46,7 @@ public class MainActivity extends ListActivity {
     private static final int MENU_ITEM_ADD_CREATURE = 1;
     private static final int MENU_REMOVE = 2;
     private static final int MENU_ITEM_ADD_EFFECT = 3;
+    private static final int MENU_HEAL_DAMAGE = 4;
 
     private static final int REQUEST_CODE_ADD = 0;
 
@@ -51,6 +54,8 @@ public class MainActivity extends ListActivity {
     private TextView initTextView;
     private TextView roundTextView;
     private TextView timeTextView;
+
+    enum HealOrDamage {HEAL, DAMAGE};
 
     private static void addSampleData(EntityList aDataModel) {
         Entity row1 = new Entity();
@@ -156,23 +161,19 @@ public class MainActivity extends ListActivity {
     }
 
     protected void redraw() {
-        char point='a';
         try {
             final Integer initCount = dataModel.getInitCount();
             initTextView.setText(initCount == null? "" : initCount.toString());
             roundTextView.setText("round: " + dataModel.getNumRounds());
             timeTextView.setText(dataModel.formatRoundsAsTime());
 
-            point = 'b';
             getListView().invalidate();
 
-            point = 'c';
             // Highlight the entities who's turn it is.
             final Collection<Entity> entities = dataModel.getEntities();
             int row = entities.size()-1;
             for (Entity entity : entities)
             {
-                point = (char) (row % 10 + '1');
                 final Integer initRoll = entity.getInitRoll();
                 final View child = getListView().getChildAt(row);
                 if (child == null)
@@ -183,26 +184,11 @@ public class MainActivity extends ListActivity {
                     child.setBackgroundColor(NON_HIGHLIGHT_COLOR);
                 --row;
             }
-            point = 'e';
-
         }
         catch (Throwable t)
         {
-            AlertDialog.Builder builder = new AlertDialog.Builder(this);
-
-            builder.setMessage("Error in redraw: " + point + ": " + t.getClass().toString()+ ": "+ t.toString())
-            .setCancelable(true)
-            .setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                public void onClick(DialogInterface dialog, int id) {
-                    dialog.cancel();
-                }
-            });
-            AlertDialog alert = builder.create();
-
-            alert.show();
+            AndroidUtils.displayErrorDialog(this, null);
         }
-
-        //        getListView().getChildAt(1).setBackgroundColor(Color.YELLOW);
     }
 
     protected void handleNextButton() {
@@ -233,6 +219,9 @@ public class MainActivity extends ListActivity {
             ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
         int position = 0;
+        menu.add(/* group id*/ 0, MENU_HEAL_DAMAGE, position++,
+                R.string.heal_damage)
+                .setIcon(android.R.drawable.ic_menu_delete);
         menu.add(/* group id*/ 0, MENU_REMOVE, position++,
                 R.string.remove_item)
                 .setIcon(android.R.drawable.ic_menu_delete);
@@ -263,6 +252,9 @@ public class MainActivity extends ListActivity {
             case MENU_REMOVE:
                 removeLine(item);
                 return true;
+            case MENU_HEAL_DAMAGE:
+                healDamage(item);
+                return true;
             }
         }
         catch (Exception e) {
@@ -270,6 +262,37 @@ public class MainActivity extends ListActivity {
         }
 
         return false;
+    }
+
+    private void healDamage(MenuItem item) {
+        final int position = ((AdapterContextMenuInfo)item.getMenuInfo()).position;
+        final Entity entity = dataModel.getEntity(position);
+        final EditText input = new EditText(this);
+
+        AlertDialog alert = new AlertDialog.Builder(this)
+        .setTitle(R.string.heal_damage)
+        .setMessage("Damage/heal by: ")
+        .setView(input)
+        .setPositiveButton("Damage", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                healDamage(HealOrDamage.DAMAGE, entity, input);
+                dialog.cancel();
+            }
+        })
+        .setNeutralButton("Heal", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                healDamage(HealOrDamage.HEAL, entity, input);
+                dialog.cancel();
+            }
+        })
+        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+            }
+        })
+        .create();
+
+        alert.show();
     }
 
     private void addEffect() {
@@ -363,6 +386,19 @@ public class MainActivity extends ListActivity {
             redraw();
         } catch (RuntimeException e)
         {
+            AndroidUtils.displayErrorDialog(this, e);
+        }
+    }
+
+    void healDamage(HealOrDamage healOrDamage, final Entity entity, final EditText input) {
+        try {
+            DiceEquation amount = new DiceEquation(input.getText().toString());
+            if (healOrDamage == HealOrDamage.HEAL)
+                entity.heal(amount.roll());
+            else
+                entity.damage(amount.roll());
+        }
+        catch (Exception e) {
             AndroidUtils.displayErrorDialog(this, e);
         }
     }
