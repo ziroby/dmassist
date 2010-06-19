@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
+    android:background="#FFFFFF"
 >
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -26,24 +27,122 @@
             android:typeface="sans"
             android:gravity="center_horizontal"
             android:text="@string/authorship"
+            android:paddingBottom="7sp"
             android:textColor="#111111" />
-        <WebView
+        <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:textColor="#111111"
-            android:textSize="18sp"
-            android:typeface="serif"
-            android:autoLink="web"
-            android:drawablePadding="4sp"
-            android:padding="8sp"
-            android:id="@+id/author_blurb" />
+            android:orientation="horizontal"
+        >
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+            <Button
+                android:id="@+id/about_author_button"
+                android:text="@string/about_the_author"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:gravity="center"
+                android:textColor="#111111" />
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+        </LinearLayout>
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
-            android:typeface="serif"
+            android:textSize="14sp"
+            android:typeface="sans"
             android:gravity="center_horizontal"
-            android:autoLink="web"
-            android:text="@string/author_url" />
+            android:text="@string/gnu_blurb"
+            android:paddingTop="7sp"
+            android:textColor="#111111" />
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+        >
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+            <Button
+                android:id="@+id/display_gpl_button"
+                android:text="@string/display_gpl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:gravity="center"
+                android:textColor="#111111" />
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+        </LinearLayout>
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:typeface="sans"
+            android:gravity="center_horizontal"
+            android:text="@string/ogl_blurb"
+            android:paddingTop="7sp"
+            android:textColor="#111111" />
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+        >
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+            <Button
+                android:id="@+id/display_ogl_button"
+                android:text="@string/display_ogl"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:gravity="center"
+                android:textColor="#111111" />
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+        </LinearLayout>
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:typeface="sans"
+            android:gravity="center_horizontal"
+            android:text="@string/copyright_blurb"
+            android:paddingTop="7sp"
+            android:textColor="#111111" />
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+        >
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+            <Button
+                android:id="@+id/display_copyright_button"
+                android:text="@string/display_copyright"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:gravity="center"
+                android:textColor="#111111" />
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1" />
+        </LinearLayout>
     </LinearLayout>
 </ScrollView>

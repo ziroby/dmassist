@@ -3,7 +3,7 @@
 	<string name="hello">Hello World, MainActivity!</string>
 	<string name="app_name">DM Assist</string>
 	<string name="displayAboutBox">About</string>
-	<string name="authorship">By Ron \"Ziroby\" Romero</string>
+	<string name="authorship">by Ron \&quot;Ziroby\&quot; Romero</string>
     <string name="author_url">http://www.linkedin.com/in/ronromero</string> 
     <string name="author_blurb">&lt;b&gt;Ron \"Ziroby\" Romero&lt;/b&gt; is a Senior Software Developer / Architect 
     specializing in Agile development.
@@ -26,4 +26,11 @@
 <string name="rounds">Rounds:</string>
 <string name="remove_item">Remove</string>
 <string name="heal_damage">Damage / Heal</string>
+<string name="about_the_author">About the Author...</string>
+<string name="gnu_blurb">DM assist is free software, and you are welcome to redistribute it under certain conditions.</string>
+<string name="display_gpl">GNU Public License... </string>
+<string name="ogl_blurb">DM Assist contains content licesnsed under the Open Game License</string>
+<string name="display_ogl">Open Game License... </string>
+
+<string name="copyright_blurb">Copyright (c) 2009, 2010 Ron &quot;Ziroby&quot; Romero; portions copyright by others</string><string name="display_copyright">Display copyrights... </string>
 </resources>

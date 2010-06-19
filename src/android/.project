@@ -31,4 +31,11 @@
 		<nature>com.android.ide.eclipse.adt.AndroidNature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>assets/LICENSE.txt</name>
+			<type>1</type>
+			<location>/old/home/rromero/src/dmassist/dmassist-android/resources/LICENSE.txt</location>
+		</link>
+	</linkedResources>
 </projectDescription>

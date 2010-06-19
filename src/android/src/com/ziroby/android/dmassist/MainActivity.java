@@ -55,7 +55,7 @@ public class MainActivity extends ListActivity {
     private TextView roundTextView;
     private TextView timeTextView;
 
-    enum HealOrDamage {HEAL, DAMAGE};
+    enum HealOrDamage {HEAL, DAMAGE}
 
     private static void addSampleData(EntityList aDataModel) {
         Entity row1 = new Entity();
