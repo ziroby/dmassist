@@ -25,9 +25,10 @@ import java.awt.Font;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 
-import com.ziroby.dmassist.model.EntityList;
-import com.ziroby.util.Listener;
-import com.ziroby.util.ObjectEvent;
+import com.ziroby.dmassist.gwtable.model.EntityList;
+import com.ziroby.dmassist.gwtable.util.Listener;
+import com.ziroby.dmassist.gwtable.util.ObjectEvent;
+import com.ziroby.dmassist.model.EntityListWithSave;
 
 /**
  * @author Ron Romero
@@ -37,7 +38,7 @@ public class InitCountLabel extends JLabel implements Listener {
 
 	EntityList dataModel;
 	
-	public InitCountLabel(EntityList dataModel) {
+	public InitCountLabel(EntityListWithSave dataModel) {
 		this.dataModel = dataModel;
 		setFont(new Font("Serif", Font.BOLD, 24));
         setBorder(BorderFactory.createEtchedBorder());

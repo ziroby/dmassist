@@ -56,10 +56,10 @@ import javax.swing.SwingConstants;
 import javax.swing.table.TableCellRenderer;
 import javax.swing.table.TableColumn;
 
+import com.ziroby.dmassist.gwtable.model.Entity;
+import com.ziroby.dmassist.gwtable.model.EntityList;
+import com.ziroby.dmassist.gwtable.model.Entity.DamageType;
 import com.ziroby.dmassist.model.DiceEquation;
-import com.ziroby.dmassist.model.Entity;
-import com.ziroby.dmassist.model.EntityList;
-import com.ziroby.dmassist.model.Entity.DamageType;
 import com.ziroby.dmassist.parser.Interpreter;
 import com.ziroby.dmassist.parser.Parser;
 

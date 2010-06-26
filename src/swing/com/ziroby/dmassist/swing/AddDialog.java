@@ -35,9 +35,9 @@ import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.WindowConstants;
 
+import com.ziroby.dmassist.gwtable.model.Entity;
+import com.ziroby.dmassist.gwtable.model.EntityList;
 import com.ziroby.dmassist.model.DiceEquation;
-import com.ziroby.dmassist.model.Entity;
-import com.ziroby.dmassist.model.EntityList;
 
 /**
  * @author Ron Romero

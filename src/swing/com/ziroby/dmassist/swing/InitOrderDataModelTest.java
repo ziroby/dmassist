@@ -28,8 +28,8 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import com.ziroby.dmassist.model.Entity;
-import com.ziroby.dmassist.model.EntityList;
+import com.ziroby.dmassist.gwtable.model.Entity;
+import com.ziroby.dmassist.gwtable.model.EntityList;
 import com.ziroby.dmassist.model.test.MockTableModelListener;
 
 /**

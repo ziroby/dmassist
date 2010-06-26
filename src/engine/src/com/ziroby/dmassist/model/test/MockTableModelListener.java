@@ -21,8 +21,8 @@ package com.ziroby.dmassist.model.test;
 
 import junit.framework.AssertionFailedError;
 
-import com.ziroby.util.Listener;
-import com.ziroby.util.ObjectEvent;
+import com.ziroby.dmassist.gwtable.util.Listener;
+import com.ziroby.dmassist.gwtable.util.ObjectEvent;
 
 /**
  * @author Ron Romero

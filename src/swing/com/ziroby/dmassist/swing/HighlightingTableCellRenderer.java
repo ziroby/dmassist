@@ -26,7 +26,7 @@ import java.awt.Font;
 import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
 
-import com.ziroby.dmassist.model.EntityList;
+import com.ziroby.dmassist.gwtable.model.EntityList;
 
 /**
  * A renderer that just adds or removes highlighting to a square, then delegates to the

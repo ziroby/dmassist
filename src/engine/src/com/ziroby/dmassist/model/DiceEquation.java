@@ -22,7 +22,7 @@ package com.ziroby.dmassist.model;
 import java.util.List;
 import java.util.Vector;
 
-import com.ziroby.util.StringUtil;
+import com.ziroby.dmassist.gwtable.util.StringUtil;
 
 /**
  * A series of {@link com.ziroby.dmassist.model.Die Die}, connected into a

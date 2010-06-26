@@ -21,18 +21,19 @@ package com.ziroby.dmassist.parser;
 
 import java.util.Map;
 
+import com.ziroby.dmassist.gwtable.model.Entity;
+import com.ziroby.dmassist.gwtable.model.EntityList;
+import com.ziroby.dmassist.gwtable.model.Entity.DamageType;
 import com.ziroby.dmassist.model.DiceEquation;
-import com.ziroby.dmassist.model.Entity;
-import com.ziroby.dmassist.model.EntityList;
+import com.ziroby.dmassist.model.EntityListWithSave;
 import com.ziroby.dmassist.model.ResultsDisplay;
-import com.ziroby.dmassist.model.Entity.DamageType;
 
 /**
  * Acts on the commands of the user. The Parser has parsed the user's input and
  * sends it to the Interpreter. The Interpreter then works with the DataModel
  * (EntityList class) and the ResultsDisplay to make those commands happen.
  * 
- * @see EntityList 
+ * @see EntityListWithSave 
  * @see ResultsDisplay
  * 
  * 

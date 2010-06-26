@@ -30,9 +30,9 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 
-import com.ziroby.dmassist.model.EntityList;
-import com.ziroby.util.Listener;
-import com.ziroby.util.ObjectEvent;
+import com.ziroby.dmassist.gwtable.util.Listener;
+import com.ziroby.dmassist.gwtable.util.ObjectEvent;
+import com.ziroby.dmassist.model.EntityListWithSave;
 
 /**
  * A box that displays the current "time" in the battle.
@@ -45,7 +45,7 @@ public class TimeBox extends StatusBar implements Listener
 
     private static final int BUTTON_FONT_SIZE = 12;
 
-    EntityList dataModel;
+    EntityListWithSave dataModel;
 
     private JLabel time;
 
@@ -53,7 +53,7 @@ public class TimeBox extends StatusBar implements Listener
 
     private JLabel rounds;
 
-    public TimeBox(EntityList dataModel1)
+    public TimeBox(EntityListWithSave dataModel1)
     {
         this.dataModel = dataModel1;
 

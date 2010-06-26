@@ -1,6 +1,6 @@
 /*
  *   Copyright 2010 Ron "Ziroby" Romero
- * 
+ *
  *   This file is part of dmassist-engine.
  *
  *   dmassist-engine is free software: you can redistribute it and/or modify
@@ -26,13 +26,13 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-import com.ziroby.dmassist.model.Entity;
-import com.ziroby.dmassist.model.EntityList;
-import com.ziroby.util.AbstractListenable;
-import com.ziroby.util.Listener;
+import com.ziroby.dmassist.gwtable.model.Entity;
+import com.ziroby.dmassist.gwtable.util.AbstractListenable;
+import com.ziroby.dmassist.gwtable.util.Listener;
+import com.ziroby.dmassist.model.EntityListWithSave;
 
-public class MockDataModel extends AbstractListenable 
-    implements EntityList {
+public class MockDataModel extends AbstractListenable
+    implements EntityListWithSave {
 
 	private Entity entity;
 
@@ -42,7 +42,7 @@ public class MockDataModel extends AbstractListenable
 	}
 
 	/**
-	 * 
+	 *
 	 */
 	public void reset() {
 		entity = new Entity();
@@ -51,7 +51,7 @@ public class MockDataModel extends AbstractListenable
 		entity.setHitpoints(64);
 		entity.setSubdual(32);
 	}
-	
+
 	public void addEntities(Collection<Entity> list) {
         // Dummy Test Method
 	}
@@ -145,7 +145,7 @@ public class MockDataModel extends AbstractListenable
     }
 
     public void setValueAt(Object value, int rowIndex, int columnIndex) {
-        // Dummy Test Method            
+        // Dummy Test Method
    }
 
     public List<Map<String, String>> getListOfMaps() {
@@ -165,12 +165,18 @@ public class MockDataModel extends AbstractListenable
     @Override
     public void resetNumRounds() {
         // TODO Auto-generated method stub
-        
+
     }
 
     @Override
     public String formatRoundsAsTime() {
         // TODO Auto-generated method stub
         return null;
+    }
+
+    @Override
+    public void addSampleData() {
+        // TODO Auto-generated method stub
+
     }
 }

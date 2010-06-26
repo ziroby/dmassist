@@ -10,12 +10,14 @@ import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
 
+import com.ziroby.dmassist.gwtable.model.Entity;
+import com.ziroby.dmassist.gwtable.model.EntityList;
 import com.ziroby.dmassist.model.test.MockTableModelListener;
 
 
 public class EntityListImplTest extends TestCase
 {
-    private EntityList dataModel;
+    private EntityListWithSave dataModel;
     private MockTableModelListener mockListener;
 
     /**

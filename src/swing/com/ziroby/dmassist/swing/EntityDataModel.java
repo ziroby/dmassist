@@ -8,130 +8,130 @@ import java.util.Map;
 
 import javax.swing.table.AbstractTableModel;
 
-import com.ziroby.dmassist.model.Entity;
-import com.ziroby.dmassist.model.EntityList;
+import com.ziroby.dmassist.gwtable.model.Entity;
+import com.ziroby.dmassist.gwtable.util.DelegateListenable;
+import com.ziroby.dmassist.gwtable.util.Listener;
+import com.ziroby.dmassist.gwtable.util.ObjectEvent;
 import com.ziroby.dmassist.model.EntityListImpl;
-import com.ziroby.util.DelegateListenable;
-import com.ziroby.util.Listener;
-import com.ziroby.util.ObjectEvent;
+import com.ziroby.dmassist.model.EntityListWithSave;
 
-public class EntityDataModel extends AbstractTableModel 
-    implements EntityList, Listener {
+public class EntityDataModel extends AbstractTableModel
+    implements EntityListWithSave, Listener {
 
-    private EntityList entityList;
-    
+    private EntityListWithSave entityListWithSave;
+
     private DelegateListenable delegateListenable;
-    
+
     public EntityDataModel() {
         super();
         //TODO: Switch to dependency injection
-        entityList = new EntityListImpl();
-        entityList.addListener(this);
+        entityListWithSave = new EntityListImpl();
+        entityListWithSave.addListener(this);
         delegateListenable = new DelegateListenable();
-    }    
-    
-    public int getColumnCount() {
-        return entityList.getColumnCount();
     }
-    
+
+    public int getColumnCount() {
+        return entityListWithSave.getColumnCount();
+    }
+
     public String getColumnName(int column) {
-    	return entityList.getColumnHeader(column);
+    	return entityListWithSave.getColumnHeader(column);
     }
 
     /**
      * @see javax.swing.table.AbstractTableModel#getColumnClass(int)
      */
     public Class<?> getColumnClass(int columnIndex) {
-        Class<?> columnClass = entityList.getColumnClass(columnIndex);
-        
+        Class<?> columnClass = entityListWithSave.getColumnClass(columnIndex);
+
         if (columnClass == null)
             columnClass = super.getColumnClass(columnIndex);
-        
+
         return columnClass;
     }
 
     public boolean isCellEditable(int rowIndex, int columnIndex) {
-        return entityList.isCellEditable(rowIndex, columnIndex);
+        return entityListWithSave.isCellEditable(rowIndex, columnIndex);
     }
-    
+
     /**
      * Returns all the attributed (the entire "row") as a <code>List</code>.
      */
     public List<Object> getEntireRow(Entity entity)
     {
-        return entityList.getEntireRow(entity);
+        return entityListWithSave.getEntireRow(entity);
     }
 
     /** Returns the given virtual column. */
     public Object getColumn(Entity entity, int col) {
-        return entityList.getColumn(entity, col);
+        return entityListWithSave.getColumn(entity, col);
     }
 
     /**
      * @see javax.swing.table.AbstractTableModel#setValueAt(java.lang.Object, int, int)
      */
     public void setValueAt(Object value, int rowIndex, int columnIndex) {
-        entityList.setValueAt(value, rowIndex, columnIndex);
+        entityListWithSave.setValueAt(value, rowIndex, columnIndex);
     }
 
     public int getRowCount() {
-        return entityList.getRowCount();
+        return entityListWithSave.getRowCount();
     }
 
     public Object getValueAt(int row, int col) {
-        return entityList.getValueAt(row, col);
+        return entityListWithSave.getValueAt(row, col);
     }
 
     public void addEntities(Collection<Entity> list) {
-        entityList.addEntities(list);
+        entityListWithSave.addEntities(list);
     }
 
     public void addEntity(Entity entity) {
-        entityList.addEntity(entity);
+        entityListWithSave.addEntity(entity);
     }
 
     public void clear() {
-        entityList.clear();        
+        entityListWithSave.clear();
     }
 
     public Entity findByAbbrev(String abbrev) {
-        return entityList.findByAbbrev(abbrev);
+        return entityListWithSave.findByAbbrev(abbrev);
     }
 
     public Collection<Entity> getEntities() {
-        return entityList.getEntities();
+        return entityListWithSave.getEntities();
     }
 
     public Entity getEntity(int row) {
-        return entityList.getEntity(row);
+        return entityListWithSave.getEntity(row);
     }
 
     public Integer getInitCount() {
-        return entityList.getInitCount();
+        return entityListWithSave.getInitCount();
     }
 
     public void gotoNextInitCount() {
-        entityList.gotoNextInitCount();
+        entityListWithSave.gotoNextInitCount();
     }
 
     public void importFile(File file) throws FileNotFoundException {
-        entityList.importFile(file);
+        entityListWithSave.importFile(file);
     }
 
     public boolean isMyTurn(int row) {
-        return entityList.isMyTurn(row);
+        return entityListWithSave.isMyTurn(row);
     }
 
     public void remove(int index) {
-        entityList.remove(index);
+        entityListWithSave.remove(index);
     }
 
     public void save(File file) throws FileNotFoundException {
-        entityList.save(file);
+        entityListWithSave.save(file);
     }
 
     public void setInitCount(Integer initCount) {
-        entityList.setInitCount(initCount);
+        entityListWithSave.setInitCount(initCount);
     }
 
     public void objectChanged(ObjectEvent event) {
@@ -144,41 +144,47 @@ public class EntityDataModel extends AbstractTableModel
     }
 
     public String getColumnHeader(int column) {
-        return entityList.getColumnHeader(column);
+        return entityListWithSave.getColumnHeader(column);
     }
     /**
      * Sets the given virtual column.  Delegates to the correct setFoo() method.
-     * 
+     *
      * @param columnIndex The index to set.
      * @param value The value; must be of the appropriate type (usually
      * String or Integer).
      */
     public void setColumn(Entity entity, int columnIndex, Object value) {
-        entityList.setColumn(entity, columnIndex, value);
+        entityListWithSave.setColumn(entity, columnIndex, value);
     }
 
     public List<Map<String, String>> getListOfMaps() {
-        return entityList.getListOfMaps();
+        return entityListWithSave.getListOfMaps();
     }
 
     public List<Map<String,String>> getListOfMaps(List<Map<String, String>> data) {
-        return entityList.getListOfMaps(data);
+        return entityListWithSave.getListOfMaps(data);
     }
 
     @Override
     public int getNumRounds() {
-        return entityList.getNumRounds();
+        return entityListWithSave.getNumRounds();
     }
 
     @Override
     public void resetNumRounds() {
-        entityList.resetNumRounds();
+        entityListWithSave.resetNumRounds();
     }
 
     @Override
     public String formatRoundsAsTime() {
-        return entityList.formatRoundsAsTime();
+        return entityListWithSave.formatRoundsAsTime();
     }
-    
-    
+
+    @Override
+    public void addSampleData() {
+        // TODO Auto-generated method stub
+
+    }
+
+
 }

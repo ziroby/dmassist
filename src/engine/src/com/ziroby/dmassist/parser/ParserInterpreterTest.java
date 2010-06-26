@@ -9,7 +9,7 @@ import junit.framework.TestCase;
 
 import org.junit.Test;
 
-import com.ziroby.dmassist.model.EntityList;
+import com.ziroby.dmassist.gwtable.model.EntityList;
 import com.ziroby.dmassist.model.ResultsDisplay;
 
 /**
