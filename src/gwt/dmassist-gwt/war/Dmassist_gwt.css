@@ -84,6 +84,14 @@ rightSideButton {
     margin-right: auto;
 }
 
+.hyperlink {
+	margin-right: 5px;
+}
+
+.footer {
+	padding: 5px;
+}
+
 /** Dynamic styles */
 .hidden {
 	display: none;

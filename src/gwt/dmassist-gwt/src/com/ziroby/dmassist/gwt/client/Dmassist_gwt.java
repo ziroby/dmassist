@@ -4,6 +4,7 @@ import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.FlexTable;
@@ -54,6 +55,7 @@ public class Dmassist_gwt implements EntryPoint
     DialogBox addBox;
     private Widget initCountBox;
     private FlexTable statusBar;
+    private Panel footer;
 
     /**
      * This is the entry point method.
@@ -76,11 +78,45 @@ public class Dmassist_gwt implements EntryPoint
 
         createStatusBar();
 
+        createFooter();
+
         wireTogetherVisualElements();
 
         displayEntityList();
 
         RootPanel.get("splash").setStyleName("hidden");
+    }
+
+    private void createFooter() {
+        footer = new HorizontalPanel();
+
+        Anchor aboutLink = new Anchor("About");
+        aboutLink.setStyleName("hyperlink");
+        aboutLink.addClickHandler(new ClickHandler() {
+            public void onClick(ClickEvent event) {
+                displayAboutBox();
+            }
+        });
+
+        footer.add(aboutLink);
+        Widget gplLink = new Anchor("GPL", "http://www.gnu.org/licenses/gpl.html");
+        gplLink.setStyleName("hyperlink");
+        footer.add(gplLink);
+        Widget oglLink = new Anchor("OGL", "http://www.opengamingfoundation.org/ogl.html");
+        oglLink.setStyleName("hyperlink");
+        footer.add(oglLink);
+
+        footer.setStyleName("footer");
+
+
+    }
+
+    protected void displayAboutBox() {
+        AboutBox box = new AboutBox();
+        int left = mainPanel.getAbsoluteLeft();
+        int top = mainPanel.getAbsoluteTop() + 10;
+        box.setPopupPosition(left, top);
+        box.show();
     }
 
     private void createStatusBar() {
@@ -267,6 +303,7 @@ public class Dmassist_gwt implements EntryPoint
         mainPanel.add(initCountBox);
         mainPanel.add(topRowPanel);
         mainPanel.add(statusBar);
+        mainPanel.add(footer);
 
         RootPanel.get("mainPanel").add(mainPanel);
     }
