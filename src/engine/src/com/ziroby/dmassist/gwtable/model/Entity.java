@@ -1,6 +1,6 @@
 /*
  *   Copyright 2009 Ron "Ziroby" Romero
- * 
+ *
  *   This file is part of DM Assist.
  *
  *   DM Assist is free software: you can redistribute it and/or modify
@@ -26,25 +26,24 @@ import java.util.TreeMap;
 import com.ziroby.dmassist.gwtable.util.AbbrevUtil;
 import com.ziroby.dmassist.gwtable.util.AbstractListenable;
 import com.ziroby.dmassist.gwtable.util.StringUtil;
-import com.ziroby.dmassist.model.DiceEquation;
 
 /**
  * A character or effect.  This is one "row" in the initiative table.
  * Holds the attributes we care about.  If a value is not relevant,
  * it should be null.
- * 
+ *
  * @author Ron Romero
  *
  * @todo This class should be split into pure entity, and the stuff for
- * initiative table row.  The latter would inherit from the former. 
+ * initiative table row.  The latter would inherit from the former.
  */
 
 public class Entity extends AbstractListenable {
-    
+
     /**
      * The different type of damage or healing which can be done
      * to an entity.
-     * 
+     *
      * @author Ron Romero
      *
      */
@@ -62,7 +61,7 @@ public class Entity extends AbstractListenable {
 	private Integer hitpoints;
 	private Integer subdual;
     private Integer roundsLeft;
-	
+
     private boolean dirty = false;
 
     /**
@@ -83,7 +82,7 @@ public class Entity extends AbstractListenable {
                 || (abbreviation == null && this.abbreviation == null))
 		{
 			// It's already that value.  Don't change it or alertListeners.
-			return;			
+			return;
 		}
 		this.abbreviation = (abbreviation == null)?  null : abbreviation.trim();
 		this.dirty = true;
@@ -107,7 +106,7 @@ public class Entity extends AbstractListenable {
                 || (name == null && this.name == null))
 		{
 			// It's already that value.  Don't change it or alertListeners.
-			return;			
+			return;
 		}
 		this.name = (name == null)? null : name.trim();
 		this.dirty = true;
@@ -129,11 +128,11 @@ public class Entity extends AbstractListenable {
 	public final void setInitRoll(Integer initRoll) {
 		if (initRoll == null && this.initRoll == null)
 			return;
-		
+
 		if (this.initRoll != null && this.initRoll.equals(initRoll))
 		{
 			// It's already that value.  Don't change it or alertListeners.
-			return;			
+			return;
 		}
 		this.initRoll = initRoll;
 		this.dirty = true;
@@ -154,19 +153,19 @@ public class Entity extends AbstractListenable {
 	public final void setHitpoints(Integer hitpoints) {
 		if (hitpoints == null && this.hitpoints == null)
 			return;
-		
+
 		if (this.hitpoints != null && this.hitpoints.equals(hitpoints))
 		{
 			// It's already that value.  Don't change it or alertListeners.
-			return;			
+			return;
 		}
 		this.hitpoints = hitpoints;
 		this.dirty = true;
 		alertListeners();
 	}
-	
+
     /**
-     * The amount of subdual damage the entity has sustained.  Note that 
+     * The amount of subdual damage the entity has sustained.  Note that
      * subdual damage starts at null or 0, and increases as the entity
      * is subdued.
      */
@@ -175,7 +174,7 @@ public class Entity extends AbstractListenable {
     }
 
     /**
-     * The amount of subdual damage the entity has sustained.  Note that 
+     * The amount of subdual damage the entity has sustained.  Note that
      * subdual damage starts at null or 0, and increases as the entity
      * is subdued.  Alerts listeners if changed.
      */
@@ -183,15 +182,15 @@ public class Entity extends AbstractListenable {
 		if (this.subdual == subdual)
 		{
 			// It's already that value.  Don't change it or alertListeners.
-			return;			
-		}    	
+			return;
+		}
         this.subdual = subdual;
 		this.dirty = true;
         alertListeners();
     }
 
     /**
-     * The number of rounds until the entity is expired.  Null means the 
+     * The number of rounds until the entity is expired.  Null means the
      * entity is permanent.  Generally, effects are temporary (have rounds
      * left), and characters are permanent (rounds left is null).
      */
@@ -200,7 +199,7 @@ public class Entity extends AbstractListenable {
     }
 
     /**
-     * The number of rounds until the entity is expired.  Null means the 
+     * The number of rounds until the entity is expired.  Null means the
      * entity is permanent.  Generally, effects are temporary (have rounds
      * left), and characters are permanent (rounds left is null).
      */
@@ -208,7 +207,7 @@ public class Entity extends AbstractListenable {
 		if (this.roundsLeft == roundsLeft)
 		{
 			// It's already that value.  Don't change it or alertListeners.
-			return;			
+			return;
 		}
         this.roundsLeft = roundsLeft;
 		this.dirty = true;
@@ -223,7 +222,7 @@ public class Entity extends AbstractListenable {
      */
 	public void setInitRoll(String text) {
 		Integer n = StringUtil.tryParseInt(text);
-		setInitRoll(n);		
+		setInitRoll(n);
 	}
 
     /**
@@ -250,7 +249,7 @@ public class Entity extends AbstractListenable {
 	/**
      * Decreases the entity's hit points by the given amount. Alerts listeners
      * if it results in a changed value.
-     * 
+     *
      * @throws NullPointerException
      *             if the Entity's hitpoints were null
      */
@@ -259,7 +258,7 @@ public class Entity extends AbstractListenable {
 		{
 			throw new NullPointerException("Hitpoints are null; can't be damaged.");
 		}
-		
+
 		if (dmg != 0)
 		{
 			this.dirty = true;
@@ -292,7 +291,7 @@ public class Entity extends AbstractListenable {
      * no concept of "maximum hitpoints". DM's must keep track of that manually,
      * and change the value if it exceeds maximum hitpoints. Alerts listeners if
      * it results in a changed value.
-     * 
+     *
      * @throws NullPointerException
      *             if the Entity's hitpoints were null
      */
@@ -331,7 +330,7 @@ public class Entity extends AbstractListenable {
 		}
 		alertListeners();
 	}
-    
+
 
     /**
      * Decrements roundsLeft by one. Alerts listeners if it results in a changed
@@ -351,14 +350,14 @@ public class Entity extends AbstractListenable {
 	 * Is subdual damage greater than hitpoints?  If so, the entity is "subdued".
 	 */
 	public boolean isSubdued() {
-		
-		return (getSubdual() != null && getHitpoints() != null) 
+
+		return (getSubdual() != null && getHitpoints() != null)
 			&& (getSubdual() >= getHitpoints());
 	}
 
     /**
      * Is this a limited time effect which has expired?
-     * 
+     *
      * @param fudge
      *            How many extra rounds to give it before it's "expired".
      * @return true if the time limitted effect is expired. False if it's not
@@ -385,14 +384,14 @@ public class Entity extends AbstractListenable {
      * If it has no abbreviation, the first letter of its name is used.
      * If it's not unique, it is renamed to be unique; it may also rename
      * one other entity if necessary.
-	 * 
+	 *
 	 * @param otherEntities A list of all the other entities.  The uniqueness
      * is guaranteed relative to this set.
 	 */
 	public void sanitizeAbbrev(List<Entity> otherEntities)
 	{
 		if (this.getAbbreviation() == null || this.getAbbreviation().trim().length() == 0)
-		{			
+		{
 			if (this.getName().trim() != null && this.getName().trim().length() > 0)
 			{
 				String str = this.getName().trim().substring(0, 1).toUpperCase();
@@ -447,10 +446,10 @@ public class Entity extends AbstractListenable {
 
     /**
      * Damages or heals with the specified type.
-     * 
+     *
      * @param type
-     *            The type of damage to deal. 
-     * 
+     *            The type of damage to deal.
+     *
      * @param damage
      *            The amount to damage or heal.
      */
@@ -474,7 +473,7 @@ public class Entity extends AbstractListenable {
 
     /**
      * Returns the damage type for the given string.
-     * 
+     *
      * @return a damage type or null if the string does not refer to a damage
      *         type.
      * @todo This should be a method on the enum.
@@ -512,10 +511,10 @@ public class Entity extends AbstractListenable {
             return null;
         }
     }
-    
+
     /**
      * Returns the canonical string representation of the damage type.
-     * 
+     *
      * @todo This should be a method on the enum.
      */
     public static String damageTypeToString(DamageType type)
@@ -533,7 +532,7 @@ public class Entity extends AbstractListenable {
             default:
                 return null;
         }
-        
+
     }
 
     public Map<String, String> getAsMap() {
@@ -546,13 +545,18 @@ public class Entity extends AbstractListenable {
         map.put(EntityList.COLUMN_NAME_ROUNDS, toStringOrBlank(getRoundsLeft()));
         return map;
     }
-    
+
    private String toStringOrBlank(Integer i)
    {
-       if (i == null) 
+       if (i == null)
            return "";
-       
+
        return i.toString();
    }
+
+    public void setRoundsLeft(String text) {
+        Integer n = StringUtil.tryParseInt(text);
+        setRoundsLeft(n);
+    }
 }
 

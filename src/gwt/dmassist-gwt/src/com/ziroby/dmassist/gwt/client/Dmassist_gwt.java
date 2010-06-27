@@ -9,6 +9,7 @@ import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
@@ -81,27 +82,19 @@ public class Dmassist_gwt implements EntryPoint
         Button nextButton = new Button("Next");
 
         nextButton.addClickHandler(new ClickHandler() {
-
-            @Override
             public void onClick(ClickEvent event) {
                 entityList.gotoNextInitCount();
             }
         });
-
         addButton.addClickHandler(new ClickHandler() {
-
-            @Override
             public void onClick(ClickEvent event) {
-                if (addBox == null) {
-                    Panel dialogPanel = new FlowPanel();
-                    addBox = new AddDialogBox(entityList);
-                    int left = mainPanel.getAbsoluteLeft() + 50;
-                    int top = mainPanel.getAbsoluteTop() + 10;
-                    addBox.setPopupPosition(left, top);
-                    dialogPanel.add(addBox);
-                    dialogPanel.setStyleName("mainPanel");
-                    RootPanel.get("popupArea").add(dialogPanel);
-                }
+                makeAddDialog(false);
+                addBox.show();
+            }
+        });
+        effectButton.addClickHandler(new ClickHandler() {
+            public void onClick(ClickEvent event) {
+                makeAddDialog(true);
                 addBox.show();
             }
         });
@@ -151,26 +144,44 @@ public class Dmassist_gwt implements EntryPoint
         int row=1;
         for (Entity entity : entityList.getEntities())
         {
-            final String styleName;
-            if (entity.getInitRoll() == entityList.getInitCount()
-                    && entityList.getInitCount() != null)
-                styleName = "myTurn";
-            else
-                styleName = "notMyTurn";
+            final String styleName = isItsTurn(entity) ? "myTurn" : "notMyTurn";
 
             initListTable.getRowFormatter().setStyleName(row, styleName);
 
             initListTable.setText(row, COLUMN_ABBREV, entity.getAbbreviation());
             initListTable.setText(row, COLUMN_NAME, entity.getName());
             initListTable.setText(row, COLUMN_INIT, formatNumber(entity.getInitRoll()));
-            initListTable.setText(row, COLUMN_HP, formatNumber(entity.getHitpoints()));
-            initListTable.setText(row, COLUMN_SUB, formatNumber(entity.getSubdual()));
-            initListTable.setText(row, COLUMN_ROUNDS, formatNumber(entity.getRoundsLeft()));
+            final Integer hitpoints = entity.getHitpoints();
+            setCell(row, COLUMN_HP, hitpoints);
+            final Integer subdual = entity.getSubdual();
+            final boolean shouldHighlightSubdual
+                = subdual != null && hitpoints != null && subdual >= hitpoints;
+            setCell(row, COLUMN_SUB, subdual, shouldHighlightSubdual);
+            setCell(row, COLUMN_ROUNDS, entity.getRoundsLeft());
 
             setInitTableFormatters(row);
 
             row++;
         }
+    }
+
+    private void setCell(int row, final int column, final Integer number) {
+        final boolean shouldHighlight = number != null && number <= 0;
+        setCell(row, column, number, shouldHighlight);
+    }
+
+    private void setCell(int row, final int column, final Integer number,
+            final boolean shouldHighlight) {
+        final Label roundLabel = new Label(formatNumber(number));
+        initListTable.setWidget(row, column, roundLabel);
+
+        if (shouldHighlight)
+            roundLabel.setStyleName("nonpositive");
+    }
+
+    private boolean isItsTurn(Entity entity) {
+        return entity.getInitRoll() == entityList.getInitCount()
+                && entityList.getInitCount() != null;
     }
 
     private String formatNumber(Integer number) {
@@ -193,6 +204,17 @@ public class Dmassist_gwt implements EntryPoint
         mainPanel.add(topRowPanel);
 
         RootPanel.get("mainPanel").add(mainPanel);
+    }
+
+    void makeAddDialog(boolean effect) {
+        Panel dialogPanel = new FlowPanel();
+        addBox = new AddDialogBox(entityList, effect);
+        int left = mainPanel.getAbsoluteLeft() + 50;
+        int top = mainPanel.getAbsoluteTop() + 10;
+        addBox.setPopupPosition(left, top);
+        dialogPanel.add(addBox);
+        dialogPanel.setStyleName("mainPanel");
+        RootPanel.get("popupArea").add(dialogPanel);
     }
 
 }

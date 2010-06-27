@@ -23,8 +23,9 @@ public class AddDialogBox extends DialogBox
     private TextBox abbrevInput;
     private TextBox subdualInput;
     private EntityList entityList;
+    private TextBox roundsInput;
 
-    public AddDialogBox(EntityList entityList)
+    public AddDialogBox(EntityList entityList, boolean effect)
     {
         super(true /*autohide*/);
         this.entityList = entityList;
@@ -39,6 +40,8 @@ public class AddDialogBox extends DialogBox
         initInput = addInputRow("Initiative Roll: ");
         hpInput = addInputRow("Hit Points: ");
         abbrevInput = addInputRow("Abbreviation: ");
+        if (effect)
+            roundsInput = addInputRow("Rounds: ");
         subdualInput = addInputRow("Subdual: ");
 
         panel.add(table);
@@ -64,6 +67,8 @@ public class AddDialogBox extends DialogBox
         entity.setHitpoints(hpInput.getText());
         entity.setInitRoll(initInput.getText());
         entity.setSubdual(subdualInput.getText());
+        if (roundsInput != null && roundsInput.getText() != null)
+            entity.setRoundsLeft(roundsInput.getText());
 
         entityList.addEntity(entity);
     }
