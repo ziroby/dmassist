@@ -83,10 +83,16 @@ public class Dmassist_gwt implements EntryPoint
         });
 
 
+        addButton.setStyleName("rightSideButton");
+        effectButton.setStyleName("rightSideButton");
+        nextButton.setStyleName("rightSideButton");
+
         buttonBox.add(addButton);
         buttonBox.add(effectButton);
         //buttonBox.add(removeButton);
         buttonBox.add(nextButton);
+
+        buttonBox.setStyleName("buttonBox");
     }
 
     private void setupInitList() {
@@ -110,6 +116,8 @@ public class Dmassist_gwt implements EntryPoint
         initListTable.getCellFormatter().addStyleName(row, COLUMN_HP, "initColumn");
         initListTable.getCellFormatter().addStyleName(row, COLUMN_SUB, "initColumn");
         initListTable.getCellFormatter().addStyleName(row, COLUMN_ROUNDS, "initColumn");
+
+        initListTable.setCellSpacing(0);
     }
 
     void displayEntityList() {
@@ -151,9 +159,13 @@ public class Dmassist_gwt implements EntryPoint
 //        private FlexTable initListTable = new FlexTable();
 //        private VerticalPanel buttonBox = new VerticalPanel();
 
+
         topRowPanel.add(initListTable);
         topRowPanel.add(buttonBox);
 
+        topRowPanel.setSpacing(20);
+
+        mainPanel.setStyleName("mainPanel");
         mainPanel.add(topRowPanel);
 
         RootPanel.get("mainPanel").add(mainPanel);

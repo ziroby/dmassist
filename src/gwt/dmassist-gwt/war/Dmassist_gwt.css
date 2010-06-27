@@ -3,9 +3,14 @@
 
 
 body {
-  padding: 10px;
   text-align: center;
   min-width: 500px;
+}
+
+
+.mainPanel {
+	text-align: center;
+	margin: auto;
 }
 
 .initListHeader  {
@@ -16,15 +21,20 @@ body {
 
 .initList {
   border: 1px solid silver;
-  padding: 5px;
   margin-bottom:6px;
-  margin: auto;
-  text-align: center;
 }
 
 .initColumn {
 	border: 1px solid silver;
-	padding: 0px
+    padding-left: 5px;
+	padding-right: 5px;
+	padding-top: 0px;
+	padding-bottom: 0px;
+	text-align: center;
+}
+
+.buttonBox {
+
 }
 
 .myTurn {
@@ -44,13 +54,14 @@ h1 {
   text-align: center;
 }
 
-.gwt-Button {
+
+rightSideButton {
     background:transparent url(images/hborder.png) repeat-x scroll 0px -27px;
     border:1px outset #CCCCCC;
     cursor:pointer;
     font-size:small;
     margin:5px;
-    padding:10px;
+    padding:30px;
     text-decoration:none;
 }
 
