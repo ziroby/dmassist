@@ -5,8 +5,11 @@ import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
 import com.google.gwt.user.client.ui.Button;
+import com.google.gwt.user.client.ui.DialogBox;
 import com.google.gwt.user.client.ui.FlexTable;
+import com.google.gwt.user.client.ui.FlowPanel;
 import com.google.gwt.user.client.ui.HorizontalPanel;
+import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
 import com.ziroby.dmassist.gwtable.model.Entity;
@@ -20,7 +23,7 @@ import com.ziroby.dmassist.gwtable.util.ObjectEvent;
  */
 public class Dmassist_gwt implements EntryPoint
 {
-    private VerticalPanel mainPanel = new VerticalPanel();
+    VerticalPanel mainPanel = new VerticalPanel();
     private HorizontalPanel topRowPanel = new HorizontalPanel();
     private FlexTable initListTable = new FlexTable();
     private VerticalPanel buttonBox = new VerticalPanel();
@@ -46,16 +49,13 @@ public class Dmassist_gwt implements EntryPoint
      */
     private final GreetingServiceAsync greetingService = GWT
             .create(GreetingService.class);
+    DialogBox addBox;
 
     /**
      * This is the entry point method.
      */
     public void onModuleLoad() {
         setupInitList();
-        createButtonBox();
-
-        wireTogetherVisualElements();
-
         entityList.addListener(new Listener() {
 
             @Override
@@ -65,6 +65,12 @@ public class Dmassist_gwt implements EntryPoint
         });
 
         entityList.addSampleData();
+
+
+        createButtonBox();
+
+        wireTogetherVisualElements();
+
         displayEntityList();
     }
 
@@ -82,6 +88,23 @@ public class Dmassist_gwt implements EntryPoint
             }
         });
 
+        addButton.addClickHandler(new ClickHandler() {
+
+            @Override
+            public void onClick(ClickEvent event) {
+                if (addBox == null) {
+                    Panel dialogPanel = new FlowPanel();
+                    addBox = new AddDialogBox(entityList);
+                    int left = mainPanel.getAbsoluteLeft() + 50;
+                    int top = mainPanel.getAbsoluteTop() + 10;
+                    addBox.setPopupPosition(left, top);
+                    dialogPanel.add(addBox);
+                    dialogPanel.setStyleName("mainPanel");
+                    RootPanel.get("popupArea").add(dialogPanel);
+                }
+                addBox.show();
+            }
+        });
 
         addButton.setStyleName("rightSideButton");
         effectButton.setStyleName("rightSideButton");
@@ -107,7 +130,7 @@ public class Dmassist_gwt implements EntryPoint
         initListTable.setText(0, COLUMN_ROUNDS, "Rounds");
 
         setInitTableFormatters(0);
-    }
+}
 
     private void setInitTableFormatters(final int row) {
         initListTable.getCellFormatter().addStyleName(row, COLUMN_ABBREV, "initColumn");
@@ -129,7 +152,8 @@ public class Dmassist_gwt implements EntryPoint
         for (Entity entity : entityList.getEntities())
         {
             final String styleName;
-            if (entity.getInitRoll() == entityList.getInitCount())
+            if (entity.getInitRoll() == entityList.getInitCount()
+                    && entityList.getInitCount() != null)
                 styleName = "myTurn";
             else
                 styleName = "notMyTurn";
