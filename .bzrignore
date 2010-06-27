@@ -4,3 +4,4 @@ build
 test-classes
 classes
 *.cache.*
+*.gwt.rpc

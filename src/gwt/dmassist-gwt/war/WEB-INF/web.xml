@@ -11,9 +11,19 @@
     <servlet-class>com.ziroby.dmassist.gwt.server.GreetingServiceImpl</servlet-class>
   </servlet>
   
+  <servlet>
+    <servlet-name>initListServlet</servlet-name>
+    <servlet-class>com.ziroby.dmassist.gwt.server.InitListServiceImpl</servlet-class>
+  </servlet>
+  
+  
   <servlet-mapping>
     <servlet-name>greetServlet</servlet-name>
     <url-pattern>/dmassist_gwt/greet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>initListServlet</servlet-name>
+    <url-pattern>/dmassist_gwt/initList</url-pattern>
   </servlet-mapping>
   
   <!-- Default page to serve -->

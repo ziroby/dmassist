@@ -14,7 +14,7 @@
   <inherits name='com.ziroby.dmassist.gwtable.dmassist-model'/>
 
   <!-- Specify the app entry point class.                         -->
-  <entry-point class='com.ziroby.dmassist.gwt.client.Dmassist_gwt'/>
+  <entry-point class='com.ziroby.dmassist.gwt.client.MainPanel'/>
 
   <!-- Specify the paths for translatable code                    -->
   <source path='client'/>

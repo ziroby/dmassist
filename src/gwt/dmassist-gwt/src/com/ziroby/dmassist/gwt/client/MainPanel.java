@@ -4,6 +4,8 @@ import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
 import com.google.gwt.event.dom.client.ClickEvent;
 import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.Timer;
+import com.google.gwt.user.client.rpc.AsyncCallback;
 import com.google.gwt.user.client.ui.Anchor;
 import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.DialogBox;
@@ -24,8 +26,9 @@ import com.ziroby.dmassist.gwtable.util.ObjectEvent;
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
  */
-public class Dmassist_gwt implements EntryPoint
+public class MainPanel implements EntryPoint
 {
+    private static final int SCHEDULE_REPEAT_MS = 5 * 1000;
     VerticalPanel mainPanel = new VerticalPanel();
     private HorizontalPanel topRowPanel = new HorizontalPanel();
     private FlexTable initListTable = new FlexTable();
@@ -33,13 +36,6 @@ public class Dmassist_gwt implements EntryPoint
 
     EntityList entityList = new EntityListGwtable();
 
-    /**
-     * The message displayed to the user when the server cannot be reached or
-     * returns an error.
-     */
-    private static final String SERVER_ERROR = "An error occurred while "
-            + "attempting to contact the server. Please check your network "
-            + "connection and try again.";
     private static final int COLUMN_ABBREV = 0;
     private static final int COLUMN_NAME = 1;
     private static final int COLUMN_INIT = 2;
@@ -52,6 +48,10 @@ public class Dmassist_gwt implements EntryPoint
      */
     private final GreetingServiceAsync greetingService = GWT
             .create(GreetingService.class);
+
+    final InitListServiceAsync initListService =
+        GWT.create(InitListService.class);
+
     DialogBox addBox;
     private Widget initCountBox;
     private FlexTable statusBar;
@@ -82,9 +82,32 @@ public class Dmassist_gwt implements EntryPoint
 
         wireTogetherVisualElements();
 
+        registerCallbacks();
+
         displayEntityList();
 
         RootPanel.get("splash").setStyleName("hidden");
+    }
+
+    private void registerCallbacks() {
+        Timer timer = new Timer() {
+            public void run() {
+                getInitCountFromServer();
+            }
+        };
+        timer.scheduleRepeating(SCHEDULE_REPEAT_MS);
+    }
+
+    void getInitCountFromServer() {
+        initListService.getInitCount(new AsyncCallback<Integer>() {
+            public void onSuccess(Integer result) {
+                entityList.setInitCount(result);
+            }
+            public void onFailure(Throwable caught) {
+                // TODO: display an error
+                entityList.setInitCount(-555);
+            }
+        });
     }
 
     private void createFooter() {
@@ -200,6 +223,16 @@ public class Dmassist_gwt implements EntryPoint
         nextButton.addClickHandler(new ClickHandler() {
             public void onClick(ClickEvent event) {
                 entityList.gotoNextInitCount();
+                initListService.setInitCount(entityList.getInitCount(), new AsyncCallback<Void>() {
+                    public void onSuccess(Void result) {
+                        // Do nothing
+                        // entityList.setInitCount(null);
+                    }
+                    public void onFailure(Throwable caught) {
+                        // TODO: We should log an error
+                        entityList.setInitCount(null);
+                    }
+                });
             }
         });
         addButton.addClickHandler(new ClickHandler() {
