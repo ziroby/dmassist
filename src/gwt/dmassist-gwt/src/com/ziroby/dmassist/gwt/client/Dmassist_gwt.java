@@ -2,6 +2,9 @@ package com.ziroby.dmassist.gwt.client;
 
 import com.google.gwt.core.client.EntryPoint;
 import com.google.gwt.core.client.GWT;
+import com.google.gwt.event.dom.client.ClickEvent;
+import com.google.gwt.event.dom.client.ClickHandler;
+import com.google.gwt.user.client.ui.Button;
 import com.google.gwt.user.client.ui.FlexTable;
 import com.google.gwt.user.client.ui.HorizontalPanel;
 import com.google.gwt.user.client.ui.RootPanel;
@@ -9,6 +12,8 @@ import com.google.gwt.user.client.ui.VerticalPanel;
 import com.ziroby.dmassist.gwtable.model.Entity;
 import com.ziroby.dmassist.gwtable.model.EntityList;
 import com.ziroby.dmassist.gwtable.model.EntityListGwtable;
+import com.ziroby.dmassist.gwtable.util.Listener;
+import com.ziroby.dmassist.gwtable.util.ObjectEvent;
 
 /**
  * Entry point classes define <code>onModuleLoad()</code>.
@@ -20,7 +25,7 @@ public class Dmassist_gwt implements EntryPoint
     private FlexTable initListTable = new FlexTable();
     private VerticalPanel buttonBox = new VerticalPanel();
 
-    private EntityList entityList = new EntityListGwtable();
+    EntityList entityList = new EntityListGwtable();
 
     /**
      * The message displayed to the user when the server cannot be reached or
@@ -46,24 +51,91 @@ public class Dmassist_gwt implements EntryPoint
      * This is the entry point method.
      */
     public void onModuleLoad() {
-        setInitListTableHeadings();
+        setupInitList();
+        createButtonBox();
 
         wireTogetherVisualElements();
+
+        entityList.addListener(new Listener() {
+
+            @Override
+            public void objectChanged(ObjectEvent event) {
+                displayEntityList();
+            }
+        });
 
         entityList.addSampleData();
         displayEntityList();
     }
 
-    private void displayEntityList() {
+    private void createButtonBox() {
+        Button addButton = new Button("Add");
+        Button effectButton = new Button("Effect");
+        //Button removeButton = new Button("Remove");
+        Button nextButton = new Button("Next");
+
+        nextButton.addClickHandler(new ClickHandler() {
+
+            @Override
+            public void onClick(ClickEvent event) {
+                entityList.gotoNextInitCount();
+            }
+        });
+
+
+        buttonBox.add(addButton);
+        buttonBox.add(effectButton);
+        //buttonBox.add(removeButton);
+        buttonBox.add(nextButton);
+    }
+
+    private void setupInitList() {
+        initListTable.getRowFormatter().addStyleName(0, "initListHeader");
+        initListTable.addStyleName("initList");
+
+        initListTable.setText(0, COLUMN_ABBREV, "##");
+        initListTable.setText(0, COLUMN_NAME, "Name");
+        initListTable.setText(0, COLUMN_INIT, "Init");
+        initListTable.setText(0, COLUMN_HP, "HP");
+        initListTable.setText(0, COLUMN_SUB, "Sub");
+        initListTable.setText(0, COLUMN_ROUNDS, "Rounds");
+
+        setInitTableFormatters(0);
+    }
+
+    private void setInitTableFormatters(final int row) {
+        initListTable.getCellFormatter().addStyleName(row, COLUMN_ABBREV, "initColumn");
+        initListTable.getCellFormatter().addStyleName(row, COLUMN_NAME, "initColumn");
+        initListTable.getCellFormatter().addStyleName(row, COLUMN_INIT, "initColumn");
+        initListTable.getCellFormatter().addStyleName(row, COLUMN_HP, "initColumn");
+        initListTable.getCellFormatter().addStyleName(row, COLUMN_SUB, "initColumn");
+        initListTable.getCellFormatter().addStyleName(row, COLUMN_ROUNDS, "initColumn");
+    }
+
+    void displayEntityList() {
+
+        initListTable.removeAllRows();
+        setupInitList();
+
         int row=1;
         for (Entity entity : entityList.getEntities())
         {
+            final String styleName;
+            if (entity.getInitRoll() == entityList.getInitCount())
+                styleName = "myTurn";
+            else
+                styleName = "notMyTurn";
+
+            initListTable.getRowFormatter().setStyleName(row, styleName);
+
             initListTable.setText(row, COLUMN_ABBREV, entity.getAbbreviation());
             initListTable.setText(row, COLUMN_NAME, entity.getName());
             initListTable.setText(row, COLUMN_INIT, formatNumber(entity.getInitRoll()));
             initListTable.setText(row, COLUMN_HP, formatNumber(entity.getHitpoints()));
             initListTable.setText(row, COLUMN_SUB, formatNumber(entity.getSubdual()));
             initListTable.setText(row, COLUMN_ROUNDS, formatNumber(entity.getRoundsLeft()));
+
+            setInitTableFormatters(row);
 
             row++;
         }
@@ -87,12 +159,4 @@ public class Dmassist_gwt implements EntryPoint
         RootPanel.get("mainPanel").add(mainPanel);
     }
 
-    private void setInitListTableHeadings() {
-        initListTable.setText(0, COLUMN_ABBREV, "##");
-        initListTable.setText(0, COLUMN_NAME, "Name");
-        initListTable.setText(0, COLUMN_INIT, "Init");
-        initListTable.setText(0, COLUMN_HP, "HP");
-        initListTable.setText(0, COLUMN_SUB, "Sub");
-        initListTable.setText(0, COLUMN_ROUNDS, "Rounds");
-    }
 }

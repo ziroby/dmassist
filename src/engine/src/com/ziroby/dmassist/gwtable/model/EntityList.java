@@ -4,7 +4,9 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-public interface EntityList
+import com.ziroby.dmassist.gwtable.util.Listenable;
+
+public interface EntityList extends Listenable
 {
 
     /** The number for the turn indicator column. */

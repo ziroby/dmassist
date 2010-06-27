@@ -8,6 +8,7 @@ import java.util.Map;
 import java.util.Vector;
 
 import com.ziroby.dmassist.gwtable.util.AbstractListenable;
+import com.ziroby.dmassist.gwtable.util.Listenable;
 import com.ziroby.dmassist.gwtable.util.Listener;
 import com.ziroby.dmassist.gwtable.util.ObjectEvent;
 
@@ -18,7 +19,7 @@ import com.ziroby.dmassist.gwtable.util.ObjectEvent;
  * @author Ron "Ziroby" Romero
  *
  */
-public class EntityListGwtable extends AbstractListenable implements Listener,
+public class EntityListGwtable extends AbstractListenable implements Listener, Listenable,
         EntityList
 
 {

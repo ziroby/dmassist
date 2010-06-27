@@ -1,3 +1,6 @@
 src/android/gen
 bin
 build
+test-classes
+classes
+classes

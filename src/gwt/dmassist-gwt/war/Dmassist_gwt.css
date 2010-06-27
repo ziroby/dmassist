@@ -1,6 +1,40 @@
 /** Add css rules here for your application. */
 
 
+
+body {
+  padding: 10px;
+  text-align: center;
+  min-width: 500px;
+}
+
+.initListHeader  {
+  background-color: #2062B8;
+  color: white;
+  font-style: italic;
+}
+
+.initList {
+  border: 1px solid silver;
+  padding: 5px;
+  margin-bottom:6px;
+  margin: auto;
+  text-align: center;
+}
+
+.initColumn {
+	border: 1px solid silver;
+	padding: 0px
+}
+
+.myTurn {
+    background-color: #ffff00;
+}
+
+.notMyTurn {
+    background-color: #FFFFFF;
+}	
+
 /** Example rules used by the template application (remove for your app) */
 h1 {
   font-size: 2em;
@@ -8,6 +42,16 @@ h1 {
   color: #777777;
   margin: 40px 0px 70px;
   text-align: center;
+}
+
+.gwt-Button {
+    background:transparent url(images/hborder.png) repeat-x scroll 0px -27px;
+    border:1px outset #CCCCCC;
+    cursor:pointer;
+    font-size:small;
+    margin:5px;
+    padding:10px;
+    text-decoration:none;
 }
 
 .sendButton {
