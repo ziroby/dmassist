@@ -51,11 +51,22 @@ body {
 
 .initLabel {
     color: #444444;
+    font-size: 1em;
 }	
 
 .buttonBox {
 }
 
+
+.statusBar {
+	padding: 3px;
+	border: 1px;
+}
+
+.statusElement {
+    background-color: #CCCCCC;
+    padding: 3px;
+}
 
 aboutBox {
 	width: 40em;

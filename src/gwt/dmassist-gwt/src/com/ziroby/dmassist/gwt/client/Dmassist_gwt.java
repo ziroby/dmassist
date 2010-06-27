@@ -53,6 +53,7 @@ public class Dmassist_gwt implements EntryPoint
             .create(GreetingService.class);
     DialogBox addBox;
     private Widget initCountBox;
+    private FlexTable statusBar;
 
     /**
      * This is the entry point method.
@@ -69,16 +70,45 @@ public class Dmassist_gwt implements EntryPoint
 
         entityList.addSampleData();
 
-
         createButtonBox();
 
         initCountBox = createInitCount();
+
+        createStatusBar();
 
         wireTogetherVisualElements();
 
         displayEntityList();
 
         RootPanel.get("splash").setStyleName("hidden");
+    }
+
+    private void createStatusBar() {
+        statusBar = new FlexTable();
+
+        int column = 0;
+        final Label timeWidget = new Label("00:00");
+        statusBar.setWidget(0, column++, timeWidget);
+        final Label roundWidget = new Label("round 0");
+        statusBar.setWidget(0, column++, roundWidget);
+
+        for (int i=0; i<column; ++i)
+            statusBar.getCellFormatter().addStyleName(0, i, "statusElement");
+
+        entityList.addListener(new Listener() {
+            public void objectChanged(ObjectEvent event) {
+                timeWidget.setText(entityList.formatRoundsAsTime());
+            }
+        });
+
+        entityList.addListener(new Listener() {
+            public void objectChanged(ObjectEvent event) {
+                roundWidget.setText("round " + entityList.getNumRounds());
+            }
+        });
+
+
+        statusBar.setStyleName("statusBar");
     }
 
     private void createButtonBox() {
@@ -108,14 +138,23 @@ public class Dmassist_gwt implements EntryPoint
         Widget label = new Label("Init Count");
         panel.add(label);
 
-        Label initCount = new Label("-");
-        initCount.setStyleName("initBox");
-        initCount.setWidth("3em");
-        panel.add(initCount);
+        final Label initCountLabel = new Label("-");
+        initCountLabel.setStyleName("initBox");
+        initCountLabel.setWidth("3em");
+        panel.add(initCountLabel);
 
         label.setStyleName("initLabel");
-        initCount.setStyleName("initBox");
+        initCountLabel.setStyleName("initBox");
         panel.setStyleName("initPanel");
+
+        entityList.addListener(new Listener() {
+            public void objectChanged(ObjectEvent event) {
+                Integer initCount = entityList.getInitCount();
+                initCountLabel.setText(
+                        (initCount == null)? "-"
+                                : initCount.toString());
+            }
+        });
 
         return panel;
     }
@@ -219,12 +258,6 @@ public class Dmassist_gwt implements EntryPoint
     }
 
     private void wireTogetherVisualElements() {
-//        private VerticalPanel mainPanel = new VerticalPanel();
-//        private HorizontalPanel topRowPanel = new HorizontalPanel();
-//        private FlexTable initListTable = new FlexTable();
-//        private VerticalPanel buttonBox = new VerticalPanel();
-
-
         topRowPanel.add(initListTable);
         topRowPanel.add(buttonBox);
 
@@ -233,6 +266,7 @@ public class Dmassist_gwt implements EntryPoint
         mainPanel.setStyleName("mainPanel");
         mainPanel.add(initCountBox);
         mainPanel.add(topRowPanel);
+        mainPanel.add(statusBar);
 
         RootPanel.get("mainPanel").add(mainPanel);
     }

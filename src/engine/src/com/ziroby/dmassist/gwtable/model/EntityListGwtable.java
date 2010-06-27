@@ -439,9 +439,9 @@ public class EntityListGwtable extends AbstractListenable implements Listener, L
             builder.append (':');
         }
 
-        builder.append(Integer.toString(100 + minutes).substring(1, 2));
+        builder.append(Integer.toString(100 + minutes).substring(1, 3));
         builder.append (':');
-        builder.append(Integer.toString(100 + seconds).substring(1, 2));
+        builder.append(Integer.toString(100 + seconds).substring(1, 3));
 
         return builder.toString();
     }
