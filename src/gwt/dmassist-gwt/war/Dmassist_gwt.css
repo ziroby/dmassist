@@ -30,11 +30,52 @@ body {
 	padding-right: 5px;
 	padding-top: 0px;
 	padding-bottom: 0px;
-	text-align: center;
+	text-align: right;
 }
 
-.buttonBox {
+.initBox {
+    border: 1px solid silver;
+    padding: 5px;
+    font-weight: bold;
+    color: #444444;
+    margin-right: 0px;
+    margin-left: auto;
+    margin-bottom: 2px;
+    width: 3em;   
+    text-align: center;
+}
 
+.initPanel {
+    text-align: right;
+}
+
+.initLabel {
+    color: #444444;
+}	
+
+.buttonBox {
+}
+
+
+aboutBox {
+	width: 40em;
+}
+
+rightSideButton {
+    background:transparent url(images/hborder.png) repeat-x scroll 0px -27px;
+    border:1px outset #CCCCCC;
+    cursor:pointer;
+    font-size:small;
+    /*margin:5px;*/
+    padding:30px;
+    text-decoration:none;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/** Dynamic styles */
+.hidden {
+	display: none;
 }
 
 .myTurn {
@@ -57,21 +98,12 @@ body {
 h1 {
   font-size: 2em;
   font-weight: bold;
-  color: #777777;
-  margin: 40px 0px 70px;
+  color: #444444;
   text-align: center;
+  margin-bottom: 0px;
 }
 
 
-rightSideButton {
-    background:transparent url(images/hborder.png) repeat-x scroll 0px -27px;
-    border:1px outset #CCCCCC;
-    cursor:pointer;
-    font-size:small;
-    margin:5px;
-    padding:30px;
-    text-decoration:none;
-}
 
 .sendButton {
   display: block;

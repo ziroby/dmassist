@@ -13,6 +13,7 @@ import com.google.gwt.user.client.ui.Label;
 import com.google.gwt.user.client.ui.Panel;
 import com.google.gwt.user.client.ui.RootPanel;
 import com.google.gwt.user.client.ui.VerticalPanel;
+import com.google.gwt.user.client.ui.Widget;
 import com.ziroby.dmassist.gwtable.model.Entity;
 import com.ziroby.dmassist.gwtable.model.EntityList;
 import com.ziroby.dmassist.gwtable.model.EntityListGwtable;
@@ -51,6 +52,7 @@ public class Dmassist_gwt implements EntryPoint
     private final GreetingServiceAsync greetingService = GWT
             .create(GreetingService.class);
     DialogBox addBox;
+    private Widget initCountBox;
 
     /**
      * This is the entry point method.
@@ -70,17 +72,56 @@ public class Dmassist_gwt implements EntryPoint
 
         createButtonBox();
 
+        initCountBox = createInitCount();
+
         wireTogetherVisualElements();
 
         displayEntityList();
+
+        RootPanel.get("splash").setStyleName("hidden");
     }
 
     private void createButtonBox() {
+
         Button addButton = new Button("Add");
         Button effectButton = new Button("Effect");
         //Button removeButton = new Button("Remove");
         Button nextButton = new Button("Next");
 
+        createButtonHandlers(addButton, effectButton, nextButton);
+
+        addButton.setStyleName("rightSideButton");
+        effectButton.setStyleName("rightSideButton");
+        nextButton.setStyleName("rightSideButton");
+
+        buttonBox.add(addButton);
+        buttonBox.add(effectButton);
+        //buttonBox.add(removeButton);
+        buttonBox.add(nextButton);
+
+        buttonBox.setStyleName("buttonBox");
+    }
+
+    private Widget createInitCount() {
+        Panel panel = new FlowPanel();
+
+        Widget label = new Label("Init Count");
+        panel.add(label);
+
+        Label initCount = new Label("-");
+        initCount.setStyleName("initBox");
+        initCount.setWidth("3em");
+        panel.add(initCount);
+
+        label.setStyleName("initLabel");
+        initCount.setStyleName("initBox");
+        panel.setStyleName("initPanel");
+
+        return panel;
+    }
+
+    private void createButtonHandlers(Button addButton, Button effectButton,
+            Button nextButton) {
         nextButton.addClickHandler(new ClickHandler() {
             public void onClick(ClickEvent event) {
                 entityList.gotoNextInitCount();
@@ -98,17 +139,6 @@ public class Dmassist_gwt implements EntryPoint
                 addBox.show();
             }
         });
-
-        addButton.setStyleName("rightSideButton");
-        effectButton.setStyleName("rightSideButton");
-        nextButton.setStyleName("rightSideButton");
-
-        buttonBox.add(addButton);
-        buttonBox.add(effectButton);
-        //buttonBox.add(removeButton);
-        buttonBox.add(nextButton);
-
-        buttonBox.setStyleName("buttonBox");
     }
 
     private void setupInitList() {
@@ -201,6 +231,7 @@ public class Dmassist_gwt implements EntryPoint
         topRowPanel.setSpacing(20);
 
         mainPanel.setStyleName("mainPanel");
+        mainPanel.add(initCountBox);
         mainPanel.add(topRowPanel);
 
         RootPanel.get("mainPanel").add(mainPanel);
