@@ -416,6 +416,19 @@ public class EntityListGwtable extends AbstractListenable implements Listener, L
         return numRounds;
     }
 
+    public void setNumRounds(int numRounds) {
+        if (this.numRounds == numRounds)
+        {
+            // Nothing to do.
+            return;
+        }
+
+        enterPublicMethod();
+        this.numRounds = numRounds;
+        this.dirty = true;
+        leavePublicMethod();
+    }
+
     public void resetNumRounds() {
         enterPublicMethod();
         if (numRounds != 0)

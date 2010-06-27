@@ -96,6 +96,7 @@ public class MainPanel implements EntryPoint
             }
         };
         timer.scheduleRepeating(SCHEDULE_REPEAT_MS);
+        getInitCountFromServer();
     }
 
     void getInitCountFromServer() {
@@ -106,6 +107,15 @@ public class MainPanel implements EntryPoint
             public void onFailure(Throwable caught) {
                 // TODO: display an error
                 entityList.setInitCount(-555);
+            }
+        });
+        initListService.getNumRounds(new AsyncCallback<Integer>() {
+            public void onSuccess(Integer result) {
+                entityList.setNumRounds(result);
+            }
+            public void onFailure(Throwable caught) {
+                // TODO Auto-generated method stub
+
             }
         });
     }
@@ -231,6 +241,14 @@ public class MainPanel implements EntryPoint
                     public void onFailure(Throwable caught) {
                         // TODO: We should log an error
                         entityList.setInitCount(null);
+                    }
+                });
+                initListService.setNumRounds(entityList.getNumRounds(), new AsyncCallback<Void>() {
+                    public void onFailure(Throwable caught) {
+                        // Do nothing
+                    }
+                    public void onSuccess(Void result) {
+                        // TODO: log an error
                     }
                 });
             }

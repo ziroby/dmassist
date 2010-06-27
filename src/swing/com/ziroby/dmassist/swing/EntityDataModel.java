@@ -186,5 +186,11 @@ public class EntityDataModel extends AbstractTableModel
 
     }
 
+    @Override
+    public void setNumRounds(int result) {
+        // TODO Auto-generated method stub
+
+    }
+
 
 }

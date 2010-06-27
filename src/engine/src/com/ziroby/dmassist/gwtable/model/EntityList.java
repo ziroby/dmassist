@@ -120,4 +120,6 @@ public interface EntityList extends Listenable
 
     public abstract void addSampleData();
 
+    public abstract void setNumRounds(int result);
+
 }

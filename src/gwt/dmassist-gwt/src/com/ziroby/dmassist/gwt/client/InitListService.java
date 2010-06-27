@@ -8,4 +8,7 @@ public interface InitListService extends RemoteService
 {
     public void setInitCount(Integer count);
     public Integer getInitCount();
+
+    public void setNumRounds(Integer rounds);
+    public Integer getNumRounds();
 }

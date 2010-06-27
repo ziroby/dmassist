@@ -7,6 +7,7 @@ public class InitListServiceImpl extends RemoteServiceServlet implements
         InitListService
 {
     private Integer initCount;
+    private int numRounds;
 
     public void setInitCount(Integer count) {
         initCount = count;
@@ -16,4 +17,11 @@ public class InitListServiceImpl extends RemoteServiceServlet implements
         return initCount;
     }
 
+    public Integer getNumRounds() {
+        return numRounds;
+    }
+
+    public void setNumRounds(Integer numRounds) {
+        this.numRounds = numRounds;
+    }
 }

@@ -5,3 +5,4 @@ test-classes
 classes
 *.cache.*
 *.gwt.rpc
+dmassist_gwt.nocache.js
