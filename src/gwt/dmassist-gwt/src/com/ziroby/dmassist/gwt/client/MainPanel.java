@@ -106,7 +106,7 @@ public class MainPanel implements EntryPoint
             }
             public void onFailure(Throwable caught) {
                 // TODO: display an error
-                entityList.setInitCount(-555);
+                //entityList.setInitCount(-555);
             }
         });
         initListService.getNumRounds(new AsyncCallback<Integer>() {
@@ -240,7 +240,7 @@ public class MainPanel implements EntryPoint
                     }
                     public void onFailure(Throwable caught) {
                         // TODO: We should log an error
-                        entityList.setInitCount(null);
+                        //entityList.setInitCount(null);
                     }
                 });
                 initListService.setNumRounds(entityList.getNumRounds(), new AsyncCallback<Void>() {
