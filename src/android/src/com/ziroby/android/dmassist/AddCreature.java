@@ -10,8 +10,8 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.ziroby.android.util.AndroidUtils;
+import com.ziroby.dmassist.gwtable.model.EntityList;
 import com.ziroby.dmassist.model.DiceEquation;
-import com.ziroby.dmassist.model.EntityList;
 
 public class AddCreature extends Activity
 {

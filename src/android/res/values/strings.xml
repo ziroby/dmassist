@@ -33,4 +33,12 @@
 <string name="display_ogl">Open Game License... </string>
 
 <string name="copyright_blurb">Copyright (c) 2009, 2010 Ron &quot;Ziroby&quot; Romero; portions copyright by others</string><string name="display_copyright">Display copyrights... </string>
+<string name="subdue_unsubdue">Subdue/Heal Subdual</string>
+<string name="damage">Damage</string>
+<string name="heal">Heal</string>
+<string name="cancel">Cancel</string>
+<string name="damage_heal_by">Damage/heal by: </string>
+<string name="subdue_unsubdue_by">Subdue/heal subdual by: </string>
+<string name="subdue">Subdue</string>
+<string name="unsubdue">Heal Subdual</string>
 </resources>

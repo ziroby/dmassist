@@ -27,12 +27,12 @@ import android.widget.TextView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 
 import com.ziroby.android.util.AndroidUtils;
+import com.ziroby.dmassist.gwtable.model.Entity;
+import com.ziroby.dmassist.gwtable.model.EntityList;
+import com.ziroby.dmassist.gwtable.util.Listener;
+import com.ziroby.dmassist.gwtable.util.ObjectEvent;
 import com.ziroby.dmassist.model.DiceEquation;
-import com.ziroby.dmassist.model.Entity;
-import com.ziroby.dmassist.model.EntityList;
 import com.ziroby.dmassist.model.EntityListImpl;
-import com.ziroby.util.Listener;
-import com.ziroby.util.ObjectEvent;
 
 public class MainActivity extends ListActivity {
     private static final int INT_SENTINEL = -1000;
@@ -47,8 +47,10 @@ public class MainActivity extends ListActivity {
     private static final int MENU_REMOVE = 2;
     private static final int MENU_ITEM_ADD_EFFECT = 3;
     private static final int MENU_HEAL_DAMAGE = 4;
+    private static final int MENU_SUBDUE_UNSUBDUE = 5;
 
     private static final int REQUEST_CODE_ADD = 0;
+
 
     private MyListAdapter listAdapter;
     private TextView initTextView;
@@ -56,6 +58,7 @@ public class MainActivity extends ListActivity {
     private TextView timeTextView;
 
     enum HealOrDamage {HEAL, DAMAGE}
+    enum DamageOrSubdue {DAMAGE, SUBDUE}
 
     private static void addSampleData(EntityList aDataModel) {
         Entity row1 = new Entity();
@@ -222,6 +225,9 @@ public class MainActivity extends ListActivity {
         menu.add(/* group id*/ 0, MENU_HEAL_DAMAGE, position++,
                 R.string.heal_damage)
                 .setIcon(android.R.drawable.ic_menu_delete);
+        menu.add(/* group id*/ 0, MENU_SUBDUE_UNSUBDUE, position++,
+                R.string.subdue_unsubdue)
+                .setIcon(android.R.drawable.ic_menu_delete);
         menu.add(/* group id*/ 0, MENU_REMOVE, position++,
                 R.string.remove_item)
                 .setIcon(android.R.drawable.ic_menu_delete);
@@ -253,7 +259,10 @@ public class MainActivity extends ListActivity {
                 removeLine(item);
                 return true;
             case MENU_HEAL_DAMAGE:
-                healDamage(item);
+                healOrDamage(item, DamageOrSubdue.DAMAGE);
+                return true;
+            case MENU_SUBDUE_UNSUBDUE:
+                healOrDamage(item, DamageOrSubdue.SUBDUE);
                 return true;
             }
         }
@@ -264,28 +273,35 @@ public class MainActivity extends ListActivity {
         return false;
     }
 
-    private void healDamage(MenuItem item) {
+    private void healOrDamage(MenuItem item, final DamageOrSubdue damageOrSubdue) {
+        boolean isSubdue = damageOrSubdue == DamageOrSubdue.SUBDUE;
+
         final int position = ((AdapterContextMenuInfo)item.getMenuInfo()).position;
         final Entity entity = dataModel.getEntity(position);
         final EditText input = new EditText(this);
 
+        final int title = isSubdue? R.string.subdue_unsubdue : R.string.heal_damage;
+        final int message = isSubdue? R.string.subdue_unsubdue_by : R.string.damage_heal_by;
+
+        final int positiveButtonText = isSubdue? R.string.subdue : R.string.damage;
+        final int nuetralButtonText = isSubdue? R.string.unsubdue : R.string.heal;
         AlertDialog alert = new AlertDialog.Builder(this)
-        .setTitle(R.string.heal_damage)
-        .setMessage("Damage/heal by: ")
+        .setTitle(title)
+        .setMessage(message)
         .setView(input)
-        .setPositiveButton("Damage", new DialogInterface.OnClickListener() {
+        .setPositiveButton(positiveButtonText, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-                healDamage(HealOrDamage.DAMAGE, entity, input);
+                healOrDamage(damageOrSubdue, HealOrDamage.DAMAGE, entity, input);
                 dialog.cancel();
             }
         })
-        .setNeutralButton("Heal", new DialogInterface.OnClickListener() {
+        .setNeutralButton(nuetralButtonText, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int which) {
-                healDamage(HealOrDamage.HEAL, entity, input);
+                healOrDamage(damageOrSubdue, HealOrDamage.HEAL, entity, input);
                 dialog.cancel();
             }
         })
-        .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 dialog.cancel();
             }
@@ -390,13 +406,20 @@ public class MainActivity extends ListActivity {
         }
     }
 
-    void healDamage(HealOrDamage healOrDamage, final Entity entity, final EditText input) {
+    void healOrDamage(DamageOrSubdue damageOrSubdue, HealOrDamage healOrDamage, final Entity entity, final EditText input) {
         try {
             DiceEquation amount = new DiceEquation(input.getText().toString());
-            if (healOrDamage == HealOrDamage.HEAL)
-                entity.heal(amount.roll());
+            if (damageOrSubdue == DamageOrSubdue.DAMAGE) {
+                if (healOrDamage == HealOrDamage.HEAL)
+                    entity.heal(amount.roll());
+                else
+                    entity.damage(amount.roll());
+            }
             else
-                entity.damage(amount.roll());
+                if (healOrDamage == HealOrDamage.HEAL)
+                    entity.healSubdual(amount.roll());
+                else
+                    entity.subdue(amount.roll());
         }
         catch (Exception e) {
             AndroidUtils.displayErrorDialog(this, e);
