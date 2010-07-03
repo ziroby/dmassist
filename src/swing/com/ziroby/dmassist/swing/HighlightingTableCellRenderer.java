@@ -1,6 +1,6 @@
 /*
  *   Copyright 2009 Ron "Ziroby" Romero
- * 
+ *
  *   This file is part of DM Assist.
  *
  *   DM Assist is free software: you can redistribute it and/or modify
@@ -27,13 +27,14 @@ import javax.swing.JTable;
 import javax.swing.table.TableCellRenderer;
 
 import com.ziroby.dmassist.gwtable.model.EntityList;
+import com.ziroby.dmassist.gwtable.model.EntityListGwtable;
 
 /**
  * A renderer that just adds or removes highlighting to a square, then delegates to the
  * old, passed in, renderer.  The highlighting is based on whether it is the current
  * row's "turn".  OK, this is pretty code; it works for any type of renderer you
  * pass in and adds the highlight for that component.
- * 
+ *
  * @author Ron Romero
  *
  */
@@ -46,9 +47,9 @@ public class HighlightingTableCellRenderer
 	}
 
 	public Component getTableCellRendererComponent(JTable table,
-			Object value, boolean isSelected, boolean hasFocus, 
+			Object value, boolean isSelected, boolean hasFocus,
 			int row, int column) {
-		Component rendererComputer 
+		Component rendererComputer
 			= oldRenderer.getTableCellRendererComponent(
 					table, value, isSelected, hasFocus, row, column);
 		int modelRow = table.convertRowIndexToModel(row);
@@ -64,16 +65,16 @@ public class HighlightingTableCellRenderer
 		{
 			rendererComputer.setBackground(null);
 		}
-		
+
 		rendererComputer.setForeground(Color.BLACK);
-		if (modelColumn == EntityDataModel.COLUMN_NUMBER_SUBDUAL)
-		{ 
+		if (modelColumn == EntityListGwtable.COLUMN_NUMBER_SUBDUAL)
+		{
 			if (dataModel.getEntity(modelRow).isSubdued())
 			{
 				addBlueFont(rendererComputer);
 			}
 		}
-		else if (modelColumn == EntityDataModel.COLUMN_NUMBER_HP)
+		else if (modelColumn == EntityListGwtable.COLUMN_NUMBER_HP)
 		{
 			final Integer hitpoints = dataModel.getEntity(modelRow).getHitpoints();
             if (hitpoints != null && hitpoints <= 0)
@@ -81,7 +82,7 @@ public class HighlightingTableCellRenderer
 				addBlueFont(rendererComputer);
 			}
 		}
-        else if (modelColumn == EntityDataModel.COLUMN_NUMBER_ROUNDS)
+        else if (modelColumn == EntityListGwtable.COLUMN_NUMBER_ROUNDS)
         {
             if (dataModel.getEntity(modelRow).isExpired(0))
             {
@@ -94,8 +95,8 @@ public class HighlightingTableCellRenderer
 	 * @param rendererComputer
 	 */
 	private void addBlueFont(Component rendererComputer) {
-		Font f2 = rendererComputer.getFont().deriveFont(Font.BOLD);			
-		rendererComputer.setFont(f2);			
+		Font f2 = rendererComputer.getFont().deriveFont(Font.BOLD);
+		rendererComputer.setFont(f2);
 		rendererComputer.setForeground(Color.BLUE);
 	}
 }

@@ -1,6 +1,6 @@
 /*
  *   Copyright 2009 Ron "Ziroby" Romero
- * 
+ *
  *   This file is part of DM Assist.
  *
  *   DM Assist is free software: you can redistribute it and/or modify
@@ -22,9 +22,9 @@ package com.ziroby.dmassist.gwtable.util;
 /**
  * Various utilities for working with Strings. This class is a candidate for
  * reuse.
- * 
+ *
  * @author Ron Romero
- * 
+ *
  */
 public class StringUtil {
 
@@ -32,7 +32,7 @@ public class StringUtil {
      * Attempt to parse the given string as an Integer, but don't throw an
      * exception if it's not a valid integer. Instead, returns null if it can't
      * be parsed.
-     * 
+     *
      * @param text
      *            The string to attempt to parse
      * @return The value of text, or null if it can't be parsed.
@@ -57,5 +57,12 @@ public class StringUtil {
             return null;
         }
         return n;
+    }
+
+    public static CharSequence toStringOrBlank(Integer number) {
+        if (number == null)
+            return "";
+
+        return number.toString();
     }
 }

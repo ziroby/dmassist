@@ -122,4 +122,6 @@ public interface EntityList extends Listenable
 
     public abstract void setNumRounds(int result);
 
+    public abstract void setEntity(int position, Entity entity);
+
 }

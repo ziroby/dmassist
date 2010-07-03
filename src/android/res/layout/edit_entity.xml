@@ -8,12 +8,13 @@
     android:paddingBottom="8sp"
 >
     <TextView
+        android:id="@+id/edit_entity_title"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:textSize="36sp"
         android:typeface="sans"
         android:gravity="center_horizontal"
-        android:text="Add Effect"
+        android:text="Edit Creature or Effect"
         android:textColor="#111111" />
     <ScrollView
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -141,7 +142,7 @@
                     android:textColor="#111111" />
                 <Button
                     android:id="@+id/done"
-                    android:text="@string/add"
+                    android:text="@string/ok"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0"

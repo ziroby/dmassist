@@ -13,10 +13,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
+import android.widget.AdapterView.OnItemClickListener;
 
 import com.ziroby.android.util.AndroidUtils;
 import com.ziroby.dmassist.gwtable.model.Entity;
@@ -27,8 +29,6 @@ import com.ziroby.dmassist.model.DiceEquation;
 import com.ziroby.dmassist.model.EntityListImpl;
 
 public class MainActivity extends ListActivity {
-    private static final int INT_SENTINEL = -1000;
-
     static final EntityList dataModel = new EntityListImpl();
 
     private static final int MENU_ITEM_ABOUT = 0;
@@ -39,6 +39,7 @@ public class MainActivity extends ListActivity {
     private static final int MENU_SUBDUE_UNSUBDUE = 5;
 
     private static final int REQUEST_CODE_ADD = 0;
+    private static final int REQUEST_CODE_EDIT = 1;
 
 
     private EntityListAdapter listAdapter;
@@ -62,24 +63,52 @@ public class MainActivity extends ListActivity {
             listAdapter = new EntityListAdapter(this, R.layout.initiative_item_row);
             setListAdapter(listAdapter);
 
-            initTextView = (TextView) findViewById(R.id.initView);
-            roundTextView = (TextView) findViewById(R.id.roundView);
-            timeTextView = (TextView) findViewById(R.id.timeView);
+            setViewVariables();
 
-            dataModel.addListener(new Listener() {
-                public void objectChanged(ObjectEvent event) {
-                    redraw();
-                }
-            });
+            addDataModelListener();
 
             setButtonClickListeners();
 
             registerForContextMenu(getListView());
+
+            getListView().setOnItemClickListener(new OnItemClickListener() {
+                public void onItemClick(AdapterView<?> adapter, View view,
+                        int position, long id) {
+                    editEntity(position, id);
+                }
+            });
         }
         catch (Exception e) {
             AndroidUtils.displayErrorDialog(this, e);
             Log.e(this.getClass().toString(), "Exception: " + e.getLocalizedMessage(), e);
         }
+    }
+
+    protected void editEntity(int position, long id) {
+        Entity entity = dataModel.getEntity(position);
+
+        Bundle bundle = AndroidEntity.putEntityFieldsInBundle(entity);
+        bundle.putInt("position", position);
+
+        Intent intent = new Intent(this, EditEntity.class);
+        intent.putExtras(bundle);
+        startActivityForResult(intent, REQUEST_CODE_EDIT);
+
+
+    }
+
+    private void addDataModelListener() {
+        dataModel.addListener(new Listener() {
+            public void objectChanged(ObjectEvent event) {
+                redraw();
+            }
+        });
+    }
+
+    private void setViewVariables() {
+        initTextView = (TextView) findViewById(R.id.initView);
+        roundTextView = (TextView) findViewById(R.id.roundView);
+        timeTextView = (TextView) findViewById(R.id.timeView);
     }
 
     private void setButtonClickListeners() {
@@ -267,8 +296,7 @@ public class MainActivity extends ListActivity {
     }
 
     private void addCreature() {
-        final int addType = AddCreature.ADD_TYPE_CREATURE;
-        startAddActivity(addType);
+        startAddActivity(AddCreature.ADD_TYPE_CREATURE);
     }
 
     private void startAddActivity(final int addType) {
@@ -288,41 +316,45 @@ public class MainActivity extends ListActivity {
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-
-        switch (requestCode) {
-        case REQUEST_CODE_ADD:
-            addCreature(data);
+        try
+        {
+            switch (requestCode)
+            {
+            case REQUEST_CODE_ADD:
+                addCreature(data);
+                break;
+            case REQUEST_CODE_EDIT:
+                editCreature(data);
+                break;
+            }
         }
-    }
-
-    private void addCreature(Intent data) {
-        try {
-            if (data == null)
-                return;
-
-            Entity entity = new Entity();
-
-            final String name = data.getStringExtra(EntityList.COLUMN_NAME_NAME);
-            final int init = data.getIntExtra(EntityList.COLUMN_NAME_INIT, INT_SENTINEL);
-            final int hp = data.getIntExtra(EntityList.COLUMN_NAME_HP, INT_SENTINEL);
-            final String abbrev = data.getStringExtra(EntityList.COLUMN_NAME_ABBREV);
-            final int subdual = data.getIntExtra(EntityList.COLUMN_NAME_SUBDUAL, INT_SENTINEL);
-            final int rounds= data.getIntExtra(EntityList.COLUMN_NAME_ROUNDS, INT_SENTINEL);
-
-            if (name != null) entity.setName(name);
-            if (init != INT_SENTINEL) entity.setInitRoll(init);
-            if (hp != INT_SENTINEL) entity.setHitpoints(hp);
-            if (abbrev != null) entity.setAbbreviation(abbrev);
-            if (subdual != INT_SENTINEL) entity.setSubdual(subdual);
-            if (rounds != INT_SENTINEL) entity.setRoundsLeft(rounds);
-
-            dataModel.addEntity(entity);
-
-            redraw();
-        } catch (RuntimeException e)
+        catch (RuntimeException e)
         {
             AndroidUtils.displayErrorDialog(this, e);
         }
+    }
+
+    private void editCreature(Intent data) {
+        if (data == null)
+            return;
+
+        Entity entity = AndroidEntity.getEntityFromBundle(data);
+        int position = data.getIntExtra("position", 0);
+
+        dataModel.setEntity(position, entity);
+
+        redraw();
+    }
+
+    private void addCreature(Intent data) {
+        if (data == null)
+            return;
+
+        Entity entity = AndroidEntity.getEntityFromBundle(data);
+
+        dataModel.addEntity(entity);
+
+        redraw();
     }
 
     void healOrDamage(DamageOrSubdue damageOrSubdue, HealOrDamage healOrDamage, final Entity entity, final EditText input) {

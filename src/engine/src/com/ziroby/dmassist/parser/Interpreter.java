@@ -1,6 +1,6 @@
 /*
  *   Copyright 2009 Ron "Ziroby" Romero
- * 
+ *
  *   This file is part of DM Assist.
  *
  *   DM Assist is free software: you can redistribute it and/or modify
@@ -32,13 +32,13 @@ import com.ziroby.dmassist.model.ResultsDisplay;
  * Acts on the commands of the user. The Parser has parsed the user's input and
  * sends it to the Interpreter. The Interpreter then works with the DataModel
  * (EntityList class) and the ResultsDisplay to make those commands happen.
- * 
- * @see EntityListWithSave 
+ *
+ * @see EntityListWithSave
  * @see ResultsDisplay
- * 
- * 
+ *
+ *
  * @author Ron Romero
- * 
+ *
  */
 public class Interpreter implements ParserListener{
 
@@ -61,7 +61,7 @@ public class Interpreter implements ParserListener{
 	}
 
 	public void handleCommand(String command,
-			Map<String, String> attributes, String fullLine) {	
+			Map<String, String> attributes, String fullLine) {
 		try {
 			if ("next".equalsIgnoreCase(command)
 					|| "n".equalsIgnoreCase(command))
@@ -137,9 +137,9 @@ public class Interpreter implements ParserListener{
 			}
 		}
 	}
-    
-    
-    
+
+
+
     private String add(String command, Map<String, String> attributes)
     {
         String s = null;
@@ -160,7 +160,7 @@ public class Interpreter implements ParserListener{
                 dataModel.addEntity(e);
                 results.addLine("add \"" + e.getName() + "\" " + s);
             }
-        }        
+        }
         return s;
     }
 
@@ -202,16 +202,16 @@ public class Interpreter implements ParserListener{
                 return null;
 			}
 		}
-		
+
 		return s.toString().trim();
-			
+
 	}
 
 	/**
 	 * Handles an attribute which can be a die value (or int constant).  Also
 	 * logs the attribute to the StringBuilder.
-	 * @param setResult 
-	 * 
+	 * @param setResult
+	 *
 	 */
 	private int diceAttribute(StringBuilder s, Map.Entry<String, String> attr, boolean setResult) {
 		DiceEquation eq = new DiceEquation(attr.getValue());
@@ -219,10 +219,10 @@ public class Interpreter implements ParserListener{
 		s.append(" ");
 		s.append(attr.getKey());
 		s.append(' ');
-		
+
 		if (setResult)
 		{
-			results.setResult("" + eq.value());			
+			results.setResult("" + eq.value());
 		}
 		return eq.value();
 	}
@@ -255,7 +255,7 @@ public class Interpreter implements ParserListener{
 				printError("Invalid damage amount: \"" + e.getLocalizedMessage() + "\"");
                 damage = null;
 			}
-			
+
             if (damage != null)
 			{
 				Entity e = dataModel.findByAbbrev(directObject);
@@ -277,7 +277,7 @@ public class Interpreter implements ParserListener{
     public void printError(Exception e) {
 		printError(e.getLocalizedMessage());
 		e.printStackTrace();
-		
+
 	}
 
 	public void printError(String msg)

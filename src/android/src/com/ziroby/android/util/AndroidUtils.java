@@ -13,6 +13,9 @@ public class AndroidUtils
         if (message == null || message == "") {
             message = e.getClass().getName();
         }
+        else {
+            message = e.getClass().getName() + ": " + message;
+        }
 
         Log.e(activity.getClass().toString(), "Exception: " + message, e);
 

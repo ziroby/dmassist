@@ -1,20 +1,20 @@
 /*
  * Copyright 2009 Ron "Ziroby" Romero
- * 
+ *
  * This file is part of DM Assist.
- * 
+ *
  * DM Assist is free software: you can redistribute it and/or modify it under
  * the terms of the GNU General Public License as published by the Free Software
  * Foundation, either version 3 of the License, or (at your option) any later
  * version.
- * 
+ *
  * DM Assist is distributed in the hope that it will be useful, but WITHOUT ANY
  * WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
  * A PARTICULAR PURPOSE. See the GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License along with
  * DM Assist. If not, see <http://www.gnu.org/licenses/>.
- * 
+ *
  */
 
 package com.ziroby.dmassist.swing;
@@ -32,20 +32,19 @@ import javax.swing.JLabel;
 
 import com.ziroby.dmassist.gwtable.util.Listener;
 import com.ziroby.dmassist.gwtable.util.ObjectEvent;
-import com.ziroby.dmassist.model.EntityListWithSave;
 
 /**
  * A box that displays the current "time" in the battle.
- * 
+ *
  * @author Ron Romero
- * 
+ *
  */
 public class TimeBox extends StatusBar implements Listener
 {
 
     private static final int BUTTON_FONT_SIZE = 12;
 
-    EntityListWithSave dataModel;
+    EntityDataModel dataModel;
 
     private JLabel time;
 
@@ -53,9 +52,9 @@ public class TimeBox extends StatusBar implements Listener
 
     private JLabel rounds;
 
-    public TimeBox(EntityListWithSave dataModel1)
+    public TimeBox(EntityDataModel dataModel2)
     {
-        this.dataModel = dataModel1;
+        this.dataModel = dataModel2;
 
         setFont(new Font("Serif", Font.BOLD, 24)); //$NON-NLS-1$
 
@@ -77,7 +76,7 @@ public class TimeBox extends StatusBar implements Listener
         Insets newInsets = new Insets(insets.top / 3, insets.left / 3,
                 insets.bottom / 3, insets.right / 3);
         resetButton.setMargin(newInsets);
-        
+
         nextButton = new JButton(Messages.getString("TimeBox.NEXT")); //$NON-NLS-1$
         nextButton.setFont(new Font("Serif", Font.BOLD, BUTTON_FONT_SIZE)); //$NON-NLS-1$
         nextButton.setAlignmentY(Component.TOP_ALIGNMENT);
@@ -118,16 +117,16 @@ public class TimeBox extends StatusBar implements Listener
 
     void display() {
         int numRounds = dataModel.getNumRounds();
-        
+
         time.setText(dataModel.formatRoundsAsTime());
         rounds.setText(Messages.getString("TimeBox.ROUND") + numRounds); //$NON-NLS-1$
-        
+
         nextButton.setEnabled(dataModel.getEntities().size() > 1);
         resetButton.setEnabled(numRounds != 0 || dataModel.getInitCount() != null);
     }
 
     /**
-     * 
+     *
      */
     private static final long serialVersionUID = 2101807777010560792L;
 

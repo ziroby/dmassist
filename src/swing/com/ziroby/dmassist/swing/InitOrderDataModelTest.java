@@ -1,6 +1,6 @@
 /*
  *   Copyright 2009 Ron "Ziroby" Romero
- * 
+ *
  *   This file is part of DM Assist.
  *
  *   DM Assist is free software: you can redistribute it and/or modify
@@ -30,6 +30,7 @@ import org.junit.Test;
 
 import com.ziroby.dmassist.gwtable.model.Entity;
 import com.ziroby.dmassist.gwtable.model.EntityList;
+import com.ziroby.dmassist.gwtable.model.EntityListGwtable;
 import com.ziroby.dmassist.model.test.MockTableModelListener;
 
 /**
@@ -49,11 +50,11 @@ public class InitOrderDataModelTest extends TestCase {
 	@Before
 	public void setUp() throws Exception {
 		dataModel = new EntityDataModel();
-		
+
 		mockListener = new MockTableModelListener();
 		dataModel.addListener(mockListener);
 		assertEquals(0, dataModel.getRowCount());
-		
+
 	}
 
 	/**
@@ -68,7 +69,7 @@ public class InitOrderDataModelTest extends TestCase {
 	@Test
 	public void testGotoNextInitCount() {
 		fillTable();
-		
+
 		for (int i = 0; i < 10; ++i)
 		{
 			mockListener.expectEvent();
@@ -140,14 +141,14 @@ public class InitOrderDataModelTest extends TestCase {
 		dataModel.addEntity(row4);
 		mockListener.expectNoEvents();
     }
-	
+
 
 	/**
 	 * Test method for {@link com.ziroby.dmassist.model.EntityListImpl#gotoNextInitCount()}.
 	 */
 	@Test
 	public void testGotoNextInitCountEmptyTable() {
-		
+
 		for (int i = 0; i < 10; ++i)
 		{
 			mockListener.expectNoEvents();
@@ -201,7 +202,7 @@ public class InitOrderDataModelTest extends TestCase {
 		mockListener.expectEvent();
 		dataModel.setInitCount(-3);
 		mockListener.expectNoEvents();
-		
+
 		mockListener.expectEvent();
 		dataModel.addEntity(row4);
 		mockListener.expectNoEvents();
@@ -209,15 +210,15 @@ public class InitOrderDataModelTest extends TestCase {
 		mockListener.expectEvent();
 		dataModel.remove(3);
 		mockListener.expectNoEvents();
-		
+
 		mockListener.expectEvent();
 		dataModel.remove(1);
 		mockListener.expectNoEvents();
-		
+
 		mockListener.expectEvent();
 		dataModel.remove(1);
 		mockListener.expectNoEvents();
-		
+
 		mockListener.expectEvent();
 		dataModel.remove(0);
 		mockListener.expectNoEvents();
@@ -234,12 +235,12 @@ public class InitOrderDataModelTest extends TestCase {
 		assertEquals(null, dataModel.getInitCount());
 
 		mockListener.expectNoEvents();
-		
+
 	}
-	
-	
+
+
 	@Test
-	public void testAddEntity() 
+	public void testAddEntity()
 	{
 		Entity row1 = new Entity();
 		row1.setAbbreviation("G");
@@ -311,16 +312,16 @@ public class InitOrderDataModelTest extends TestCase {
 		mockListener.expectNoEvents();
 }
 	@Test
-	public void testAddEntityNull() 
+	public void testAddEntityNull()
 	{
-		
+
 		mockListener.expectNoEvents();
 		dataModel.addEntity(null);
 		mockListener.expectNoEvents();
 }
-	
+
 	@Test
-	public void testAddEntity2() 
+	public void testAddEntity2()
 	{
 		Entity row1 = new Entity();
 		//row1.setAbbreviation("G");
@@ -339,9 +340,9 @@ public class InitOrderDataModelTest extends TestCase {
 		mockListener.expectNoEvents();
 }
 
-	
+
 	@Test
-	public void testAddEntity3() 
+	public void testAddEntity3()
 	{
 		Entity row1 = new Entity();
 		row1.setAbbreviation(" G ");
@@ -360,9 +361,9 @@ public class InitOrderDataModelTest extends TestCase {
 		mockListener.expectNoEvents();
 }
 
-	
+
 	@Test
-	public void testAddEntityNoNull() 
+	public void testAddEntityNoNull()
 	{
 		Entity row1 = new Entity();
 		row1.setAbbreviation("G");
@@ -379,11 +380,11 @@ public class InitOrderDataModelTest extends TestCase {
 		assertEquals(new Integer(12), entity0.getInitRoll());
 		assertEquals(new Integer(42), entity0.getHitpoints());
 		mockListener.expectNoEvents();
-	}	
+	}
 
 
 	@Test
-	public void testAddEntityNullHp() 
+	public void testAddEntityNullHp()
 	{
 		Entity row1 = new Entity();
 		row1.setAbbreviation("G");
@@ -401,10 +402,10 @@ public class InitOrderDataModelTest extends TestCase {
 		assertEquals(new Integer(12), entity0.getInitRoll());
 		assertNull(entity0.getHitpoints());
 		mockListener.expectNoEvents();
-	}	
+	}
 
 	@Test
-	public void testAddEntityNullInit() 
+	public void testAddEntityNullInit()
 	{
 		Entity row1 = new Entity();
 		row1.setAbbreviation("G");
@@ -422,11 +423,11 @@ public class InitOrderDataModelTest extends TestCase {
 		assertNull(entity0.getInitRoll());
 		assertEquals(new Integer(42), entity0.getHitpoints());
 		mockListener.expectNoEvents();
-	}	
+	}
 
 
 	@Test
-	public void testAddEntityNullInitNextInit() 
+	public void testAddEntityNullInitNextInit()
 	{
 		Entity row1 = new Entity();
 		row1.setAbbreviation("G");
@@ -448,17 +449,17 @@ public class InitOrderDataModelTest extends TestCase {
 		mockListener.expectEvent();
 		dataModel.setInitCount(1);
 		mockListener.expectNoEvents();
-		assertEquals(false, dataModel.getValueAt(0, EntityDataModel.COLUMN_NUMBER_MY_TURN));
+		assertEquals(false, dataModel.getValueAt(0, EntityListGwtable.COLUMN_NUMBER_MY_TURN));
 
 		mockListener.expectEvent();
 		dataModel.gotoNextInitCount();
-		assertEquals(false, dataModel.getValueAt(0, EntityDataModel.COLUMN_NUMBER_MY_TURN));
+		assertEquals(false, dataModel.getValueAt(0, EntityListGwtable.COLUMN_NUMBER_MY_TURN));
 		assertEquals(null, dataModel.getInitCount());
-		mockListener.expectNoEvents();	
-	}	
+		mockListener.expectNoEvents();
+	}
 
 	@Test
-	public void testAddEntityNullAbbrev() 
+	public void testAddEntityNullAbbrev()
 	{
 		Entity row1 = new Entity();
 		row1.setAbbreviation(null);
@@ -475,11 +476,11 @@ public class InitOrderDataModelTest extends TestCase {
 		assertEquals(new Integer(12), entity0.getInitRoll());
 		assertEquals(new Integer(42), entity0.getHitpoints());
 		mockListener.expectNoEvents();
-	}	
+	}
 
 
 	@Test
-	public void testAddEntityNullAbbrev3() 
+	public void testAddEntityNullAbbrev3()
 	{
 		Entity row1 = new Entity();
 		row1.setAbbreviation(null);
@@ -496,11 +497,11 @@ public class InitOrderDataModelTest extends TestCase {
 		assertEquals(new Integer(12), entity0.getInitRoll());
 		assertEquals(new Integer(42), entity0.getHitpoints());
 		mockListener.expectNoEvents();
-	}	
+	}
 
 
 	@Test
-	public void testAddEntityNullName() 
+	public void testAddEntityNullName()
 	{
 		Entity row1 = new Entity();
 		row1.setAbbreviation("G");
@@ -519,10 +520,10 @@ public class InitOrderDataModelTest extends TestCase {
 		}
 		assertEquals(0, dataModel.getRowCount());
 		mockListener.expectNoEvents();
-	}	
+	}
 
 	@Test
-	public void testAddEntityBlankName() 
+	public void testAddEntityBlankName()
 	{
 		Entity row1 = new Entity();
 		row1.setAbbreviation("G");
@@ -541,9 +542,9 @@ public class InitOrderDataModelTest extends TestCase {
 		}
 		assertEquals(0, dataModel.getRowCount());
 		mockListener.expectNoEvents();
-	}	
+	}
 	@Test
-	public void testAddEntityBlankName2() 
+	public void testAddEntityBlankName2()
 	{
 		Entity row1 = new Entity();
 		row1.setAbbreviation("G");
@@ -562,7 +563,7 @@ public class InitOrderDataModelTest extends TestCase {
 		}
 		assertEquals(0, dataModel.getRowCount());
 		mockListener.expectNoEvents();
-	}	
+	}
 	@Test
 	public void testSubdual()
 	{
@@ -698,7 +699,7 @@ public class InitOrderDataModelTest extends TestCase {
 		entity0.heal(3);
 		mockListener.expectNoEvents();
 		assertEquals(new Integer(32), entity1.getHitpoints());
-		
+
 	}
 	@Test
 	public void testHealSubdual()
@@ -828,7 +829,7 @@ public class InitOrderDataModelTest extends TestCase {
 		entity0.heal(0);
 		mockListener.expectNoEvents();
 		assertEquals(new Integer(21), entity1.getHitpoints());
-		
+
 	}
 	@Test
 	public void testHealSubdualZero()
@@ -867,7 +868,7 @@ public class InitOrderDataModelTest extends TestCase {
 		mockListener.expectNoEvents();
 	}
 
-	
+
 	public void testSetValueAt()
 	{
 		Entity row1 = new Entity();
@@ -879,9 +880,9 @@ public class InitOrderDataModelTest extends TestCase {
 		mockListener.expectEvent();
 		dataModel.addEntity(row1);
 		mockListener.expectNoEvents();
-		
+
 		mockListener.expectEvent();
-		dataModel.setValueAt(new Integer(7), 0, EntityDataModel.COLUMN_NUMBER_HP);
+		dataModel.setValueAt(new Integer(7), 0, EntityListGwtable.COLUMN_NUMBER_HP);
 		mockListener.expectNoEvents();
 
 		{
@@ -894,11 +895,11 @@ public class InitOrderDataModelTest extends TestCase {
 		}
 
 		mockListener.expectNoEvents();
-		dataModel.setValueAt(new Integer(7), 0, EntityDataModel.COLUMN_NUMBER_HP);
+		dataModel.setValueAt(new Integer(7), 0, EntityListGwtable.COLUMN_NUMBER_HP);
 		mockListener.expectNoEvents();
 
 
-	
+
 	}
 
 	@Test
@@ -921,7 +922,7 @@ public class InitOrderDataModelTest extends TestCase {
 		assertEquals(new Integer(0), dataModel.getInitCount());
 
 	}
-	
+
 	@Test
 	public void testRemove()
 	{
@@ -983,15 +984,15 @@ public class InitOrderDataModelTest extends TestCase {
 			// Whatever, don't really care if there's an exception or not.
 		}
 		mockListener.expectNoEvents();
-		assertEquals(0, dataModel.getRowCount());		
-		
+		assertEquals(0, dataModel.getRowCount());
+
 		mockListener.expectNoEvents();
 	}
 
 	@Test
     public final void testClear() {
 	    fillTable();
-	    
+
         assertEquals(4, dataModel.getRowCount());
 	    mockListener.expectEvent();
         dataModel.clear();
@@ -1000,7 +1001,7 @@ public class InitOrderDataModelTest extends TestCase {
         dataModel.clear();
         assertEquals(0, dataModel.getRowCount());
     }
-	
+
 	@Test
 	public final void testImportExport() throws IOException {
 	    fillTable();

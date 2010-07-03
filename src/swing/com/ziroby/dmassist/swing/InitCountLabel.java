@@ -1,6 +1,6 @@
 /*
  *   Copyright 2009 Ron "Ziroby" Romero
- * 
+ *
  *   This file is part of DM Assist.
  *
  *   DM Assist is free software: you can redistribute it and/or modify
@@ -25,10 +25,8 @@ import java.awt.Font;
 import javax.swing.BorderFactory;
 import javax.swing.JLabel;
 
-import com.ziroby.dmassist.gwtable.model.EntityList;
 import com.ziroby.dmassist.gwtable.util.Listener;
 import com.ziroby.dmassist.gwtable.util.ObjectEvent;
-import com.ziroby.dmassist.model.EntityListWithSave;
 
 /**
  * @author Ron Romero
@@ -36,24 +34,24 @@ import com.ziroby.dmassist.model.EntityListWithSave;
  */
 public class InitCountLabel extends JLabel implements Listener {
 
-	EntityList dataModel;
-	
-	public InitCountLabel(EntityListWithSave dataModel) {
-		this.dataModel = dataModel;
+	EntityDataModel dataModel;
+
+	public InitCountLabel(EntityDataModel dataModel2) {
+		this.dataModel = dataModel2;
 		setFont(new Font("Serif", Font.BOLD, 24));
         setBorder(BorderFactory.createEtchedBorder());
         setAlignmentX(Component.CENTER_ALIGNMENT);
-		setText(" " + dataModel.getInitCount() + " ");
-		dataModel.addListener(this);
+		setText(" " + dataModel2.getInitCount() + " ");
+		dataModel2.addListener(this);
 	}
 
     @Override
     public void objectChanged(ObjectEvent event) {
-        
+
 		final Integer initCount = dataModel.getInitCount();
         if (initCount == null)
         {
-            setText("  ");            
+            setText("  ");
         }
         else
         {

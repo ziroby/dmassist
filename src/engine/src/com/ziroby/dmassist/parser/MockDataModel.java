@@ -185,4 +185,10 @@ public class MockDataModel extends AbstractListenable
         // TODO Auto-generated method stub
 
     }
+
+    @Override
+    public void setEntity(int position, Entity entity) {
+        // TODO Auto-generated method stub
+
+    }
 }

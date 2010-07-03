@@ -489,4 +489,14 @@ public class EntityListGwtable extends AbstractListenable implements Listener, L
         row3.setHitpoints(3);
         addEntity(row3);
     }
+
+    public void setEntity(int position, Entity entity) {
+        enterPublicMethod();
+        if (entity == null || entity.equals(entities.get(position)))
+            return;
+
+        entities.set(position, entity);
+        dirty = true;
+        leavePublicMethod();
+    }
 }

@@ -15,6 +15,7 @@
 
     <activity android:name="AboutBox"></activity>
     <activity android:name="AddCreature"></activity>
+<activity android:name="EditEntity"></activity>
 </application>
 
 

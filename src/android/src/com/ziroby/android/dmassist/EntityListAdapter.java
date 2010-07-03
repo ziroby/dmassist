@@ -1,6 +1,6 @@
 /*
  *   Copyright 2010 Ron "Ziroby" Romero
- * 
+ *
  *   This file is part of dmassist-android.
  *
  *   dmassist-android is free software: you can redistribute it and/or modify
@@ -70,13 +70,13 @@ implements ListAdapter
         final View view = super.getView(position, convertView, parent);
 
         Entity entity = MainActivity.dataModel.getEntity(position);
-        highlightEntity(entity, view);
+        highlightEntity(entity, view, view.isSelected());
         return view;
     }
 
-    private void highlightEntity(Entity entity, final View view) {
+    private void highlightEntity(Entity entity, final View view, boolean forceSelected) {
 
-        highlightIfCurrentTurn(entity, view);
+        highlightIfCurrentTurn(entity, view, forceSelected);
         highlightNegativeHitpoints(entity, view);
         highlightSubdued(entity, view);
         highlightExpired(entity, view);
@@ -119,10 +119,10 @@ implements ListAdapter
         }
     }
 
-    private void highlightIfCurrentTurn(Entity entity, final View view) {
+    private void highlightIfCurrentTurn(Entity entity, final View view, boolean forceSelected) {
         final Integer initCount = MainActivity.dataModel.getInitCount();
         final Integer initRoll = entity.getInitRoll();
-        if (initRoll != null && initRoll == initCount)
+        if (initRoll != null && initRoll == initCount || forceSelected)
             view.setBackgroundColor(HIGHLIGHT_COLOR);
         else
             view.setBackgroundColor(NON_HIGHLIGHT_COLOR);
