@@ -170,14 +170,19 @@ public class MainActivity extends ListActivity {
     public void onCreateContextMenu(ContextMenu menu, View v,
             ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
-        int position = 0;
-        menu.add(/* group id*/ 0, MENU_HEAL_DAMAGE, position++,
+
+        final int position = ((AdapterContextMenuInfo)menuInfo).position;
+        Entity entity = dataModel.getEntity(position);
+
+        menu.setHeaderTitle(entity.getName());
+        int menuRow = 0;
+        menu.add(/* group id*/ 0, MENU_HEAL_DAMAGE, menuRow++,
                 R.string.heal_damage)
                 .setIcon(android.R.drawable.ic_menu_delete);
-        menu.add(/* group id*/ 0, MENU_SUBDUE_UNSUBDUE, position++,
+        menu.add(/* group id*/ 0, MENU_SUBDUE_UNSUBDUE, menuRow++,
                 R.string.subdue_unsubdue)
                 .setIcon(android.R.drawable.ic_menu_delete);
-        menu.add(/* group id*/ 0, MENU_REMOVE, position++,
+        menu.add(/* group id*/ 0, MENU_REMOVE, menuRow++,
                 R.string.remove_item)
                 .setIcon(android.R.drawable.ic_menu_delete);
     }
