@@ -37,9 +37,11 @@ public class MainActivity extends ListActivity {
     private static final int MENU_ITEM_ADD_EFFECT = 3;
     private static final int MENU_HEAL_DAMAGE = 4;
     private static final int MENU_SUBDUE_UNSUBDUE = 5;
+    private static final int MENU_ITEM_CLEAR = 6;
 
     private static final int REQUEST_CODE_ADD = 0;
     private static final int REQUEST_CODE_EDIT = 1;
+
 
 
     private EntityListAdapter listAdapter;
@@ -164,6 +166,11 @@ public class MainActivity extends ListActivity {
         menu.add(/* group id*/ 0, MENU_ITEM_ABOUT, position++,
                 R.string.displayAboutBox)
                 .setIcon(android.R.drawable.ic_menu_info_details);
+
+        menu.add(/* group id*/ 0, MENU_ITEM_CLEAR, position++,
+                R.string.clear_all)
+                .setIcon(android.R.drawable.ic_menu_delete);
+
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -217,6 +224,9 @@ public class MainActivity extends ListActivity {
             case MENU_SUBDUE_UNSUBDUE:
                 healOrDamage(item, DamageOrSubdue.SUBDUE);
                 return true;
+            case MENU_ITEM_CLEAR:
+                clearAll();
+                return true;
             }
         }
         catch (Exception e) {
@@ -224,6 +234,25 @@ public class MainActivity extends ListActivity {
         }
 
         return false;
+    }
+
+    private void clearAll() {
+        String message = "Are you sure you want to remove all entries?";
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(message)
+        .setCancelable(true)
+        .setTitle("Clear All?")
+        .setNegativeButton("No", cancelClickListener())
+        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dataModel.clear();
+            }
+        });
+        AlertDialog alert = builder.create();
+
+        alert.show();
+
     }
 
     private void healOrDamage(MenuItem item, final DamageOrSubdue damageOrSubdue) {
@@ -281,11 +310,7 @@ public class MainActivity extends ListActivity {
         builder.setMessage(message)
         .setCancelable(true)
         .setTitle("Remove?")
-        .setNegativeButton("No", new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                dialog.cancel();
-            }
-        })
+        .setNegativeButton("No", cancelClickListener())
         .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 removeEntity(position);
@@ -294,6 +319,14 @@ public class MainActivity extends ListActivity {
         AlertDialog alert = builder.create();
 
         alert.show();
+    }
+
+    private android.content.DialogInterface.OnClickListener cancelClickListener() {
+        return new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                dialog.cancel();
+            }
+        };
     }
 
     protected void removeEntity(int position) {
