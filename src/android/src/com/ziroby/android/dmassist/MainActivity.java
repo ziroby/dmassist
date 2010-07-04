@@ -15,7 +15,6 @@ import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
@@ -25,7 +24,6 @@ import com.ziroby.dmassist.gwtable.model.Entity;
 import com.ziroby.dmassist.gwtable.model.EntityList;
 import com.ziroby.dmassist.gwtable.util.Listener;
 import com.ziroby.dmassist.gwtable.util.ObjectEvent;
-import com.ziroby.dmassist.model.DiceEquation;
 import com.ziroby.dmassist.model.EntityListImpl;
 
 public class MainActivity extends ListActivity {
@@ -48,6 +46,8 @@ public class MainActivity extends ListActivity {
     private TextView initTextView;
     private TextView roundTextView;
     private TextView timeTextView;
+
+    private AndroidEntityUtil androidEntityUtil;
 
     enum HealOrDamage {HEAL, DAMAGE}
     enum DamageOrSubdue {DAMAGE, SUBDUE}
@@ -79,6 +79,8 @@ public class MainActivity extends ListActivity {
                     editEntity(position, id);
                 }
             });
+
+            androidEntityUtil = new AndroidEntityUtil(this);
         }
         catch (Exception e) {
             AndroidUtils.displayErrorDialog(this, e);
@@ -255,44 +257,6 @@ public class MainActivity extends ListActivity {
 
     }
 
-    private void healOrDamage(MenuItem item, final DamageOrSubdue damageOrSubdue) {
-        boolean isSubdue = damageOrSubdue == DamageOrSubdue.SUBDUE;
-
-        final int position = ((AdapterContextMenuInfo)item.getMenuInfo()).position;
-        final Entity entity = dataModel.getEntity(position);
-        final EditText input = new EditText(this);
-
-        final int title = isSubdue? R.string.subdue_unsubdue : R.string.heal_damage;
-        final int message = isSubdue? R.string.subdue_unsubdue_by : R.string.damage_heal_by;
-
-        final int positiveButtonText = isSubdue? R.string.subdue : R.string.damage;
-        final int nuetralButtonText = isSubdue? R.string.unsubdue : R.string.heal;
-        AlertDialog alert = new AlertDialog.Builder(this)
-        .setTitle(title)
-        .setMessage(message)
-        .setView(input)
-        .setPositiveButton(positiveButtonText, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                healOrDamage(damageOrSubdue, HealOrDamage.DAMAGE, entity, input);
-                dialog.cancel();
-            }
-        })
-        .setNeutralButton(nuetralButtonText, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int which) {
-                healOrDamage(damageOrSubdue, HealOrDamage.HEAL, entity, input);
-                dialog.cancel();
-            }
-        })
-        .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                dialog.cancel();
-            }
-        })
-        .create();
-
-        alert.show();
-    }
-
     private void addEffect() {
         startAddActivity(AddCreature.ADD_TYPE_EFFECT);
     }
@@ -395,25 +359,16 @@ public class MainActivity extends ListActivity {
         redraw();
     }
 
-    void healOrDamage(DamageOrSubdue damageOrSubdue, HealOrDamage healOrDamage, final Entity entity, final EditText input) {
-        try {
-            DiceEquation amount = new DiceEquation(input.getText().toString());
-            if (damageOrSubdue == DamageOrSubdue.DAMAGE) {
-                if (healOrDamage == HealOrDamage.HEAL)
-                    entity.heal(amount.roll());
-                else
-                    entity.damage(amount.roll());
-            }
-            else
-                if (healOrDamage == HealOrDamage.HEAL)
-                    entity.healSubdual(amount.roll());
-                else
-                    entity.subdue(amount.roll());
+    public void healOrDamage(MenuItem item, final DamageOrSubdue damageOrSubdue) {
 
-            redraw();
-        }
-        catch (Exception e) {
-            AndroidUtils.displayErrorDialog(this, e);
-        }
+        final int position = ((AdapterContextMenuInfo)item.getMenuInfo()).position;
+        final Entity entity = dataModel.getEntity(position);
+        androidEntityUtil.healOrDamage(damageOrSubdue, entity, new Runnable() {
+            public void run() {
+                getListView().invalidate();
+            }
+        });
     }
+
+
 }

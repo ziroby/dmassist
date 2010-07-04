@@ -2,14 +2,20 @@ package com.ziroby.android.dmassist;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.TextView;
 
+import com.ziroby.android.dmassist.MainActivity.DamageOrSubdue;
 import com.ziroby.android.util.AndroidUtils;
 import com.ziroby.dmassist.gwtable.model.Entity;
 
 public class EditEntity extends EntityActivity
 {
     private int originalPosition;
+    AndroidEntityUtil androidEntityUtil;
+    Entity entity;
 
     protected void onCreate(Bundle savedInstanceState) {
         try
@@ -20,13 +26,17 @@ public class EditEntity extends EntityActivity
 
             setViewVariables();
 
-            fillEditBoxes(getIntent());
+            entity = AndroidEntity.getEntityFromBundle(getIntent());
+
+            fillEditBoxes(entity);
 
             originalPosition = getIntent().getIntExtra("position", 0);
 
             setTitle();
 
             wireInButtons();
+
+            androidEntityUtil = new AndroidEntityUtil(this);
         }
         catch (Exception e)
         {
@@ -39,8 +49,6 @@ public class EditEntity extends EntityActivity
         TextView titleView;
 
         titleView = (TextView) findViewById(R.id.edit_entity_title);
-
-        Entity entity = AndroidEntity.getEntityFromBundle(getIntent());
 
         titleView.setText(entity.getName());
     }
@@ -61,5 +69,28 @@ public class EditEntity extends EntityActivity
         {
             AndroidUtils.displayErrorDialog(this, e);
         }
+    }
+
+    @Override
+    protected void wireInButtons() {
+        super.wireInButtons();
+
+        Button damageButton = (Button) findViewById(R.id.button_damage_heal);
+        final Runnable runOnCompletion = new Runnable() {
+            public void run() {
+                fillEditBoxes(entity);
+            }
+        };
+        damageButton.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+                androidEntityUtil.healOrDamage(DamageOrSubdue.DAMAGE, entity, runOnCompletion);
+            }
+        });
+        Button subdualButton = (Button) findViewById(R.id.button_subdue_unsubdue);
+        subdualButton.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+                androidEntityUtil.healOrDamage(DamageOrSubdue.SUBDUE, entity, runOnCompletion);
+            }
+        });
     }
 }

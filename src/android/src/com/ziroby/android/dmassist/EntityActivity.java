@@ -1,7 +1,6 @@
 package com.ziroby.android.dmassist;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.view.View;
@@ -18,7 +17,7 @@ public abstract class EntityActivity extends Activity
 
     private EditText nameEdit;
     private EditText initEdit;
-    private EditText hpEdit;
+    protected EditText hpEdit;
     private EditText abbrevEdit;
     private EditText subdualEdit;
     private EditText roundsEdit;
@@ -28,15 +27,19 @@ public abstract class EntityActivity extends Activity
         super();
     }
 
-    protected void fillEditBoxes(Intent intent) {
-        Entity entity = AndroidEntity.getEntityFromBundle(intent);
-
+    protected void fillEditBoxes(Entity entity) {
         nameEdit.setText(entity.getName());
+        nameEdit.invalidate();
         initEdit.setText(StringUtil.toStringOrBlank(entity.getInitRoll()));
+        initEdit.invalidate();
         hpEdit.setText(StringUtil.toStringOrBlank(entity.getHitpoints()));
+        hpEdit.invalidate();
         abbrevEdit.setText(entity.getAbbreviation());
+        abbrevEdit.invalidate();
         subdualEdit.setText(StringUtil.toStringOrBlank(entity.getSubdual()));
+        subdualEdit.invalidate();
         roundsEdit.setText(StringUtil.toStringOrBlank(entity.getRoundsLeft()));
+        roundsEdit.invalidate();
     }
 
     protected void setViewVariables() {

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
+    android:id="@+id/edit_entity_view"
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="fill_parent"
@@ -28,6 +29,28 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
         >
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+        >
+            <Button
+                android:id="@+id/button_damage_heal"
+                android:text="@string/damage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:gravity="right"
+                android:textColor="#111111" />
+            <Button
+                android:id="@+id/button_subdue_unsubdue"
+                android:text="@string/subdue_unsubdue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:gravity="right"
+                android:textColor="#111111" />
+
+        </LinearLayout>
             <TableLayout
                 xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="fill_parent"
