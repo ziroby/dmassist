@@ -1,7 +1,6 @@
 package com.ziroby.android.dmassist;
 
 
-import android.app.AlertDialog;
 import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -91,7 +90,7 @@ public class MainActivity extends ListActivity {
     protected void editEntity(int position, long id) {
         Entity entity = dataModel.getEntity(position);
 
-        Bundle bundle = AndroidEntity.putEntityFieldsInBundle(entity);
+        Bundle bundle = AndroidEntityUtil.putEntityFieldsInBundle(entity);
         bundle.putInt("position", position);
 
         Intent intent = new Intent(this, EditEntity.class);
@@ -241,20 +240,13 @@ public class MainActivity extends ListActivity {
     private void clearAll() {
         String message = "Are you sure you want to remove all entries?";
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(message)
-        .setCancelable(true)
-        .setTitle("Clear All?")
-        .setNegativeButton("No", cancelClickListener())
-        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+        final DialogInterface.OnClickListener onClickListener = new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 dataModel.clear();
             }
-        });
-        AlertDialog alert = builder.create();
+        };
 
-        alert.show();
-
+        androidEntityUtil.displayConfirmationDialog("Clear All?", message, onClickListener);
     }
 
     private void addEffect() {
@@ -270,27 +262,12 @@ public class MainActivity extends ListActivity {
         String message = "Are you sure you want to delete \""
             + entityToRemove.getName() + "\"?";
 
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setMessage(message)
-        .setCancelable(true)
-        .setTitle("Remove?")
-        .setNegativeButton("No", cancelClickListener())
-        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+        final DialogInterface.OnClickListener onClickListener = new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 removeEntity(position);
             }
-        });
-        AlertDialog alert = builder.create();
-
-        alert.show();
-    }
-
-    private android.content.DialogInterface.OnClickListener cancelClickListener() {
-        return new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int id) {
-                dialog.cancel();
-            }
         };
+        androidEntityUtil.displayConfirmationDialog("Remove?", message, onClickListener);
     }
 
     protected void removeEntity(int position) {
@@ -326,7 +303,7 @@ public class MainActivity extends ListActivity {
                 addCreature(data);
                 break;
             case REQUEST_CODE_EDIT:
-                editCreature(data);
+                handleEditResult(data);
                 break;
             }
         }
@@ -336,23 +313,27 @@ public class MainActivity extends ListActivity {
         }
     }
 
-    private void editCreature(Intent data) {
+    private void handleEditResult(Intent data) {
         if (data == null)
             return;
 
-        Entity entity = AndroidEntity.getEntityFromBundle(data);
         int position = data.getIntExtra("position", 0);
+        boolean doRemove = data.getBooleanExtra("remove", false);
 
-        dataModel.setEntity(position, entity);
+        if (doRemove)
+            removeEntity(position);
+        else {
+            Entity entity = AndroidEntityUtil.getEntityFromBundle(data);
 
-        redraw();
+            dataModel.setEntity(position, entity);
+        }
     }
 
     private void addCreature(Intent data) {
         if (data == null)
             return;
 
-        Entity entity = AndroidEntity.getEntityFromBundle(data);
+        Entity entity = AndroidEntityUtil.getEntityFromBundle(data);
 
         dataModel.addEntity(entity);
 

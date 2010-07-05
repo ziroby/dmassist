@@ -49,6 +49,14 @@
                 android:layout_weight="0"
                 android:gravity="right"
                 android:textColor="#111111" />
+            <Button
+                android:id="@+id/button_remove"
+                android:text="@string/remove_item"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0"
+                android:gravity="right"
+                android:textColor="#111111" />
 
         </LinearLayout>
             <TableLayout

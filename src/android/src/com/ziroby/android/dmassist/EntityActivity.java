@@ -52,7 +52,7 @@ public abstract class EntityActivity extends Activity
     }
 
     protected Bundle getEntityFromEditFields() {
-        Bundle bundle = AndroidEntity.putEntityFieldsInBundle(
+        Bundle bundle = AndroidEntityUtil.putEntityFieldsInBundle(
                 getTextOf(nameEdit),
                 getIntOf(initEdit),
                 getIntOf(hpEdit),

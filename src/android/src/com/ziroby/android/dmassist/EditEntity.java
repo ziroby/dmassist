@@ -1,5 +1,6 @@
 package com.ziroby.android.dmassist;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -26,7 +27,7 @@ public class EditEntity extends EntityActivity
 
             setViewVariables();
 
-            entity = AndroidEntity.getEntityFromBundle(getIntent());
+            entity = AndroidEntityUtil.getEntityFromBundle(getIntent());
 
             fillEditBoxes(entity);
 
@@ -70,8 +71,25 @@ public class EditEntity extends EntityActivity
             AndroidUtils.displayErrorDialog(this, e);
         }
     }
+    protected void doRemoveEntity() {
+        try
+        {
+            Bundle bundle = new Bundle();
+            bundle.putBoolean("remove", true);
+            bundle.putInt("position", originalPosition);
 
-    @Override
+            Intent intent = new Intent();
+            intent.putExtras(bundle);
+
+            setResult(RESULT_OK, intent);
+            finish();
+        }
+        catch (Exception e)
+        {
+            AndroidUtils.displayErrorDialog(this, e);
+        }
+    }
+
     protected void wireInButtons() {
         super.wireInButtons();
 
@@ -92,5 +110,25 @@ public class EditEntity extends EntityActivity
                 androidEntityUtil.healOrDamage(DamageOrSubdue.SUBDUE, entity, runOnCompletion);
             }
         });
+
+        Button removeButton = (Button) findViewById(R.id.button_remove);
+        removeButton.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+                removeEntity();
+            }
+        });
+    }
+
+    protected void removeEntity() {
+        android.content.DialogInterface.OnClickListener onClickListener
+            = new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int which) {
+                    doRemoveEntity();
+                }
+        };
+        String message = "Are you sure you want to delete \""
+            + entity.getName() + "\"?";
+
+        androidEntityUtil.displayConfirmationDialog("Remove?", message, onClickListener);
     }
 }
