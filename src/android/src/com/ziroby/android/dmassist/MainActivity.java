@@ -1,10 +1,13 @@
 package com.ziroby.android.dmassist;
 
 
+import java.util.ArrayList;
+
 import android.app.ListActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Html;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
@@ -14,6 +17,7 @@ import android.view.ContextMenu.ContextMenuInfo;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
@@ -35,9 +39,11 @@ public class MainActivity extends ListActivity {
     private static final int MENU_HEAL_DAMAGE = 4;
     private static final int MENU_SUBDUE_UNSUBDUE = 5;
     private static final int MENU_ITEM_CLEAR = 6;
+    private static final int MENU_ITEM_LOAD = 7;
 
     private static final int REQUEST_CODE_ADD = 0;
     private static final int REQUEST_CODE_EDIT = 1;
+    private static final int REQUEST_CODE_LOAD = 2;
 
 
 
@@ -72,19 +78,27 @@ public class MainActivity extends ListActivity {
 
             registerForContextMenu(getListView());
 
-            getListView().setOnItemClickListener(new OnItemClickListener() {
-                public void onItemClick(AdapterView<?> adapter, View view,
-                        int position, long id) {
-                    editEntity(position, id);
-                }
-            });
+            setListViewClickListener();
+
+            setHtmlStrings();
 
             androidEntityUtil = new AndroidEntityUtil(this);
+
+            getListView().setChoiceMode(ListView.CHOICE_MODE_SINGLE);
         }
         catch (Exception e) {
             AndroidUtils.displayErrorDialog(this, e);
             Log.e(this.getClass().toString(), "Exception: " + e.getLocalizedMessage(), e);
         }
+    }
+
+    private void setListViewClickListener() {
+        getListView().setOnItemClickListener(new OnItemClickListener() {
+            public void onItemClick(AdapterView<?> adapter, View view,
+                    int position, long id) {
+                editEntity(position, id);
+            }
+        });
     }
 
     protected void editEntity(int position, long id) {
@@ -172,6 +186,10 @@ public class MainActivity extends ListActivity {
                 R.string.clear_all)
                 .setIcon(android.R.drawable.ic_menu_delete);
 
+        menu.add(/* group id*/ 0, MENU_ITEM_LOAD, position++,
+                R.string.load_item)
+                .setIcon(R.drawable.ic_menu_archive);
+
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -227,6 +245,9 @@ public class MainActivity extends ListActivity {
                 return true;
             case MENU_ITEM_CLEAR:
                 clearAll();
+                return true;
+            case MENU_ITEM_LOAD:
+                loadEntity();
                 return true;
             }
         }
@@ -293,6 +314,11 @@ public class MainActivity extends ListActivity {
         startActivity(intent);
     }
 
+    private void loadEntity() {
+        Intent intent = new Intent(this, LoadEntity.class);
+        startActivityForResult(intent, REQUEST_CODE_LOAD);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         try
@@ -304,6 +330,9 @@ public class MainActivity extends ListActivity {
                 break;
             case REQUEST_CODE_EDIT:
                 handleEditResult(data);
+                break;
+            case REQUEST_CODE_LOAD:
+                addMultipleEntities(data);
                 break;
             }
         }
@@ -340,6 +369,22 @@ public class MainActivity extends ListActivity {
         redraw();
     }
 
+
+    private void addMultipleEntities(Intent data) {
+        if (data == null)
+            return;
+
+        ArrayList<Bundle> bundles = data.getParcelableArrayListExtra("Entities");
+
+        for (Bundle bundle : bundles) {
+            Entity entity = AndroidEntityUtil.getEntityFromBundle(bundle);
+            dataModel.addEntity(entity);
+        }
+        redraw();
+    }
+
+
+
     public void healOrDamage(MenuItem item, final DamageOrSubdue damageOrSubdue) {
 
         final int position = ((AdapterContextMenuInfo)item.getMenuInfo()).position;
@@ -349,6 +394,14 @@ public class MainActivity extends ListActivity {
                 getListView().invalidate();
             }
         });
+    }
+
+    /** The TextView XML file is stupid in that it doesn't accept HTML.  This is our hack */
+    private void setHtmlStrings() {
+        TextView emptyText = (TextView) findViewById(R.id.text_view_no_entities);
+        String htmlText = getResources().getString(R.string.no_entities);
+
+        emptyText.setText(Html.fromHtml(htmlText));
     }
 
 

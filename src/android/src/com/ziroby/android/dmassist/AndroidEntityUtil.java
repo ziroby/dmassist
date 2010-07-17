@@ -18,6 +18,19 @@ import com.ziroby.dmassist.model.DiceEquation;
 public class AndroidEntityUtil
 {
     private Activity activity;
+    public static final String[] ALL_COLUMN_NAMES = new String[] {
+        "_id",
+        EntityList.COLUMN_NAME_NAME,
+        EntityList.COLUMN_NAME_ABBREV,
+        EntityList.COLUMN_NAME_INIT,
+        EntityList.COLUMN_NAME_HP,
+        EntityList.COLUMN_NAME_SUBDUAL,
+        EntityList.COLUMN_NAME_ROUNDS
+    };
+
+    public static final int[] ALL_RESOURCE_IDS = new int[]{
+            0, R.id.name, R.id.abbrev, R.id.init, R.id.hp, R.id.sub, R.id.rounds};
+
     private static final int INT_SENTINEL = -1000;
 
     public AndroidEntityUtil(Activity activity)
@@ -107,14 +120,19 @@ public class AndroidEntityUtil
     }
 
     public static Entity getEntityFromBundle(Intent data) {
-        Entity entity = new Entity();
+        Bundle bundle = data.getExtras();
 
-        final String name = data.getStringExtra(EntityList.COLUMN_NAME_NAME);
-        final int init = data.getIntExtra(EntityList.COLUMN_NAME_INIT, AndroidEntityUtil.INT_SENTINEL);
-        final int hp = data.getIntExtra(EntityList.COLUMN_NAME_HP, AndroidEntityUtil.INT_SENTINEL);
-        final String abbrev = data.getStringExtra(EntityList.COLUMN_NAME_ABBREV);
-        final int subdual = data.getIntExtra(EntityList.COLUMN_NAME_SUBDUAL, AndroidEntityUtil.INT_SENTINEL);
-        final int rounds= data.getIntExtra(EntityList.COLUMN_NAME_ROUNDS, AndroidEntityUtil.INT_SENTINEL);
+        return getEntityFromBundle(bundle);
+    }
+
+    public static Entity getEntityFromBundle(Bundle bundle) {
+        Entity entity = new Entity();
+        final String name = bundle.getString(EntityList.COLUMN_NAME_NAME);
+        final int init = bundle.getInt(EntityList.COLUMN_NAME_INIT, AndroidEntityUtil.INT_SENTINEL);
+        final int hp = bundle.getInt(EntityList.COLUMN_NAME_HP, AndroidEntityUtil.INT_SENTINEL);
+        final String abbrev = bundle.getString(EntityList.COLUMN_NAME_ABBREV);
+        final int subdual = bundle.getInt(EntityList.COLUMN_NAME_SUBDUAL, AndroidEntityUtil.INT_SENTINEL);
+        final int rounds= bundle.getInt(EntityList.COLUMN_NAME_ROUNDS, AndroidEntityUtil.INT_SENTINEL);
 
         if (name != null) entity.setName(name);
         if (init != AndroidEntityUtil.INT_SENTINEL) entity.setInitRoll(init);

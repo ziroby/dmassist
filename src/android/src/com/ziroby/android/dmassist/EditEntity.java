@@ -117,6 +117,28 @@ public class EditEntity extends EntityActivity
                 removeEntity();
             }
         });
+        Button saveButton = (Button) findViewById(R.id.button_save);
+        saveButton.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+                saveEntity();
+            }
+        });
+    }
+
+    protected void saveEntity() {
+        try {
+            EntityDbHelper dbHelper = new EntityDbHelper(this);
+
+            dbHelper.open();
+
+            dbHelper.saveEntity(entity);
+
+            AndroidUtils.displayInfoBox(this, "Saved", entity.getName() + " successfully saved");
+        }
+        catch (Exception e)
+        {
+            AndroidUtils.displayErrorDialog(this, e);
+        }
     }
 
     protected void removeEntity() {

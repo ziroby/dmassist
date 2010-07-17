@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="hello">There are no entries in the list.  Please add some from the menu below.</string>
 	<string name="app_name">DM Assist</string>
 	<string name="displayAboutBox">About</string>
 	<string name="authorship">by Ron \&quot;Ziroby\&quot; Romero</string>
@@ -25,6 +24,9 @@
 <string name="add">Add</string>
 <string name="rounds">Rounds:</string>
 <string name="remove_item">Remove</string>
+<string name="delete_item">Delete</string>
+<string name="save_item">Save</string>
+<string name="load_item">Load</string>
 <string name="heal_damage">Damage / Heal</string>
 <string name="about_the_author">About the Author...</string>
 <string name="gnu_blurb">DM assist is free software, and you are welcome to redistribute it under certain conditions.</string>
@@ -43,4 +45,12 @@
 <string name="unsubdue">Heal Subdual</string>
 <string name="ok">OK</string>
 <string name="clear_all">Clear All</string>
+    <string name="no_entities">&lt;h1&gt;DM Assist&lt;/h1&gt;
+    &lt;large&gt;There are no entries in the list.  Select Add Creature or Add Effect 
+    from the menu below.  Use Add Creature for monsters, NPCs, and PCs.  Use Add Effect 
+    for time-limitted effects, such as spells or &lt;it&gt;Summon Monster.&lt;/it&gt;
+    &lt;/large&gt;</string>
+    <string name="no_entities_in_db">
+    There are no creatures or effects saved.
+    </string>
 </resources>

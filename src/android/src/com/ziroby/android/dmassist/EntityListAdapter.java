@@ -34,7 +34,6 @@ import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import com.ziroby.dmassist.gwtable.model.Entity;
-import com.ziroby.dmassist.gwtable.model.EntityList;
 import com.ziroby.dmassist.gwtable.util.Listener;
 import com.ziroby.dmassist.gwtable.util.ObjectEvent;
 
@@ -50,13 +49,9 @@ implements ListAdapter
     public EntityListAdapter(Context context, int resource)
     {
         super(context, MainActivity.dataModel.getListOfMaps(data), resource,
-                new String[] {
-            EntityList.COLUMN_NAME_NAME,
-            EntityList.COLUMN_NAME_INIT,
-            EntityList.COLUMN_NAME_HP,
-            EntityList.COLUMN_NAME_SUBDUAL,
-            EntityList.COLUMN_NAME_ROUNDS},
-            new int[] {R.id.name, R.id.init, R.id.hp, R.id.sub, R.id.rounds});
+                AndroidEntityUtil.ALL_COLUMN_NAMES,
+                AndroidEntityUtil.ALL_RESOURCE_IDS
+            );
 
         MainActivity.dataModel.addListener(new Listener() {
             public void objectChanged(ObjectEvent event) {

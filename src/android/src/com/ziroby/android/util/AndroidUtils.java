@@ -19,10 +19,17 @@ public class AndroidUtils
 
         Log.e(activity.getClass().toString(), "Exception: " + message, e);
 
+        final String title = "Error";
+
+        displayInfoBox(activity, title, message);
+    }
+
+    public static void displayInfoBox(Activity activity,
+            final String title, String message) {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setMessage(message)
         .setCancelable(false)
-        .setTitle("Error")
+        .setTitle(title)
         .setPositiveButton("OK", new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
                 dialog.cancel();
@@ -32,5 +39,4 @@ public class AndroidUtils
 
         alert.show();
     }
-
 }

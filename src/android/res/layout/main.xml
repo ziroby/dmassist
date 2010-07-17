@@ -10,12 +10,18 @@
         android:layout_height="fill_parent"
         android:layout_weight="1"
     android:background="#FFFFFF"/>
-  <TextView android:id="@android:id/empty"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:text="@string/hello"
-    android:textColor="#111111"
-    />
+    <LinearLayout
+        android:id="@android:id/empty"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+    >
+        <TextView
+            android:id="@+id/text_view_no_entities"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/no_entities"
+            android:textColor="#111111" />
+    </LinearLayout>
 	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 		android:orientation="horizontal" android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
