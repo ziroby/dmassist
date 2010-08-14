@@ -12,15 +12,20 @@
     android:background="#FFFFFF"/>
     <LinearLayout
         android:id="@android:id/empty"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
     >
         <TextView
             android:id="@+id/text_view_no_entities"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:text="@string/no_entities"
+            android:textSize="20sp"
             android:textColor="#111111" />
+        <TextView android:text="" android:layout_width="fill_parent"
+            android:layout_height="wrap_content" android:layout_weight="1"
+            android:textColor="#111111" 
+            />
     </LinearLayout>
 	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 		android:orientation="horizontal" android:layout_width="fill_parent"

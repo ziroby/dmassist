@@ -17,6 +17,7 @@
     <activity android:name="AddCreature"></activity>
 <activity android:name="EditEntity"></activity>
 <activity android:name="LoadEntity"></activity>
+<activity android:name="Help"></activity>
 </application>
 
 

@@ -40,6 +40,7 @@ public class MainActivity extends ListActivity {
     private static final int MENU_SUBDUE_UNSUBDUE = 5;
     private static final int MENU_ITEM_CLEAR = 6;
     private static final int MENU_ITEM_LOAD = 7;
+    private static final int MENU_ITEM_HELP = 8;
 
     private static final int REQUEST_CODE_ADD = 0;
     private static final int REQUEST_CODE_EDIT = 1;
@@ -58,7 +59,7 @@ public class MainActivity extends ListActivity {
     enum DamageOrSubdue {DAMAGE, SUBDUE}
 
     static {
-        dataModel.addSampleData();
+        //dataModel.addSampleData();
     }
 
     /** Called when the activity is first created. */
@@ -182,13 +183,18 @@ public class MainActivity extends ListActivity {
                 R.string.displayAboutBox)
                 .setIcon(android.R.drawable.ic_menu_info_details);
 
-        menu.add(/* group id*/ 0, MENU_ITEM_CLEAR, position++,
-                R.string.clear_all)
-                .setIcon(android.R.drawable.ic_menu_delete);
+        menu.add(/* group id*/ 0, MENU_ITEM_HELP, position++,
+                R.string.help)
+                .setIcon(android.R.drawable.ic_menu_help);
 
         menu.add(/* group id*/ 0, MENU_ITEM_LOAD, position++,
                 R.string.load_item)
                 .setIcon(R.drawable.ic_menu_archive);
+
+        menu.add(/* group id*/ 0, MENU_ITEM_CLEAR, position++,
+                R.string.clear_all)
+                .setIcon(android.R.drawable.ic_menu_delete);
+
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -249,6 +255,9 @@ public class MainActivity extends ListActivity {
             case MENU_ITEM_LOAD:
                 loadEntity();
                 return true;
+            case MENU_ITEM_HELP:
+                displayHelp();
+                return true;
             }
         }
         catch (Exception e) {
@@ -256,6 +265,11 @@ public class MainActivity extends ListActivity {
         }
 
         return false;
+    }
+
+    private void displayHelp() {
+        Intent intent = new Intent(this, Help.class);
+        startActivity(intent);
     }
 
     private void clearAll() {

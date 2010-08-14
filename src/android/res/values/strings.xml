@@ -16,6 +16,7 @@
 <string name="text_color">#111111</string>
 <string name="add_creature">Add Creature</string>
 <string name="add_effect">Add Effect</string>
+<string name="help">Help</string>
 <string name="name">Name:</string>
 <string name="init_roll">Initiative Roll:</string>
 <string name="hit_points">Hit Points:</string>
@@ -46,9 +47,14 @@
 <string name="ok">OK</string>
 <string name="clear_all">Clear All</string>
     <string name="no_entities">&lt;h1&gt;DM Assist&lt;/h1&gt;
-    &lt;large&gt;There are no entries in the list.  Select Add Creature or Add Effect 
-    from the menu below.  Use Add Creature for monsters, NPCs, and PCs.  Use Add Effect 
-    for time-limitted effects, such as spells or &lt;it&gt;Summon Monster.&lt;/it&gt;
+    Welcome to DM Assist, a combat initiative tracker. &lt;p&gt;
+    &lt;large&gt;Select &lt;b&gt;Add Creature&lt;/b&gt; or &lt;b&gt;Add Effect&lt;/b&gt; 
+    from the menu to fill the list.&lt;p&gt;  
+    Use &lt;b&gt;Add Creature&lt;/b&gt; for monsters, NPCs, and PCs.  
+    Use &lt;b&gt;Add Effect&lt;/b&gt; 
+    for time-limited effects, such as spells or &lt;i&gt;Summon Monster.&lt;/i&gt;  &lt;p&gt;
+    You may also load 
+    and save, and help is available from the menu.
     &lt;/large&gt;</string>
     <string name="no_entities_in_db">
     There are no creatures or effects saved.
