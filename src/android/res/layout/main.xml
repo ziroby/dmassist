@@ -12,6 +12,7 @@
     android:background="#FFFFFF"/>
     <LinearLayout
         android:id="@android:id/empty"
+        android:orientation="vertical"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
     >
@@ -19,9 +20,31 @@
             android:id="@+id/text_view_no_entities"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:text="@string/no_entities"
+            android:text="Text set programatically"
             android:textSize="20sp"
             android:textColor="#111111" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+    >
+        <TextView
+            android:text=""
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+        <Button
+            android:id="@+id/addSampleData"
+            android:text="@string/add_sample_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center" />
+        <TextView
+            android:text=""
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1" />
+    </LinearLayout>
         <TextView android:text="" android:layout_width="fill_parent"
             android:layout_height="wrap_content" android:layout_weight="1"
             android:textColor="#111111" 

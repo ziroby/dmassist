@@ -143,6 +143,17 @@ public class MainActivity extends ListActivity {
                 handleresetButton();
             }
         });
+
+        Button addSampleDataButton = (Button) findViewById(R.id.addSampleData);
+        addSampleDataButton.setOnClickListener(new OnClickListener() {
+            public void onClick(View v) {
+                addSampleData();
+            }
+        });
+    }
+
+    protected void addSampleData() {
+        dataModel.addSampleData();
     }
 
     protected void redraw() {

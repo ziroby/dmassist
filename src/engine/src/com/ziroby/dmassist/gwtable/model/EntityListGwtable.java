@@ -477,7 +477,7 @@ public class EntityListGwtable extends AbstractListenable implements Listener, L
         addEntity(row2);
 
         Entity row4 = new Entity();
-        row4.setName("Melf's acid arrow"); //$NON-NLS-1$
+        row4.setName("Acid Arrow"); //$NON-NLS-1$
         row4.setInitRoll(4);
         row4.setRoundsLeft(3);
         addEntity(row4);
@@ -488,7 +488,22 @@ public class EntityListGwtable extends AbstractListenable implements Listener, L
         row3.setInitRoll(15);
         row3.setHitpoints(3);
         addEntity(row3);
-    }
+
+        Entity row5 = new Entity();
+        //row3.setAbbreviation("G2"); //$NON-NLS-1$
+        row5.setName("Ziroby"); //$NON-NLS-1$
+        row5.setInitRoll(25);
+        row5.setHitpoints(54);
+        addEntity(row5);
+
+        Entity row6 = new Entity();
+        row6.setAbbreviation("CB"); //$NON-NLS-1$
+        row6.setName("Summoned Celestial Badger"); //$NON-NLS-1$
+        row6.setInitRoll(25);
+        row6.setHitpoints(6);
+        row6.setRoundsLeft(5);
+        addEntity(row6);
+}
 
     public void setEntity(int position, Entity entity) {
         enterPublicMethod();
