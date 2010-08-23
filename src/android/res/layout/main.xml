@@ -8,51 +8,63 @@
   <ListView android:id="@android:id/list"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
+        android:padding="2sp"
         android:layout_weight="1"
     android:background="#FFFFFF"/>
-    <LinearLayout
+    <ScrollView
         android:id="@android:id/empty"
-        android:orientation="vertical"
+        xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
+        android:background="#FFFFFF"
     >
-        <TextView
-            android:id="@+id/text_view_no_entities"
+        <LinearLayout
+            android:orientation="vertical"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:text="Text set programatically"
-            android:textSize="20sp"
-            android:textColor="#111111" />
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-    >
-        <TextView
-            android:text=""
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-        <Button
-            android:id="@+id/addSampleData"
-            android:text="@string/add_sample_data"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center" />
-        <TextView
-            android:text=""
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-    </LinearLayout>
-        <TextView android:text="" android:layout_width="fill_parent"
-            android:layout_height="wrap_content" android:layout_weight="1"
-            android:textColor="#111111" 
-            />
-    </LinearLayout>
+            android:layout_height="fill_parent"
+        >
+            <TextView
+                android:id="@+id/text_view_no_entities"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="Text set programatically"
+                android:textSize="20sp"
+                android:padding="2sp"
+                android:textColor="#111111" />
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+            >
+                <TextView
+                    android:text=""
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+                <Button
+                    android:id="@+id/addSampleData"
+                    android:text="@string/add_sample_data"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center" />
+                <TextView
+                    android:text=""
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
+            </LinearLayout>
+            <TextView
+                android:text=""
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="#111111" />
+        </LinearLayout>
+    </ScrollView>
 	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 		android:orientation="horizontal" android:layout_width="fill_parent"
 		android:layout_height="wrap_content"
+        android:padding="2sp"
     	android:background="#FFFFFF">
 		<TextView android:id="@+id/timeView" android:text="00:12" android:layout_width="wrap_content"
 			android:layout_height="wrap_content" android:paddingLeft="4sp"
