@@ -9,10 +9,11 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteCursor;
 import android.os.Bundle;
+import android.util.SparseBooleanArray;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.CheckBox;
+import android.widget.CheckedTextView;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 
@@ -113,15 +114,24 @@ public class LoadEntity extends ListActivity
     private Collection<Integer> getCheckedIds() {
         Collection<Integer> checkedIds = new ArrayList<Integer>();
 
-        for (int i=0; i<adapter.getCount(); ++i) {
+        for (int i = 0; i < getListView().getCount(); ++i) {
             View view = getListView().getChildAt(i);
-            CheckBox check = (CheckBox) view.findViewById(R.id.checkbox);
-            if (check.isChecked()) {
-                int id = ((SQLiteCursor)adapter.getItem(i)).getInt(0);
-                //AndroidUtils.displayInfoBox(this, "item id", item.toString());
+            if (view == null) {
+                //AndroidUtils.displayInfoBox(this, "Hmm...", "view " + i + " is null");
+                break;
+            }
+        }
+
+        SparseBooleanArray isChecked = getListView().getCheckedItemPositions();
+
+        for (int i = 0; i < adapter.getCount(); ++i) {
+            if (isChecked.get(i)) {
+                final SQLiteCursor item = (SQLiteCursor)adapter.getItem(i);
+                int id = item.getInt(0);
                 checkedIds.add(id);
             }
         }
+
         return checkedIds;
     }
 
@@ -140,5 +150,11 @@ public class LoadEntity extends ListActivity
         adapter = new SimpleCursorAdapter(this, R.layout.load_entity_row, cursor,
                 AndroidEntityUtil.ALL_COLUMN_NAMES, AndroidEntityUtil.ALL_RESOURCE_IDS);
         setListAdapter(adapter);
+    }
+
+    @Override
+    protected void onListItemClick(ListView listView, View view, int position, long id) {
+        CheckedTextView check = (CheckedTextView) view;
+        check.setChecked(!check.isChecked());
     }
 }
