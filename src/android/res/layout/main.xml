@@ -1,16 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#FFFFFF"
-    >
-  <ListView android:id="@android:id/list"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:padding="2sp"
+>
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="1dip"
         android:layout_weight="1"
-    android:background="#FFFFFF"/>
+        android:background="#000000"
+    >
+        <ListView
+            android:id="@android:id/list"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="#FFFFFF" />
+    </LinearLayout>
     <ScrollView
         android:id="@android:id/empty"
         xmlns:android="http://schemas.android.com/apk/res/android"
@@ -61,47 +71,78 @@
                 android:textColor="#111111" />
         </LinearLayout>
     </ScrollView>
-	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-		android:orientation="horizontal" android:layout_width="fill_parent"
-		android:layout_height="wrap_content"
-        android:padding="2sp"
-    	android:background="#FFFFFF">
-		<TextView android:id="@+id/timeView" android:text="00:12" android:layout_width="wrap_content"
-			android:layout_height="wrap_content" android:paddingLeft="4sp"
-			android:paddingRight="4sp"
-		    android:textColor="#111111"
-			/>
-		<TextView android:id="@+id/roundView" android:text="round 12" android:layout_width="wrap_content"
-			android:layout_height="wrap_content" android:paddingLeft="4sp"
-			android:paddingRight="4sp"
-		    android:textColor="#111111"
-			/>
-		<TextView android:text="init: " android:layout_width="wrap_content"
-			android:layout_height="wrap_content" android:paddingLeft="4sp"
-			android:paddingRight="1sp"
-		    android:textColor="#111111"
-			/>
-		<TextView android:id="@+id/initView" android:text="" android:layout_width="wrap_content"
-			android:layout_height="wrap_content" android:paddingLeft="1sp"
-			android:paddingRight="4sp"
-		    android:textColor="#111111" android:textSize="24sp"
-			/>
-		<TextView android:text="" android:layout_width="fill_parent"
-			android:layout_height="wrap_content" android:layout_weight="1"
-		    android:textColor="#111111" 
-			/>
-		<Button android:id="@+id/resetButton" 
-		    android:text="Reset" 
-		    android:layout_width="wrap_content"
-			android:layout_height="wrap_content"  
-			android:gravity="right" 
-			android:textColor="#111111" />
-		<Button android:id="@+id/nextButton" 
-		    android:text="Next" 
-		    android:layout_width="wrap_content"
-			android:layout_height="wrap_content"  
-			android:gravity="right" 
-			android:textColor="#111111" />
-	</LinearLayout>
-    
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="1dip"
+        android:background="#000000"
+    >
+        <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:padding="2sp"
+            android:layout_weight="1"
+            android:background="#FFFFFF"
+        >
+            <TextView
+                android:id="@+id/timeView"
+                android:text="00:12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="4sp"
+                android:paddingRight="4sp"
+                android:textSize="19sp"
+                android:textColor="#111111" />
+            <TextView
+                android:id="@+id/roundView"
+                android:text="round 12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="4sp"
+                android:paddingRight="4sp"
+                android:textSize="17sp"
+                android:textColor="#111111" />
+            <TextView
+                android:text="init: "
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="4sp"
+                android:paddingRight="1sp"
+                android:textSize="17sp"
+                android:textColor="#111111" />
+            <TextView
+                android:id="@+id/initView"
+                android:text=""
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="1sp"
+                android:paddingRight="4sp"
+                android:textColor="#111111"
+                android:textSize="20sp" />
+            <TextView
+                android:text=""
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="#111111" />
+            <Button
+                android:id="@+id/resetButton"
+                android:text="Reset"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:textColor="#111111" />
+            <Button
+                android:id="@+id/nextButton"
+                android:text="Next"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:textColor="#111111" />
+        </LinearLayout>
+    </LinearLayout>
 </LinearLayout>

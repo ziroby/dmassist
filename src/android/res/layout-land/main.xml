@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:padding="1dip"
+    android:background="#000000"
+>
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="#FFFFFF" 
+    >
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:padding="1dip"
+        android:background="#000000"
+    >
+        <ListView
+            android:id="@android:id/list"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:background="#FFFFFF" />
+    </LinearLayout>
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:padding="1dip"
+        android:background="#000000"
+    >
+        <ScrollView
+            android:id="@android:id/empty"
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_gravity="left"
+            android:background="#FFFFFF"
+        >
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="fill_parent"
+            >
+                <TextView
+                    android:id="@+id/text_view_no_entities"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                    android:text="Text set programatically"
+                    android:textSize="20sp"
+                    android:padding="2sp"
+                    android:textColor="#111111" />
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="fill_parent"
+                >
+                    <TextView
+                        android:text=""
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1" />
+                    <Button
+                        android:id="@+id/addSampleData"
+                        android:text="@string/add_sample_data"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal" />
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:padding="1dip"
+        android:background="#000000"
+    >
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:padding="4sp"
+        android:paddingTop="0sp"
+        android:background="#FFFFFF"
+    >
+        <TextView
+            android:id="@+id/timeView"
+            android:text="00:12"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="2sp"
+            android:textSize="22sp"
+            android:gravity="center_horizontal"
+            android:textColor="#111111" />
+        <TextView
+            android:id="@+id/roundView"
+            android:text="round 12"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="4sp"
+            android:paddingRight="4sp"
+            android:textSize="18sp"
+            android:paddingTop="2sp"
+            android:paddingBottom="2sp"
+            android:textColor="#111111" />
+        <TextView
+            android:text="init: "
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="4sp"
+            android:paddingRight="1sp"
+            android:textSize="18sp"
+            android:textColor="#111111"
+            android:paddingTop="2sp"
+            android:paddingBottom="2sp" />
+        <TextView
+            android:id="@+id/initView"
+            android:text=""
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="1sp"
+            android:paddingRight="4sp"
+            android:textColor="#111111"
+            android:textSize="24sp" />
+        <TextView
+            android:text=""
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="#111111" />
+        <Button
+            android:id="@+id/resetButton"
+            android:text="Reset"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:textColor="#111111" />
+        <Button
+            android:id="@+id/nextButton"
+            android:text="Next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:textColor="#111111" />
+    </LinearLayout>
+</LinearLayout>
+</LinearLayout>

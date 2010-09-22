@@ -3,7 +3,8 @@
 	android:orientation="vertical" android:layout_width="fill_parent"
 	android:layout_height="fill_parent" android:layout_gravity="fill"
 	android:layout_weight="1" android:textColor="#111111" 
-    android:background="#FFFFFF">
+    android:background="#FFFFFF"
+    android:padding="4sp">
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="fill_parent"
