@@ -31,7 +31,7 @@ import org.junit.Test;
 import com.ziroby.dmassist.gwtable.model.Entity;
 import com.ziroby.dmassist.gwtable.model.EntityList;
 import com.ziroby.dmassist.gwtable.model.EntityListGwtable;
-import com.ziroby.dmassist.model.test.MockTableModelListener;
+import com.ziroby.dmassist.model.MockTableModelListener;
 
 /**
  * @author Ron Romero

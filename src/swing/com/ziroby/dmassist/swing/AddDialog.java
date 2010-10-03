@@ -1,6 +1,6 @@
 /*
  *   Copyright 2009 Ron "Ziroby" Romero
- * 
+ *
  *   This file is part of DM Assist.
  *
  *   DM Assist is free software: you can redistribute it and/or modify
@@ -28,6 +28,7 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.Box;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -37,6 +38,7 @@ import javax.swing.WindowConstants;
 
 import com.ziroby.dmassist.gwtable.model.Entity;
 import com.ziroby.dmassist.gwtable.model.EntityList;
+import com.ziroby.dmassist.gwtable.model.Entity.Type;
 import com.ziroby.dmassist.model.DiceEquation;
 
 /**
@@ -56,7 +58,7 @@ public class AddDialog extends JDialog implements ActionListener {
         CREATURE,
         EFFECT
     }
-    
+
 	private JTextField nameField;
 
 	private JTextField initRollField;
@@ -70,14 +72,15 @@ public class AddDialog extends JDialog implements ActionListener {
 	private EntityList initOrderDataModel;
     private JTextField roundsField;
     private Integer initCount;
-	
+    private JComboBox typeField;
+
     public AddDialog(InitOrderFrame frame,
             EntityList initOrderDataModel, AddType addType, Integer initCount)
     {
         super(frame, addType == AddType.CREATURE? DIALOG_TITLE_CREATURE : DIALOG_TITLE_EFFECT, true);
-        
+
         this.initOrderDataModel = initOrderDataModel;
-        
+
         setupDialog(addType, initCount);
     }
 
@@ -85,9 +88,9 @@ public class AddDialog extends JDialog implements ActionListener {
             EntityList initOrderDataModel, AddType addType)
     {
         super(frame, addType == AddType.CREATURE? DIALOG_TITLE_CREATURE : DIALOG_TITLE_EFFECT, true);
-        
+
         this.initOrderDataModel = initOrderDataModel;
-        
+
         setupDialog(addType, null);
     }
 
@@ -95,11 +98,11 @@ public class AddDialog extends JDialog implements ActionListener {
         this.initCount = initCount;
 
         this.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-		
+
 	    final JComponent contentPane = (JComponent) this.getContentPane();
 
 	    contentPane.setLayout(new GridBagLayout());
-		
+
         c0.anchor = GridBagConstraints.PAGE_START;
 		c0.insets = new Insets(10, 10, 10, 10);
 		c0.gridwidth = 2;
@@ -137,10 +140,15 @@ public class AddDialog extends JDialog implements ActionListener {
             roundsField = new JTextField();
             addField(roundsField, 4, Messages.getString("AddDialog.promptRounds"), KeyEvent.VK_R); //$NON-NLS-1$
         }
-        
+
         subdualField = new JTextField();
         addField(subdualField, 4, Messages.getString("AddDialog.promptSubdual"), KeyEvent.VK_S); //$NON-NLS-1$
-		
+
+        typeField = new JComboBox();
+        for (Type type : Entity.Type.values())
+            typeField.addItem(type);
+        addField(typeField, Messages.getString("AddDialog.promptType"), KeyEvent.VK_T);
+
 		Box buttonBox = Box.createHorizontalBox();
 		JButton okButton = new JButton(Messages.getString("AddDialog.buttonLabelOK")); //$NON-NLS-1$
 		okButton.setActionCommand("ok"); //$NON-NLS-1$
@@ -152,24 +160,28 @@ public class AddDialog extends JDialog implements ActionListener {
 		buttonBox.add(okButton);
 		buttonBox.add(Box.createHorizontalStrut(10));
 		buttonBox.add(cancelButton);
-		
+
 		c0.gridx=0;
 		c0.gridy=rowNum++;
 		contentPane.add(buttonBox, c0);
-		
+
 		getRootPane().setDefaultButton(okButton);
-		
+
 		pack();
     }
 
     private void addField(final JTextField field, final int columns, final String label, final int mnemonic) {
-        final JComponent contentPane1 = (JComponent) this.getContentPane();
-
         field.setColumns(columns);
+        addField(field, label, mnemonic);
+    }
+
+    private void addField(final JComponent field, final String label,
+            final int mnemonic) {
         JLabel jlabel = new JLabel(label);
         jlabel.setLabelFor(field);
         jlabel.setDisplayedMnemonic(mnemonic);
 
+        final JComponent contentPane1 = (JComponent) this.getContentPane();
         c1.gridx=0;
         c1.gridy=rowNum;
         contentPane1.add(jlabel, c1);
@@ -187,6 +199,7 @@ public class AddDialog extends JDialog implements ActionListener {
 				entity.setName(this.nameField.getText());
 				entity.setHitpoints(DiceEquation.tryParseInt(this.hpField.getText()));
 				entity.setSubdual(DiceEquation.tryParseInt(this.subdualField.getText()));
+				entity.setType((Type) this.typeField.getSelectedItem());
 				entity.setAbbreviation(this.abrevField.getText());
 				if (this.roundsField != null)
 				{
@@ -202,7 +215,7 @@ public class AddDialog extends JDialog implements ActionListener {
                     entity.setInitRoll(DiceEquation.tryParseInt(this.initRollField.getText()));
                 }
 
-				this.initOrderDataModel.addEntity(entity);			
+				this.initOrderDataModel.addEntity(entity);
 				dispose();
 			}
 			catch (RuntimeException exception)
@@ -218,7 +231,7 @@ public class AddDialog extends JDialog implements ActionListener {
 		else
 		{
 			JOptionPane.showMessageDialog(this, Messages.getString("AddDialog.errorUnknownActionType") + e.getActionCommand() + "\"" , Messages.getString("AddDialog.windowTitleInternalError"), JOptionPane.ERROR_MESSAGE); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
-		}		
+		}
 	}
 
     private static final long serialVersionUID = 3758512305033825791L;

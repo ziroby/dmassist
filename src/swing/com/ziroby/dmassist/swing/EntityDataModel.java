@@ -182,8 +182,7 @@ public class EntityDataModel extends AbstractTableModel
 
     @Override
     public void addSampleData() {
-        // TODO Auto-generated method stub
-
+        entityListWithSave.addSampleData();
     }
 
     @Override

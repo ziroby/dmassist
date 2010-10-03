@@ -1,18 +1,26 @@
 package com.ziroby.android.dmassist;
 
+import java.util.List;
+import java.util.Map;
+
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.DialogInterface.OnClickListener;
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ListAdapter;
+import android.widget.SimpleAdapter;
 
 import com.ziroby.android.dmassist.MainActivity.DamageOrSubdue;
 import com.ziroby.android.dmassist.MainActivity.HealOrDamage;
 import com.ziroby.android.util.AndroidUtils;
 import com.ziroby.dmassist.gwtable.model.Entity;
 import com.ziroby.dmassist.gwtable.model.EntityList;
+import com.ziroby.dmassist.gwtable.model.Entity.Type;
 import com.ziroby.dmassist.model.DiceEquation;
 
 public class AndroidEntityUtil
@@ -25,11 +33,12 @@ public class AndroidEntityUtil
         EntityList.COLUMN_NAME_INIT,
         EntityList.COLUMN_NAME_HP,
         EntityList.COLUMN_NAME_SUBDUAL,
-        EntityList.COLUMN_NAME_ROUNDS
+        EntityList.COLUMN_NAME_ROUNDS,
+        EntityList.COLUMN_NAME_TYPE,
     };
 
     public static final int[] ALL_RESOURCE_IDS = new int[]{
-            0, R.id.name, R.id.abbrev, R.id.init, R.id.hp, R.id.sub, R.id.rounds};
+            0, R.id.name, R.id.abbrev, R.id.init, R.id.hp, R.id.sub, R.id.rounds, R.id.type_name};
 
     private static final int INT_SENTINEL = -1000;
 
@@ -119,6 +128,34 @@ public class AndroidEntityUtil
         };
     }
 
+    static ListAdapter getAdapterForTypes(final Context context) {
+        List<Map<String, String>> data = Entity.Type.getAllTypesAsListOfMaps("text1");
+
+        String[] from = new String[] {
+                "text1"
+        };
+        int[] to = new int[] {
+                android.R.id.text1
+        };
+        ListAdapter simpleAdapter = new SimpleAdapter(context, data, android.R.layout.simple_list_item_1,
+                from, to);
+        return simpleAdapter;
+    }
+
+    public static ArrayAdapter<CharSequence> getArrayAdapterForTypes(
+            Context context, int resourceId ) {
+        CharSequence[] values = new CharSequence[Entity.Type.values().length];
+
+        int index = 0;
+        for (Type type : Entity.Type.values()) {
+            values[index++] = type.toString();
+        }
+
+        ArrayAdapter<CharSequence> simpleAdapter = new ArrayAdapter<CharSequence>(
+                context, resourceId, values);
+        return simpleAdapter;
+    }
+
     public static Entity getEntityFromBundle(Intent data) {
         Bundle bundle = data.getExtras();
 
@@ -133,6 +170,7 @@ public class AndroidEntityUtil
         final String abbrev = bundle.getString(EntityList.COLUMN_NAME_ABBREV);
         final int subdual = bundle.getInt(EntityList.COLUMN_NAME_SUBDUAL, AndroidEntityUtil.INT_SENTINEL);
         final int rounds= bundle.getInt(EntityList.COLUMN_NAME_ROUNDS, AndroidEntityUtil.INT_SENTINEL);
+        final int type = bundle.getInt(EntityList.COLUMN_NAME_TYPE, AndroidEntityUtil.INT_SENTINEL);
 
         if (name != null) entity.setName(name);
         if (init != AndroidEntityUtil.INT_SENTINEL) entity.setInitRoll(init);
@@ -140,6 +178,7 @@ public class AndroidEntityUtil
         if (abbrev != null) entity.setAbbreviation(abbrev);
         if (subdual != AndroidEntityUtil.INT_SENTINEL) entity.setSubdual(subdual);
         if (rounds != AndroidEntityUtil.INT_SENTINEL) entity.setRoundsLeft(rounds);
+        entity.setType(Type.typeAt(type));  // Type should always be set.
         return entity;
     }
 
@@ -150,11 +189,12 @@ public class AndroidEntityUtil
                 entity.getHitpoints(),
                 entity.getAbbreviation(),
                 entity.getSubdual(),
-                entity.getRoundsLeft());
+                entity.getRoundsLeft(),
+                entity.getType().ordinal());
     }
 
     public static Bundle putEntityFieldsInBundle(String name, Integer init,
-            Integer hp, String abbrev, Integer subdual, Integer rounds) {
+            Integer hp, String abbrev, Integer subdual, Integer rounds, int type) {
         Bundle bundle = new Bundle();
         bundle.putString(EntityList.COLUMN_NAME_NAME, name);
         if (init != null)
@@ -166,6 +206,8 @@ public class AndroidEntityUtil
             bundle.putInt(EntityList.COLUMN_NAME_SUBDUAL, subdual);
         if (rounds != null)
             bundle.putInt(EntityList.COLUMN_NAME_ROUNDS, rounds);
+        bundle.putInt(EntityList.COLUMN_NAME_TYPE, type);
         return bundle;
     }
+
 }

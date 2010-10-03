@@ -26,6 +26,8 @@ public class LoadEntity extends ListActivity
     private SimpleCursorAdapter adapter;
     private ArrayList<Bundle> allBundles = new ArrayList<Bundle>();
     private AndroidEntityUtil androidEntityUtil;
+    private int type;
+    private Cursor cursor;
 
     protected void onCreate(Bundle savedInstanceState) {
         try {
@@ -36,6 +38,7 @@ public class LoadEntity extends ListActivity
             dbHelper = new EntityDbHelper(this);
             dbHelper.open();
 
+            type = getIntent().getExtras().getInt("position");
             fillData();
 
             setOnClickListeners();
@@ -144,7 +147,7 @@ public class LoadEntity extends ListActivity
     }
 
     private void fillData() {
-        Cursor cursor = dbHelper.fetchAllEntities();
+        cursor = dbHelper.fetchEntitiesOfType(type);
         startManagingCursor(cursor);
 
         adapter = new SimpleCursorAdapter(this, R.layout.load_entity_row, cursor,

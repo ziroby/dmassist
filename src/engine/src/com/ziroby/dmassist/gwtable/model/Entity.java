@@ -19,6 +19,8 @@
  */
 package com.ziroby.dmassist.gwtable.model;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
@@ -39,6 +41,66 @@ import com.ziroby.dmassist.gwtable.util.StringUtil;
  */
 
 public class Entity extends AbstractListenable {
+
+    public enum Type
+    {
+        UNKNOWN("Unknown"),
+        PC,
+        NPC,
+        MONSTER("Monster"),
+        EFFECT("Effect"),
+        SRD_MONSTER("SRD Monster", 'C' /* "Creature" */),
+        SRD_SPELL("SRD Spell", 'S');
+
+        final private String displayString;
+        final private char abbrev;
+
+        private Type() {
+            displayString = null;
+            this.abbrev = super.toString().charAt(0);
+        }
+
+        private Type(String displayString) {
+            this.displayString = displayString;
+            this.abbrev = displayString.charAt(0);
+        }
+        private Type(String displayString, char abbrev) {
+            this.displayString = displayString;
+            this.abbrev = abbrev;
+        }
+        public static Type forChar(char c)
+        {
+            for (Type type : values())
+                if (type.abbrev == c)
+                    return type;
+
+            return null;
+        }
+        public char getAbbrev() {
+            return this.abbrev;
+        }
+        @Override
+        public String toString() {
+            if (displayString == null)
+                return super.toString();
+            return displayString;
+        }
+
+        public static List<Map<String, String>> getAllTypesAsListOfMaps(String mapKey) {
+            List<Map<String, String>> retValue = new ArrayList<Map<String, String>>();
+            for (Type type : values())
+            {
+                Map<String, String> map = new HashMap<String, String>();
+                map.put(mapKey, type.toString());
+                retValue.add(map);
+            }
+            return retValue;
+        }
+
+        public static Type typeAt(int position) {
+            return values()[position];
+        }
+    }
 
     /**
      * The different type of damage or healing which can be done
@@ -61,6 +123,7 @@ public class Entity extends AbstractListenable {
 	private Integer hitpoints;
 	private Integer subdual;
     private Integer roundsLeft;
+    private Type type;
 
     private boolean dirty = false;
 
@@ -447,14 +510,14 @@ public class Entity extends AbstractListenable {
     /**
      * Damages or heals with the specified type.
      *
-     * @param type
+     * @param damageType
      *            The type of damage to deal.
      *
      * @param damage
      *            The amount to damage or heal.
      */
-    public void damage(DamageType type, Integer damage) {
-        switch (type)
+    public void damage(DamageType damageType, Integer damage) {
+        switch (damageType)
         {
         	case NORMAL_DAMAGE:
         		damage(damage);
@@ -543,10 +606,11 @@ public class Entity extends AbstractListenable {
         map.put(EntityList.COLUMN_NAME_SUBDUAL, toStringOrBlank(getSubdual()));
         map.put(EntityList.COLUMN_NAME_INIT, toStringOrBlank(getInitRoll()));
         map.put(EntityList.COLUMN_NAME_ROUNDS, toStringOrBlank(getRoundsLeft()));
+        map.put(EntityList.COLUMN_NAME_TYPE, Character.toString(getType().getAbbrev()));
         return map;
     }
 
-   private String toStringOrBlank(Integer i)
+   private String toStringOrBlank(Object i)
    {
        if (i == null)
            return "";
@@ -557,6 +621,23 @@ public class Entity extends AbstractListenable {
     public void setRoundsLeft(String text) {
         Integer n = StringUtil.tryParseInt(text);
         setRoundsLeft(n);
+    }
+
+    public void setType(Type type) {
+        if (this.type != null && this.type.equals(type))
+            return;
+        this.type = type;
+        dirty = true;
+        alertListeners();
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(String typeString) {
+        setType(Type.forChar(typeString.charAt(0)));
+
     }
 }
 

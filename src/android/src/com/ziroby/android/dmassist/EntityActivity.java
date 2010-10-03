@@ -5,8 +5,10 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import com.ziroby.dmassist.gwtable.model.Entity;
 import com.ziroby.dmassist.gwtable.util.StringUtil;
@@ -21,6 +23,7 @@ public abstract class EntityActivity extends Activity
     private EditText abbrevEdit;
     private EditText subdualEdit;
     private EditText roundsEdit;
+    private Spinner typeEdit;
 
     public EntityActivity()
     {
@@ -40,6 +43,7 @@ public abstract class EntityActivity extends Activity
         subdualEdit.invalidate();
         roundsEdit.setText(StringUtil.toStringOrBlank(entity.getRoundsLeft()));
         roundsEdit.invalidate();
+        typeEdit.setSelection(entity.getType().ordinal());
     }
 
     protected void setViewVariables() {
@@ -49,6 +53,13 @@ public abstract class EntityActivity extends Activity
         abbrevEdit = (EditText) findViewById(R.id.abbrev_edit);
         subdualEdit = (EditText) findViewById(R.id.subdual_edit);
         roundsEdit = (EditText) findViewById(R.id.rounds_edit);
+        typeEdit = (Spinner) findViewById(R.id.type_edit);
+
+        final ArrayAdapter<CharSequence> adapter =
+            AndroidEntityUtil.getArrayAdapterForTypes(this,
+                    android.R.layout.simple_spinner_item);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        typeEdit.setAdapter(adapter);
     }
 
     protected Bundle getEntityFromEditFields() {
@@ -58,7 +69,8 @@ public abstract class EntityActivity extends Activity
                 getIntOf(hpEdit),
                 getTextOf(abbrevEdit),
                 getIntOf(subdualEdit),
-                getIntOf(roundsEdit));
+                getIntOf(roundsEdit),
+                typeEdit.getSelectedItemPosition());
         return bundle;
     }
 

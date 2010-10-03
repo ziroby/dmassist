@@ -1,6 +1,6 @@
 /*
  *   Copyright 2009 Ron "Ziroby" Romero
- * 
+ *
  *   This file is part of DM Assist.
  *
  *   DM Assist is free software: you can redistribute it and/or modify
@@ -18,7 +18,7 @@
  *
  */
 
-package com.ziroby.dmassist.model.test;
+package com.ziroby.dmassist.model;
 
 import junit.framework.TestCase;
 
@@ -47,6 +47,13 @@ public class EntityTest extends TestCase{
     private MockListener listener;
     private Entity entity;
 
+    /**
+     * A primitive mock listener. This should really be using a mock framework,
+     * but oh well.
+     *
+     * @author Ron "Ziroby" Romero
+     *
+     */
     class MockListener implements Listener
     {
         /**
@@ -585,6 +592,27 @@ public class EntityTest extends TestCase{
 
         assertEquals(new Integer(5), entity.getSubdual());
         listener.expectNoEvents();
+    }
+    @Test
+    public final void testSetType() {
+        listener.expectEvent();
+        entity.setType(Entity.Type.MONSTER);
+        listener.expectNoEvents();
+
+        assertEquals(Entity.Type.MONSTER, entity.getType());
+        listener.expectNoEvents();
+    }
+    @Test
+    public final void testSettypeUnchanged() {
+        listener.expectEvent();
+        entity.setType(Entity.Type.NPC);
+        listener.expectNoEvents();
+        assertEquals(Entity.Type.NPC, entity.getType());
+
+        listener.expectNoEvents();
+        entity.setType(Entity.Type.NPC);
+        listener.expectNoEvents();
+        assertEquals(Entity.Type.NPC, entity.getType());
     }
 }
 

@@ -12,7 +12,6 @@ import org.junit.Test;
 
 import com.ziroby.dmassist.gwtable.model.Entity;
 import com.ziroby.dmassist.gwtable.model.EntityList;
-import com.ziroby.dmassist.model.test.MockTableModelListener;
 
 
 public class EntityListImplTest extends TestCase
@@ -27,14 +26,14 @@ public class EntityListImplTest extends TestCase
     @Before
     public void setUp() throws Exception {
         dataModel = new EntityListImpl();
-        
+
         mockListener = new MockTableModelListener();
         dataModel.addListener(mockListener);
         assertEquals(0, dataModel.getRowCount());
-        
+
     }
-    
-    
+
+
     private void fillTable() {
         Entity row1 = new Entity();
         row1.setAbbreviation("G");
@@ -77,7 +76,7 @@ public class EntityListImplTest extends TestCase
     @Test
     public void testGotoNextInitCount() {
         fillTable();
-        
+
         for (int i = 0; i < 10; ++i)
         {
             mockListener.expectEvent();
@@ -115,7 +114,7 @@ public class EntityListImplTest extends TestCase
      */
     @Test
     public void testGotoNextInitCountEmptyTable() {
-        
+
         for (int i = 0; i < 10; ++i)
         {
             mockListener.expectNoEvents();
@@ -169,7 +168,7 @@ public class EntityListImplTest extends TestCase
         mockListener.expectEvent();
         dataModel.setInitCount(-3);
         mockListener.expectNoEvents();
-        
+
         mockListener.expectEvent();
         dataModel.addEntity(row4);
         mockListener.expectNoEvents();
@@ -177,15 +176,15 @@ public class EntityListImplTest extends TestCase
         mockListener.expectEvent();
         dataModel.remove(3);
         mockListener.expectNoEvents();
-        
+
         mockListener.expectEvent();
         dataModel.remove(1);
         mockListener.expectNoEvents();
-        
+
         mockListener.expectEvent();
         dataModel.remove(1);
         mockListener.expectNoEvents();
-        
+
         mockListener.expectEvent();
         dataModel.remove(0);
         mockListener.expectNoEvents();
@@ -202,12 +201,12 @@ public class EntityListImplTest extends TestCase
         assertEquals(null, dataModel.getInitCount());
 
         mockListener.expectNoEvents();
-        
+
     }
-    
-    
+
+
     @Test
-    public void testAddEntity() 
+    public void testAddEntity()
     {
         Entity row1 = new Entity();
         row1.setAbbreviation("G");
@@ -279,16 +278,16 @@ public class EntityListImplTest extends TestCase
         mockListener.expectNoEvents();
 }
     @Test
-    public void testAddEntityNull() 
+    public void testAddEntityNull()
     {
-        
+
         mockListener.expectNoEvents();
         dataModel.addEntity(null);
         mockListener.expectNoEvents();
 }
-    
+
     @Test
-    public void testAddEntity2() 
+    public void testAddEntity2()
     {
         Entity row1 = new Entity();
         //row1.setAbbreviation("G");
@@ -307,9 +306,9 @@ public class EntityListImplTest extends TestCase
         mockListener.expectNoEvents();
 }
 
-    
+
     @Test
-    public void testAddEntity3() 
+    public void testAddEntity3()
     {
         Entity row1 = new Entity();
         row1.setAbbreviation(" G ");
@@ -328,9 +327,9 @@ public class EntityListImplTest extends TestCase
         mockListener.expectNoEvents();
 }
 
-    
+
     @Test
-    public void testAddEntityNoNull() 
+    public void testAddEntityNoNull()
     {
         Entity row1 = new Entity();
         row1.setAbbreviation("G");
@@ -347,11 +346,11 @@ public class EntityListImplTest extends TestCase
         assertEquals(new Integer(12), entity0.getInitRoll());
         assertEquals(new Integer(42), entity0.getHitpoints());
         mockListener.expectNoEvents();
-    }   
+    }
 
 
     @Test
-    public void testAddEntityNullHp() 
+    public void testAddEntityNullHp()
     {
         Entity row1 = new Entity();
         row1.setAbbreviation("G");
@@ -369,10 +368,10 @@ public class EntityListImplTest extends TestCase
         assertEquals(new Integer(12), entity0.getInitRoll());
         assertNull(entity0.getHitpoints());
         mockListener.expectNoEvents();
-    }   
+    }
 
     @Test
-    public void testAddEntityNullInit() 
+    public void testAddEntityNullInit()
     {
         Entity row1 = new Entity();
         row1.setAbbreviation("G");
@@ -390,11 +389,11 @@ public class EntityListImplTest extends TestCase
         assertNull(entity0.getInitRoll());
         assertEquals(new Integer(42), entity0.getHitpoints());
         mockListener.expectNoEvents();
-    }   
+    }
 
 
     @Test
-    public void testAddEntityNullInitNextInit() 
+    public void testAddEntityNullInitNextInit()
     {
         Entity row1 = new Entity();
         row1.setAbbreviation("G");
@@ -422,11 +421,11 @@ public class EntityListImplTest extends TestCase
         dataModel.gotoNextInitCount();
         assertEquals(false, dataModel.getValueAt(0, EntityList.COLUMN_NUMBER_MY_TURN));
         assertEquals(null, dataModel.getInitCount());
-        mockListener.expectNoEvents();  
-    }   
+        mockListener.expectNoEvents();
+    }
 
     @Test
-    public void testAddEntityNullAbbrev() 
+    public void testAddEntityNullAbbrev()
     {
         Entity row1 = new Entity();
         row1.setAbbreviation(null);
@@ -443,11 +442,11 @@ public class EntityListImplTest extends TestCase
         assertEquals(new Integer(12), entity0.getInitRoll());
         assertEquals(new Integer(42), entity0.getHitpoints());
         mockListener.expectNoEvents();
-    }   
+    }
 
 
     @Test
-    public void testAddEntityNullAbbrev3() 
+    public void testAddEntityNullAbbrev3()
     {
         Entity row1 = new Entity();
         row1.setAbbreviation(null);
@@ -464,11 +463,11 @@ public class EntityListImplTest extends TestCase
         assertEquals(new Integer(12), entity0.getInitRoll());
         assertEquals(new Integer(42), entity0.getHitpoints());
         mockListener.expectNoEvents();
-    }   
+    }
 
 
     @Test
-    public void testAddEntityNullName() 
+    public void testAddEntityNullName()
     {
         Entity row1 = new Entity();
         row1.setAbbreviation("G");
@@ -487,10 +486,10 @@ public class EntityListImplTest extends TestCase
         }
         assertEquals(0, dataModel.getRowCount());
         mockListener.expectNoEvents();
-    }   
+    }
 
     @Test
-    public void testAddEntityBlankName() 
+    public void testAddEntityBlankName()
     {
         Entity row1 = new Entity();
         row1.setAbbreviation("G");
@@ -509,9 +508,9 @@ public class EntityListImplTest extends TestCase
         }
         assertEquals(0, dataModel.getRowCount());
         mockListener.expectNoEvents();
-    }   
+    }
     @Test
-    public void testAddEntityBlankName2() 
+    public void testAddEntityBlankName2()
     {
         Entity row1 = new Entity();
         row1.setAbbreviation("G");
@@ -530,7 +529,7 @@ public class EntityListImplTest extends TestCase
         }
         assertEquals(0, dataModel.getRowCount());
         mockListener.expectNoEvents();
-    }   
+    }
     @Test
     public void testSubdual()
     {
@@ -666,7 +665,7 @@ public class EntityListImplTest extends TestCase
         entity0.heal(3);
         mockListener.expectNoEvents();
         assertEquals(new Integer(32), entity1.getHitpoints());
-        
+
     }
     @Test
     public void testHealSubdual()
@@ -796,7 +795,7 @@ public class EntityListImplTest extends TestCase
         entity0.heal(0);
         mockListener.expectNoEvents();
         assertEquals(new Integer(21), entity1.getHitpoints());
-        
+
     }
     @Test
     public void testHealSubdualZero()
@@ -835,7 +834,7 @@ public class EntityListImplTest extends TestCase
         mockListener.expectNoEvents();
     }
 
-    
+
     public void testSetValueAt()
     {
         Entity row1 = new Entity();
@@ -847,7 +846,7 @@ public class EntityListImplTest extends TestCase
         mockListener.expectEvent();
         dataModel.addEntity(row1);
         mockListener.expectNoEvents();
-        
+
         mockListener.expectEvent();
         dataModel.setValueAt(new Integer(7), 0, EntityList.COLUMN_NUMBER_HP);
         mockListener.expectNoEvents();
@@ -865,8 +864,38 @@ public class EntityListImplTest extends TestCase
         dataModel.setValueAt(new Integer(7), 0, EntityList.COLUMN_NUMBER_HP);
         mockListener.expectNoEvents();
 
+    }
 
-    
+    public void testTypeByColumn()
+    {
+        Entity row1 = new Entity();
+        row1.setAbbreviation("G");
+        row1.setName("Ogre 1");
+        row1.setInitRoll(12);
+        row1.setHitpoints(25);
+        row1.setSubdual(5);
+        mockListener.expectEvent();
+        dataModel.addEntity(row1);
+        mockListener.expectNoEvents();
+
+        mockListener.expectEvent();
+        dataModel.setValueAt(Entity.Type.MONSTER, 0, EntityList.COLUMN_NUMBER_TYPE);
+        mockListener.expectNoEvents();
+
+        {
+            Entity entity1 = dataModel.getEntity(0);
+            assertEquals("G", entity1.getAbbreviation());
+            assertEquals("Ogre 1", entity1.getName());
+            assertEquals(new Integer(12), entity1.getInitRoll());
+            assertEquals(new Integer(25), entity1.getHitpoints());
+            assertEquals(new Integer(5), entity1.getSubdual());
+            assertEquals(Entity.Type.MONSTER, entity1.getType());
+        }
+
+        mockListener.expectNoEvents();
+        dataModel.setValueAt(Entity.Type.MONSTER, 0, EntityList.COLUMN_NUMBER_TYPE);
+        mockListener.expectNoEvents();
+
     }
 
     @Test
@@ -889,7 +918,7 @@ public class EntityListImplTest extends TestCase
         assertEquals(new Integer(0), dataModel.getInitCount());
 
     }
-    
+
     @Test
     public void testRemove()
     {
@@ -951,15 +980,15 @@ public class EntityListImplTest extends TestCase
             // Whatever, don't really care if there's an exception or not.
         }
         mockListener.expectNoEvents();
-        assertEquals(0, dataModel.getRowCount());       
-        
+        assertEquals(0, dataModel.getRowCount());
+
         mockListener.expectNoEvents();
     }
 
     @Test
     public final void testClear() {
         fillTable();
-        
+
         assertEquals(4, dataModel.getRowCount());
         mockListener.expectEvent();
         dataModel.clear();
@@ -968,7 +997,7 @@ public class EntityListImplTest extends TestCase
         dataModel.clear();
         assertEquals(0, dataModel.getRowCount());
     }
-    
+
     @Test
     public final void testImportExport() throws IOException {
         fillTable();
@@ -991,12 +1020,13 @@ public class EntityListImplTest extends TestCase
         row1.setName("Ogre 1");
         row1.setInitRoll(12);
         row1.setHitpoints(25);
+        row1.setType(Entity.Type.SRD_MONSTER);
         mockListener.expectEvent();
         dataModel.addEntity(row1);
         mockListener.expectNoEvents();
-        
+
         List<Map<String, String>> listOfMaps = dataModel.getListOfMaps();
-        
+
         assertEquals(1, listOfMaps.size());
 
         Map<String, String> map = listOfMaps.get(0);
@@ -1005,6 +1035,7 @@ public class EntityListImplTest extends TestCase
         assertEquals("12", map.get(EntityList.COLUMN_NAME_INIT));
         assertEquals("25", map.get(EntityList.COLUMN_NAME_HP));
         assertEquals("", map.get(EntityList.COLUMN_NAME_SUBDUAL));
+        assertEquals("SRD Monster", map.get(EntityList.COLUMN_NAME_TYPE));
         mockListener.expectNoEvents();
 
         /*
@@ -1032,9 +1063,9 @@ public class EntityListImplTest extends TestCase
         mockListener.expectNoEvents();
 */
 
-        
-        
-        
+
+
+
     }
-    
+
 }

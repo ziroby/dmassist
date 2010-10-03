@@ -106,7 +106,6 @@ public class MainActivity extends ListActivity {
         Entity entity = dataModel.getEntity(position);
 
         Bundle bundle = AndroidEntityUtil.putEntityFieldsInBundle(entity);
-        bundle.putInt("position", position);
 
         Intent intent = new Intent(this, EditEntity.class);
         intent.putExtras(bundle);
@@ -140,7 +139,7 @@ public class MainActivity extends ListActivity {
         Button resetButton = (Button) findViewById(R.id.resetButton);
         resetButton.setOnClickListener(new OnClickListener() {
             public void onClick(View v) {
-                handleresetButton();
+                handleResetButton();
             }
         });
 
@@ -176,7 +175,7 @@ public class MainActivity extends ListActivity {
         dataModel.gotoNextInitCount();
     }
 
-    protected void handleresetButton() {
+    protected void handleResetButton() {
         dataModel.resetNumRounds();
     }
 
@@ -340,7 +339,7 @@ public class MainActivity extends ListActivity {
     }
 
     private void loadEntity() {
-        Intent intent = new Intent(this, LoadEntity.class);
+        Intent intent = new Intent(this, QueryTypeForLoad.class);
         startActivityForResult(intent, REQUEST_CODE_LOAD);
     }
 

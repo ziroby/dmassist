@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Vector;
 
+import com.ziroby.dmassist.gwtable.model.Entity.Type;
 import com.ziroby.dmassist.gwtable.util.AbstractListenable;
 import com.ziroby.dmassist.gwtable.util.Listenable;
 import com.ziroby.dmassist.gwtable.util.Listener;
@@ -25,7 +26,7 @@ public class EntityListGwtable extends AbstractListenable implements Listener, L
 {
 
     private static final String[] ColumnName = { " ", "##", "Name", "Init",
-            "HP", "Sub", "Rnds" };
+            "HP", "Sub", "Rnds", "Type" };
 
     private static final int SECONDS_PER_ROUND = 6;
 
@@ -331,7 +332,9 @@ public class EntityListGwtable extends AbstractListenable implements Listener, L
         case COLUMN_NUMBER_ROUNDS:
             entity.setRoundsLeft((Integer) value);
             break;
-
+        case COLUMN_NUMBER_TYPE:
+            entity.setType((Entity.Type) value);
+            break;
         default:
             throw new IllegalArgumentException("Invalid column number: "
                     + columnIndex);
@@ -351,6 +354,8 @@ public class EntityListGwtable extends AbstractListenable implements Listener, L
             return Integer.class;
         case COLUMN_NUMBER_MY_TURN:
             return Boolean.class;
+        case COLUMN_NUMBER_TYPE:
+            return Entity.Type.class;
 
         default:
             return null;
@@ -363,7 +368,7 @@ public class EntityListGwtable extends AbstractListenable implements Listener, L
     public List<Object> getEntireRow(Entity entity) {
         Object a[] = { false /* my turn */, entity.getAbbreviation(),
                 entity.getName(), entity.getInitRoll(), entity.getHitpoints(),
-                entity.getSubdual(), entity.getRoundsLeft() };
+                entity.getSubdual(), entity.getRoundsLeft(), entity.getType() };
 
         return Arrays.asList(a);
     }
@@ -466,6 +471,7 @@ public class EntityListGwtable extends AbstractListenable implements Listener, L
         row1.setName("Ogre"); //$NON-NLS-1$
         row1.setInitRoll(12);
         row1.setHitpoints(25);
+        row1.setType(Type.MONSTER);
         addEntity(row1);
 
         Entity row2 = new Entity();
@@ -474,12 +480,14 @@ public class EntityListGwtable extends AbstractListenable implements Listener, L
         row2.setInitRoll(4);
         row2.setHitpoints(8);
         row2.setSubdual(3);
+        row2.setType(Type.SRD_MONSTER);
         addEntity(row2);
 
         Entity row4 = new Entity();
         row4.setName("Acid Arrow"); //$NON-NLS-1$
         row4.setInitRoll(4);
         row4.setRoundsLeft(3);
+        row4.setType(Type.SRD_SPELL);
         addEntity(row4);
 
         Entity row3 = new Entity();
@@ -487,6 +495,7 @@ public class EntityListGwtable extends AbstractListenable implements Listener, L
         row3.setName("Goblin 2"); //$NON-NLS-1$
         row3.setInitRoll(15);
         row3.setHitpoints(3);
+        row3.setType(Type.SRD_MONSTER);
         addEntity(row3);
 
         Entity row5 = new Entity();
@@ -494,6 +503,7 @@ public class EntityListGwtable extends AbstractListenable implements Listener, L
         row5.setName("Ziroby"); //$NON-NLS-1$
         row5.setInitRoll(25);
         row5.setHitpoints(54);
+        row5.setType(Type.PC);
         addEntity(row5);
 
         Entity row6 = new Entity();
@@ -502,6 +512,7 @@ public class EntityListGwtable extends AbstractListenable implements Listener, L
         row6.setInitRoll(25);
         row6.setHitpoints(6);
         row6.setRoundsLeft(5);
+        row6.setType(Type.EFFECT);
         addEntity(row6);
 }
 

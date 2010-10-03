@@ -12,13 +12,14 @@ import android.util.Log;
 
 import com.ziroby.dmassist.gwtable.model.Entity;
 import com.ziroby.dmassist.gwtable.model.EntityList;
+import com.ziroby.dmassist.gwtable.model.Entity.Type;
 
 
 
 public class EntityDbHelper
 {
     private static final String DATABASE_NAME = "dmassist";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 3;
     private static final String DATABASE_TABLE_NAME = "entities";
 
     public static class DatabaseHelper extends SQLiteOpenHelper
@@ -33,17 +34,23 @@ public class EntityDbHelper
             EntityList.COLUMN_NAME_SUBDUAL + " text" +
             ");";
 
+        private final static String DATABASE_ALTER_2_TO_3 = "alter table " + DATABASE_TABLE_NAME +
+            " add column " + EntityList.COLUMN_NAME_TYPE + " character(1) not null default 'U'";
+
         public DatabaseHelper(Context context) {
             super(context, DATABASE_NAME, null, DATABASE_VERSION);
         }
+
         public void onCreate(SQLiteDatabase db) {
             db.execSQL(DATABASE_CREATE);
         }
+
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-            Log.w(this.getClass().toString(), "Upgrading database from version " + oldVersion + " to "
-                    + newVersion + ", which will destroy all old data");
-            db.execSQL("DROP TABLE IF EXISTS " + DATABASE_TABLE_NAME);
-            onCreate(db);
+            Log.i(this.getClass().toString(), "Upgrading database from version " + oldVersion + " to "
+                    + newVersion + ", which will NOT destroy old data");
+            if (oldVersion == 2) {
+                db.execSQL(DATABASE_ALTER_2_TO_3);
+            }
         }
     } // class DatabaseHelper
 
@@ -82,7 +89,15 @@ public class EntityDbHelper
     }
 
     public Cursor fetchAllEntities() {
-        return db.query(DATABASE_TABLE_NAME, AndroidEntityUtil.ALL_COLUMN_NAMES, null, null, null, null, null);
+        return db.query(DATABASE_TABLE_NAME,
+                AndroidEntityUtil.ALL_COLUMN_NAMES, null, null, null, null,
+                null);
+    }
+
+    public Cursor fetchEntitiesOfType(Entity.Type type) {
+        return db.query(DATABASE_TABLE_NAME,
+                AndroidEntityUtil.ALL_COLUMN_NAMES, typeEquals(type), null, null, null,
+                null);
     }
 
     public Entity fetchEntity(int itemId) {
@@ -111,6 +126,10 @@ public class EntityDbHelper
         return "_id = " + itemId;
     }
 
+    private String typeEquals(Entity.Type type) {
+        return EntityList.COLUMN_NAME_TYPE + "= '" + type.getAbbrev() + "'";
+    }
+
     private Entity readFromCursor(Cursor cursor) {
         Entity entity = new Entity();
 
@@ -120,6 +139,7 @@ public class EntityDbHelper
         entity.setHitpoints(getString(cursor, EntityList.COLUMN_NAME_HP));
         entity.setSubdual(getString(cursor, EntityList.COLUMN_NAME_SUBDUAL));
         entity.setRoundsLeft(getString(cursor, EntityList.COLUMN_NAME_ROUNDS));
+        entity.setType(getString(cursor, EntityList.COLUMN_NAME_TYPE));
 
         return entity;
     }
@@ -136,5 +156,9 @@ public class EntityDbHelper
 
     private void deleteEntity(int id) {
         db.delete(DATABASE_TABLE_NAME, idEquals(id), null);
+    }
+
+    public Cursor fetchEntitiesOfType(int type) {
+        return fetchEntitiesOfType(Type.typeAt(type));
     }
 }

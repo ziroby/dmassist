@@ -44,6 +44,10 @@ public interface EntityList extends Listenable
 
     public static final String COLUMN_NAME_ROUNDS = "rounds";
 
+    public static final int COLUMN_NUMBER_TYPE = 7;
+
+    public static final String COLUMN_NAME_TYPE = "type";
+
     /** Returns the human readable column heading for the given "column". */
     public abstract String getColumnHeader(int column);
 

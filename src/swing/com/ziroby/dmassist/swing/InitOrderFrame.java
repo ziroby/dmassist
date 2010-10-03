@@ -37,7 +37,9 @@ import java.io.FileNotFoundException;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.DefaultCellEditor;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -60,6 +62,7 @@ import com.ziroby.dmassist.gwtable.model.Entity;
 import com.ziroby.dmassist.gwtable.model.EntityList;
 import com.ziroby.dmassist.gwtable.model.EntityListGwtable;
 import com.ziroby.dmassist.gwtable.model.Entity.DamageType;
+import com.ziroby.dmassist.gwtable.model.Entity.Type;
 import com.ziroby.dmassist.model.DiceEquation;
 import com.ziroby.dmassist.parser.Interpreter;
 import com.ziroby.dmassist.parser.Parser;
@@ -100,7 +103,6 @@ public class InitOrderFrame extends JFrame
     private final static String ABOUT_FILENAME = "file:resources/about.html"; //$NON-NLS-1$
     private final static String GPL_FILENAME = "file:resources/LICENSE.txt"; //$NON-NLS-1$
     private final static String OGL_FILENAME = "file:resources/OGL.txt"; //$NON-NLS-1$
-
 
     public InitOrderFrame() {
 	    this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -361,6 +363,17 @@ public class InitOrderFrame extends JFrame
         smartResizeColumn(roundsColumn);
         final TableColumn myTurnColumn = table.getColumnModel().getColumn(EntityListGwtable.COLUMN_NUMBER_MY_TURN);
         smartResizeColumn(myTurnColumn);
+        final TableColumn typeColumn = table.getColumnModel().getColumn(EntityListGwtable.COLUMN_NUMBER_TYPE);
+
+        JComboBox comboBox = new JComboBox();
+        for (Type type : Entity.Type.values())
+            comboBox.addItem(type);
+        typeColumn.setCellEditor(new DefaultCellEditor(comboBox));
+
+        smartResizeTypeColumn(table, typeColumn);
+
+        smartResizeColumn(typeColumn);
+
         myTurnColumn.setMaxWidth(initColumn.getMinWidth());
 
 		final TableCellRenderer stringRenderer = table.getDefaultRenderer(String.class);
@@ -375,7 +388,44 @@ public class InitOrderFrame extends JFrame
 	}
 
 
-	private static void smartResizeColumn(final TableColumn column) {
+	/**
+	 * Resize the type column to fit the widest element in the enum.
+	 *
+	 * Code originally from http://www.exampledepot.com/egs/javax.swing.table/PackCol.html#
+	 * @param typeColumn
+	 */
+    private static void smartResizeTypeColumn(JTable table, TableColumn typeColumn) {
+
+        //table.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+        // Get width of column header
+        TableCellRenderer renderer = typeColumn.getHeaderRenderer();
+        if (renderer == null) {
+            renderer = table.getTableHeader().getDefaultRenderer();
+        }
+        Component comp = renderer.getTableCellRendererComponent(table,
+                typeColumn.getHeaderValue(), false, false, -1,
+                EntityListGwtable.COLUMN_NUMBER_TYPE);
+        int width = comp.getPreferredSize().width;
+
+        for (Type type : Entity.Type.values()) {
+            for (int row = 0; row < 5; ++row) {
+                renderer = table.getCellRenderer(row, EntityListGwtable.COLUMN_NUMBER_TYPE);
+                comp = renderer.getTableCellRendererComponent(table,
+                        type.toString(), true, true, row,
+                        EntityListGwtable.COLUMN_NUMBER_TYPE);
+                int preferredSize = comp.getMaximumSize().width;
+                if (preferredSize > width)
+                    width = preferredSize;
+            }
+        }
+
+        width *= 1.3;
+
+        typeColumn.setPreferredWidth(width);
+        typeColumn.setMinWidth(width);
+    }
+
+    private static void smartResizeColumn(final TableColumn column) {
 		column.sizeWidthToFit();
 		column.setMaxWidth(column.getPreferredWidth());
 		column.setPreferredWidth((int) (column.getPreferredWidth() * 0.7));
@@ -384,33 +434,7 @@ public class InitOrderFrame extends JFrame
 
 
 	private static void addSampleData(EntityList dataModel) {
-		Entity row1 = new Entity();
-		row1.setAbbreviation("O"); //$NON-NLS-1$
-		row1.setName("Ogre"); //$NON-NLS-1$
-		row1.setInitRoll(12);
-		row1.setHitpoints(25);
-		dataModel.addEntity(row1);
-
-		Entity row2 = new Entity();
-		row2.setAbbreviation("G1"); //$NON-NLS-1$
-		row2.setName("Goblin 1"); //$NON-NLS-1$
-		row2.setInitRoll(4);
-		row2.setHitpoints(8);
-		row2.setSubdual(3);
-		dataModel.addEntity(row2);
-
-        Entity row4 = new Entity();
-        row4.setName("Melf's acid arrow"); //$NON-NLS-1$
-        row4.setInitRoll(4);
-        row4.setRoundsLeft(3);
-        dataModel.addEntity(row4);
-
-		Entity row3 = new Entity();
-		row3.setAbbreviation("G2"); //$NON-NLS-1$
-		row3.setName("Goblin 2"); //$NON-NLS-1$
-		row3.setInitRoll(15);
-		row3.setHitpoints(3);
-		dataModel.addEntity(row3);
+	    dataModel.addSampleData();
 	}
 
 	public void actionPerformed(ActionEvent e) {
