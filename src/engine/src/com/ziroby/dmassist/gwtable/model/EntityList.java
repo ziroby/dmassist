@@ -128,4 +128,6 @@ public interface EntityList extends Listenable
 
     public abstract void setEntity(int position, Entity entity);
 
+	public abstract void setTimePerRound(Integer parseInt);
+
 }

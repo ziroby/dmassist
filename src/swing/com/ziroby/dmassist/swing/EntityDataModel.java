@@ -197,5 +197,10 @@ public class EntityDataModel extends AbstractTableModel
 
     }
 
+	@Override
+	public void setTimePerRound(Integer parseInt) {
+		entityListWithSave.setTimePerRound(parseInt);
+	}
+
 
 }

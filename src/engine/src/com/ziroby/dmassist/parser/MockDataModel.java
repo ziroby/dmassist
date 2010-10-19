@@ -191,4 +191,10 @@ public class MockDataModel extends AbstractListenable
         // TODO Auto-generated method stub
 
     }
+
+	@Override
+	public void setTimePerRound(Integer parseInt) {
+		// TODO Auto-generated method stub
+		
+	}
 }

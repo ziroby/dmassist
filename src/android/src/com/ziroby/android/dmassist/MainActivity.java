@@ -4,9 +4,12 @@ package com.ziroby.android.dmassist;
 import java.util.ArrayList;
 
 import android.app.ListActivity;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.Html;
 import android.util.Log;
 import android.view.ContextMenu;
@@ -19,6 +22,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 
@@ -41,12 +45,11 @@ public class MainActivity extends ListActivity {
     private static final int MENU_ITEM_CLEAR = 6;
     private static final int MENU_ITEM_LOAD = 7;
     private static final int MENU_ITEM_HELP = 8;
+	private static final int MENU_ITEM_SETTINGS = 9;
 
     private static final int REQUEST_CODE_ADD = 0;
     private static final int REQUEST_CODE_EDIT = 1;
     private static final int REQUEST_CODE_LOAD = 2;
-
-
 
     private EntityListAdapter listAdapter;
     private TextView initTextView;
@@ -181,12 +184,8 @@ public class MainActivity extends ListActivity {
 
     public boolean onCreateOptionsMenu(Menu menu) {
         int position = 0;
-        menu.add(/* group id*/ 0, MENU_ITEM_ADD_CREATURE, position++,
-                R.string.add_creature)
-                .setIcon(android.R.drawable.ic_menu_add);
-
         menu.add(/* group id*/ 0, MENU_ITEM_ADD_EFFECT, position++,
-                R.string.add_effect)
+                R.string.add)
                 .setIcon(android.R.drawable.ic_menu_add);
 
         menu.add(/* group id*/ 0, MENU_ITEM_ABOUT, position++,
@@ -204,7 +203,9 @@ public class MainActivity extends ListActivity {
         menu.add(/* group id*/ 0, MENU_ITEM_CLEAR, position++,
                 R.string.clear_all)
                 .setIcon(android.R.drawable.ic_menu_delete);
-
+        menu.add(/* group id*/ 0, MENU_ITEM_SETTINGS, position++,
+                R.string.settings)
+                .setIcon(android.R.drawable.ic_menu_preferences);
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -268,6 +269,9 @@ public class MainActivity extends ListActivity {
             case MENU_ITEM_HELP:
                 displayHelp();
                 return true;
+            case MENU_ITEM_SETTINGS:
+            	showSettings();
+            	return true;
             }
         }
         catch (Exception e) {
@@ -277,7 +281,14 @@ public class MainActivity extends ListActivity {
         return false;
     }
 
-    private void displayHelp() {
+    private void showSettings() {
+        Context context = getApplicationContext();
+        Intent intent = new Intent(context, MyPreferencesActivity.class);
+        startActivity(intent);
+    	
+	}
+
+	private void displayHelp() {
         Intent intent = new Intent(this, Help.class);
         startActivity(intent);
     }
@@ -365,8 +376,33 @@ public class MainActivity extends ListActivity {
             AndroidUtils.displayErrorDialog(this, e);
         }
     }
+    
+    @Override
+    protected void onStart() {
+    	super.onStart();
+    	setPreferences();
+    }
 
-    private void handleEditResult(Intent data) {
+    private void setPreferences() {
+    	SharedPreferences preferences 
+    		= PreferenceManager
+    		.getDefaultSharedPreferences(getApplicationContext());
+    	
+    	String roundTimeString = preferences.getString("round_time", "");
+    	Toast toast = Toast.makeText(this, "round time = " + roundTimeString, Toast.LENGTH_LONG);
+    	toast.show();
+    	Integer secondsPerRound;
+    	try {
+    		secondsPerRound = Integer.parseInt(roundTimeString);
+    	}
+    	catch (NumberFormatException e)
+    	{
+    		secondsPerRound = null;
+    	}
+		MainActivity.dataModel.setTimePerRound(secondsPerRound);
+    }
+
+	private void handleEditResult(Intent data) {
         if (data == null)
             return;
 

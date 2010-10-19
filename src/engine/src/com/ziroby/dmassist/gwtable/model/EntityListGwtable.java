@@ -25,10 +25,12 @@ public class EntityListGwtable extends AbstractListenable implements Listener, L
 
 {
 
-    private static final String[] ColumnName = { " ", "##", "Name", "Init",
+    private static final int DEFAULT_SECONDS_PER_ROUND = 6;
+
+	private static final String[] ColumnName = { " ", "##", "Name", "Init",
             "HP", "Sub", "Rnds", "Type" };
 
-    private static final int SECONDS_PER_ROUND = 6;
+    private int secondsPerRound = DEFAULT_SECONDS_PER_ROUND;
 
     private List<Entity> entities = new Vector<Entity>();
 
@@ -446,9 +448,9 @@ public class EntityListGwtable extends AbstractListenable implements Listener, L
     }
 
     public String formatRoundsAsTime() {
-        int seconds = (numRounds * SECONDS_PER_ROUND) % 60;
-        int minutes = ((numRounds * SECONDS_PER_ROUND) / 60) % 60;
-        int hours = (numRounds * SECONDS_PER_ROUND) / (60 * 60);
+        int seconds = (numRounds * secondsPerRound) % 60;
+        int minutes = ((numRounds * secondsPerRound) / 60) % 60;
+        int hours = (numRounds * secondsPerRound) / (60 * 60);
 
         StringBuilder builder = new StringBuilder();
 
@@ -525,4 +527,12 @@ public class EntityListGwtable extends AbstractListenable implements Listener, L
         dirty = true;
         leavePublicMethod();
     }
+
+	@Override
+	public void setTimePerRound(Integer seconds) {
+		if (seconds == null || seconds < 1)
+			secondsPerRound = DEFAULT_SECONDS_PER_ROUND;
+		else
+			secondsPerRound = seconds;
+	}
 }

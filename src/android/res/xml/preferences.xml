@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+  xmlns:android="http://schemas.android.com/apk/res/android">
+<EditTextPreference 
+	android:title="Time per Round"
+	android:key="round_time" 
+	android:summary="How long should each round take?"
+	android:numeric="integer"
+	/>
+</PreferenceScreen>
