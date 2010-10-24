@@ -125,7 +125,7 @@ public class Entity extends AbstractListenable {
     private Integer roundsLeft;
     private Type type;
 
-    private boolean dirty = false;
+    protected boolean dirty = false;
 
     /**
      * The abbreviation by which the entity is called.  Abbreviations
@@ -180,7 +180,7 @@ public class Entity extends AbstractListenable {
      * The initiative count for the entity.  Null means it's not
      * in the combat yet.
      */
-	public final Integer getInitRoll() {
+	public Integer getInitRoll() {
 		return initRoll;
 	}
 
@@ -639,5 +639,14 @@ public class Entity extends AbstractListenable {
         setType(Type.forChar(typeString.charAt(0)));
 
     }
+	public void startCombat() {
+	}
+
+	public void endCombat() {
+	}
+
+	public String getInitDiceString() {
+		return null;
+	}
 }
 

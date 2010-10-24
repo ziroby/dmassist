@@ -18,6 +18,7 @@ import android.widget.SimpleAdapter;
 import com.ziroby.android.dmassist.MainActivity.DamageOrSubdue;
 import com.ziroby.android.dmassist.MainActivity.HealOrDamage;
 import com.ziroby.android.util.AndroidUtils;
+import com.ziroby.dmassist.gwtable.model.DiceEntity;
 import com.ziroby.dmassist.gwtable.model.Entity;
 import com.ziroby.dmassist.gwtable.model.EntityList;
 import com.ziroby.dmassist.gwtable.model.Entity.Type;
@@ -163,9 +164,10 @@ public class AndroidEntityUtil
     }
 
     public static Entity getEntityFromBundle(Bundle bundle) {
-        Entity entity = new Entity();
+        Entity entity = new DiceEntity();
         final String name = bundle.getString(EntityList.COLUMN_NAME_NAME);
         final int init = bundle.getInt(EntityList.COLUMN_NAME_INIT, AndroidEntityUtil.INT_SENTINEL);
+        final String initDice = bundle.getString("dice" /* EntityList.COLUMN_NAME_INIT_DICE */);
         final int hp = bundle.getInt(EntityList.COLUMN_NAME_HP, AndroidEntityUtil.INT_SENTINEL);
         final String abbrev = bundle.getString(EntityList.COLUMN_NAME_ABBREV);
         final int subdual = bundle.getInt(EntityList.COLUMN_NAME_SUBDUAL, AndroidEntityUtil.INT_SENTINEL);
@@ -174,6 +176,7 @@ public class AndroidEntityUtil
 
         if (name != null) entity.setName(name);
         if (init != AndroidEntityUtil.INT_SENTINEL) entity.setInitRoll(init);
+        if (initDice != null) entity.setInitRoll(initDice);
         if (hp != AndroidEntityUtil.INT_SENTINEL) entity.setHitpoints(hp);
         if (abbrev != null) entity.setAbbreviation(abbrev);
         if (subdual != AndroidEntityUtil.INT_SENTINEL) entity.setSubdual(subdual);
@@ -183,9 +186,10 @@ public class AndroidEntityUtil
     }
 
     public static Bundle putEntityFieldsInBundle(Entity entity) {
-        return putEntityFieldsInBundle(
+        return putExtendedFieldsInBundle(
                 entity.getName(),
                 entity.getInitRoll(),
+                entity.getInitDiceString(),
                 entity.getHitpoints(),
                 entity.getAbbreviation(),
                 entity.getSubdual(),
@@ -193,21 +197,30 @@ public class AndroidEntityUtil
                 entity.getType().ordinal());
     }
 
-    public static Bundle putEntityFieldsInBundle(String name, Integer init,
-            Integer hp, String abbrev, Integer subdual, Integer rounds, int type) {
-        Bundle bundle = new Bundle();
-        bundle.putString(EntityList.COLUMN_NAME_NAME, name);
-        if (init != null)
-            bundle.putInt(EntityList.COLUMN_NAME_INIT, init);
-        if (hp != null)
-            bundle.putInt(EntityList.COLUMN_NAME_HP, hp);
-        bundle.putString(EntityList.COLUMN_NAME_ABBREV, abbrev);
-        if (subdual != null)
-            bundle.putInt(EntityList.COLUMN_NAME_SUBDUAL, subdual);
-        if (rounds != null)
-            bundle.putInt(EntityList.COLUMN_NAME_ROUNDS, rounds);
-        bundle.putInt(EntityList.COLUMN_NAME_TYPE, type);
-        return bundle;
-    }
+	public static Bundle putEntityFieldsInBundle(String name, Integer init,
+			Integer hp, String abbrev, Integer subdual, Integer rounds, int type) {
+		Bundle bundle = putExtendedFieldsInBundle(name, init, null, hp, abbrev,
+				subdual, rounds, type);
+		return bundle;
+	}
+
+	private static Bundle putExtendedFieldsInBundle(String name, Integer init,
+			String initDice, Integer hp, String abbrev, Integer subdual,
+			Integer rounds, int type) {
+		Bundle bundle = new Bundle();
+		bundle.putString(EntityList.COLUMN_NAME_NAME, name);
+		if (init != null)
+			bundle.putInt(EntityList.COLUMN_NAME_INIT, init);
+		bundle.putString("dice", initDice);
+		if (hp != null)
+			bundle.putInt(EntityList.COLUMN_NAME_HP, hp);
+		bundle.putString(EntityList.COLUMN_NAME_ABBREV, abbrev);
+		if (subdual != null)
+			bundle.putInt(EntityList.COLUMN_NAME_SUBDUAL, subdual);
+		if (rounds != null)
+			bundle.putInt(EntityList.COLUMN_NAME_ROUNDS, rounds);
+		bundle.putInt(EntityList.COLUMN_NAME_TYPE, type);
+		return bundle;
+	}
 
 }

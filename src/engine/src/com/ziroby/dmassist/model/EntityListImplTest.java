@@ -1035,7 +1035,7 @@ public class EntityListImplTest extends TestCase
         assertEquals("12", map.get(EntityList.COLUMN_NAME_INIT));
         assertEquals("25", map.get(EntityList.COLUMN_NAME_HP));
         assertEquals("", map.get(EntityList.COLUMN_NAME_SUBDUAL));
-        assertEquals("SRD Monster", map.get(EntityList.COLUMN_NAME_TYPE));
+        assertEquals("C", map.get(EntityList.COLUMN_NAME_TYPE));
         mockListener.expectNoEvents();
 
         /*
