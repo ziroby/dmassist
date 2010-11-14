@@ -483,7 +483,7 @@ public class Entity extends AbstractListenable {
 					otherPostfix = "1";
 					other.setAbbreviation(other.getAbbreviation() + otherPostfix);
 				}
-				int otherPostfixValue;
+				Integer otherPostfixValue;
 				if (otherPostfix.trim().length() == 0)
 				{
 					otherPostfixValue = 0;
@@ -493,7 +493,11 @@ public class Entity extends AbstractListenable {
 					otherPostfixValue = StringUtil.tryParseInt(otherPostfix);
 				}
 
-				if (postfix == null || postfix <= otherPostfixValue)
+				if (otherPostfixValue == null) {
+					postfix = 1;
+					postfixChanged = true;
+				}
+				else if (postfix == null || postfix <= otherPostfixValue)
 				{
 					postfix = otherPostfixValue + 1;
 					postfixChanged = true;

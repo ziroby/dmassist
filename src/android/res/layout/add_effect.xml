@@ -59,11 +59,13 @@
                         android:layout_weight="1"
                     >
                         <EditText
+                            android:hint="@string/init_dice_hint"                       
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/init_roll_dice"
                             android:layout_weight="1" />
                         <EditText
+                            android:hint="@string/init_roll_hint"                       
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:id="@+id/init_roll_edit"

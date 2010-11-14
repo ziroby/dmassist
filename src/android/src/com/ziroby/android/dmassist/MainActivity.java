@@ -389,8 +389,6 @@ public class MainActivity extends ListActivity {
     		.getDefaultSharedPreferences(getApplicationContext());
     	
     	String roundTimeString = preferences.getString("round_time", "");
-    	Toast toast = Toast.makeText(this, "round time = " + roundTimeString, Toast.LENGTH_LONG);
-    	toast.show();
     	Integer secondsPerRound;
     	try {
     		secondsPerRound = Integer.parseInt(roundTimeString);
