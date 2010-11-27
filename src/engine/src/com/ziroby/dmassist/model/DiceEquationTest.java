@@ -463,5 +463,10 @@ public class DiceEquationTest extends TestCase {
 	{		
 		assertEquals(new Integer(3), DiceEquation.tryParseInt(" 2d1+ 1 "));
 	}
+	@Test
+	public void testTryParseIntDieWithNegativeModifier()
+	{		
+		assertEquals(new Integer(-38), DiceEquation.tryParseInt("2d1-40"));
+	}
 
 }

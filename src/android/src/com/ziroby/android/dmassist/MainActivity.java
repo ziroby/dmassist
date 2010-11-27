@@ -31,6 +31,7 @@ import com.ziroby.dmassist.gwtable.model.Entity;
 import com.ziroby.dmassist.gwtable.model.EntityList;
 import com.ziroby.dmassist.gwtable.util.Listener;
 import com.ziroby.dmassist.gwtable.util.ObjectEvent;
+import com.ziroby.dmassist.model.EnhancedEntity;
 import com.ziroby.dmassist.model.EntityListImpl;
 
 public class MainActivity extends ListActivity {
@@ -106,9 +107,9 @@ public class MainActivity extends ListActivity {
     }
 
     protected void editEntity(int position, long id) {
-        Entity entity = dataModel.getEntity(position);
+        EnhancedEntity entity = (EnhancedEntity) dataModel.getEntity(position);
 
-        Bundle bundle = AndroidEntityUtil.putEntityFieldsInBundle(entity);
+        Bundle bundle = AndroidEntityUtil.putEntityFieldsInBundle((EnhancedEntity)entity);
 
         Intent intent = new Intent(this, EditEntity.class);
         intent.putExtras(bundle);
@@ -389,6 +390,8 @@ public class MainActivity extends ListActivity {
     		.getDefaultSharedPreferences(getApplicationContext());
     	
     	String roundTimeString = preferences.getString("round_time", "");
+    	Toast toast = Toast.makeText(this, "round time = " + roundTimeString, Toast.LENGTH_LONG);
+    	toast.show();
     	Integer secondsPerRound;
     	try {
     		secondsPerRound = Integer.parseInt(roundTimeString);
@@ -410,7 +413,7 @@ public class MainActivity extends ListActivity {
         if (doRemove)
             removeEntity(position);
         else {
-            Entity entity = AndroidEntityUtil.getEntityFromBundle(data);
+            EnhancedEntity entity = AndroidEntityUtil.getEnhancedEntityFromBundle(data);
 
             dataModel.setEntity(position, entity);
         }
@@ -420,7 +423,7 @@ public class MainActivity extends ListActivity {
         if (data == null)
             return;
 
-        Entity entity = AndroidEntityUtil.getEntityFromBundle(data);
+        EnhancedEntity entity = AndroidEntityUtil.getEnhancedEntityFromBundle(data);
 
         dataModel.addEntity(entity);
 
@@ -435,7 +438,7 @@ public class MainActivity extends ListActivity {
         ArrayList<Bundle> bundles = data.getParcelableArrayListExtra("Entities");
 
         for (Bundle bundle : bundles) {
-            Entity entity = AndroidEntityUtil.getEntityFromBundle(bundle);
+            EnhancedEntity entity = AndroidEntityUtil.getEnhancedEntityFromBundle(bundle);
             dataModel.addEntity(entity);
         }
         redraw();

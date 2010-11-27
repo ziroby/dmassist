@@ -1,6 +1,6 @@
 /*
  *   Copyright 2009 Ron "Ziroby" Romero
- *
+ * 
  *   This file is part of DM Assist.
  *
  *   DM Assist is free software: you can redistribute it and/or modify
@@ -28,37 +28,37 @@ import com.ziroby.dmassist.gwtable.util.StringUtil;
  * A series of {@link com.ziroby.dmassist.model.Die Die}, connected into a
  * mathmatical formula. Right now, we only do the summation of dice. Something
  * like "3+ 2d6+2 + 1d4+1".
- *
+ * 
  * @author Ron Romero
- *
+ * 
  */
 public class DiceEquation extends Die {
 
 	public static final String REGEX = null;
 
     List<Dice> dice = new Vector<Dice>();
-
+	
     /**
      * Constucts the dice from the given <code>String</code>.
-     *
+     * 
      * @param str
      *            The string representation of the <code>Dice Equation</code>.
-     *
+     * 
      * @throws IllegalArgumentException
      *             If the string is not a correctly formatted
      *             <code>DiceEquation</code>.
      */
 	public DiceEquation(final String str) {
-
+		
 		String s;
 		s = str.replaceAll("\\s*-\\s*-\\s*", "+");
 		s = s.replaceAll("\\s*-\\s*", "+-");
 		s = s.replaceAll("\\s*-\\s*-\\s*", "+");
 		s = s.replaceAll("\\s*\\+\\s*\\+\\s*", "+");
-
+		
 		Dice lastDice = null;
 		for (String element : s.split("\\s*\\+\\s*")) {
-
+			
 			if (element.matches("^\\s*[-+]?\\s*[0-9]+\\s*$"))
 			{
 				if (lastDice != null)
@@ -75,7 +75,7 @@ public class DiceEquation extends Die {
 			}
 			else if (element.length() == 0)
 			{
-				// do nothing
+				// do nothing				
 			}
 			else
 			{
@@ -87,7 +87,7 @@ public class DiceEquation extends Die {
 
 	/**
      * Generates a new random value for the equation.
-     *
+     * 
 	 * @see com.ziroby.dmassist.model.Die#roll()
 	 */
 	@Override
@@ -100,8 +100,8 @@ public class DiceEquation extends Die {
 	}
 
 	/**
-     * The canonical format of the string representation.
-     *
+     * The canonical format of the string representation.  
+     * 
 	 * @see com.ziroby.dmassist.model.Die#toString()
 	 */
 	@Override
@@ -123,7 +123,7 @@ public class DiceEquation extends Die {
 	/**
      * The number "rolled up". This value will not change until/unless
      * #roll is called.
-     *
+     * 
      * @see com.ziroby.dmassist.model.Die#value()
      */
 	@Override
@@ -138,22 +138,19 @@ public class DiceEquation extends Die {
     /**
      * Attempts to parse the given string as a <code>DiceEquation</code> and,
      * if that works, returns the #getValue.
-     *
+     * 
      * @param text
      *            The string representation to try to parse.
      * @return The value of the equation (randomly generated), or null if it
      *         couldn't be parsed.
      */
 	public static Integer tryParseInt(String text) {
-
-		if (text == null)
-			return null;
-
+	
 		if (text.length() == 0)
 		{
 			return null;
 		}
-		else if (text.trim().matches("^[+-]?\\s*\\d+\\s*$"))
+		else if (StringUtil.isIntegerString(text))
 		{
 			return StringUtil.tryParseInt(text);
 		}
@@ -168,19 +165,19 @@ public class DiceEquation extends Die {
             // Guess that didn't work.
             return null;
         }
-
+		
 		return eq.value();
 	}
 
-    /**
+	/**
      * A string representation, with the formula, and the value of each die in
      * parenthesis. Something like "2 + 2d6+1 - 1d4-1(5)".
-     *
+     * 
      * @return the string representation with values.
      */
 	public Object toLongString() {
 		StringBuilder s = new StringBuilder();
-
+		
 		s.append(this.toString());
 		if (!isConstant())
 		{
@@ -192,33 +189,9 @@ public class DiceEquation extends Die {
     /**
      * Whether there is a random component to this equation.  That is, is
      * there any random component.
-     *
+     * 
      */
 	private boolean isConstant() {
 		return (dice.size() == 1 && dice.get(0).isConstant());
-	}
-
-	public static Integer tryParseInitValue(String text) {
-		if (text == null)
-			return null;
-
-        // If it's like "+3" or "-1",
-        if (text.trim().matches("^[+-]\\s*\\d+\\s*$")) {
-                int sign;
-                sign = text.charAt(0) == '+'? 1: -1;
-
-                text = text.substring(1);
-
-                Integer modifier = tryParseInt(text);
-                if (modifier != null) {
-                        Integer d20 = new DiceEquation("d20").value();
-                        if (d20 != null)
-                                return d20 + (modifier * sign);
-                }
-                // else fall thru and treat it as a normal dice equation
-        }
-
-        return tryParseInt(text);
-
 	}
 }

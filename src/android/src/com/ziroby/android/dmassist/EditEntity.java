@@ -11,12 +11,13 @@ import android.widget.TextView;
 import com.ziroby.android.dmassist.MainActivity.DamageOrSubdue;
 import com.ziroby.android.util.AndroidUtils;
 import com.ziroby.dmassist.gwtable.model.Entity;
+import com.ziroby.dmassist.model.EnhancedEntity;
 
 public class EditEntity extends EntityActivity
 {
     private int originalPosition;
     AndroidEntityUtil androidEntityUtil;
-    Entity entity;
+    EnhancedEntity entity;
 
     protected void onCreate(Bundle savedInstanceState) {
         try
@@ -27,7 +28,7 @@ public class EditEntity extends EntityActivity
 
             setViewVariables();
 
-            entity = AndroidEntityUtil.getEntityFromBundle(getIntent());
+            entity = AndroidEntityUtil.getEnhancedEntityFromBundle(getIntent());
 
             fillEditBoxes(entity);
 

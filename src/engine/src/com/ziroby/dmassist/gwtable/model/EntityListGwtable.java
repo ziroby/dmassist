@@ -173,9 +173,6 @@ public class EntityListGwtable extends AbstractListenable implements Listener, L
                 entities.remove(i);
                 dirty = true;
             }
-            else {
-            	entities.get(i).startCombat();
-            }
         }
 
         leavePublicMethod();
@@ -447,9 +444,6 @@ public class EntityListGwtable extends AbstractListenable implements Listener, L
             setInitCount(null);
             this.dirty = true;
         }
-        for (Entity entity : this.entities) {
-			entity.endCombat();
-		}
         leavePublicMethod();
     }
 

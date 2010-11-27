@@ -125,7 +125,7 @@ public class Entity extends AbstractListenable {
     private Integer roundsLeft;
     private Type type;
 
-    protected boolean dirty = false;
+    private boolean dirty = false;
 
     /**
      * The abbreviation by which the entity is called.  Abbreviations
@@ -180,7 +180,7 @@ public class Entity extends AbstractListenable {
      * The initiative count for the entity.  Null means it's not
      * in the combat yet.
      */
-	public Integer getInitRoll() {
+	public final Integer getInitRoll() {
 		return initRoll;
 	}
 
@@ -483,7 +483,7 @@ public class Entity extends AbstractListenable {
 					otherPostfix = "1";
 					other.setAbbreviation(other.getAbbreviation() + otherPostfix);
 				}
-				Integer otherPostfixValue;
+				int otherPostfixValue;
 				if (otherPostfix.trim().length() == 0)
 				{
 					otherPostfixValue = 0;
@@ -493,11 +493,7 @@ public class Entity extends AbstractListenable {
 					otherPostfixValue = StringUtil.tryParseInt(otherPostfix);
 				}
 
-				if (otherPostfixValue == null) {
-					postfix = 1;
-					postfixChanged = true;
-				}
-				else if (postfix == null || postfix <= otherPostfixValue)
+				if (postfix == null || postfix <= otherPostfixValue)
 				{
 					postfix = otherPostfixValue + 1;
 					postfixChanged = true;
@@ -610,7 +606,7 @@ public class Entity extends AbstractListenable {
         map.put(EntityList.COLUMN_NAME_SUBDUAL, toStringOrBlank(getSubdual()));
         map.put(EntityList.COLUMN_NAME_INIT, toStringOrBlank(getInitRoll()));
         map.put(EntityList.COLUMN_NAME_ROUNDS, toStringOrBlank(getRoundsLeft()));
-        map.put(EntityList.COLUMN_NAME_TYPE, Character.toString(getType().getAbbrev()));
+        map.put(EntityList.COLUMN_NAME_TYPE, getType().toString());
         return map;
     }
 
@@ -643,14 +639,5 @@ public class Entity extends AbstractListenable {
         setType(Type.forChar(typeString.charAt(0)));
 
     }
-	public void startCombat() {
-	}
-
-	public void endCombat() {
-	}
-
-	public String getInitDiceString() {
-		return null;
-	}
 }
 

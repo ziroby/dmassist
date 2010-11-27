@@ -10,36 +10,35 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-import com.ziroby.dmassist.gwtable.model.DiceEntity;
 import com.ziroby.dmassist.gwtable.model.Entity;
-import com.ziroby.dmassist.gwtable.model.Entity.Type;
 import com.ziroby.dmassist.gwtable.util.StringUtil;
 import com.ziroby.dmassist.model.DiceEquation;
+import com.ziroby.dmassist.model.EnhancedEntity;
 
 public abstract class EntityActivity extends Activity
 {
 
     private EditText nameEdit;
     private EditText initEdit;
+    private EditText initDiceEdit;
     protected EditText hpEdit;
     private EditText abbrevEdit;
     private EditText subdualEdit;
     private EditText roundsEdit;
     private Spinner typeEdit;
-	private EditText initDiceEdit;
 
     public EntityActivity()
     {
         super();
     }
 
-    protected void fillEditBoxes(Entity entity) {
+    protected void fillEditBoxes(EnhancedEntity entity) {
         nameEdit.setText(entity.getName());
         nameEdit.invalidate();
-        initEdit.setText(StringUtil.toStringOrBlank(entity.getInitRoll()));
-        initEdit.invalidate();
         initDiceEdit.setText(entity.getInitDiceString());
         initDiceEdit.invalidate();
+        initEdit.setText(StringUtil.toStringOrBlank(entity.getInitRoll()));
+        initEdit.invalidate();
         hpEdit.setText(StringUtil.toStringOrBlank(entity.getHitpoints()));
         hpEdit.invalidate();
         abbrevEdit.setText(entity.getAbbreviation());
@@ -53,8 +52,8 @@ public abstract class EntityActivity extends Activity
 
     protected void setViewVariables() {
         nameEdit = (EditText) findViewById(R.id.name_edit);
+        initDiceEdit = (EditText) findViewById(R.id.init_dice_edit);
         initEdit = (EditText) findViewById(R.id.init_roll_edit);
-        initDiceEdit = (EditText) findViewById(R.id.init_roll_dice);
         hpEdit = (EditText) findViewById(R.id.hp_edit);
         abbrevEdit = (EditText) findViewById(R.id.abbrev_edit);
         subdualEdit = (EditText) findViewById(R.id.subdual_edit);
@@ -69,20 +68,16 @@ public abstract class EntityActivity extends Activity
     }
 
     protected Bundle getEntityFromEditFields() {
-    	Entity entity = new DiceEntity();
-    	entity.setAbbreviation("");
-
-    	entity.setName(getTextOf(nameEdit));
-    	entity.setInitRoll(getIntOf(initEdit));
-    	entity.setInitRoll(getTextOf(initDiceEdit));
-    	entity.setHitpoints(getIntOf(hpEdit));
-    	entity.setAbbreviation(getTextOf(abbrevEdit));
-    	entity.setSubdual(getIntOf(subdualEdit));
-    	entity.setRoundsLeft(getIntOf(roundsEdit));
-    	entity.setType(Type.typeAt(typeEdit.getSelectedItemPosition()));
-
-    	Bundle bundle = AndroidEntityUtil.putEntityFieldsInBundle(entity);
-    	return bundle;
+        Bundle bundle = AndroidEntityUtil.putEntityFieldsInBundle(
+                getTextOf(nameEdit),
+                getTextOf(initDiceEdit),
+                getIntOf(initEdit),
+                getIntOf(hpEdit),
+                getTextOf(abbrevEdit),
+                getIntOf(subdualEdit),
+                getIntOf(roundsEdit),
+                typeEdit.getSelectedItemPosition());
+        return bundle;
     }
 
     private String getTextOf(EditText editText) {

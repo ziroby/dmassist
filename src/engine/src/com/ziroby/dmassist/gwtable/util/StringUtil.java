@@ -65,4 +65,12 @@ public class StringUtil {
 
         return number.toString();
     }
+
+	public static boolean isIntegerString(String text) {
+		return text.trim().matches("^[+-]?\\s*\\d+\\s*$");
+	}
+
+	public static boolean isBareModifier(String text) {
+		return text.trim().matches("^[+-]\\s*\\d+\\s*$");
+	}
 }
