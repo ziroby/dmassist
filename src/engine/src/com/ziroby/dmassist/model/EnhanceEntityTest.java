@@ -96,4 +96,39 @@ public class EnhanceEntityTest {
 		
 		assertEquals("-40", entity.getInitDiceString());
 	}
+	
+	@Test
+	public void rerollShouldRerollWhenModifierIsSet() throws Exception {
+		entity.setInitRoll("+20");
+		entity.setInitRoll(2);
+		
+		assertEquals(new Integer(2), entity.getInitRoll());
+		
+		entity.reroll();
+
+		assertTrue("Initiative not rerolled", entity.getInitRoll() > 20);
+	}
+	@Test
+	public void diceEquationsShouldWorkAsModifier() throws Exception {
+		entity.setInitRoll("20d1 + 5");
+		entity.setInitRoll(2);
+		
+		assertEquals(new Integer(2), entity.getInitRoll());
+		
+		entity.reroll();
+
+		assertEquals(25, entity.getInitRoll().intValue());
+	}
+	@Test
+	public void constantsShouldntReroll() throws Exception {
+		entity.setInitRoll("25");
+		entity.setInitRoll(2);
+		
+		assertEquals(new Integer(2), entity.getInitRoll());
+		
+		entity.reroll();
+
+		assertEquals(2, entity.getInitRoll().intValue());
+	}
+
 }

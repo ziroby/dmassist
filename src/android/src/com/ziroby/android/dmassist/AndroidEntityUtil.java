@@ -23,6 +23,7 @@ import com.ziroby.dmassist.gwtable.model.EntityList;
 import com.ziroby.dmassist.gwtable.model.Entity.Type;
 import com.ziroby.dmassist.model.DiceEquation;
 import com.ziroby.dmassist.model.EnhancedEntity;
+import com.ziroby.dmassist.model.EnhancedEntityList;
 
 public class AndroidEntityUtil
 {

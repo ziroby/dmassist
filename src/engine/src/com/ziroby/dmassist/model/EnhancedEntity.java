@@ -9,11 +9,10 @@ public class EnhancedEntity extends Entity {
 	@Override
 	public void setInitRoll(String text) {
 		if (StringUtil.isBareModifier(text)) {
-			int modifier = StringUtil.tryParseInt(text);
-			String diceString = "1d20 + " + modifier;
+			Integer newInitValue = tryParseModifier(text);
 
 			this.setInitDiceString(text);
-			super.setInitRoll(DiceEquation.tryParseInt(diceString));
+			super.setInitRoll(newInitValue);
 		
 		} else if (StringUtil.isIntegerString(text)) {
 			super.setInitRoll(text);
@@ -22,6 +21,20 @@ public class EnhancedEntity extends Entity {
 			super.setInitRoll(DiceEquation.tryParseInt(text));
 			this.setInitDiceString(text);
 		}
+		
+		// I could check to see if it's actually changed, but I'm lazy.
+		alertListeners();
+	}
+
+	private Integer tryParseModifier(String text) {
+		if (StringUtil.isBareModifier(text)) {
+			int modifier = StringUtil.tryParseInt(text);
+			String diceString = "1d20 + " + modifier;
+			Integer newInitValue = DiceEquation.tryParseInt(diceString);
+			return newInitValue;
+		}
+		
+		return DiceEquation.tryParseInt(text);
 	}
 
 	public String getInitDiceString() {
@@ -30,5 +43,10 @@ public class EnhancedEntity extends Entity {
 
 	public void setInitDiceString(String initDiceString) {
 		this.initDiceString = initDiceString;
+	}
+
+	public void reroll() {
+		if (initDiceString != null)
+			super.setInitRoll(tryParseModifier(initDiceString));
 	}
 }

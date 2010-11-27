@@ -22,7 +22,6 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 
@@ -32,10 +31,11 @@ import com.ziroby.dmassist.gwtable.model.EntityList;
 import com.ziroby.dmassist.gwtable.util.Listener;
 import com.ziroby.dmassist.gwtable.util.ObjectEvent;
 import com.ziroby.dmassist.model.EnhancedEntity;
+import com.ziroby.dmassist.model.EnhancedEntityList;
 import com.ziroby.dmassist.model.EntityListImpl;
 
 public class MainActivity extends ListActivity {
-    static final EntityList dataModel = new EntityListImpl();
+    static final EnhancedEntityList dataModel = new EnhancedEntityList();
 
     private static final int MENU_ITEM_ABOUT = 0;
     private static final int MENU_ITEM_ADD_CREATURE = 1;
@@ -61,10 +61,6 @@ public class MainActivity extends ListActivity {
 
     enum HealOrDamage {HEAL, DAMAGE}
     enum DamageOrSubdue {DAMAGE, SUBDUE}
-
-    static {
-        //dataModel.addSampleData();
-    }
 
     /** Called when the activity is first created. */
     @Override
@@ -107,9 +103,9 @@ public class MainActivity extends ListActivity {
     }
 
     protected void editEntity(int position, long id) {
-        EnhancedEntity entity = (EnhancedEntity) dataModel.getEntity(position);
+        EnhancedEntity entity = dataModel.getEnhancedEntity(position);
 
-        Bundle bundle = AndroidEntityUtil.putEntityFieldsInBundle((EnhancedEntity)entity);
+        Bundle bundle = AndroidEntityUtil.putEntityFieldsInBundle(entity);
 
         Intent intent = new Intent(this, EditEntity.class);
         intent.putExtras(bundle);
@@ -390,8 +386,6 @@ public class MainActivity extends ListActivity {
     		.getDefaultSharedPreferences(getApplicationContext());
     	
     	String roundTimeString = preferences.getString("round_time", "");
-    	Toast toast = Toast.makeText(this, "round time = " + roundTimeString, Toast.LENGTH_LONG);
-    	toast.show();
     	Integer secondsPerRound;
     	try {
     		secondsPerRound = Integer.parseInt(roundTimeString);
