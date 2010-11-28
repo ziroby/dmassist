@@ -79,11 +79,24 @@
                         android:text="@string/hit_points"
                         android:textSize="18sp"
                         android:textColor="#111111" />
-                    <EditText
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:id="@+id/hp_edit"
-                        android:layout_weight="1" />
+                        android:layout_weight="1"
+                    >
+                        <EditText
+                            android:hint="dice"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/hitdice_edit"
+                            android:layout_weight="1" />
+                        <EditText
+                            android:hint="points"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:id="@+id/hp_edit"
+                            android:layout_weight="1" />
+                    </LinearLayout>
                 </TableRow>
                 <TableRow>
                     <TextView

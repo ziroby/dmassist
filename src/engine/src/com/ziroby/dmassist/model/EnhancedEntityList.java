@@ -8,6 +8,7 @@ import com.ziroby.dmassist.gwtable.model.Entity;
 public class EnhancedEntityList extends EntityListImpl {
 
 	public static final String COLUMN_NAME_INIT_DICE = "initDice";
+	public static final String COLUMN_NAME_HIT_DICE = "hitDice";
 
 	public Collection<EnhancedEntity> getEnhancedEntities() {
 		Collection<EnhancedEntity> returnValue = new ArrayList<EnhancedEntity>();

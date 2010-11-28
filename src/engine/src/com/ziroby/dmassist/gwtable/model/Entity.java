@@ -641,5 +641,65 @@ public class Entity extends AbstractListenable {
         setType(Type.forChar(typeString.charAt(0)));
 
     }
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((abbreviation == null) ? 0 : abbreviation.hashCode());
+		result = prime * result
+				+ ((hitpoints == null) ? 0 : hitpoints.hashCode());
+		result = prime * result
+				+ ((initRoll == null) ? 0 : initRoll.hashCode());
+		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result
+				+ ((roundsLeft == null) ? 0 : roundsLeft.hashCode());
+		result = prime * result + ((subdual == null) ? 0 : subdual.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (!(obj instanceof Entity))
+			return false;
+		Entity other = (Entity) obj;
+		if (abbreviation == null) {
+			if (other.abbreviation != null)
+				return false;
+		} else if (!abbreviation.equals(other.abbreviation))
+			return false;
+		if (hitpoints == null) {
+			if (other.hitpoints != null)
+				return false;
+		} else if (!hitpoints.equals(other.hitpoints))
+			return false;
+		if (initRoll == null) {
+			if (other.initRoll != null)
+				return false;
+		} else if (!initRoll.equals(other.initRoll))
+			return false;
+		if (name == null) {
+			if (other.name != null)
+				return false;
+		} else if (!name.equals(other.name))
+			return false;
+		if (roundsLeft == null) {
+			if (other.roundsLeft != null)
+				return false;
+		} else if (!roundsLeft.equals(other.roundsLeft))
+			return false;
+		if (subdual == null) {
+			if (other.subdual != null)
+				return false;
+		} else if (!subdual.equals(other.subdual))
+			return false;
+		return true;
+	}
+    
 }
 

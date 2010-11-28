@@ -201,6 +201,9 @@ public class AndroidEntityUtil
 		final String initDice = bundle.getString(EnhancedEntityList.COLUMN_NAME_INIT_DICE);
 		if (initDice != null) entity.setInitDiceString(initDice);
 		
+		final String hitDice = bundle.getString(EnhancedEntityList.COLUMN_NAME_HIT_DICE);
+		if (hitDice != null) entity.setHitDiceString(hitDice);
+		
 		return entity;
 	}
 
@@ -221,6 +224,7 @@ public class AndroidEntityUtil
                 entity.getName(),
                 entity.getInitDiceString(),
                 entity.getInitRoll(),
+                entity.getHitDiceString(),
                 entity.getHitpoints(),
                 entity.getAbbreviation(),
                 entity.getSubdual(),
@@ -246,11 +250,11 @@ public class AndroidEntityUtil
     }
 
 	public static Bundle putEntityFieldsInBundle(String name, String initDice,
-			Integer initRoll, Integer hp, String abbrev, Integer subdual,
+			Integer initRoll, String hitDice, Integer hp, String abbrev, Integer subdual,
 			Integer rounds, int type) {
 		Bundle bundle = putEntityFieldsInBundle(name, initRoll, hp, abbrev, subdual, rounds, type);
         bundle.putString(EnhancedEntityList.COLUMN_NAME_INIT_DICE, initDice);
-		return bundle;
+        bundle.putString(EnhancedEntityList.COLUMN_NAME_HIT_DICE, hitDice);
+        return bundle;
 	}
-
 }

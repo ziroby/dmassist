@@ -19,10 +19,7 @@ public class AddCreature extends EntityActivity
         try {
             int addType = getIntent().getExtras().getInt(AddCreature.ADD_TYPE_TAG);
 
-            if (addType == AddCreature.ADD_TYPE_CREATURE)
-                setContentView(R.layout.add_creature);
-            else
-                setContentView(R.layout.add_effect);
+            setContentView(R.layout.add_effect);
 
             setViewVariables();
 

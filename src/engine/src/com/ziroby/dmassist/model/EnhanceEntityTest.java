@@ -130,5 +130,22 @@ public class EnhanceEntityTest {
 
 		assertEquals(2, entity.getInitRoll().intValue());
 	}
-
+	@Test
+	public void hitDiceShouldReroll() throws Exception {
+		entity.setHitpoints("20d1");
+		entity.setHitpoints(-3);
+		
+		assertEquals(-3, entity.getHitpoints().intValue());
+		
+		entity.reroll();
+		
+		assertEquals(20, entity.getHitpoints().intValue());
+	}
+	
+	@Test
+	public void invalidHitpointStringFailsGracefully() throws Exception {
+		entity.setHitpoints("XXX");
+		
+		assertNull(entity.getHitpoints());
+	}
 }

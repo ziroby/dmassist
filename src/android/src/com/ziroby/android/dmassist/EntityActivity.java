@@ -21,7 +21,8 @@ public abstract class EntityActivity extends Activity
     private EditText nameEdit;
     private EditText initEdit;
     private EditText initDiceEdit;
-    protected EditText hpEdit;
+    private EditText hitDiceEdit;
+    private EditText hpEdit;
     private EditText abbrevEdit;
     private EditText subdualEdit;
     private EditText roundsEdit;
@@ -39,6 +40,8 @@ public abstract class EntityActivity extends Activity
         initDiceEdit.invalidate();
         initEdit.setText(StringUtil.toStringOrBlank(entity.getInitRoll()));
         initEdit.invalidate();
+        hitDiceEdit.setText(entity.getHitDiceString());
+        hitDiceEdit.invalidate();
         hpEdit.setText(StringUtil.toStringOrBlank(entity.getHitpoints()));
         hpEdit.invalidate();
         abbrevEdit.setText(entity.getAbbreviation());
@@ -54,6 +57,7 @@ public abstract class EntityActivity extends Activity
         nameEdit = (EditText) findViewById(R.id.name_edit);
         initDiceEdit = (EditText) findViewById(R.id.init_dice_edit);
         initEdit = (EditText) findViewById(R.id.init_roll_edit);
+        hitDiceEdit = (EditText) findViewById(R.id.hitdice_edit);
         hpEdit = (EditText) findViewById(R.id.hp_edit);
         abbrevEdit = (EditText) findViewById(R.id.abbrev_edit);
         subdualEdit = (EditText) findViewById(R.id.subdual_edit);
@@ -72,6 +76,7 @@ public abstract class EntityActivity extends Activity
                 getTextOf(nameEdit),
                 getTextOf(initDiceEdit),
                 getIntOf(initEdit),
+                getTextOf(hitDiceEdit),
                 getIntOf(hpEdit),
                 getTextOf(abbrevEdit),
                 getIntOf(subdualEdit),
