@@ -81,7 +81,7 @@
 	</target>
 
 	<target name="compile-android" depends="setup,compile-engine">
-		<ant dir="${dir.android}" target="debug"/>
+		<!-- <ant dir="${dir.android}" target="debug"/> -->
 	</target>
 	
 	<!-- ================================= 
