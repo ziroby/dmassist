@@ -4,13 +4,18 @@
 	<property name="src.swing.dir"  value="src/swing"/>
 	<property name="src.c.dir"     value="csrc"/>
 	<property name="src.resources.dir"     value="resources"/>
+	<property name="src.android.dir"  value="src/android/src"/>
 
+	<property name="dir.android" value="src/android"/>
+	
 	<property name="build.dir"   value="build"/>
 	<property name="classes.engine.dir" value="${build.dir}/classes/engine"/>
 	<property name="classes.swing.dir" value="${build.dir}/classes/swing"/>
 	<property name="build.resources.dir" value="${build.dir}/resources"/>
 	<property name="build.docs.dir" value="${build.dir}/javadocs"/>
 	<property name="build.lib.dir" value="${build.dir}/lib"/>
+	<property name="build.lib.android.dir" value="${build.dir}/android-lib"/>
+	<property name="build.android.dir" value="${build.dir}/android"/>
 	<property name="jar.dir"     value="${build.dir}/jar"/>
 	<property name="obj.dir"     value="${build.dir}/obj"/>
 	<property name="lib.dir"     value="3rdparty"/>
@@ -18,12 +23,19 @@
 
 	<property name="main-class"  value="com.ziroby.dmassist.swing.Main"/>
 
+	<property file="src/android/local.properties" />
+
 	<path id="classpath">
 		<fileset dir="${lib.dir}" includes="**/*.jar"/>
 	</path>
 	<path id="classpath-swing">
 		<fileset dir="${lib.dir}" includes="**/*.jar"/>
-        <dirset dir="${classes.engine.dir}"/>
+		<dirset dir="${classes.engine.dir}"/>
+	</path>
+	<path id="classpath-android">
+		<fileset dir="${sdk.dir}/platforms/android-3" includes="**/*.jar" />
+		<fileset dir="${lib.dir}" includes="**/*.jar"/>
+		<dirset dir="${classes.engine.dir}"/>
 	</path>
 
 	<path id="application" location="${jar.dir}/${ant.project.name}.jar"/>
@@ -35,14 +47,16 @@
 		<mkdir dir="${jar.dir}"/>
 		<mkdir dir="${obj.dir}"/>
 		<mkdir dir="${report.dir}"/>
+		<mkdir dir="${build.android.dir}"/>
 	</target>
 
 	<target name="clean" description="--> Deletes all generated file">
 		<delete dir="${build.dir}"/>
+		<ant dir="${dir.android}" target="clean"/>
 	</target>
 
- 	<target name="compile-java" depends="compile-engine,compile-swing">
-    </target>
+	<target name="compile-java" depends="compile-engine,compile-swing,compile-android">
+	</target>
 
 	<target name="compile-engine" depends="setup">
 		<javac srcdir="${src.engine.dir}" 
@@ -50,9 +64,14 @@
 		<copy todir="${classes.engine.dir}">
 			<fileset dir="${src.engine.dir}" excludes="**/*.java"/>
 		</copy>
+		<jar destfile="${build.lib.android.dir}/${ant.project.name}-engine.jar">
+			<fileset dir="${classes.engine.dir}" />
+			<fileset dir="${src.engine.dir}" excludes="**/*.xml" />
+		</jar>
+
 	</target>
 
- 	<target name="compile-swing" depends="setup,compile-engine">
+	<target name="compile-swing" depends="setup,compile-engine">
 		<javac srcdir="${src.swing.dir}" destdir="${classes.swing.dir}"
                classpathref="classpath-swing"/>
 		<copy todir="${classes.swing.dir}">
@@ -60,6 +79,10 @@
 		</copy>
 	</target>
 
+	<target name="compile-android" depends="setup,compile-engine">
+		<ant dir="${dir.android}" target="debug"/>
+	</target>
+	
 	<!-- ================================= 
           target: package              
          ================================= -->
@@ -121,13 +144,13 @@
 	<target name="test" depends="junit" description="--> Runs all tests"/>
 
 	<target name="junit" depends="package,junit-engine">
-    </target>
+	</target>
 
 	<target name="junit-engine" depends="package">
 		<junit printsummary="yes" haltonerror="true">
 			<classpath>
 				<path refid="classpath"/>
-                <dirset dir="${classes.engine.dir}"/>
+				<dirset dir="${classes.engine.dir}"/>
 			</classpath>
 
 			<formatter type="xml"/>
@@ -138,7 +161,7 @@
 		</junit>
 	</target>
 
-<!--	<target name="junit-swing" depends="package">
+	<!--	<target name="junit-swing" depends="package">
 		<junit printsummary="yes" haltonerror="true">
 			<classpath>
 				<path refid="classpath"/>
@@ -175,10 +198,8 @@
 	           author="true"
 	           version="true"
 	           use="true"
-	 		   classpathref="classpath"
+	 		   classpathref="classpath-android"
 	           windowtitle="DM Assist API">
-
-
 
 			<packageset dir="${src.engine.dir}" defaultexcludes="yes">
 				<include name="com/ziroby/**"/>
@@ -192,8 +213,16 @@
 				<exclude name="**/*Tests.java"/>
 			</packageset>
 
-			<doctitle><![CDATA[<h1>DM Assist</h1>]]></doctitle>
-		<bottom><![CDATA[<i>Copyright &#169; 2009 Ron Romero. All Rights Reserved.</i>]]></bottom>
+			<packageset dir="${src.android.dir}" defaultexcludes="yes">
+				<include name="com/ziroby/**"/>
+				<exclude name="**/*Test.java"/>
+				<exclude name="**/*Tests.java"/>
+			</packageset>
+
+			<doctitle>
+				<![CDATA[<h1>DM Assist</h1>]]></doctitle>
+		<bottom>
+			<![CDATA[<i>Copyright &#169; 2009-2011 Ron Romero. All Rights Reserved.</i>]]></bottom>
 	<tag name="todo" scope="all" description="To do:"/>
 	<!--	    <group title="Group 1 Packages" packages="com.dummy.test.a*"/>
 	    <group title="Group 2 Packages" packages="com.dummy.test.b*:com.dummy.test.c*"/>
