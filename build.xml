@@ -48,6 +48,7 @@
 		<mkdir dir="${obj.dir}"/>
 		<mkdir dir="${report.dir}"/>
 		<mkdir dir="${build.android.dir}"/>
+		<mkdir dir="${build.lib.android.dir}"/>
 	</target>
 
 	<target name="clean" description="--> Deletes all generated file">
