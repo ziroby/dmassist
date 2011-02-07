@@ -6,3 +6,6 @@ classes
 *.cache.*
 *.gwt.rpc
 dmassist_gwt.nocache.js
+local.properties
+TESTS-TestSuites.xml
+target
