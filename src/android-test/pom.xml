@@ -22,6 +22,7 @@
         <groupId>com.ziroby.dmassist</groupId>
         <artifactId>dmassist</artifactId>
         <version>1.2-SNAPSHOT</version>
+        <relativePath>../..</relativePath>
     </parent>
     <groupId>com.ziroby.dmassist</groupId>
     <artifactId>dmassist-android-test</artifactId>
