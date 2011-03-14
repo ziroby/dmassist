@@ -31,7 +31,8 @@ public class EntityDbHelper
             EntityList.COLUMN_NAME_INIT + " text, " +
             EntityList.COLUMN_NAME_NAME + " text not null, " +
             EntityList.COLUMN_NAME_ROUNDS + " text, " +
-            EntityList.COLUMN_NAME_SUBDUAL + " text" +
+            EntityList.COLUMN_NAME_SUBDUAL + " text, " +
+            EntityList.COLUMN_NAME_TYPE + " character(1) not null default 'U'" +
             ");";
 
         private final static String DATABASE_ALTER_2_TO_3 = "alter table " + DATABASE_TABLE_NAME +
@@ -42,6 +43,7 @@ public class EntityDbHelper
         }
 
         public void onCreate(SQLiteDatabase db) {
+        	Log.i(this.getClass().toString(), "Creating database");
             db.execSQL(DATABASE_CREATE);
         }
 

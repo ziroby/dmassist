@@ -26,7 +26,7 @@ public abstract class EntityActivity extends Activity
     private EditText abbrevEdit;
     private EditText subdualEdit;
     private EditText roundsEdit;
-    private Spinner typeEdit;
+//    private Spinner typeEdit;
 
     public EntityActivity()
     {
@@ -50,7 +50,7 @@ public abstract class EntityActivity extends Activity
         subdualEdit.invalidate();
         roundsEdit.setText(StringUtil.toStringOrBlank(entity.getRoundsLeft()));
         roundsEdit.invalidate();
-        typeEdit.setSelection(entity.getType().ordinal());
+//        typeEdit.setSelection(entity.getType().ordinal());
     }
 
     protected void setViewVariables() {
@@ -62,13 +62,13 @@ public abstract class EntityActivity extends Activity
         abbrevEdit = (EditText) findViewById(R.id.abbrev_edit);
         subdualEdit = (EditText) findViewById(R.id.subdual_edit);
         roundsEdit = (EditText) findViewById(R.id.rounds_edit);
-        typeEdit = (Spinner) findViewById(R.id.type_edit);
+//        typeEdit = (Spinner) findViewById(R.id.type_edit);
 
-        final ArrayAdapter<CharSequence> adapter =
-            AndroidEntityUtil.getArrayAdapterForTypes(this,
-                    android.R.layout.simple_spinner_item);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        typeEdit.setAdapter(adapter);
+//        final ArrayAdapter<CharSequence> adapter =
+//            AndroidEntityUtil.getArrayAdapterForTypes(this,
+//                    android.R.layout.simple_spinner_item);
+//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        typeEdit.setAdapter(adapter);
     }
 
     protected Bundle getEntityFromEditFields() {
@@ -81,7 +81,9 @@ public abstract class EntityActivity extends Activity
                 getTextOf(abbrevEdit),
                 getIntOf(subdualEdit),
                 getIntOf(roundsEdit),
-                typeEdit.getSelectedItemPosition());
+                0
+//                typeEdit.getSelectedItemPosition()
+                );
         return bundle;
     }
 

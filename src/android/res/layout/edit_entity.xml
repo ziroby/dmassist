@@ -142,18 +142,6 @@
 						android:id="@+id/rounds_edit"
 						android:layout_weight="1" />
 				</TableRow>
-				<TableRow>
-					<TextView
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content"
-						android:text="@string/labe_type"
-						android:textSize="18sp"
-						android:textColor="#111111" />
-					<Spinner
-						android:layout_width="wrap_content"
-						android:layout_height="wrap_content"
-						android:id="@+id/type_edit" />
-				</TableRow>
 			</TableLayout>
 			<TextView
 				android:text=""

@@ -38,7 +38,8 @@ public class LoadEntity extends ListActivity
             dbHelper = new EntityDbHelper(this);
             dbHelper.open();
 
-            type = getIntent().getExtras().getInt("position");
+            if (getIntent().hasExtra("position"))
+            	type = getIntent().getExtras().getInt("position");
             fillData();
 
             setOnClickListeners();
@@ -147,7 +148,7 @@ public class LoadEntity extends ListActivity
     }
 
     private void fillData() {
-        cursor = dbHelper.fetchEntitiesOfType(type);
+        cursor = dbHelper.fetchAllEntities();
         startManagingCursor(cursor);
 
         adapter = new SimpleCursorAdapter(this, R.layout.load_entity_row, cursor,
