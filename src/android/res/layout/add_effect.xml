@@ -40,11 +40,11 @@
 					<EditText
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
-						android:hint="name"
+						android:hint="@string/hint_name"
 						android:id="@+id/name_edit"
 						android:layout_weight="1" />
 					<EditText
-						android:hint="abbrev"
+						android:hint="@string/hint_abbrev"
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:id="@+id/abbrev_edit"
@@ -55,17 +55,17 @@
 					<TextView
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
-						android:text="init "
+						android:text="@string/label_init"
 						android:textSize="18sp"
 						android:textColor="#111111" />
 					<EditText
-						android:hint="init modifier"
+						android:hint="@string/hint_init_modifier"
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:id="@+id/init_dice_edit"
 						android:layout_weight="1" />
 					<EditText
-						android:hint="init roll"
+						android:hint="@string/hint_init_roll"
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:id="@+id/init_roll_edit"
@@ -75,17 +75,17 @@
 					<TextView
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
-						android:text="hp "
+						android:text="@string/label_hp"
 						android:textSize="18sp"
 						android:textColor="#111111" />
 					<EditText
-						android:hint="hit dice"
+						android:hint="@string/hint_hit_dice"
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:id="@+id/hitdice_edit"
 						android:layout_weight="1" />
 					<EditText
-						android:hint="hit points"
+						android:hint="@string/hint_hit_points"
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
 						android:id="@+id/hp_edit"
@@ -95,7 +95,7 @@
 					<TextView
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
-						android:text="sub"
+						android:text="@string/label_sub"
 						android:textSize="18sp"
 						android:textColor="#111111" />
 					<EditText
@@ -109,13 +109,13 @@
 					<TextView
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
-						android:text="rnds"
+						android:text="@string/label_rnds"
 						android:textSize="18sp"
 						android:textColor="#111111" />
 					<EditText
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
-						android:hint="rounds left"
+						android:hint="@string/hint_rounds_left"
 						android:id="@+id/rounds_edit"
 						android:layout_weight="1" />
 				</TableRow>
@@ -123,7 +123,7 @@
 					<TextView
 						android:layout_width="wrap_content"
 						android:layout_height="wrap_content"
-						android:text="type "
+						android:text="@string/label_type"
 						android:textSize="18sp"
 						android:textColor="#111111" />
 					<Spinner

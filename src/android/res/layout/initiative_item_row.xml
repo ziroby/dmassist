@@ -34,7 +34,7 @@
 		android:orientation="horizontal" android:layout_width="fill_parent"
 		android:layout_height="fill_parent" android:layout_weight="1"
 		android:layout_gravity="fill" android:textColor="#111111">
-        <TextView android:text="init:"
+        <TextView android:text="@string/label2_init"
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:textSize="14sp" android:typeface="sans" android:layout_width="wrap_content"
             android:layout_height="fill_parent" android:layout_weight="2"
@@ -44,7 +44,7 @@
 			android:textSize="14sp" android:typeface="sans" android:layout_width="24sp"
 			android:layout_height="fill_parent" android:layout_weight="10"
 			android:textColor="#111111" />
-		<TextView android:text="hp:"
+		<TextView android:text="@string/label2_hp"
 			xmlns:android="http://schemas.android.com/apk/res/android"
 			android:textSize="14sp" android:typeface="sans" android:layout_width="wrap_content"
 			android:layout_height="fill_parent" android:layout_weight="2"
@@ -54,7 +54,7 @@
 			android:textSize="14sp" android:typeface="sans" android:layout_width="24sp"
 			android:layout_height="fill_parent" android:layout_weight="10"
 			android:textColor="#111111" />
-		<TextView android:text="sub:"
+		<TextView android:text="@string/label2_subdual"
 			xmlns:android="http://schemas.android.com/apk/res/android"
 			android:textSize="14sp" android:typeface="sans" android:layout_width="wrap_content"
 			android:layout_height="fill_parent" android:layout_weight="2"
@@ -64,7 +64,7 @@
 			android:textSize="14sp" android:typeface="sans" android:layout_width="24sp"
 			android:layout_height="fill_parent" android:layout_weight="10"
 			android:textColor="#111111" />
-		<TextView android:text="rnds:"
+		<TextView android:text="@string/label2_rounds"
 			xmlns:android="http://schemas.android.com/apk/res/android"
 			android:textSize="14sp" android:typeface="sans" android:layout_width="wrap_content"
 			android:layout_height="fill_parent" android:layout_weight="2"

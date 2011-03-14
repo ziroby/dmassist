@@ -143,14 +143,14 @@
             android:textColor="#111111" />
         <Button
             android:id="@+id/resetButton"
-            android:text="Reset"
+            android:text="@string/button_reset"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="right"
             android:textColor="#111111" />
         <Button
             android:id="@+id/nextButton"
-            android:text="Next"
+            android:text="@string/button_next"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="right"
