@@ -1,3 +1,6 @@
+DM Assist
+=========
+
 DM Assist helps you run pen and paper d20 games.  It aims to be quick
 and light, so you can spend most of your time working with the
 players, not the computer. It uses minimal information, to make it
