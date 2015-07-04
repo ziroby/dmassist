@@ -12,7 +12,7 @@ import android.util.Log;
 
 import com.ziroby.dmassist.gwtable.model.Entity;
 import com.ziroby.dmassist.gwtable.model.EntityList;
-import com.ziroby.dmassist.gwtable.model.Entity.Type;
+import com.ziroby.dmassist.gwtable.model.Entity.EntityType;
 
 
 
@@ -96,9 +96,9 @@ public class EntityDbHelper
                 null);
     }
 
-    public Cursor fetchEntitiesOfType(Entity.Type type) {
+    public Cursor fetchEntitiesOfType(EntityType entityType) {
         return db.query(DATABASE_TABLE_NAME,
-                AndroidEntityUtil.ALL_COLUMN_NAMES, typeEquals(type), null, null, null,
+                AndroidEntityUtil.ALL_COLUMN_NAMES, typeEquals(entityType), null, null, null,
                 null);
     }
 
@@ -128,8 +128,8 @@ public class EntityDbHelper
         return "_id = " + itemId;
     }
 
-    private String typeEquals(Entity.Type type) {
-        return EntityList.COLUMN_NAME_TYPE + "= '" + type.getAbbrev() + "'";
+    private String typeEquals(EntityType entityType) {
+        return EntityList.COLUMN_NAME_TYPE + "= '" + entityType.getAbbrev() + "'";
     }
 
     private Entity readFromCursor(Cursor cursor) {
@@ -161,6 +161,6 @@ public class EntityDbHelper
     }
 
     public Cursor fetchEntitiesOfType(int type) {
-        return fetchEntitiesOfType(Type.typeAt(type));
+        return fetchEntitiesOfType(Entity.EntityType.typeAt(type));
     }
 }

@@ -38,7 +38,7 @@ import javax.swing.WindowConstants;
 
 import com.ziroby.dmassist.gwtable.model.Entity;
 import com.ziroby.dmassist.gwtable.model.EntityList;
-import com.ziroby.dmassist.gwtable.model.Entity.Type;
+import com.ziroby.dmassist.gwtable.model.Entity.EntityType;
 import com.ziroby.dmassist.model.DiceEquation;
 
 /**
@@ -145,8 +145,8 @@ public class AddDialog extends JDialog implements ActionListener {
         addField(subdualField, 4, Messages.getString("AddDialog.promptSubdual"), KeyEvent.VK_S); //$NON-NLS-1$
 
         typeField = new JComboBox();
-        for (Type type : Entity.Type.values())
-            typeField.addItem(type);
+        for (EntityType entityType : EntityType.values())
+            typeField.addItem(entityType);
         addField(typeField, Messages.getString("AddDialog.promptType"), KeyEvent.VK_T);
 
 		Box buttonBox = Box.createHorizontalBox();
@@ -199,7 +199,7 @@ public class AddDialog extends JDialog implements ActionListener {
 				entity.setName(this.nameField.getText());
 				entity.setHitpoints(DiceEquation.tryParseInt(this.hpField.getText()));
 				entity.setSubdual(DiceEquation.tryParseInt(this.subdualField.getText()));
-				entity.setType((Type) this.typeField.getSelectedItem());
+				entity.setEntityType((EntityType) this.typeField.getSelectedItem());
 				entity.setAbbreviation(this.abrevField.getText());
 				if (this.roundsField != null)
 				{

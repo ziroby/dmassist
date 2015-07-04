@@ -596,23 +596,23 @@ public class EntityTest extends TestCase{
     @Test
     public final void testSetType() {
         listener.expectEvent();
-        entity.setType(Entity.Type.MONSTER);
+        entity.setEntityType(Entity.EntityType.MONSTER);
         listener.expectNoEvents();
 
-        assertEquals(Entity.Type.MONSTER, entity.getType());
+        assertEquals(Entity.EntityType.MONSTER, entity.getEntityType());
         listener.expectNoEvents();
     }
     @Test
     public final void testSettypeUnchanged() {
         listener.expectEvent();
-        entity.setType(Entity.Type.NPC);
+        entity.setEntityType(Entity.EntityType.NPC);
         listener.expectNoEvents();
-        assertEquals(Entity.Type.NPC, entity.getType());
+        assertEquals(Entity.EntityType.NPC, entity.getEntityType());
 
         listener.expectNoEvents();
-        entity.setType(Entity.Type.NPC);
+        entity.setEntityType(Entity.EntityType.NPC);
         listener.expectNoEvents();
-        assertEquals(Entity.Type.NPC, entity.getType());
+        assertEquals(Entity.EntityType.NPC, entity.getEntityType());
     }
 }
 

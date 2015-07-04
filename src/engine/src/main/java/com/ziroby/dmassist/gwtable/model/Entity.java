@@ -42,7 +42,7 @@ import com.ziroby.dmassist.gwtable.util.StringUtil;
 
 public class Entity extends AbstractListenable {
 
-    public enum Type
+    public enum EntityType
     {
         UNKNOWN("Unknown"),
         PC,
@@ -55,24 +55,24 @@ public class Entity extends AbstractListenable {
         final private String displayString;
         final private char abbrev;
 
-        private Type() {
+        private EntityType() {
             displayString = null;
             this.abbrev = super.toString().charAt(0);
         }
 
-        private Type(String displayString) {
+        private EntityType(String displayString) {
             this.displayString = displayString;
             this.abbrev = displayString.charAt(0);
         }
-        private Type(String displayString, char abbrev) {
+        private EntityType(String displayString, char abbrev) {
             this.displayString = displayString;
             this.abbrev = abbrev;
         }
-        public static Type forChar(char c)
+        public static EntityType forChar(char c)
         {
-            for (Type type : values())
-                if (type.abbrev == c)
-                    return type;
+            for (EntityType entityType : values())
+                if (entityType.abbrev == c)
+                    return entityType;
 
             return null;
         }
@@ -88,16 +88,16 @@ public class Entity extends AbstractListenable {
 
         public static List<Map<String, String>> getAllTypesAsListOfMaps(String mapKey) {
             List<Map<String, String>> retValue = new ArrayList<Map<String, String>>();
-            for (Type type : values())
+            for (EntityType entityType : values())
             {
                 Map<String, String> map = new HashMap<String, String>();
-                map.put(mapKey, type.toString());
+                map.put(mapKey, entityType.toString());
                 retValue.add(map);
             }
             return retValue;
         }
 
-        public static Type typeAt(int position) {
+        public static EntityType typeAt(int position) {
             return values()[position];
         }
     }
@@ -123,7 +123,7 @@ public class Entity extends AbstractListenable {
 	private Integer hitpoints;
 	private Integer subdual;
     private Integer roundsLeft;
-    private Type type;
+    private EntityType entityType;
 
     private boolean dirty = false;
 
@@ -608,7 +608,7 @@ public class Entity extends AbstractListenable {
         map.put(EntityList.COLUMN_NAME_SUBDUAL, toStringOrBlank(getSubdual()));
         map.put(EntityList.COLUMN_NAME_INIT, toStringOrBlank(getInitRoll()));
         map.put(EntityList.COLUMN_NAME_ROUNDS, toStringOrBlank(getRoundsLeft()));
-        map.put(EntityList.COLUMN_NAME_TYPE, getType().toString());
+        map.put(EntityList.COLUMN_NAME_TYPE, getEntityType().toString());
         return map;
     }
 
@@ -625,20 +625,20 @@ public class Entity extends AbstractListenable {
         setRoundsLeft(n);
     }
 
-    public void setType(Type type) {
-        if (this.type != null && this.type.equals(type))
+    public void setEntityType(EntityType entityType) {
+        if (this.entityType != null && this.entityType.equals(entityType))
             return;
-        this.type = type;
+        this.entityType = entityType;
         dirty = true;
         alertListeners();
     }
 
-    public Type getType() {
-        return type;
+    public EntityType getEntityType() {
+        return entityType;
     }
 
     public void setType(String typeString) {
-        setType(Type.forChar(typeString.charAt(0)));
+        setEntityType(EntityType.forChar(typeString.charAt(0)));
 
     }
 

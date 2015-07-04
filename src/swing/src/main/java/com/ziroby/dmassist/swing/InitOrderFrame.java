@@ -62,7 +62,6 @@ import com.ziroby.dmassist.gwtable.model.Entity;
 import com.ziroby.dmassist.gwtable.model.EntityList;
 import com.ziroby.dmassist.gwtable.model.EntityListGwtable;
 import com.ziroby.dmassist.gwtable.model.Entity.DamageType;
-import com.ziroby.dmassist.gwtable.model.Entity.Type;
 import com.ziroby.dmassist.model.DiceEquation;
 import com.ziroby.dmassist.parser.Interpreter;
 import com.ziroby.dmassist.parser.Parser;
@@ -366,8 +365,8 @@ public class InitOrderFrame extends JFrame
         final TableColumn typeColumn = table.getColumnModel().getColumn(EntityListGwtable.COLUMN_NUMBER_TYPE);
 
         JComboBox comboBox = new JComboBox();
-        for (Type type : Entity.Type.values())
-            comboBox.addItem(type);
+        for (Entity.EntityType entityType : Entity.EntityType.values())
+            comboBox.addItem(entityType);
         typeColumn.setCellEditor(new DefaultCellEditor(comboBox));
 
         smartResizeTypeColumn(table, typeColumn);
@@ -407,11 +406,11 @@ public class InitOrderFrame extends JFrame
                 EntityListGwtable.COLUMN_NUMBER_TYPE);
         int width = comp.getPreferredSize().width;
 
-        for (Type type : Entity.Type.values()) {
+        for (Entity.EntityType entityType : Entity.EntityType.values()) {
             for (int row = 0; row < 5; ++row) {
                 renderer = table.getCellRenderer(row, EntityListGwtable.COLUMN_NUMBER_TYPE);
                 comp = renderer.getTableCellRendererComponent(table,
-                        type.toString(), true, true, row,
+                        entityType.toString(), true, true, row,
                         EntityListGwtable.COLUMN_NUMBER_TYPE);
                 int preferredSize = comp.getMaximumSize().width;
                 if (preferredSize > width)

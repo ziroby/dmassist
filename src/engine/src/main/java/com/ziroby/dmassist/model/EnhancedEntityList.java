@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 import com.ziroby.dmassist.gwtable.model.Entity;
-import com.ziroby.dmassist.gwtable.model.Entity.Type;
+import com.ziroby.dmassist.gwtable.model.Entity.EntityType;
 
 public class EnhancedEntityList extends EntityListImpl {
 
@@ -47,7 +47,7 @@ public class EnhancedEntityList extends EntityListImpl {
         row1.setName("Ogre"); //$NON-NLS-1$
         row1.setInitRoll(12);
         row1.setHitpoints(25);
-        row1.setType(Type.MONSTER);
+        row1.setEntityType(EntityType.MONSTER);
         addEntity(row1);
 
         Entity row2 = new EnhancedEntity();
@@ -56,14 +56,14 @@ public class EnhancedEntityList extends EntityListImpl {
         row2.setInitRoll(4);
         row2.setHitpoints(8);
         row2.setSubdual(3);
-        row2.setType(Type.SRD_MONSTER);
+        row2.setEntityType(EntityType.SRD_MONSTER);
         addEntity(row2);
 
         Entity row4 = new EnhancedEntity();
         row4.setName("Acid Arrow"); //$NON-NLS-1$
         row4.setInitRoll(4);
         row4.setRoundsLeft(3);
-        row4.setType(Type.SRD_SPELL);
+        row4.setEntityType(EntityType.SRD_SPELL);
         addEntity(row4);
 
         Entity row3 = new EnhancedEntity();
@@ -71,7 +71,7 @@ public class EnhancedEntityList extends EntityListImpl {
         row3.setName("Goblin 2"); //$NON-NLS-1$
         row3.setInitRoll(15);
         row3.setHitpoints(3);
-        row3.setType(Type.SRD_MONSTER);
+        row3.setEntityType(EntityType.SRD_MONSTER);
         addEntity(row3);
 
         Entity row5 = new EnhancedEntity();
@@ -79,7 +79,7 @@ public class EnhancedEntityList extends EntityListImpl {
         row5.setName("Ziroby"); //$NON-NLS-1$
         row5.setInitRoll(25);
         row5.setHitpoints(54);
-        row5.setType(Type.PC);
+        row5.setEntityType(EntityType.PC);
         addEntity(row5);
 
         Entity row6 = new EnhancedEntity();
@@ -88,7 +88,7 @@ public class EnhancedEntityList extends EntityListImpl {
         row6.setInitRoll(25);
         row6.setHitpoints(6);
         row6.setRoundsLeft(5);
-        row6.setType(Type.EFFECT);
+        row6.setEntityType(EntityType.EFFECT);
         addEntity(row6);
 }
 

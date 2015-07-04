@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import com.ziroby.android.dmassist.AndroidEntityUtil;
 import com.ziroby.dmassist.gwtable.model.Entity;
-import com.ziroby.dmassist.gwtable.model.Entity.Type;
+import com.ziroby.dmassist.gwtable.model.Entity.EntityType;
 import com.ziroby.dmassist.model.EnhancedEntity;
 
 import junit.framework.TestCase;
@@ -29,7 +29,7 @@ public class AndroidEntityUtilsTest extends TestCase {
         entity.setHitDiceString("1d4");
         entity.setHitpoints(25);
         entity.setInitDiceString("+12");
-        entity.setType(Type.MONSTER);
+        entity.setEntityType(EntityType.MONSTER);
 		return entity;
 	}
 }

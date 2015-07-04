@@ -20,7 +20,7 @@ import com.ziroby.android.dmassist.MainActivity.HealOrDamage;
 import com.ziroby.android.util.AndroidUtils;
 import com.ziroby.dmassist.gwtable.model.Entity;
 import com.ziroby.dmassist.gwtable.model.EntityList;
-import com.ziroby.dmassist.gwtable.model.Entity.Type;
+import com.ziroby.dmassist.gwtable.model.Entity.EntityType;
 import com.ziroby.dmassist.model.DiceEquation;
 import com.ziroby.dmassist.model.EnhancedEntity;
 import com.ziroby.dmassist.model.EnhancedEntityList;
@@ -131,7 +131,7 @@ public class AndroidEntityUtil
     }
 
     static ListAdapter getAdapterForTypes(final Context context) {
-        List<Map<String, String>> data = Entity.Type.getAllTypesAsListOfMaps("text1");
+        List<Map<String, String>> data = EntityType.getAllTypesAsListOfMaps("text1");
 
         String[] from = new String[] {
                 "text1"
@@ -146,11 +146,11 @@ public class AndroidEntityUtil
 
     public static ArrayAdapter<CharSequence> getArrayAdapterForTypes(
             Context context, int resourceId ) {
-        CharSequence[] values = new CharSequence[Entity.Type.values().length];
+        CharSequence[] values = new CharSequence[Entity.EntityType.values().length];
 
         int index = 0;
-        for (Type type : Entity.Type.values()) {
-            values[index++] = type.toString();
+        for (EntityType entityType : EntityType.values()) {
+            values[index++] = entityType.toString();
         }
 
         ArrayAdapter<CharSequence> simpleAdapter = new ArrayAdapter<CharSequence>(
@@ -191,7 +191,7 @@ public class AndroidEntityUtil
         if (abbrev != null) entity.setAbbreviation(abbrev);
         if (subdual != AndroidEntityUtil.INT_SENTINEL) entity.setSubdual(subdual);
         if (rounds != AndroidEntityUtil.INT_SENTINEL) entity.setRoundsLeft(rounds);
-        entity.setType(Type.typeAt(type));  // Type should always be set.
+        entity.setEntityType(Entity.EntityType.typeAt(type));  // Type should always be set.
 	}
     
 	public static EnhancedEntity getEnhancedEntityFromBundle(Bundle bundle) {
@@ -216,7 +216,7 @@ public class AndroidEntityUtil
                 entity.getAbbreviation(),
                 entity.getSubdual(),
                 entity.getRoundsLeft(),
-                entity.getType().ordinal());
+                entity.getEntityType().ordinal());
     }
 
     public static Bundle putEntityFieldsInBundle(EnhancedEntity entity) {
@@ -229,7 +229,7 @@ public class AndroidEntityUtil
                 entity.getAbbreviation(),
                 entity.getSubdual(),
                 entity.getRoundsLeft(),
-                entity.getType().ordinal());
+                entity.getEntityType().ordinal());
     }
 
     public static Bundle putEntityFieldsInBundle(String name, Integer init,

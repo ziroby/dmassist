@@ -49,8 +49,5 @@
                 <classifier>tests</classifier>
                 <scope>test</scope>
         </dependency>
-
-
-
     </dependencies>
 </project>

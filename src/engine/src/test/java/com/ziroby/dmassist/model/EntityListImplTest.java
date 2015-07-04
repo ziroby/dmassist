@@ -879,7 +879,7 @@ public class EntityListImplTest extends TestCase
         mockListener.expectNoEvents();
 
         mockListener.expectEvent();
-        dataModel.setValueAt(Entity.Type.MONSTER, 0, EntityList.COLUMN_NUMBER_TYPE);
+        dataModel.setValueAt(Entity.EntityType.MONSTER, 0, EntityList.COLUMN_NUMBER_TYPE);
         mockListener.expectNoEvents();
 
         {
@@ -889,11 +889,11 @@ public class EntityListImplTest extends TestCase
             assertEquals(new Integer(12), entity1.getInitRoll());
             assertEquals(new Integer(25), entity1.getHitpoints());
             assertEquals(new Integer(5), entity1.getSubdual());
-            assertEquals(Entity.Type.MONSTER, entity1.getType());
+            assertEquals(Entity.EntityType.MONSTER, entity1.getEntityType());
         }
 
         mockListener.expectNoEvents();
-        dataModel.setValueAt(Entity.Type.MONSTER, 0, EntityList.COLUMN_NUMBER_TYPE);
+        dataModel.setValueAt(Entity.EntityType.MONSTER, 0, EntityList.COLUMN_NUMBER_TYPE);
         mockListener.expectNoEvents();
 
     }
@@ -1020,7 +1020,7 @@ public class EntityListImplTest extends TestCase
         row1.setName("Ogre 1");
         row1.setInitRoll(12);
         row1.setHitpoints(25);
-        row1.setType(Entity.Type.SRD_MONSTER);
+        row1.setEntityType(Entity.EntityType.SRD_MONSTER);
         mockListener.expectEvent();
         dataModel.addEntity(row1);
         mockListener.expectNoEvents();
