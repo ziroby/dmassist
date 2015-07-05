@@ -7,7 +7,7 @@
     <parent>
         <groupId>com.ziroby.dmassist</groupId>
         <artifactId>dmassist</artifactId>
-        <version>1.2-SNAPSHOT</version>
+        <version>1.3-SNAPSHOT</version>
         <relativePath>../..</relativePath>
     </parent>
     <groupId>com.ziroby.dmassist</groupId>
