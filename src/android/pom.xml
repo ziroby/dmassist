@@ -26,14 +26,19 @@
             <artifactId>android</artifactId>
             <scope>provided</scope>
         </dependency>
+            <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec-shaded</artifactId>
+            <version>1.9</version>
+        </dependency>
     </dependencies>
 
     <build>
         <plugins>
             <plugin>
-                <groupId>com.jayway.maven.plugins.android.generation2</groupId>
-                <artifactId>maven-android-plugin</artifactId>
-                <executions>
+                <groupId>com.simpligility.maven.plugins</groupId>
+                <artifactId>android-maven-plugin</artifactId>
+                <!-- <executions>
                     <execution>
                         <id>startemulator</id>
                         <phase>initialize</phase>
@@ -41,7 +46,7 @@
                             <goal>emulator-start</goal>
                         </goals>
                     </execution>
-                </executions>
+                </executions> -->
             </plugin>
         </plugins>
     </build>
