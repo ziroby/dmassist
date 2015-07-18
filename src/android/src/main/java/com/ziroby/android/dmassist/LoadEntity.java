@@ -148,7 +148,7 @@ public class LoadEntity extends ListActivity
     }
 
     private void fillData() {
-        cursor = dbHelper.fetchAllEntities();
+        cursor = dbHelper.fetchEntitiesOfType(type);
         startManagingCursor(cursor);
 
         adapter = new SimpleCursorAdapter(this, R.layout.load_entity_row, cursor,

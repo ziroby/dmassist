@@ -347,7 +347,7 @@ public class MainActivity extends ListActivity {
     }
 
     private void loadEntity() {
-        Intent intent = new Intent(this, LoadEntity.class);
+        Intent intent = new Intent(this, QueryTypeForLoad.class);
         startActivityForResult(intent, REQUEST_CODE_LOAD);
     }
 
