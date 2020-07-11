@@ -65,8 +65,9 @@
   <modules>
     <module>src/engine</module>
     <module>src/swing</module>
-    <module>src/shade-codec</module>
-    <module>src/android</module>
+<!--    <module>src/shade-codec</module>-->
+<!--    <module>src/android</module>-->
+    <module>src/server</module>
     <!-- <module>src/android-test</module> -->
   </modules>
 
