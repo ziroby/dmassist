@@ -32,11 +32,47 @@ Features:
 
 DM Assist is free software, released under GPLv3.
 
-Developers: DM Assist is written in Java using a Swing interface, with
-model-view separation.  Designed with Test First Development using
-JUnit tests. Save files are in Yaml format, using jYaml.
+Development
+--------
 
-Happy gaming,
+I originally wrote DM Assist in Java using a Swing interface, with
+model-view separation.  The engine and swing portions were 
+designed with Test First Development using
+JUnit tests. 
 
-Ron “Ziroby” Romero
+I added the Android portion later. It was on the app store for a while and got over 
+20,000 downloads. I have not updated the Android code to the latest version, so it
+is no longer in the store.
 
+I am now (July 2020) adding a Spring Boot server and will then add a JavaScript React 
+front end.
+
+Design
+------
+
+![[DM Assist design diagram]](./Components.png "DM Assist design diagram")
+
+The Engine is a pure Java app, with full unit tests. 
+
+The Server is a Spring Boot RESTful
+microservice that exposes the actions from the engine.
+
+The Repository is a thin Java layer to access the database. 
+
+I will decide the tech for the Database later. Changing database vendors should 
+involve no change to the Repository.
+
+Building
+--------
+
+The build uses maven. To build everything:
+
+```shell script
+    ./mvnw install
+```
+    
+To deploy the Server, (coming soon) use:
+
+```shell script
+    ./mvnw deploy
+```

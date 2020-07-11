@@ -1,0 +1,23 @@
+@startuml
+
+actor user
+
+package Heroku {
+component frontend as "Front\nEnd"
+component server as "Server"
+component engine as "Engine"
+database DB
+component repo as "Repository"
+
+frontend -> server
+server --> engine
+server --> repo
+repo --> DB
+}
+
+
+user --> frontend
+
+
+
+@enduml
