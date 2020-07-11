@@ -37,22 +37,22 @@
     <build>
         <pluginManagement>
             <plugins>
-                <plugin>
-                    <groupId>com.simpligility.maven.plugins</groupId>
-                    <artifactId>android-maven-plugin</artifactId>
-                    <version>4.3.0</version>
-                    <configuration>
-                        <sdk>
-                            <platform>20</platform>
-                        </sdk>
-                        <emulator>
-                            <avd>android_1.5</avd>
-                        </emulator>
-                        <deleteConflictingFiles>true</deleteConflictingFiles>
-                        <undeployBeforeDeploy>true</undeployBeforeDeploy>
-                    </configuration>
-                    <extensions>true</extensions>
-                </plugin>
+<!--                <plugin>-->
+<!--                    <groupId>com.simpligility.maven.plugins</groupId>-->
+<!--                    <artifactId>android-maven-plugin</artifactId>-->
+<!--                    <version>4.3.0</version>-->
+<!--                    <configuration>-->
+<!--                        <sdk>-->
+<!--                            <platform>20</platform>-->
+<!--                        </sdk>-->
+<!--                        <emulator>-->
+<!--                            <avd>android_1.5</avd>-->
+<!--                        </emulator>-->
+<!--                        <deleteConflictingFiles>true</deleteConflictingFiles>-->
+<!--                        <undeployBeforeDeploy>true</undeployBeforeDeploy>-->
+<!--                    </configuration>-->
+<!--                    <extensions>true</extensions>-->
+<!--                </plugin>-->
                 <plugin>
                     <artifactId>maven-compiler-plugin</artifactId>
                     <version>3.3</version>
