@@ -2,16 +2,16 @@ import React from 'react';
 
 import './Entity.css';
 
-function Entity() {
+function Entity(props) {
   return (
     <tr className="Entity">
-        <td>Ziroby</td>
-        <td>Z</td>
-        <td>PC</td>
-        <td>+8</td>
-        <td>3d4</td>
-        <td></td>
-        <td>-</td>
+        <td>{props.entity.name}</td>
+        <td>{props.entity.abbreviation}</td>
+        <td>{props.entity.type}</td>
+        <td>{props.entity.init}</td>
+        <td>{props.entity.hp}</td>
+        <td>{props.entity.subdual}</td>
+        <td>{props.entity.rounds}</td>
     </tr>
   );
 }

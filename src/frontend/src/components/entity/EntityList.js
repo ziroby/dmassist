@@ -1,7 +1,6 @@
 import React from 'react';
 
 import Entity from './Entity'
-import Entity2 from './Entity2'
 
 import './EntityList.css';
 
@@ -16,7 +15,7 @@ var columns = [
     "Rounds",
 ];
 
-function EntityList() {
+function EntityList(props) {
 
   var header = columns.map(columnName => <th>{columnName}</th>);
 
@@ -24,9 +23,8 @@ function EntityList() {
     <div className="EntityList">
         <table>
             <tr>{header}</tr>
-
-            <Entity/>
-            <Entity2/>
+            {props.entities.map(entity => <Entity entity={entity}/>)
+            }
         </table>
     </div>
   );
