@@ -1,0 +1,6 @@
+heroku	https://git.heroku.com/serene-harbor-25816.git (fetch)
+heroku	https://git.heroku.com/serene-harbor-25816.git (push)
+heroku-subtree	https://git.heroku.com/sheltered-garden-69719.git (fetch)
+heroku-subtree	https://git.heroku.com/sheltered-garden-69719.git (push)
+origin	git@github.com:ziroby/dmassist.git (fetch)
+origin	git@github.com:ziroby/dmassist.git (push)
