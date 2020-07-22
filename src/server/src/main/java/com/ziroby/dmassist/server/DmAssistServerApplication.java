@@ -19,7 +19,7 @@ public class DmAssistServerApplication {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
 				registry.addMapping("/**")
-						.allowedOrigins("https://dmassist-frontend.herokuapp.com");
+						.allowedOrigins("http://localhost:3000", "https://dmassist-frontend.herokuapp.com");
 			}
 		};
 	}
