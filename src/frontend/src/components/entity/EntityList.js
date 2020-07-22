@@ -22,9 +22,12 @@ function EntityList(props) {
   return (
     <div className="EntityList">
         <table>
-            <tr>{header}</tr>
-            {props.entities.map(entity => <Entity entity={entity}/>)
-            }
+            <thead>
+                <tr>{header}</tr>
+            </thead>
+            <tbody>
+                {props.entities.map(entity => <Entity entity={entity} key={entity.abbreviation}/>)}
+            </tbody>
         </table>
     </div>
   );

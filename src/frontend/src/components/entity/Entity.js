@@ -7,11 +7,11 @@ function Entity(props) {
     <tr className="Entity">
         <td>{props.entity.name}</td>
         <td>{props.entity.abbreviation}</td>
-        <td>{props.entity.type}</td>
-        <td>{props.entity.init}</td>
-        <td>{props.entity.hp}</td>
+        <td>{props.entity.entityType}</td>
+        <td>{props.entity.initRoll}</td>
+        <td>{props.entity.hitpoints}</td>
         <td>{props.entity.subdual}</td>
-        <td>{props.entity.rounds}</td>
+        <td>{props.entity.roundsLeft}</td>
     </tr>
   );
 }
