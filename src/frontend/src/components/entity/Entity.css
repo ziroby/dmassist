@@ -1,3 +1,52 @@
-.Entity td {
+.Entity {
     border: 1px solid darkgray;
+    clear: both;
 }
+.Entity .name {
+    font-size: 36px;
+    float: left;
+}
+.Entity .abbrevation {
+    font-size: 36px;
+    float: right;
+}
+.Entity .entityType {
+    clear: both;
+    display: none;
+}
+.Entity .initRoll {
+    float: left;
+    clear: both;
+    margin: 10px;
+    width: 50px;
+}
+.Entity .initRoll::before {
+    content: "init: "
+}
+.Entity .hitpoints {
+    float: left;
+    margin: 10px;
+    width: 50px;
+}
+.Entity .hitpoints::before {
+    content: "hp: "
+}
+.Entity .subdual {
+    float: left;
+    margin: 10px;
+    width: 90px;
+}
+.Entity .subdual::before {
+    content: "subdual: "
+}
+.Entity .roundsLeft {
+    float: left;
+    margin: 10px;
+    width: 70px;
+}
+.Entity .roundsLeft::before {
+    content: "rounds: "
+}
+
+
+
