@@ -1,3 +1,4 @@
-.EntityList th {
-    border: 1px solid black;
+.EntityList {
+    overflow-y: scroll;
+    height: 90vh
 }

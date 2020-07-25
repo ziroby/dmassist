@@ -1,3 +1,8 @@
 .Frame {
     border: 1px solid;
 }
+
+.Frame button {
+    float: right;
+    margin: 5px;
+}

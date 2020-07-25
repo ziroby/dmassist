@@ -18,6 +18,7 @@ public class JsonEntity {
     private Integer hitpoints;
     private Integer subdual;
     private Integer roundsLeft;
+    private boolean isMyTurn;
 
     public JsonEntity(Entity entity) {
         name = entity.getName();

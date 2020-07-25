@@ -3,7 +3,10 @@ import './Frame.css';
 import axios from 'axios'
 
 import EntityList from '../entity/EntityList';
-import AddSampleData from '../data/AddSampleData'
+import AddSampleData from '../data/AddSampleData';
+import Time from '../counters/Time';
+import InitCount from '../counters/InitCount';
+import RoundCount from '../counters/RoundCount';
 
 class Frame extends React.Component {
   constructor(props) {
@@ -14,12 +17,12 @@ class Frame extends React.Component {
   }
 
   getEntities() {
-    axios.get(`https://serene-harbor-25816.herokuapp.com/battles/1/entities`)
-//    axios.get(`http://localhost:8081/battles/1/entities`)
+    axios.get(`https://serene-harbor-25816.herokuapp.com/battles/1`)
+//    axios.get(`http://localhost:8081/battles/1`)
          .then(res => {
       console.log(res);
       const entities = res.data;
-      this.setState({ entities: entities });
+      this.setState(entities);
     })
   }
 
@@ -29,12 +32,29 @@ class Frame extends React.Component {
 
   populate() {
     axios.post(`https://serene-harbor-25816.herokuapp.com/battles/1/populate`)
-//    axios.get(`http://localhost:8081/battles/1/entities`)
+//    axios.post(`http://localhost:8081/battles/1/populate`)
     .then(res => {
       console.log(res);
       this.getEntities();
     })
+  }
 
+  next() {
+    axios.post(`https://serene-harbor-25816.herokuapp.com/battles/1/next`)
+//    axios.post(`http://localhost:8081/battles/1/next`)
+    .then(res => {
+      console.log(res);
+      this.getEntities();
+    })
+  }
+
+  reset() {
+    axios.post(`https://serene-harbor-25816.herokuapp.com/battles/1/reset`)
+//    axios.post(`http://localhost:8081/battles/1/reset`)
+    .then(res => {
+      console.log(res);
+      this.getEntities();
+    })
   }
 
   render() {
@@ -47,7 +67,14 @@ class Frame extends React.Component {
     }
     return (
     <div className="Frame">
-      {list}
+      <div className="group">
+        {list}
+      </div>
+      <Time time={this.state.time}/>
+      <RoundCount round={this.state.numRounds}/>
+      <InitCount init={this.state.initCount}/>
+      <button onClick={() => this.reset()}>Reset</button>
+      <button onClick={() => this.next()}>Next</button>
     </div>
     );
   }

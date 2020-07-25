@@ -1,4 +1,6 @@
 .Entity {
+    display: inline-block;
+    width: 100%;
     border: 1px solid darkgray;
     clear: both;
 }
@@ -48,5 +50,11 @@
     content: "rounds: "
 }
 
+div.MyTurn {
+    background-color: yellow;
+}
 
+span,div {
+    background-color: inherit;
+}
 

@@ -3,8 +3,13 @@ import React from 'react';
 import './Entity.css';
 
 function Entity(props) {
+    let className = "Entity"
+    if (props.entity.myTurn) {
+        console.log("My Turn: " + props.entity.name);
+        className = className + " MyTurn";
+    }
   return (
-    <div className="Entity">
+    <div className={className}>
         <span className="name">{props.entity.name}</span>
         <span className="abbrevation">{props.entity.abbreviation}</span>
         <span className="entityType">{props.entity.entityType}</span>
