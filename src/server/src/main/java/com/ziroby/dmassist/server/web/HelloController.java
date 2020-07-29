@@ -1,4 +1,4 @@
-package com.ziroby.dmassist.server;
+package com.ziroby.dmassist.server.web;
 
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;

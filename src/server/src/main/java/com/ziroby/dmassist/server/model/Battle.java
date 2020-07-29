@@ -11,20 +11,25 @@ import org.springframework.beans.BeanUtils;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 
 @Setter
 @Getter
-public class JsonEntityList {
+public class Battle {
     private final Integer initCount;
     private final int numRounds;
     private final String time;
+    private final int id;
     private Collection<JsonEntity> entities;
 
-    public JsonEntityList(EnhancedEntityList entityList) {
+    private final static AtomicInteger nextId = new AtomicInteger();
+
+    public Battle(EnhancedEntityList entityList) {
+        this.id = nextId.addAndGet(1);
         this.setEntities(entityList.getEnhancedEntities().stream()
-        .map(JsonEntity::new)
+                .map(JsonEntity::new)
                 .collect(Collectors.toList()));
         initCount = entityList.getInitCount();
         numRounds = entityList.getNumRounds();
