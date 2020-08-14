@@ -11,9 +11,6 @@ import java.util.*;
 @Component
 public class UserRepository {
 
-    static {
-    }
-
     private final Map<String, User> userMap = new HashMap<>();
 
     public User createUser(String userName) {
@@ -43,8 +40,9 @@ public class UserRepository {
         return battle;
     }
 
-    public Battle getBattle(String userName, String battleNum) {
+    public Battle getBattle(String userName, String battleNumString) {
         User user = getUser(userName);
+        int battleNum = Integer.parseInt(battleNumString);
         return user.getBattle(battleNum);
     }
 }

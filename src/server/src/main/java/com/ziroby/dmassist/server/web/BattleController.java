@@ -1,16 +1,12 @@
 package com.ziroby.dmassist.server.web;
 
-import com.ziroby.dmassist.model.EnhancedEntity;
-import com.ziroby.dmassist.model.EnhancedEntityList;
-import com.ziroby.dmassist.server.model.JsonEntity;
 import com.ziroby.dmassist.server.model.Battle;
+import com.ziroby.dmassist.server.model.JsonEntity;
 import com.ziroby.dmassist.server.repo.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Collection;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 public class BattleController {
@@ -18,37 +14,33 @@ public class BattleController {
     @Autowired
     private UserRepository userRepository;
 
-    private final EnhancedEntityList entityList = new EnhancedEntityList();
-
     @RequestMapping("/users/{userName}/battles/{battleNum}/entities")
     @ResponseBody
     public List<JsonEntity> entities(@PathVariable String userName, @PathVariable String battleNum) {
-        userRepository.getBattle(userName, battleNum);
-        Collection<EnhancedEntity> entities = entityList.getEnhancedEntities();
-        return entities.stream()
-                .map(JsonEntity::new)
-                .collect(Collectors.toList());
+        Battle battle = userRepository.getBattle(userName, battleNum);
+        return battle.getEntitiesAsList();
     }
 
-    @PostMapping("/battles/1/populate")
-    public void populate() {
-        entityList.addSampleData();
+    @PostMapping("/users/{userName}/battles/{battleNum}/populate")
+    public void populate(@PathVariable String userName, @PathVariable String battleNum) {
+        Battle battle = userRepository.getBattle(userName, battleNum);
+        battle.addSampleData();
     }
 
-    @PostMapping("/battles/1/next")
-    public void next() {
-        entityList.gotoNextInitCount();
+    @GetMapping("/users/{userName}/battles/{battleNum}")
+    public Battle getBattle(@PathVariable String userName, @PathVariable String battleNum) {
+        return userRepository.getBattle(userName, battleNum);
     }
 
-    @PostMapping("/battles/1/reset")
-    public void reset() {
-        entityList.resetNumRounds();
+    @PostMapping("/users/{userName}/battles/{battleNum}/next")
+    public void next(@PathVariable String userName, @PathVariable String battleNum) {
+        Battle battle = userRepository.getBattle(userName, battleNum);
+        battle.gotoNextInitCount();
     }
 
-    @RequestMapping("/battles/1")
-    @ResponseBody
-    public Battle getBattle() {
-        Battle battle = new Battle(entityList);
-        return battle;
+    @PostMapping("/users/{userName}/battles/{battleNum}/reset")
+    public void reset(@PathVariable String userName, @PathVariable String battleNum) {
+        Battle battle = userRepository.getBattle(userName, battleNum);
+        battle.resetNumRounds();
     }
 }

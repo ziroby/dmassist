@@ -1,0 +1,28 @@
+@startuml
+
+class Player {
+    PUT /players
+    GET /players/{name}
+    GET /players/{name}/battles
+    PUT /players/{name}/battles
+    ---
+    name
+}
+
+class Battle {
+    GET /players/{name}/battles/{battleId}
+    GET /players/{name}/battles/{battleId}/combatants
+    GET /players/{name}/battles/{battleId}/combatants/{combatantId}
+    POST /players/{name}/battles/{battleId}/combatants/{combatantId}/{action}
+    ---
+    battleId
+    player
+}
+
+class EntityList {
+}
+
+Player *-- Battle 
+Battle *-- EntityList
+
+@enduml
