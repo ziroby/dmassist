@@ -25,7 +25,7 @@ public class Battle {
     @JsonProperty("entities")
     public List<JsonEntity> getEntitiesAsList() {
         return this.entityList.getEnhancedEntities().stream()
-                .map(JsonEntity::new)
+                .map(entity1 -> new JsonEntity(entityList, entity1))
                 .collect(Collectors.toList());
     }
 
@@ -37,6 +37,7 @@ public class Battle {
     public Integer getInitCount() {
         return entityList.getInitCount();
     }
+
     public int getNumRounds() {
         return entityList.getNumRounds();
     }
@@ -54,6 +55,6 @@ public class Battle {
     }
 
     public void resetNumRounds() {
-        entityList.getNumRounds();
+        entityList.resetNumRounds();
     }
 }

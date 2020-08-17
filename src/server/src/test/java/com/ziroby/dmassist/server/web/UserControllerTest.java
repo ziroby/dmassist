@@ -8,8 +8,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -17,6 +16,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 public class UserControllerTest {
 
+    public static final String EMPTY_BATTLE = "{\"id\":1," +
+            "\"initCount\":null," +
+            "\"numRounds\":0," +
+            "\"time\":\"00:00\"," +
+            "\"entities\":[]}";
     @Autowired
     private MockMvc mvc;
 
@@ -42,12 +46,7 @@ public class UserControllerTest {
                 .andExpect(status().isOk());
         mvc.perform(MockMvcRequestBuilders.get("/users/test2/battles/1").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(content().string(equalTo(
-                        "{\"id\":1," +
-                                "\"initCount\":null," +
-                                "\"numRounds\":0," +
-                                "\"time\":\"00:00\"," +
-                                "\"entities\":[]}")));
+                .andExpect(content().string(equalTo(EMPTY_BATTLE)));
     }
 
     @Test
@@ -59,12 +58,48 @@ public class UserControllerTest {
                 .andExpect(status().isOk());
         mvc.perform(MockMvcRequestBuilders.get("/users/test3/battles/1").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(content().string(not(equalTo(
-                        "{\"id\":1," +
-                                "\"initCount\":null," +
-                                "\"numRounds\":0," +
-                                "\"time\":\"00:00\"," +
-                                "\"entities\":[]}"))));
+                .andExpect(content().string(not(equalTo(EMPTY_BATTLE))));
+
+    }
+
+    @Test
+    public void startCombat() throws Exception {
+        createUser("test4");
+        mvc.perform(MockMvcRequestBuilders.put("/users/test4/battles").accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+        mvc.perform(MockMvcRequestBuilders.post("/users/test4/battles/1/populate").accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+        mvc.perform(MockMvcRequestBuilders.get("/users/test4/battles/1").accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().string(not(containsString("\"myTurn\":true"))));
+        mvc.perform(MockMvcRequestBuilders.post("/users/test4/battles/1/next").accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+        mvc.perform(MockMvcRequestBuilders.get("/users/test4/battles/1").accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("\"myTurn\":true")));
+
+    }
+
+    @Test
+    public void resetCombat() throws Exception {
+        createUser("test5");
+        mvc.perform(MockMvcRequestBuilders.put("/users/test5/battles").accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+        mvc.perform(MockMvcRequestBuilders.post("/users/test5/battles/1/populate").accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+        mvc.perform(MockMvcRequestBuilders.get("/users/test5/battles/1").accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().string(not(containsString("\"myTurn\":true"))));
+        mvc.perform(MockMvcRequestBuilders.post("/users/test5/battles/1/next").accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+        mvc.perform(MockMvcRequestBuilders.get("/users/test5/battles/1").accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("\"myTurn\":true")));
+        mvc.perform(MockMvcRequestBuilders.post("/users/test5/battles/1/reset").accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk());
+        mvc.perform(MockMvcRequestBuilders.get("/users/test5/battles/1").accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andExpect(content().string(not(containsString("\"myTurn\":true"))));
 
     }
 

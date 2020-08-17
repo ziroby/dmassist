@@ -1,6 +1,8 @@
 package com.ziroby.dmassist.server.model;
 
 import com.ziroby.dmassist.gwtable.model.Entity;
+import com.ziroby.dmassist.model.EnhancedEntity;
+import com.ziroby.dmassist.model.EnhancedEntityList;
 import lombok.*;
 
 
@@ -18,9 +20,11 @@ public class JsonEntity {
     private Integer hitpoints;
     private Integer subdual;
     private Integer roundsLeft;
+
+    @With
     private boolean isMyTurn;
 
-    public JsonEntity(Entity entity) {
+    public JsonEntity(EnhancedEntityList entityList, EnhancedEntity entity) {
         name = entity.getName();
         abbreviation = entity.getAbbreviation();
         entityType = entity.getEntityType().toString();
@@ -28,5 +32,6 @@ public class JsonEntity {
         hitpoints = entity.getHitpoints();
         subdual = entity.getSubdual();
         roundsLeft = entity.getRoundsLeft();
+        isMyTurn = entity.getInitRoll().equals(entityList.getInitCount());
     }
 }

@@ -437,7 +437,7 @@ public class EntityListGwtable extends AbstractListenable implements Listener, L
 
     public void resetNumRounds() {
         enterPublicMethod();
-        if (numRounds != 0)
+        if (numRounds != 0 || initCount != null)
         {
             numRounds = 0;
             setInitCount(null);
