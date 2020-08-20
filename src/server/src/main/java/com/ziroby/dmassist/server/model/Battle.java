@@ -26,6 +26,12 @@ public class Battle {
     public List<JsonEntity> getEntitiesAsList() {
         return this.entityList.getEnhancedEntities().stream()
                 .map(entity1 -> new JsonEntity(entityList, entity1))
+                .map(entity -> {
+                    if (entity.getInitRoll() == this.entityList.getInitCount()) {
+                        entity.setMyTurn(true);
+                    }
+                    return entity;
+                })
                 .collect(Collectors.toList());
     }
 

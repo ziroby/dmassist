@@ -22,7 +22,7 @@ public class JsonEntity {
     private Integer roundsLeft;
 
     @With
-    private boolean isMyTurn;
+    private boolean myTurn;
 
     public JsonEntity(EnhancedEntityList entityList, EnhancedEntity entity) {
         name = entity.getName();
@@ -32,6 +32,6 @@ public class JsonEntity {
         hitpoints = entity.getHitpoints();
         subdual = entity.getSubdual();
         roundsLeft = entity.getRoundsLeft();
-        isMyTurn = entity.getInitRoll().equals(entityList.getInitCount());
+        myTurn = entity.getInitRoll().equals(entityList.getInitCount());
     }
 }

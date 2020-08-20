@@ -8,3 +8,5 @@
 target
 .navigation
 *.iml
+**/.classpath
+.settings

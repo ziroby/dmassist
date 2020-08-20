@@ -6,3 +6,8 @@
     float: right;
     margin: 5px;
 }
+
+.error {
+    background-color: crimson;
+    color: white;
+}

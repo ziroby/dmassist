@@ -2,6 +2,7 @@ package com.ziroby.dmassist.server.repo;
 
 import com.ziroby.dmassist.model.EnhancedEntityList;
 import com.ziroby.dmassist.server.exception.DuplicateUserNameException;
+import com.ziroby.dmassist.server.exception.UnknownUserException;
 import com.ziroby.dmassist.server.model.Battle;
 import com.ziroby.dmassist.server.model.User;
 import org.springframework.stereotype.Component;
@@ -15,7 +16,7 @@ public class UserRepository {
 
     public User createUser(String userName) {
         if (userMap.containsKey(userName)) {
-            throw new DuplicateUserNameException(String.format("Duplicate username: %s", userName));
+            throw new DuplicateUserNameException(userName);
         }
 
         User user = new User(userName);
@@ -30,7 +31,11 @@ public class UserRepository {
     }
 
     public User getUser(String userName) {
-        return userMap.get(userName);
+        User user = userMap.get(userName);
+        if (user == null) {
+            throw new UnknownUserException(userName);
+        }
+        return user;
     }
 
     public Battle createUserBattle(String userName) {

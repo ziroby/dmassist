@@ -35,8 +35,14 @@ public class UserControllerTest {
         createUser("Ziroby");
         mvc.perform(MockMvcRequestBuilders.get("/users/Ziroby").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(content().string(equalTo("{\"userName\":\"Ziroby\",\"battles\":[]}")));
+                .andExpect(content().json("{\"userName\":\"Ziroby\",\"battles\":[]}"));
         ;
+    }
+
+    @Test
+    public void getBattleNonExistentUser() throws Exception {
+        mvc.perform(MockMvcRequestBuilders.get("/users/Nonexistent/battles/1").accept(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound());
     }
 
     @Test
@@ -46,7 +52,7 @@ public class UserControllerTest {
                 .andExpect(status().isOk());
         mvc.perform(MockMvcRequestBuilders.get("/users/test2/battles/1").accept(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
-                .andExpect(content().string(equalTo(EMPTY_BATTLE)));
+                .andExpect(content().json(EMPTY_BATTLE));
     }
 
     @Test

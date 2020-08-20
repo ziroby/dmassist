@@ -405,7 +405,6 @@ public class EntityListGwtable extends AbstractListenable implements Listener, L
         return list;
     }
 
-    @Override
     public List<Map<String, String>> getListOfMaps(
             List<Map<String, String>> data) {
         data.clear();
