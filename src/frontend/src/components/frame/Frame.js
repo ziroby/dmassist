@@ -26,15 +26,17 @@ class Frame extends React.Component {
     this.state = {};
   }
 
-  getEntities() {
-    if (this.state.username) {
-      axios.get(baseUrl + 'users/' + this.state.username + '/battles/1')
+  getEntities(optionalUsername) {
+    const username = (optionalUsername? optionalUsername : this.state.username)
+    if (username) {
+      console.log("Get entities")
+      axios.get(baseUrl + 'users/' + username + '/battles/1')
         //    axios.get(`http://localhost:8081/battles/1`)
         .then(res => {
           console.log(res);
           const newState = { 
-            battle: res.data, 
-            username: this.state.username,
+            battle: res.data,            
+            username: username,
             error: null
           };
           this.setState(newState);
@@ -80,7 +82,9 @@ class Frame extends React.Component {
     this.setState({
       "username": username
     });
-    this.getEntities();
+    console.log("login", username); 
+    this.getEntities(username);
+   
   }
 
   render() {
@@ -123,7 +127,6 @@ class Frame extends React.Component {
         </div>
       );
     } else {
-      this.getEntities();
       return <div>
         {error}
         Loading data</div>
