@@ -8,6 +8,7 @@ import Time from '../counters/Time';
 import InitCount from '../counters/InitCount';
 import RoundCount from '../counters/RoundCount';
 import LoginDialog from '../auth/LoginDialog';
+import BattleList from '../battle/BattleList';
 
 axios.interceptors.response.use(function (response) {
   return response;
@@ -16,8 +17,8 @@ axios.interceptors.response.use(function (response) {
   return Promise.reject(error);
 });
 
-const baseUrl = `https://serene-harbor-25816.herokuapp.com/`;
-// const baseUrl = `http://localhost:8080/`;
+// const baseUrl = `https://serene-harbor-25816.herokuapp.com/`;
+const baseUrl = `http://localhost:8080/`;
 
 class Frame extends React.Component {
 
@@ -27,64 +28,94 @@ class Frame extends React.Component {
   }
 
   getEntities(optionalUsername) {
-    const username = (optionalUsername? optionalUsername : this.state.username)
-    if (username) {
-      console.log("Get entities")
-      axios.get(baseUrl + 'users/' + username + '/battles/1')
-        //    axios.get(`http://localhost:8081/battles/1`)
+    if (!this.state.battle) {
+      this.getBattles();
+    } else {
+      const username = (optionalUsername ? optionalUsername : this.state.username)
+      if (username) {
+        console.log("Get entities")
+        axios.get(baseUrl + 'users/' + username + '/battles/1')
+          .then(res => {
+            console.log(res);
+            const newState = {
+              battle: res.data,
+              username: username,
+              error: null
+            };
+            this.setState(newState);
+          })
+          .catch(error => {
+            this.setState({ 'error': error });
+          });
+      }
+    }
+  }
+
+  getBattles() {
+    if (this.state.username && !this.state.battles) {
+      console.log("Get battles")
+      axios.get(baseUrl + 'users/' + this.state.username)
         .then(res => {
           console.log(res);
-          const newState = { 
-            battle: res.data,            
-            username: username,
+          const newState = {
+            battles: res.data.battles,
             error: null
           };
           this.setState(newState);
         })
         .catch(error => {
-          this.setState({ 'error': error});
+          this.setState({ 
+            'error': error,
+            'username': null
+          });
         });
-    } 
+    }
   }
 
   componentDidMount() {
-    this.getEntities();
+    // this.getEntities();
+  }
+
+  componentDidUpdate() {
+    this.getBattles();
+  }
+
+  postAction(action) {
+    axios.post(baseUrl + 'users/' + this.state.username + '/battles/1/' + action)
+      .then(res => {
+        console.log(res);
+        this.getEntities();
+      })
+      .catch(error => {
+        this.setState({ 'error': error });
+      });
   }
 
   populate() {
-    axios.post(baseUrl + 'users/' + this.state.username + '/battles/1/populate')
-      //    axios.post(`http://localhost:8081/battles/1/populate`)
-      .then(res => {
-        console.log(res);
-        this.getEntities();
-      })
+    this.postAction('populate');
   }
 
   next() {
-    axios.post(baseUrl + 'users/' + this.state.username + '/battles/1/next')
-      //    axios.post(`http://localhost:8081/battles/1/next`)
-      .then(res => {
-        console.log(res);
-        this.getEntities();
-      })
+    this.postAction('next');
   }
 
   reset() {
-    axios.post(baseUrl + 'users/' + this.state.username + '/battles/1/reset')
-      //    axios.post(`http://localhost:8081/battles/1/reset`)
-      .then(res => {
-        console.log(res);
-        this.getEntities();
-      })
+    this.postAction('reset');
   }
 
   login(username) {
     this.setState({
       "username": username
     });
-    console.log("login", username); 
     this.getEntities(username);
-   
+
+  }
+
+  setBattle(battle) {
+    this.setState({
+      "battle": battle
+    });
+    console.log("battle", battle);    
   }
 
   render() {
@@ -96,7 +127,7 @@ class Frame extends React.Component {
         <p>{this.state.error.message}</p>
         {/* <p>{JSON.stringify(this.state.error, 2)}</p> */}
       </div>
-      
+
     }
 
     if (!this.state.username) {
@@ -106,16 +137,21 @@ class Frame extends React.Component {
       </div>
     }
 
-    let list;
+  if (!this.state.battleId && this.state.battles && !this.state.battle) {
+      return <BattleList battles={this.state.battles} onSelect={(battle => this.setBattle(battle))}/>
+    }
 
+    let list;
     if (this.state.battle) {
       if (!this.state.battle.entities.length) {
         list = <AddSampleData onClick={() => this.populate()} />;
       } else {
         list = <EntityList entities={this.state.battle.entities} />;
       }
+
       return (
         <div className="Frame">
+          {error}
           <div className="group">
             {list}
           </div>

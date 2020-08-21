@@ -1,0 +1,47 @@
+.Battle {
+    display: inline-block;
+    width: 100%;
+    border: 1px solid darkgray;
+    clear: both;
+}
+.Battle:hover {
+    background-color: yellow;
+}
+.Battle .name {
+    font-size: 36px;
+    float: left;
+}
+.Battle .id {
+    font-size: 36px;
+    float: right;
+}
+.Battle .time {
+    clear: both;
+    display: none;
+}
+.Battle .initCount {
+    float: left;
+    clear: both;
+    margin: 10px;
+    width: 50px;
+}
+.Battle .initCount::before {
+    content: "init: "
+}
+.Battle .numEntities {
+    float: left;
+    margin: 10px;
+    width: 50px;
+}
+.Battle .numEntities::before {
+    content: "entities: "
+}
+
+div.MyTurn {
+    background-color: yellow;
+}
+
+span,div {
+    background-color: inherit;
+}
+
